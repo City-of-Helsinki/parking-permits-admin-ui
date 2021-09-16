@@ -26,6 +26,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "lint": "eslint --ext js,ts,tsx src",
+    "lint:fix": "eslint --fix --ext js,ts,tsx src",
+    "format": "prettier --write \"**/*.+(tsx|ts|json|scss|md)\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
