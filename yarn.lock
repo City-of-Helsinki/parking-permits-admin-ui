@@ -6043,6 +6043,11 @@ hds-core@1.4.1:
   resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-1.4.1.tgz#8fee8397cbfc16a01d5cad888890e3366056fe16"
   integrity sha512-0UcRkXYi0bO7lxz597p5RVHR/n6LsSZBoLq9P+gd94fj+9HIKgfV2DXneKW8TdZ5fJJw25Lv6lDzBgOQos5oag==
 
+hds-design-tokens@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-1.4.1.tgz#5ba38b3dc2acc85161ba43c8bdbe394e53668ddc"
+  integrity sha512-dKS3uLtluHf1PRH4O59VaU434HSGn3BE8z5+pFlhJTwqSdq0Yym7j5bDdmm4fSICgMeXx12hmhoVHzfsPJZjeg==
+
 hds-react@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-1.4.1.tgz#cd91386e0389e00d7d69665d19a31dedcaaecc9f"
