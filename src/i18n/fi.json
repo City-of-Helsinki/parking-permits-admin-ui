@@ -1,0 +1,7 @@
+{
+  "components.header.appTitle": "Pysäköintitunnusten Hallintapalvelu",
+  "components.header.messages": "Viestit",
+  "components.header.permits": "Tunnukset",
+  "components.header.reports": "Raportointi",
+  "components.header.returns": "Palautukset"
+}
