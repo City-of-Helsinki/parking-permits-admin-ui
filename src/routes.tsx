@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import MainLayout from './components/MainLayout';
+import AuthError from './pages/AuthError';
 import Messages from './pages/Messages';
 import NotFound from './pages/NotFound';
 import Permits from './pages/Permits';
@@ -16,6 +17,7 @@ const routes = [
       { path: 'returns', element: <Returns /> },
       { path: 'messages', element: <Messages /> },
       { path: 'reports', element: <Reports /> },
+      { path: 'authError', Element: <AuthError /> },
       { path: '404', element: <NotFound /> },
       { path: '/', element: <Navigate to="/permits" /> },
       { path: '*', element: <Navigate to="/404" /> },
