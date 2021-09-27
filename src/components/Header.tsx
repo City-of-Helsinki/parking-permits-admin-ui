@@ -41,7 +41,7 @@ const Header = (): React.ReactElement => {
       logoLanguage={i18n.language === 'sv' ? 'sv' : 'fi'}
       menuToggleAriaLabel="menu"
       skipTo="#content"
-      skipToContentLabel={`${T_PATH}.skipToContent`}>
+      skipToContentLabel={t(`${T_PATH}.skipToContent`)}>
       <Navigation.Actions>
         <Navigation.LanguageSelector label="FI">
           <Navigation.Item lang="fi" label="Suomeksi" />
@@ -50,13 +50,13 @@ const Header = (): React.ReactElement => {
         </Navigation.LanguageSelector>
         <Navigation.User
           authenticated={client.isAuthenticated()}
-          label={`${T_PATH}.login`}
+          label={t(`${T_PATH}.login`)}
           onSignIn={(): void => client.login()}
           userName={userName}>
           <Navigation.Item
             onClick={(): void => client.logout()}
             variant="secondary"
-            label={`${T_PATH}.logout`}
+            label={t(`${T_PATH}.logout`)}
           />
         </Navigation.User>
       </Navigation.Actions>
