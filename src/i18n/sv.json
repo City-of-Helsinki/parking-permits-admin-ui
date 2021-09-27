@@ -1,7 +1,11 @@
 {
   "components.header.appTitle": "",
   "components.header.messages": "",
+  "components.header.login": "Logga in",
+  "components.header.logout": "Logga ut",
   "components.header.permits": "",
   "components.header.reports": "",
-  "components.header.returns": ""
+  "components.header.returns": "",
+  "components.header.skipToContent": "",
+  "pages.login.login": "Logga in"
 }

@@ -1,7 +1,11 @@
 {
   "components.header.appTitle": "Parking Permits Management",
   "components.header.messages": "Messages",
+  "components.header.login": "Login",
+  "components.header.logout": "Log Out",
   "components.header.permits": "Permits",
   "components.header.reports": "Reports",
-  "components.header.returns": "Returns"
+  "components.header.returns": "Returns",
+  "components.header.skipToContent": "Skip to content",
+  "pages.login.login": "Login"
 }
