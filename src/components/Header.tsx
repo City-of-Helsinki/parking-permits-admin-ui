@@ -6,6 +6,12 @@ import { useClient } from '../auth/hooks';
 
 const T_PATH = 'components.header';
 
+const LANGUAGES = [
+  ['fi', 'Suomeksi'],
+  ['sv', 'På Svenska'],
+  ['en', 'In English'],
+];
+
 const isActiveLink = (path: string, currentPath: string): boolean =>
   !!matchPath({ path, end: false }, currentPath);
 
@@ -43,10 +49,15 @@ const Header = (): React.ReactElement => {
       skipTo="#content"
       skipToContentLabel={t(`${T_PATH}.skipToContent`)}>
       <Navigation.Actions>
-        <Navigation.LanguageSelector label="FI">
-          <Navigation.Item lang="fi" label="Suomeksi" />
-          <Navigation.Item lang="sv" label="På svenska" />
-          <Navigation.Item lang="en" label="In English" />
+        <Navigation.LanguageSelector label={i18n.language.toUpperCase()}>
+          {LANGUAGES.map(([lang, label]) => (
+            <Navigation.Item
+              key={lang}
+              lang={lang}
+              label={label}
+              onClick={() => i18n.changeLanguage(lang)}
+            />
+          ))}
         </Navigation.LanguageSelector>
         <Navigation.User
           authenticated={client.isAuthenticated()}
