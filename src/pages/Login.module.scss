@@ -1,0 +1,9 @@
+.page-container {
+  flex: 1;
+
+  .login-button {
+    margin-top: var(--spacing-l);
+    margin-bottom: var(--spacing-l);
+    width: 100%;
+  }
+}
