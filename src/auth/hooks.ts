@@ -122,13 +122,14 @@ export function useClientCallback(): Client {
   return clientFromRef;
 }
 
-export type FetchStatus =
-  | 'unauthorized'
-  | 'ready'
-  | 'loading'
-  | 'error'
-  | 'loaded'
-  | 'waiting';
+export enum FetchStatus {
+  UNAUTHORIZED = 'unauthorized',
+  READY = 'ready',
+  LOADING = 'loading',
+  ERROR = 'error',
+  LOADED = 'loaded',
+  WAITING = 'waiting',
+}
 
 type ApiFetchError = FetchError | string | undefined;
 
@@ -152,19 +153,22 @@ export function useApiAccessTokens(): ApiAccessTokenActions {
 
   const resolveStatus = (): FetchStatus => {
     if (!client.isAuthenticated()) {
-      return 'unauthorized';
+      return FetchStatus.UNAUTHORIZED;
     }
     if (apiTokens) {
-      return 'loaded';
+      return FetchStatus.LOADED;
     }
-    return 'ready';
+    return FetchStatus.READY;
   };
 
   const resolveCurrentStatus = (
     baseStatus: FetchStatus,
     stateStatus: FetchStatus
   ): FetchStatus => {
-    if (stateStatus === 'unauthorized' || baseStatus === 'unauthorized') {
+    if (
+      stateStatus === FetchStatus.UNAUTHORIZED ||
+      baseStatus === FetchStatus.UNAUTHORIZED
+    ) {
       return baseStatus;
     }
     return stateStatus;
@@ -174,16 +178,16 @@ export function useApiAccessTokens(): ApiAccessTokenActions {
   const [status, setStatus] = useState<FetchStatus>(resolvedStatus);
   const [error, setError] = useState<ApiFetchError>();
   const currentStatus = resolveCurrentStatus(resolvedStatus, status);
-  if (resolvedStatus === 'unauthorized' && apiTokens) {
+  if (resolvedStatus === FetchStatus.UNAUTHORIZED && apiTokens) {
     setApiTokens(undefined);
-    setStatus('unauthorized');
+    setStatus(FetchStatus.UNAUTHORIZED);
   }
   const fetchTokens: ApiAccessTokenActions['fetch'] = useCallback(
     async options => {
-      setStatus('loading');
+      setStatus(FetchStatus.LOADING);
       const result = await client.getApiAccessToken(options);
       if (result.error) {
-        setStatus('error');
+        setStatus(FetchStatus.ERROR);
         setError(
           result.message
             ? new Error(`${result.message} ${result.status}`)
@@ -192,7 +196,7 @@ export function useApiAccessTokens(): ApiAccessTokenActions {
       } else {
         setError(undefined);
         setApiTokens(result as JWTPayload);
-        setStatus('loaded');
+        setStatus(FetchStatus.LOADED);
       }
       return result;
     },
@@ -201,7 +205,7 @@ export function useApiAccessTokens(): ApiAccessTokenActions {
 
   useEffect(() => {
     const autoFetch = async (): Promise<void> => {
-      if (currentStatus !== 'ready') {
+      if (currentStatus !== FetchStatus.READY) {
         return;
       }
       fetchTokens({
