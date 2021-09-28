@@ -8,7 +8,10 @@ jest.mock('react-i18next', () => ({
     t: (str: string) => str,
     i18n: {
       language: 'fi',
-      changeLanguage: () => new Promise(() => {}),
+      changeLanguage: () =>
+        new Promise(() => {
+          // do nothing
+        }),
     },
   }),
 }));
