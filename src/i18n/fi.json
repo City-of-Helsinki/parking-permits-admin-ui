@@ -1,7 +1,11 @@
 {
   "components.header.appTitle": "Pysäköintitunnusten Hallintapalvelu",
   "components.header.messages": "Viestit",
+  "components.header.login": "Kirjaudu sisään",
+  "components.header.logout": "Kirjaudu ulos",
   "components.header.permits": "Tunnukset",
   "components.header.reports": "Raportointi",
-  "components.header.returns": "Palautukset"
+  "components.header.returns": "Palautukset",
+  "components.header.skipToContent": "",
+  "pages.login.login": "Kirjaudu sisään"
 }
