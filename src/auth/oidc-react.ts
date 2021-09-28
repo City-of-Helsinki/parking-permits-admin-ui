@@ -106,15 +106,15 @@ export function createOidcClient(): Client {
   const getSessionStorageData = (): AnyObject | undefined => {
     const userKey = getSessionStorageKey(clientConfig);
     const storedString = sessionStorage.getItem(userKey);
-    if (
-      !storedString ||
-      storedString.length < 2 ||
-      storedString.charAt(0) !== '{'
-    ) {
+    if (!storedString) {
       return undefined;
     }
     try {
-      return JSON.parse(storedString);
+      const data = JSON.parse(storedString);
+      if (typeof data !== 'object' || Array.isArray(data) || data === null) {
+        return undefined;
+      }
+      return data;
     } catch (e) {
       return undefined;
     }
