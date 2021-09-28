@@ -385,10 +385,6 @@ export function createClientGetOrLoadUserFunction({
     if (isInitialized()) {
       return Promise.resolve(undefined);
     }
-    return new Promise((resolve, reject) => {
-      init()
-        .then(() => resolve(getUser()))
-        .catch(e => reject(e));
-    });
+    return init().then(() => getUser());
   };
 }
