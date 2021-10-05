@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { ApiClientProvider } from './api/ApiClientProvider';
 import App from './App';
+import { ApiAccessTokenProvider } from './auth/ApiAccessTokenProvider';
 import { ClientProvider } from './auth/ClientProvider';
 import HandleCallback from './auth/HandleCallback';
 import './i18n';
@@ -13,7 +15,11 @@ ReactDOM.render(
     <BrowserRouter>
       <HandleCallback>
         <ClientProvider>
-          <App />
+          <ApiAccessTokenProvider>
+            <ApiClientProvider>
+              <App />
+            </ApiClientProvider>
+          </ApiAccessTokenProvider>
         </ClientProvider>
       </HandleCallback>
     </BrowserRouter>

@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
+import { ApiAccessTokenProvider } from './auth/ApiAccessTokenProvider';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -24,10 +25,19 @@ const unAuthenticatedClient = {
 
 jest.mock('./auth/hooks', () => ({
   useClient: () => unAuthenticatedClient,
+  useApiAccessTokens: () => ({
+    getStatus: () => 'loaded',
+    getTokens: () => undefined,
+  }),
 }));
 
 test('renders app title', () => {
-  render(<App />, { wrapper: MemoryRouter });
+  render(
+    <ApiAccessTokenProvider>
+      <App />
+    </ApiAccessTokenProvider>,
+    { wrapper: MemoryRouter }
+  );
   const titles = screen.getAllByText(/components.header.appTitle/i);
   expect(titles[0]).toBeInTheDocument();
 });
