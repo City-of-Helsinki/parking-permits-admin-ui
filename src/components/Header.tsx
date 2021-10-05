@@ -1,7 +1,7 @@
 import { Navigation } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { matchPath, useLocation } from 'react-router-dom';
+import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import { useClient } from '../auth/hooks';
 
 const T_PATH = 'components.header';
@@ -16,6 +16,7 @@ const isActiveLink = (path: string, currentPath: string): boolean =>
   !!matchPath({ path, end: false }, currentPath);
 
 const Header = (): React.ReactElement => {
+  const navigate = useNavigate();
   const client = useClient();
   const user = client.getUser();
   const userName = user ? `${user.given_name} ${user.family_name}` : '';
@@ -76,8 +77,8 @@ const Header = (): React.ReactElement => {
           {navLinks.map(({ path, label }) => (
             <Navigation.Item
               key={path}
-              href={path}
               label={label}
+              onClick={() => navigate(path)}
               active={isActiveLink(path, location.pathname)}
             />
           ))}
