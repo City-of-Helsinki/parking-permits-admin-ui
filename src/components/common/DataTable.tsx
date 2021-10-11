@@ -1,6 +1,6 @@
 import React from 'react';
-import { PageInfo } from '../../types';
-import { Column, OrderDirection } from '../types';
+import { OrderBy, PageInfo } from '../../types';
+import { Column } from '../types';
 import styles from './DataTable.module.scss';
 import Paginator from './paginator/Paginator';
 import Table from './table/Table';
@@ -10,11 +10,10 @@ export interface DataTableProps<T> {
   data: T[];
   loading: boolean;
   pageInfo?: PageInfo;
-  orderBy?: string;
-  orderDirection?: OrderDirection;
+  orderBy?: OrderBy;
   rowIdSelector: (row: T) => string | number;
   onPage?: (page: number) => void;
-  onOrderBy: (orderBy: string, orderDirection: OrderDirection) => void;
+  onOrderBy: (orderBy: OrderBy) => void;
 }
 
 const DataTable = <T,>({
@@ -23,7 +22,6 @@ const DataTable = <T,>({
   loading,
   pageInfo,
   orderBy,
-  orderDirection,
   rowIdSelector,
   onPage,
   onOrderBy,
@@ -35,7 +33,6 @@ const DataTable = <T,>({
       loading={loading}
       orderBy={orderBy}
       rowIdSelector={rowIdSelector}
-      orderDirection={orderDirection}
       onOrderBy={onOrderBy}
     />
     {pageInfo && onPage && <Paginator pageInfo={pageInfo} onPage={onPage} />}

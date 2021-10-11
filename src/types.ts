@@ -1,3 +1,5 @@
+import { OrderDirection } from './components/types';
+
 export interface Address {
   streetName: string;
   streetNumber: number;
@@ -51,4 +53,20 @@ export interface PagedPermits {
 
 export interface PermitsQueryData {
   permits: PagedPermits;
+}
+
+export interface OrderBy {
+  field: string;
+  orderFields: string[];
+  orderDirection: OrderDirection;
+}
+
+export interface PageInput {
+  page: number;
+  pageSize?: number;
+}
+
+export interface PermitsQueryVariables {
+  pageInput: PageInput;
+  orderBy?: OrderBy;
 }

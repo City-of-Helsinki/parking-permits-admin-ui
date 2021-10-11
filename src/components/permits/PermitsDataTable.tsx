@@ -1,22 +1,24 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PageInfo, Permit } from '../../types';
+import { OrderBy, PageInfo, Permit } from '../../types';
 import { formatDateTime, getPrimaryAddress } from '../../utils';
 import DataTable from '../common/DataTable';
-import { Column, OrderDirection } from '../types';
+import { Column } from '../types';
 
 export interface PermitsDataTableProps {
   permits: Permit[];
   pageInfo?: PageInfo;
   loading: boolean;
+  orderBy?: OrderBy;
   onPage?: (page: number) => void;
-  onOrderBy: (field: string, orderDirection: OrderDirection) => void;
+  onOrderBy: (orderBy: OrderBy) => void;
 }
 
 const PermitsDataTable = ({
   permits,
   pageInfo,
   loading,
+  orderBy,
   onPage,
   onOrderBy,
 }: PermitsDataTableProps): React.ReactElement => {
@@ -26,49 +28,52 @@ const PermitsDataTable = ({
       name: 'Name',
       field: 'name',
       selector: ({ customer }) => `${customer.firstName} ${customer.lastName}`,
-      sortable: true,
+      orderFields: ['customer__first_name', 'customer__last_name'],
     },
     {
       name: 'Hetu',
       field: 'nationalIdNumber',
       selector: ({ customer }) => customer.nationalIdNumber,
-      sortable: true,
+      orderFields: ['customer__national_id_number'],
     },
     {
       name: 'Registration number',
       field: 'registrationNumber',
       selector: row => row.vehicle.registrationNumber,
-      sortable: true,
+      orderFields: ['vehicle__registration_number'],
     },
     {
       name: 'Address',
       field: 'address',
       selector: ({ customer }) => getPrimaryAddress(customer, i18n.language),
-      sortable: true,
+      orderFields: [
+        'customer__primary_address__street_name',
+        'customer__primary_address__street_number',
+      ],
     },
     {
       name: 'Zone',
       field: 'parkingZone',
       selector: row => row.parkingZone.name,
-      sortable: true,
+      orderFields: ['parking_zone__name'],
     },
     {
       name: 'Start time',
       field: 'startTime',
       selector: row => formatDateTime(row.startTime),
-      sortable: true,
+      orderFields: ['start_time'],
     },
     {
       name: 'End time',
       field: 'endTime',
       selector: row => (row.endTime ? formatDateTime(row.endTime) : '-'),
-      sortable: true,
+      orderFields: ['end_time'],
     },
     {
       name: 'Status',
       field: 'status',
       selector: row => row.status,
-      sortable: true,
+      orderFields: ['status'],
     },
   ];
 
@@ -79,6 +84,7 @@ const PermitsDataTable = ({
         loading={loading}
         pageInfo={pageInfo}
         columns={columns}
+        orderBy={orderBy}
         rowIdSelector={(row: Permit) => row.identifier}
         onPage={onPage}
         onOrderBy={onOrderBy}
