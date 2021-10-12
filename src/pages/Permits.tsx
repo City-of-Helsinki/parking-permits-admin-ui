@@ -1,12 +1,12 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
-import { PermitsQueryData } from '../types';
+import { OrderBy, PermitsQueryData, PermitsQueryVariables } from '../types';
 import { makePrivate } from './utils';
 
 const PERMITS_QUERY = gql`
-  query GetPermits($pageInput: PageInput!) {
-    permits(pageInput: $pageInput) {
+  query GetPermits($pageInput: PageInput!, $orderBy: OrderByInput) {
+    permits(pageInput: $pageInput, orderBy: $orderBy) {
       objects {
         identifier
         startTime
@@ -43,8 +43,13 @@ const PERMITS_QUERY = gql`
 
 const Permits = (): React.ReactElement => {
   const [page, setPage] = useState(1);
+  const [orderBy, setOrderBy] = useState<OrderBy>();
+  const variables: PermitsQueryVariables = {
+    pageInput: { page },
+    orderBy,
+  };
   const { loading, error, data } = useQuery<PermitsQueryData>(PERMITS_QUERY, {
-    variables: { pageInput: { page } },
+    variables,
   });
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
@@ -54,10 +59,9 @@ const Permits = (): React.ReactElement => {
       permits={data?.permits.objects || []}
       pageInfo={data?.permits.pageInfo}
       loading={loading}
+      orderBy={orderBy}
       onPage={newPage => setPage(newPage)}
-      onOrderBy={() => {
-        // do nothing yet
-      }}
+      onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
     />
   );
 };

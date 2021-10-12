@@ -1,35 +1,29 @@
-import { IconAngleUp, IconDocument } from 'hds-react';
+import { IconAngleDown, IconAngleUp } from 'hds-react';
 import React from 'react';
 import { OrderDirection } from '../../types';
 import styles from './ColumnHeader.module.scss';
 
 export interface ColumnHeaderProps {
   title: string;
-  field: string;
-  direction?: OrderDirection | null;
-  onOrderBy: (field: string, direction: OrderDirection) => void;
+  sortable: boolean;
+  orderDirection?: OrderDirection | null;
+  onClick?: () => void;
 }
 
 const ColumnHeader = ({
   title,
-  field,
-  direction,
-  onOrderBy,
+  sortable,
+  orderDirection,
+  onClick,
 }: ColumnHeaderProps): React.ReactElement => (
-  <th
-    onClick={() =>
-      onOrderBy(
-        field,
-        direction === OrderDirection.ASC
-          ? OrderDirection.DESC
-          : OrderDirection.ASC
-      )
-    }>
+  <th style={{ cursor: sortable ? 'pointer' : 'default' }} onClick={onClick}>
     <div className={styles['column-header']}>
       <span>{title}</span>
-      {direction === null && <IconAngleUp className={styles['hover-icon']} />}
-      {direction === OrderDirection.DESC && <IconDocument />}
-      {direction === OrderDirection.ASC && <IconAngleUp />}
+      {sortable && orderDirection === null && (
+        <IconAngleUp className={styles['hover-icon']} />
+      )}
+      {sortable && orderDirection === OrderDirection.DESC && <IconAngleDown />}
+      {sortable && orderDirection === OrderDirection.ASC && <IconAngleUp />}
     </div>
   </th>
 );
