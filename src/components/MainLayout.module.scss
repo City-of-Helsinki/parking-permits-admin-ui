@@ -1,0 +1,15 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.content-container {
+  margin: 0 auto;
+  max-width: var(--breakpoint-xl);
+  padding: var(--spacing-l);
+  width: 100%;
+}

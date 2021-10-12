@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import { ApiClientProvider } from './api/ApiClientProvider';
 import App from './App';
+import { ApiAccessTokenProvider } from './auth/ApiAccessTokenProvider';
+import { ClientProvider } from './auth/ClientProvider';
+import HandleCallback from './auth/HandleCallback';
+import './i18n';
+import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <HandleCallback>
+        <ClientProvider>
+          <ApiAccessTokenProvider>
+            <ApiClientProvider>
+              <App />
+            </ApiClientProvider>
+          </ApiAccessTokenProvider>
+        </ClientProvider>
+      </HandleCallback>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

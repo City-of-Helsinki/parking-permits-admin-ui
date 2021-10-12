@@ -1,0 +1,13 @@
+.column-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .hover-icon {
+    opacity: 0;
+  }
+
+  &:hover .hover-icon {
+    opacity: 0.6;
+  }
+}
