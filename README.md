@@ -1,18 +1,76 @@
-# Getting Started with Create React App
+![Build status](https://github.com/City-of-Helsinki/youth-membership-admin-ui/workflows/CI/badge.svg?branch=develop)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Parking Permits Admin UI
+
+Admin user interface for managning parking permits.
+
+Related repositories:
+
+[Customer UI](https://github.com/City-of-Helsinki/parking-permits-ui)
+
+[Backend](https://github.com/City-of-Helsinki/parking-permits)
+
+## Developement
+
+Prerequisites:
+
+- Node.js: 14.x or higher
+- yarn: 1.22.x or higher
+
+The application requires a running parking-permits backend, you can find more details in [this repo](https://github.com/City-of-Helsinki/parking-permits) on how to set up the backend.
+
+Clone the repository:
+
+```bash
+$ git clone git@github.com:City-of-Helsinki/parking-permits-admin-ui.git
+```
+
+Install the project:
+
+```bash
+$ cd parking-permits-admin-ui
+$ yarn install
+```
+
+Make a local `.env.development.local` copy:
+
+```bash
+$ cp .env.development.local.example .env.development.local
+```
+
+Run the application in the development mode:
+
+```bash
+$ yarn start
+```
 
 ## Available Scripts
 
 In the project directory, you can run:
 
+### `yarn prepare`
+
+Install pre-commit hooks with husky. You only need to run it once after installing the project.
+
 ### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Run the app in the development mode. Open [http://localhost:3000/](http://localhost:3000/) to view it in the browser.
 
 The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You will also see any lint errors in the console.\
+If you make changes to the .env files., you need to re-start the development server
+
+### `yarn lint`
+
+Lint code with ESLint
+
+### `yarn lint:fix`
+
+Lint code with ESLint and try to fix errors
+
+### `yarn format`
+
+Format code with prettier
 
 ### `yarn test`
 
@@ -26,21 +84,3 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
