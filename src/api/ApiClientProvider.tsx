@@ -22,7 +22,7 @@ export const ApiClientProvider: FC<unknown> = ({ children }) => {
   ) as ApiAccessTokenActions;
   const tokens = getTokens();
   const apiToken = tokens
-    ? tokens[getEnv('REACT_APP_PARKING_PERMIT_ADMIN_API_OIDC_SCOPE')]
+    ? tokens[getEnv('REACT_APP_PARKING_PERMITS_AUDIENCE')]
     : '';
   const client = getApiClient(apiToken);
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
