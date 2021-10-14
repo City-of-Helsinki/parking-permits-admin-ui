@@ -210,9 +210,9 @@ export function useApiAccessTokens(): ApiAccessTokenActions {
         return;
       }
       fetchTokens({
-        audience: getEnv('REACT_APP_API_BACKEND_AUDIENCE'),
-        permission: getEnv('REACT_APP_API_BACKEND_PERMISSION'),
-        grantType: getEnv('REACT_APP_API_BACKEND_GRANT_TYPE'),
+        audience: getEnv('REACT_APP_PARKING_PERMITS_AUDIENCE'),
+        permission: getEnv('REACT_APP_PARKING_PERMITS_PERMISSION'),
+        grantType: getEnv('REACT_APP_PARKING_PERMITS_GRANT_TYPE'),
       });
     };
 
