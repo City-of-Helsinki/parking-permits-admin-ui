@@ -1,4 +1,4 @@
-import { OrderDirection } from './components/types';
+import { OrderDirection, SearchItem } from './components/types';
 
 export interface Address {
   streetName: string;
@@ -24,10 +24,10 @@ export interface ParkingZone {
 }
 
 export enum ParkingPermitStatus {
-  DRAFT,
-  VALID,
-  CANCELLED,
-  EXPIRED,
+  DRAFT = 'DRAFT',
+  VALID = 'VALID',
+  CANCELLED = 'CANCELLED',
+  EXPIRED = 'EXPIRED',
 }
 export interface Permit {
   identifier: number;
@@ -65,8 +65,8 @@ export interface PageInput {
   page: number;
   pageSize?: number;
 }
-
 export interface PermitsQueryVariables {
   pageInput: PageInput;
   orderBy?: OrderBy;
+  searchItems?: SearchItem[];
 }
