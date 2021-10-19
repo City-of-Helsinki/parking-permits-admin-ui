@@ -1,11 +1,36 @@
 {
-  "components.header.appTitle": "Pysäköintitunnusten Hallintapalvelu",
-  "components.header.messages": "Viestit",
-  "components.header.login": "Kirjaudu sisään",
-  "components.header.logout": "Kirjaudu ulos",
-  "components.header.permits": "Tunnukset",
-  "components.header.reports": "Raportointi",
-  "components.header.returns": "Palautukset",
-  "components.header.skipToContent": "",
-  "pages.login.login": "Kirjaudu sisään"
+  "components": {
+    "header": {
+      "appTitle": "Pysäköintitunnusten Hallintapalvelu",
+      "messages": "Viestit",
+      "login": "Kirjaudu sisään",
+      "logout": "Kirjaudu ulos",
+      "permits": "Tunnukset",
+      "reports": "Raportointi",
+      "returns": "Palautukset",
+      "skipToContent": ""
+    },
+    "permits": {
+      "permitsSearchFilters": {
+        "customer": "Asiakas",
+        "hetuOrBusinessId": "Hetu / Y-tunnus",
+        "identifier": "Tunniste",
+        "registrationNumber": "Rekisterinumero",
+        "search": "Hae",
+        "filterList": "Suodata listaa"
+      },
+      "statusSelect": {
+        "draft": "Draft",
+        "valid": "Valid",
+        "cancelled": "Cancelled",
+        "expired": "Expired",
+        "status": "Status"
+      }
+    }
+  },
+  "pages": {
+    "login": {
+      "login": "Kirjaudu sisään"
+    }
+  }
 }
