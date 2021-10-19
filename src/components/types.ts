@@ -17,7 +17,7 @@ export enum MatchType {
 }
 
 export interface FilterItem {
-  label: string;
+  labelKey: string;
   value: string;
   searchFields: string[];
   matchType: MatchType;

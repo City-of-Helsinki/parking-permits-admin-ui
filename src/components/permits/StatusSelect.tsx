@@ -1,19 +1,19 @@
 import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ParkingPermitStatus } from '../../types';
+import { ParkingPermitStatus, ParkingPermitStatusOrAll } from '../../types';
 
 const T_PATH = 'components.permits.statusSelect';
 
 interface StatusOption {
   label: string;
-  value?: ParkingPermitStatus;
+  value: ParkingPermitStatusOrAll;
 }
 
 interface StatusSelectProps {
   className?: string;
-  value?: ParkingPermitStatus;
-  onChange: (value?: ParkingPermitStatus) => void;
+  value: ParkingPermitStatusOrAll;
+  onChange: (value: ParkingPermitStatusOrAll) => void;
 }
 
 const StatusSelect = ({
@@ -25,7 +25,7 @@ const StatusSelect = ({
   const statusOptions: StatusOption[] = [
     {
       label: t(`${T_PATH}.all`),
-      value: undefined,
+      value: 'ALL',
     },
     {
       label: t(`${T_PATH}.draft`),
