@@ -1,4 +1,4 @@
-import { Customer } from './types';
+import { Customer, SavedStatus } from './types';
 
 export function getEnv(key: string): string {
   const variable = process.env[key];
@@ -22,4 +22,13 @@ export function getPrimaryAddress(customer: Customer, lang: string): string {
 export function formatDateTime(datetime: string): string {
   const date = new Date(datetime);
   return date.toLocaleString();
+}
+
+export function getSavedStatus<T>(key: SavedStatus): T | null {
+  const value = sessionStorage.getItem(key);
+  return value ? (JSON.parse(value) as T) : null;
+}
+
+export function saveStatus(item: SavedStatus, value: unknown): void {
+  sessionStorage.setItem(item as string, JSON.stringify(value));
 }

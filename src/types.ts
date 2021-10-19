@@ -79,3 +79,9 @@ export interface PermitsSearchInfo {
   searchText: string;
   filter: string;
 }
+
+export enum SavedStatus {
+  PERMITS_PAGE = 'permitsPage',
+  PERMITS_ORDER_BY = 'permitsOrderBy',
+  PERMITS_SEARCH_INFO = 'permitsSearchInfo',
+}
