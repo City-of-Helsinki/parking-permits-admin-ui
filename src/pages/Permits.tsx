@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import { makePrivate } from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
-import { MatchType, SearchItem } from '../components/types';
+import {
+  DEFAULT_SEARCH_INFO,
+  getSearchItems,
+} from '../components/permits/utils';
 import {
   OrderBy,
-  ParkingPermitStatus,
   PermitsQueryData,
   PermitsQueryVariables,
+  PermitsSearchInfo,
 } from '../types';
 
 const PERMITS_QUERY = gql`
@@ -56,19 +59,12 @@ const PERMITS_QUERY = gql`
   }
 `;
 
-const defaultSearchItems = [
-  {
-    matchType: MatchType.EXACT,
-    fields: ['status'],
-    value: ParkingPermitStatus.VALID,
-  },
-];
-
 const Permits = (): React.ReactElement => {
   const [page, setPage] = useState(1);
   const [orderBy, setOrderBy] = useState<OrderBy>();
-  const [searchItems, setSearchItems] =
-    useState<SearchItem[]>(defaultSearchItems);
+  const [searchInfo, setSearchInfo] =
+    useState<PermitsSearchInfo>(DEFAULT_SEARCH_INFO);
+  const searchItems = getSearchItems(searchInfo);
   const variables: PermitsQueryVariables = {
     pageInput: { page },
     orderBy,
@@ -83,7 +79,8 @@ const Permits = (): React.ReactElement => {
   return (
     <div>
       <PermitsSearch
-        onSearch={newSearchItems => setSearchItems(newSearchItems)}
+        searchInfo={searchInfo}
+        onSearch={newSearchInfo => setSearchInfo(newSearchInfo)}
       />
       <PermitsDataTable
         permits={data?.permits.objects || []}
