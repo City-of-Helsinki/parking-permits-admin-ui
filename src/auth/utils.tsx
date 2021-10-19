@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router';
-import { ApiAccessTokenContext } from '../auth/ApiAccessTokenProvider';
-import { ApiAccessTokenActions, useClient } from '../auth/hooks';
+import { ApiAccessTokenContext } from './ApiAccessTokenProvider';
+import { ApiAccessTokenActions, useClient } from './hooks';
 
 // eslint-disable-next-line import/prefer-default-export
 export function makePrivate<T>(
