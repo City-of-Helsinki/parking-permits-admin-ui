@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
+import { makePrivate } from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
 import { MatchType, SearchItem } from '../components/types';
@@ -9,7 +10,6 @@ import {
   PermitsQueryData,
   PermitsQueryVariables,
 } from '../types';
-import { makePrivate } from './utils';
 
 const PERMITS_QUERY = gql`
   query GetPermits(
