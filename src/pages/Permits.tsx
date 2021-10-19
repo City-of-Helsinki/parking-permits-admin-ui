@@ -1,12 +1,27 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
-import { OrderBy, PermitsQueryData, PermitsQueryVariables } from '../types';
+import PermitsSearch from '../components/permits/PermitsSearch';
+import { MatchType, SearchItem } from '../components/types';
+import {
+  OrderBy,
+  ParkingPermitStatus,
+  PermitsQueryData,
+  PermitsQueryVariables,
+} from '../types';
 import { makePrivate } from './utils';
 
 const PERMITS_QUERY = gql`
-  query GetPermits($pageInput: PageInput!, $orderBy: OrderByInput) {
-    permits(pageInput: $pageInput, orderBy: $orderBy) {
+  query GetPermits(
+    $pageInput: PageInput!
+    $orderBy: OrderByInput
+    $searchItems: [SearchItem]
+  ) {
+    permits(
+      pageInput: $pageInput
+      orderBy: $orderBy
+      searchItems: $searchItems
+    ) {
       objects {
         identifier
         startTime
@@ -41,12 +56,23 @@ const PERMITS_QUERY = gql`
   }
 `;
 
+const defaultSearchItems = [
+  {
+    matchType: MatchType.EXACT,
+    fields: ['status'],
+    value: ParkingPermitStatus.VALID,
+  },
+];
+
 const Permits = (): React.ReactElement => {
   const [page, setPage] = useState(1);
   const [orderBy, setOrderBy] = useState<OrderBy>();
+  const [searchItems, setSearchItems] =
+    useState<SearchItem[]>(defaultSearchItems);
   const variables: PermitsQueryVariables = {
     pageInput: { page },
     orderBy,
+    searchItems,
   };
   const { loading, error, data } = useQuery<PermitsQueryData>(PERMITS_QUERY, {
     variables,
@@ -55,14 +81,19 @@ const Permits = (): React.ReactElement => {
     return <div>{JSON.stringify(error)}</div>;
   }
   return (
-    <PermitsDataTable
-      permits={data?.permits.objects || []}
-      pageInfo={data?.permits.pageInfo}
-      loading={loading}
-      orderBy={orderBy}
-      onPage={newPage => setPage(newPage)}
-      onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
-    />
+    <div>
+      <PermitsSearch
+        onSearch={newSearchItems => setSearchItems(newSearchItems)}
+      />
+      <PermitsDataTable
+        permits={data?.permits.objects || []}
+        pageInfo={data?.permits.pageInfo}
+        loading={loading}
+        orderBy={orderBy}
+        onPage={newPage => setPage(newPage)}
+        onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
+      />
+    </div>
   );
 };
 

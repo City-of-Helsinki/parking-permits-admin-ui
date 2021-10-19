@@ -1,0 +1,11 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.toggle-button-group {
+  display: flex;
+  flex-direction: column;
+  .toggle-button-group-items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

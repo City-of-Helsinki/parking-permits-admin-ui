@@ -78,18 +78,16 @@ const PermitsDataTable = ({
   ];
 
   return (
-    <>
-      <DataTable
-        data={permits}
-        loading={loading}
-        pageInfo={pageInfo}
-        columns={columns}
-        orderBy={orderBy}
-        rowIdSelector={(row: Permit) => row.identifier}
-        onPage={onPage}
-        onOrderBy={onOrderBy}
-      />
-    </>
+    <DataTable
+      data={permits}
+      loading={loading}
+      pageInfo={pageInfo}
+      columns={columns}
+      orderBy={orderBy}
+      rowIdSelector={(row: Permit) => row.identifier}
+      onPage={onPage}
+      onOrderBy={onOrderBy}
+    />
   );
 };
 

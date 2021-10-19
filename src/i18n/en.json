@@ -1,11 +1,37 @@
 {
-  "components.header.appTitle": "Parking Permits Management",
-  "components.header.messages": "Messages",
-  "components.header.login": "Login",
-  "components.header.logout": "Log Out",
-  "components.header.permits": "Permits",
-  "components.header.reports": "Reports",
-  "components.header.returns": "Returns",
-  "components.header.skipToContent": "Skip to content",
-  "pages.login.login": "Login"
+  "components": {
+    "header": {
+      "appTitle": "Parking Permits Management",
+      "login": "Login",
+      "logout": "Log Out",
+      "messages": "Messages",
+      "permits": "Permits",
+      "reports": "Reports",
+      "returns": "Returns",
+      "skipToContent": "Skip to content"
+    },
+    "permits": {
+      "permitsSearchFilters": {
+        "customer": "Customer",
+        "hetuOrBusinessId": "Hetu / Business ID",
+        "identifier": "Identifier",
+        "registrationNumber": "Registration number",
+        "search": "Search",
+        "filterList": "Filter list"
+      },
+      "statusSelect": {
+        "all": "All",
+        "draft": "Draft",
+        "valid": "Valid",
+        "cancelled": "Cancelled",
+        "expired": "Expired",
+        "status": "Status"
+      }
+    }
+  },
+  "pages": {
+    "login": {
+      "login": "Login"
+    }
+  }
 }
