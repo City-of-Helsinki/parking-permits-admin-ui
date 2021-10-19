@@ -7,13 +7,13 @@ const T_PATH = 'components.permits.statusSelect';
 
 interface StatusOption {
   label: string;
-  value: ParkingPermitStatus;
+  value?: ParkingPermitStatus;
 }
 
 interface StatusSelectProps {
   className?: string;
-  value: ParkingPermitStatus;
-  onChange: (value: ParkingPermitStatus) => void;
+  value?: ParkingPermitStatus;
+  onChange: (value?: ParkingPermitStatus) => void;
 }
 
 const StatusSelect = ({
@@ -23,6 +23,10 @@ const StatusSelect = ({
 }: StatusSelectProps): React.ReactElement => {
   const { t } = useTranslation();
   const statusOptions: StatusOption[] = [
+    {
+      label: t(`${T_PATH}.all`),
+      value: undefined,
+    },
     {
       label: t(`${T_PATH}.draft`),
       value: ParkingPermitStatus.DRAFT,

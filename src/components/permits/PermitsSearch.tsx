@@ -13,26 +13,27 @@ const PermitsSearch = ({
   onSearch,
 }: PermitsSearchProps): React.ReactElement => {
   const [searchItem, setSearchItem] = useState<SearchItem>();
-  const [status, setStatus] = useState<ParkingPermitStatus>(
+  const [status, setStatus] = useState<ParkingPermitStatus | undefined>(
     ParkingPermitStatus.VALID
   );
   const doSearch = (
-    _status: ParkingPermitStatus,
+    _status: ParkingPermitStatus | undefined,
     _searchItem: SearchItem | undefined
   ) => {
-    const searchItems: SearchItem[] = [
-      {
+    const searchItems: SearchItem[] = [];
+    if (_status) {
+      searchItems.push({
         matchType: MatchType.EXACT,
         fields: ['status'],
         value: _status,
-      },
-    ];
+      });
+    }
     if (_searchItem) {
       searchItems.push(_searchItem);
     }
     onSearch(searchItems);
   };
-  const handleStatusChange = (newStatus: ParkingPermitStatus) => {
+  const handleStatusChange = (newStatus: ParkingPermitStatus | undefined) => {
     setStatus(newStatus);
     doSearch(newStatus, searchItem);
   };

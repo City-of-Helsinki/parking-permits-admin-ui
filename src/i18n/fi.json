@@ -20,11 +20,12 @@
         "filterList": "Suodata listaa"
       },
       "statusSelect": {
+        "all": "All",
         "draft": "Draft",
         "valid": "Valid",
         "cancelled": "Cancelled",
         "expired": "Expired",
-        "status": "Status"
+        "status": "Tila"
       }
     }
   },

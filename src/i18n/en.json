@@ -20,6 +20,7 @@
         "filterList": "Filter list"
       },
       "statusSelect": {
+        "all": "All",
         "draft": "Draft",
         "valid": "Valid",
         "cancelled": "Cancelled",
