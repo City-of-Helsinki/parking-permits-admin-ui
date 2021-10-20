@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { makePrivate } from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
@@ -62,6 +63,7 @@ const PERMITS_QUERY = gql`
 `;
 
 const Permits = (): React.ReactElement => {
+  const navigate = useNavigate();
   const initialPage = getSavedStatus<number>(SavedStatus.PERMITS_PAGE) || 1;
   const initialOrderBy =
     getSavedStatus<OrderBy>(SavedStatus.PERMITS_ORDER_BY) || undefined;
@@ -106,6 +108,7 @@ const Permits = (): React.ReactElement => {
         orderBy={orderBy}
         onPage={handlePage}
         onOrderBy={handleOrderBy}
+        onRowClick={row => navigate(row.identifier.toString())}
       />
     </div>
   );

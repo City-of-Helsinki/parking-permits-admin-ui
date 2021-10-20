@@ -12,6 +12,7 @@ export interface PermitsDataTableProps {
   orderBy?: OrderBy;
   onPage?: (page: number) => void;
   onOrderBy: (orderBy: OrderBy) => void;
+  onRowClick?: (permit: Permit) => void;
 }
 
 const PermitsDataTable = ({
@@ -21,6 +22,7 @@ const PermitsDataTable = ({
   orderBy,
   onPage,
   onOrderBy,
+  onRowClick,
 }: PermitsDataTableProps): React.ReactElement => {
   const { i18n } = useTranslation();
   const columns: Column<Permit>[] = [
@@ -87,6 +89,7 @@ const PermitsDataTable = ({
       rowIdSelector={(row: Permit) => row.identifier}
       onPage={onPage}
       onOrderBy={onOrderBy}
+      onRowClick={onRowClick}
     />
   );
 };
