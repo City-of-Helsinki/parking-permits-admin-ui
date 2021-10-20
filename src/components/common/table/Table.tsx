@@ -13,6 +13,7 @@ export interface TableProps<T> {
   orderBy?: OrderBy;
   rowIdSelector: (row: T) => string | number;
   onOrderBy: (orderBy: OrderBy) => void;
+  onRowClick?: (row: T) => void;
 }
 
 const Table = <T,>({
@@ -22,6 +23,7 @@ const Table = <T,>({
   orderBy,
   rowIdSelector,
   onOrderBy,
+  onRowClick,
 }: TableProps<T>): React.ReactElement => {
   let tableBody;
   if (loading) {
@@ -30,7 +32,12 @@ const Table = <T,>({
     tableBody = <NoDataRow colSpan={columns.length} text="No data" />;
   } else {
     tableBody = data.map(row => (
-      <TableRow key={rowIdSelector(row)} columns={columns} row={row} />
+      <TableRow
+        onClick={onRowClick}
+        key={rowIdSelector(row)}
+        columns={columns}
+        row={row}
+      />
     ));
   }
   return (

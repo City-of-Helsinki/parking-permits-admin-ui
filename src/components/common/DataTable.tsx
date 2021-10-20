@@ -14,6 +14,7 @@ export interface DataTableProps<T> {
   rowIdSelector: (row: T) => string | number;
   onPage?: (page: number) => void;
   onOrderBy: (orderBy: OrderBy) => void;
+  onRowClick?: (row: T) => void;
 }
 
 const DataTable = <T,>({
@@ -25,6 +26,7 @@ const DataTable = <T,>({
   rowIdSelector,
   onPage,
   onOrderBy,
+  onRowClick,
 }: DataTableProps<T>): React.ReactElement => (
   <div className={styles['data-table']}>
     <Table
@@ -34,6 +36,7 @@ const DataTable = <T,>({
       orderBy={orderBy}
       rowIdSelector={rowIdSelector}
       onOrderBy={onOrderBy}
+      onRowClick={onRowClick}
     />
     {pageInfo && onPage && <Paginator pageInfo={pageInfo} onPage={onPage} />}
   </div>
