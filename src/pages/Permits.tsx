@@ -1,15 +1,20 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
+import { makePrivate } from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
-import { MatchType, SearchItem } from '../components/types';
+import {
+  DEFAULT_SEARCH_INFO,
+  getSearchItems,
+} from '../components/permits/utils';
 import {
   OrderBy,
-  ParkingPermitStatus,
   PermitsQueryData,
   PermitsQueryVariables,
+  PermitsSearchInfo,
+  SavedStatus,
 } from '../types';
-import { makePrivate } from './utils';
+import { getSavedStatus, saveStatus } from '../utils';
 
 const PERMITS_QUERY = gql`
   query GetPermits(
@@ -56,19 +61,18 @@ const PERMITS_QUERY = gql`
   }
 `;
 
-const defaultSearchItems = [
-  {
-    matchType: MatchType.EXACT,
-    fields: ['status'],
-    value: ParkingPermitStatus.VALID,
-  },
-];
-
 const Permits = (): React.ReactElement => {
-  const [page, setPage] = useState(1);
-  const [orderBy, setOrderBy] = useState<OrderBy>();
-  const [searchItems, setSearchItems] =
-    useState<SearchItem[]>(defaultSearchItems);
+  const initialPage = getSavedStatus<number>(SavedStatus.PERMITS_PAGE) || 1;
+  const initialOrderBy =
+    getSavedStatus<OrderBy>(SavedStatus.PERMITS_ORDER_BY) || undefined;
+  const initialSearchInfo =
+    getSavedStatus<PermitsSearchInfo>(SavedStatus.PERMITS_SEARCH_INFO) ||
+    DEFAULT_SEARCH_INFO;
+  const [page, setPage] = useState(initialPage);
+  const [orderBy, setOrderBy] = useState<OrderBy | undefined>(initialOrderBy);
+  const [searchInfo, setSearchInfo] =
+    useState<PermitsSearchInfo>(initialSearchInfo);
+  const searchItems = getSearchItems(searchInfo);
   const variables: PermitsQueryVariables = {
     pageInput: { page },
     orderBy,
@@ -80,18 +84,28 @@ const Permits = (): React.ReactElement => {
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
   }
+  const handleSearch = (newSearchInfo: PermitsSearchInfo) => {
+    setSearchInfo(newSearchInfo);
+    saveStatus(SavedStatus.PERMITS_SEARCH_INFO, newSearchInfo);
+  };
+  const handlePage = (newPage: number) => {
+    setPage(newPage);
+    saveStatus(SavedStatus.PERMITS_PAGE, newPage);
+  };
+  const handleOrderBy = (newOrderBy: OrderBy) => {
+    setOrderBy(newOrderBy);
+    saveStatus(SavedStatus.PERMITS_ORDER_BY, newOrderBy);
+  };
   return (
     <div>
-      <PermitsSearch
-        onSearch={newSearchItems => setSearchItems(newSearchItems)}
-      />
+      <PermitsSearch searchInfo={searchInfo} onSearch={handleSearch} />
       <PermitsDataTable
         permits={data?.permits.objects || []}
         pageInfo={data?.permits.pageInfo}
         loading={loading}
         orderBy={orderBy}
-        onPage={newPage => setPage(newPage)}
-        onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
+        onPage={handlePage}
+        onOrderBy={handleOrderBy}
       />
     </div>
   );

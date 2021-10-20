@@ -29,6 +29,9 @@ export enum ParkingPermitStatus {
   CANCELLED = 'CANCELLED',
   EXPIRED = 'EXPIRED',
 }
+
+export type ParkingPermitStatusOrAll = ParkingPermitStatus | 'ALL';
+
 export interface Permit {
   identifier: number;
   customer: Customer;
@@ -69,4 +72,16 @@ export interface PermitsQueryVariables {
   pageInput: PageInput;
   orderBy?: OrderBy;
   searchItems?: SearchItem[];
+}
+
+export interface PermitsSearchInfo {
+  status: ParkingPermitStatusOrAll;
+  searchText: string;
+  filter: string;
+}
+
+export enum SavedStatus {
+  PERMITS_PAGE = 'permitsPage',
+  PERMITS_ORDER_BY = 'permitsOrderBy',
+  PERMITS_SEARCH_INFO = 'permitsSearchInfo',
 }

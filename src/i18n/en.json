@@ -11,21 +11,25 @@
       "skipToContent": "Skip to content"
     },
     "permits": {
-      "permitsSearchFilters": {
+      "filterItems": {
         "customer": "Customer",
         "hetuOrBusinessId": "Hetu / Business ID",
         "identifier": "Identifier",
-        "registrationNumber": "Registration number",
-        "search": "Search",
+        "registrationNumber": "Registration number"
+      },
+      "permitsSearch": {
+        "search": "Search"
+      },
+      "permitsSearchFilters": {
         "filterList": "Filter list"
       },
       "statusSelect": {
         "all": "All",
-        "draft": "Draft",
-        "valid": "Valid",
         "cancelled": "Cancelled",
+        "draft": "Draft",
         "expired": "Expired",
-        "status": "Status"
+        "status": "Status",
+        "valid": "Valid"
       }
     }
   },
