@@ -1,0 +1,15 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: var(--fontsize-body-m);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.separator {
+  margin: 0 var(--spacing-xs);
+}
