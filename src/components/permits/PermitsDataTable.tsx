@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { OrderBy, PageInfo, Permit } from '../../types';
-import { formatDateTime, getPrimaryAddress } from '../../utils';
+import { formatAddress, formatDateTime } from '../../utils';
 import DataTable from '../common/DataTable';
 import { Column } from '../types';
 
@@ -47,7 +47,8 @@ const PermitsDataTable = ({
     {
       name: 'Address',
       field: 'address',
-      selector: ({ customer }) => getPrimaryAddress(customer, i18n.language),
+      selector: ({ customer }) =>
+        formatAddress(customer.primaryAddress, i18n.language),
       orderFields: [
         'customer__primary_address__street_name',
         'customer__primary_address__street_number',

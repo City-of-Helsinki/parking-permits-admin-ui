@@ -1,4 +1,4 @@
-import { Customer, SavedStatus } from './types';
+import { Address, SavedStatus } from './types';
 
 export function getEnv(key: string): string {
   const variable = process.env[key];
@@ -13,9 +13,8 @@ export function getBooleanEnv(key: string): boolean {
   return ['true', '1'].includes(val);
 }
 
-export function getPrimaryAddress(customer: Customer, lang: string): string {
-  const { primaryAddress } = customer;
-  const { streetName, streetNameSv, streetNumber } = primaryAddress;
+export function formatAddress(address: Address, lang: string): string {
+  const { streetName, streetNameSv, streetNumber } = address;
   return `${lang === 'sv' ? streetNameSv : streetName} ${streetNumber}`;
 }
 
