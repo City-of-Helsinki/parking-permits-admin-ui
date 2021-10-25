@@ -1,0 +1,72 @@
+import { Button, IconEnvelope } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { PermitDetail } from '../../types';
+import { formatAddress, formatZone } from '../../utils';
+import styles from './CustomerInfo.module.scss';
+import FieldItem from './FieldItem';
+
+const T_PATH = 'components.permitDetail.customerInfo';
+
+export interface CustomerInfoProps {
+  className?: string;
+  permit: PermitDetail;
+}
+
+const CustomerInfo = ({
+  className,
+  permit,
+}: CustomerInfoProps): React.ReactElement => {
+  const { t, i18n } = useTranslation();
+  const { vehicle, customer, parkingZone } = permit;
+  const fields = [
+    {
+      label: t(`${T_PATH}.vehicleHolder`),
+      value: vehicle.holder,
+    },
+    {
+      label: t(`${T_PATH}.personalID`),
+      value: customer.nationalIdNumber || '-',
+    },
+    {
+      label: t(`${T_PATH}.address`),
+      value: formatAddress(customer.primaryAddress, i18n.language),
+    },
+    {
+      label: t(`${T_PATH}.parkingZone`),
+      value: formatZone(parkingZone, i18n.language),
+    },
+    {
+      label: t(`${T_PATH}.phoneNumber`),
+      value: customer.phoneNumber || '-',
+    },
+    {
+      label: t(`${T_PATH}.email`),
+      value: customer.email || '-',
+    },
+  ];
+  return (
+    <div className={className}>
+      <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
+      <div className={styles.infoBox}>
+        {fields.map(({ label, value }) => (
+          <FieldItem
+            key={label}
+            className={styles.fieldItem}
+            label={label}
+            value={value}
+          />
+        ))}
+        {customer.email && (
+          <Button
+            variant="supplementary"
+            iconLeft={<IconEnvelope />}
+            onClick={() => window.open(`mailto:${customer.email}`)}>
+            {t(`${T_PATH}.sendMessageToEmail`)}
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+};
+export default CustomerInfo;

@@ -1,0 +1,28 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.title {
+  font-size: $fontsize-body-xl;
+  margin-bottom: $spacing-s;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-s;
+  background-color: $color-coat-of-arms-light;
+  .vechile {
+    font-weight: bold;
+  }
+  .emissionInfo {
+    align-self: flex-start;
+    line-height: 24px;
+    border-radius: 12px;
+    margin: $spacing-xs 0;
+    padding: 0 $spacing-xs;
+    font-size: $fontsize-body-s;
+    background-color: $color-coat-of-arms-medium-light;
+  }
+  .priceInfo {
+    margin: $spacing-xs 0;
+  }
+}
