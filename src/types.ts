@@ -11,16 +11,23 @@ export interface Customer {
   lastName: string;
   nationalIdNumber: string;
   primaryAddress: Address;
+  email: string;
+  phoneNumber: string;
 }
 
 export interface Vehicle {
   manufacturer: string;
   model: string;
   registrationNumber: string;
+  isLowEmission: boolean;
+  holder: string;
 }
 
 export interface ParkingZone {
   name: string;
+  description: string;
+  descriptionSv: string;
+  price: number;
 }
 
 export enum ParkingPermitStatus {
@@ -28,6 +35,11 @@ export enum ParkingPermitStatus {
   VALID = 'VALID',
   CANCELLED = 'CANCELLED',
   EXPIRED = 'EXPIRED',
+}
+
+export enum PermitContractType {
+  OPEN_ENDED = 'OPEN_ENDED',
+  FIXED_PERIOD = 'FIXED_PERIOD',
 }
 
 export type ParkingPermitStatusOrAll = ParkingPermitStatus | 'ALL';
@@ -40,6 +52,24 @@ export interface Permit {
   status: ParkingPermitStatus;
   startTime: string;
   endTime?: string;
+}
+
+export interface PermitDetail {
+  identifier: number;
+  customer: Customer;
+  vehicle: Vehicle;
+  parkingZone: ParkingZone;
+  status: ParkingPermitStatus;
+  startTime: string;
+  endTime?: string;
+  consentLowEmissionAccepted: boolean;
+  contractType: PermitContractType;
+  monthCount: number;
+  monthsLeft: number;
+}
+
+export interface PermitDetailData {
+  permitDetail: PermitDetail;
 }
 
 export interface PageInfo {

@@ -10,6 +10,34 @@
       "returns": "Returns",
       "skipToContent": "Skip to content"
     },
+    "permitDetail": {
+      "customerInfo": {
+        "address": "Address",
+        "email": "Email",
+        "parkingZone": "Parking zone",
+        "personalID": "Personal ID",
+        "phoneNumber": "Phone number",
+        "sendMessageToEmail": "Send message to customer email",
+        "title": "Customer information",
+        "vehicleHolder": "Vehicle holder"
+      },
+      "permitInfo": {
+        "additionalInfo": "Additional information",
+        "contractType": "Contract type",
+        "endTime": "End time",
+        "monthsLeft": "Months left",
+        "startTime": "Start time",
+        "status": "Status",
+        "title": "Permit information",
+        "validPeriod": "Valid period"
+      },
+      "vehicleInfo": {
+        "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
+        "highEmissionVechile": "High emission vehicle",
+        "lowEmissionVechile": "Low emission vehicle",
+        "title": "Vehicle information"
+      }
+    },
     "permits": {
       "filterItems": {
         "customer": "Customer",
@@ -36,6 +64,17 @@
   "pages": {
     "login": {
       "login": "Login"
+    },
+    "permitDetail": {
+      "permitId": "Permit ID",
+      "permits": "Permits",
+      "residentParkingPermit": "Resident parking permit"
     }
+  },
+  "permitStatus": {
+    "cancelled": "Cancelled",
+    "draft": "Draft",
+    "expired": "Expired",
+    "valid": "Valid"
   }
 }

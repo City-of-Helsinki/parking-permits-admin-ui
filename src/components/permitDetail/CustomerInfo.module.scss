@@ -1,0 +1,15 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.title {
+  font-size: $fontsize-body-xl;
+  margin-bottom: $spacing-s;
+}
+
+.infoBox {
+  padding: $spacing-s;
+  background-color: $color-silver-light;
+
+  .fieldItem {
+    margin-bottom: $spacing-s;
+  }
+}

@@ -1,0 +1,11 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+// permit status variables
+$color-cancelled-border: $color-black-50;
+$color-cancelled-fill: $color-black-20;
+$color-draft-border: $color-coat-of-arms;
+$color-draft-fill: $color-coat-of-arms-medium-light;
+$color-expired-border: $color-error;
+$color-expired-fill: $color-error-light;
+$color-valid-border: $color-tram;
+$color-valid-fill: $color-tram-light;
