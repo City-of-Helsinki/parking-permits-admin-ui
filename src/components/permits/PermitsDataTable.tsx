@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { OrderBy, PageInfo, Permit } from '../../types';
 import { formatAddress, formatDateTime } from '../../utils';
 import DataTable from '../common/DataTable';
+import StatusLabel from '../common/StatusLabel';
 import { Column } from '../types';
 
 export interface PermitsDataTableProps {
@@ -75,7 +76,7 @@ const PermitsDataTable = ({
     {
       name: 'Status',
       field: 'status',
-      selector: row => row.status,
+      selector: row => <StatusLabel status={row.status} />,
       orderFields: ['status'],
     },
   ];
