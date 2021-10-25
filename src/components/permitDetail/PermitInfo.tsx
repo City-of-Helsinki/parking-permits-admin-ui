@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PermitDetail } from '../../types';
 import { formatDateTime } from '../../utils';
 import Divider from '../common/Divider';
+import StatusLabel from '../common/StatusLabel';
 import FieldItem from './FieldItem';
 import styles from './PermitInfo.module.scss';
 
@@ -37,7 +38,7 @@ const PermitInfo = ({
     },
     {
       label: t(`${T_PATH}.status`),
-      value: status,
+      value: <StatusLabel status={status} />,
     },
     {
       label: t(`${T_PATH}.additionalInfo`),
