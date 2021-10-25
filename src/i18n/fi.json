@@ -53,11 +53,7 @@
       },
       "statusSelect": {
         "all": "All",
-        "cancelled": "Cancelled",
-        "draft": "Draft",
-        "expired": "Expired",
-        "status": "Tila",
-        "valid": "Valid"
+        "status": "Tila"
       }
     }
   },
