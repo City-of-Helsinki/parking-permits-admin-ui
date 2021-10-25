@@ -1,4 +1,4 @@
-import { Address, SavedStatus } from './types';
+import { Address, Customer, ParkingZone, SavedStatus, Vehicle } from './types';
 
 export function getEnv(key: string): string {
   const variable = process.env[key];
@@ -21,6 +21,26 @@ export function formatAddress(address: Address, lang: string): string {
 export function formatDateTime(datetime: string): string {
   const date = new Date(datetime);
   return date.toLocaleString();
+}
+
+export function formatZone(zone: ParkingZone, lang: string): string {
+  const { name, description, descriptionSv } = zone;
+  return `${name} - ${lang === 'sv' ? descriptionSv : description}`;
+}
+
+export function formatCustomerName(customer: Customer): string {
+  const { firstName, lastName } = customer;
+  return `${firstName} ${lastName}`;
+}
+
+export function formatVehicleName(vehicle: Vehicle): string {
+  const { manufacturer, model, registrationNumber } = vehicle;
+  return `${registrationNumber} ${manufacturer} ${model}`;
+}
+
+export function formatMonthlyPrice(price: number): string {
+  const formattedPrice = parseFloat(price.toFixed(2));
+  return `${formattedPrice} €/kk`;
 }
 
 export function getSavedStatus<T>(key: SavedStatus): T | null {
