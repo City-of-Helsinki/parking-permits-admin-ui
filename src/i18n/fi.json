@@ -10,6 +10,34 @@
       "returns": "Palautukset",
       "skipToContent": ""
     },
+    "permitDetail": {
+      "customerInfo": {
+        "address": "Osoite",
+        "email": "Sähköpostiosoite",
+        "parkingZone": "Pysäköintialue",
+        "personalID": "Henkilötunnus",
+        "phoneNumber": "Puhelinnumero",
+        "sendMessageToEmail": "Lähetä tiedot sähköpostiin",
+        "title": "Henkilötiedot",
+        "vehicleHolder": "Ajoneuvon haltija"
+      },
+      "permitInfo": {
+        "additionalInfo": "Lisätiedot",
+        "contractType": "Tunnuksen tyyppi",
+        "endTime": "Viimeinen voimassaoloaika",
+        "monthsLeft": "Tilausta jäljellä",
+        "startTime": "Voimassa alkaen",
+        "status": "Tila",
+        "title": "Tunnuksen tiedot",
+        "validPeriod": "Voimassaoloaika"
+      },
+      "vehicleInfo": {
+        "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
+        "highEmissionVechile": "Korkeapäästöinen ajoneuvo",
+        "lowEmissionVechile": "Vähäpäästöinen ajoneuvo",
+        "title": "Ajoneuvon tiedot"
+      }
+    },
     "permits": {
       "filterItems": {
         "customer": "Asiakas",
@@ -36,6 +64,17 @@
   "pages": {
     "login": {
       "login": "Kirjaudu sisään"
+    },
+    "permitDetail": {
+      "permitId": "Permit ID",
+      "permits": "Tunnukset",
+      "residentParkingPermit": "Asukaspysäköintitunnus"
     }
+  },
+  "permitStatus": {
+    "cancelled": "Cancelled",
+    "draft": "Draft",
+    "expired": "Expired",
+    "valid": "Valid"
   }
 }
