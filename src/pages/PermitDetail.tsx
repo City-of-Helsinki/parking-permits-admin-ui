@@ -59,7 +59,7 @@ const PermitDetail = (): React.ReactElement => {
   const params = useParams();
   const { t } = useTranslation();
   const { id } = params;
-  const variables = { permitId: 80000000 };
+  const variables = { permitId: id };
   const { loading, error, data } = useQuery<PermitDetailData>(
     PERMIT_DETAIL_QUERY,
     {
