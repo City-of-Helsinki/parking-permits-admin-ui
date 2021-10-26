@@ -2,11 +2,12 @@ import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ParkingPermitStatus, ParkingPermitStatusOrAll } from '../../types';
+import StatusLabel from '../common/StatusLabel';
 
 const T_PATH = 'components.permits.statusSelect';
 
 interface StatusOption {
-  label: string;
+  label: React.ReactNode;
   value: ParkingPermitStatusOrAll;
 }
 
@@ -28,19 +29,19 @@ const StatusSelect = ({
       value: 'ALL',
     },
     {
-      label: t(`${T_PATH}.draft`),
+      label: <StatusLabel status={ParkingPermitStatus.DRAFT} />,
       value: ParkingPermitStatus.DRAFT,
     },
     {
-      label: t(`${T_PATH}.valid`),
+      label: <StatusLabel status={ParkingPermitStatus.VALID} />,
       value: ParkingPermitStatus.VALID,
     },
     {
-      label: t(`${T_PATH}.cancelled`),
+      label: <StatusLabel status={ParkingPermitStatus.CANCELLED} />,
       value: ParkingPermitStatus.CANCELLED,
     },
     {
-      label: t(`${T_PATH}.expired`),
+      label: <StatusLabel status={ParkingPermitStatus.EXPIRED} />,
       value: ParkingPermitStatus.EXPIRED,
     },
   ];
