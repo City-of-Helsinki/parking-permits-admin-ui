@@ -1,5 +1,17 @@
 {
+  "changelogEvent": {
+    "changed": "Muokkaus",
+    "created": "Luotu"
+  },
   "components": {
+    "common": {
+      "changeLogs": {
+        "createdAt": "Muutosaika",
+        "event": "Tapahtuma",
+        "description": "Selite",
+        "createdBy": "Muokkaaja"
+      }
+    },
     "header": {
       "appTitle": "Pysäköintitunnusten Hallintapalvelu",
       "login": "Kirjaudu sisään",
@@ -62,6 +74,7 @@
       "login": "Kirjaudu sisään"
     },
     "permitDetail": {
+      "changeHistory": "Käsittelyhistoria",
       "permitId": "Permit ID",
       "permits": "Tunnukset",
       "residentParkingPermit": "Asukaspysäköintitunnus"
