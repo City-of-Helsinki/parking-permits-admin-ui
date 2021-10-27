@@ -54,6 +54,19 @@ export interface Permit {
   endTime?: string;
 }
 
+export enum ChangeLogEvent {
+  CREATED = 'created',
+  CHANGED = 'changed',
+}
+
+export interface ChangeLog {
+  id: number;
+  event: ChangeLogEvent;
+  description: string;
+  createdAt: string;
+  createdBy: string;
+}
+
 export interface PermitDetail {
   identifier: number;
   customer: Customer;
@@ -66,6 +79,7 @@ export interface PermitDetail {
   contractType: PermitContractType;
   monthCount: number;
   monthsLeft: number;
+  changeLogs: ChangeLog[];
 }
 
 export interface PermitDetailData {

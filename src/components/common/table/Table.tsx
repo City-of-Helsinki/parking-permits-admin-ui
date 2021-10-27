@@ -12,7 +12,7 @@ export interface TableProps<T> {
   loading: boolean;
   orderBy?: OrderBy;
   rowIdSelector: (row: T) => string | number;
-  onOrderBy: (orderBy: OrderBy) => void;
+  onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (row: T) => void;
 }
 
