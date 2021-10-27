@@ -29,4 +29,10 @@
       flex: 1 1 33%;
     }
   }
+  .changeLogs {
+    margin: $spacing-xl 0;
+    .changeLogsTitle {
+      font-size: $fontsize-body-xl;
+    }
+  }
 }
