@@ -1,5 +1,17 @@
 {
+  "changelogEvent": {
+    "changed": "Updated",
+    "created": "Created"
+  },
   "components": {
+    "common": {
+      "changeLogs": {
+        "createdAt": "Created at",
+        "createdBy": "Created by",
+        "description": "Description",
+        "event": "Event"
+      }
+    },
     "header": {
       "appTitle": "Parking Permits Management",
       "login": "Login",
@@ -62,6 +74,7 @@
       "login": "Login"
     },
     "permitDetail": {
+      "changeHistory": "Change history",
       "permitId": "Permit ID",
       "permits": "Permits",
       "residentParkingPermit": "Resident parking permit"
