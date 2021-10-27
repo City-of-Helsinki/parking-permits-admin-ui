@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
+import ChangeLogs from '../components/common/ChangeLogs';
 import StatusTag from '../components/common/StatusTag';
 import Zone from '../components/common/Zone';
 import CustomerInfo from '../components/permitDetail/CustomerInfo';
@@ -26,6 +27,13 @@ const PERMIT_DETAIL_QUERY = gql`
       consentLowEmissionAccepted
       contractType
       monthCount
+      changeLogs {
+        id
+        event
+        description
+        createdAt
+        createdBy
+      }
       customer {
         firstName
         lastName
@@ -76,7 +84,7 @@ const PermitDetail = (): React.ReactElement => {
     return <div>No data</div>;
   }
   const { permitDetail } = data;
-  const { status, customer, parkingZone } = permitDetail;
+  const { status, customer, parkingZone, changeLogs } = permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -104,6 +112,12 @@ const PermitDetail = (): React.ReactElement => {
         <VehicleInfo className={styles.vehicleInfo} permit={permitDetail} />
         <CustomerInfo className={styles.customerInfo} permit={permitDetail} />
         <PermitInfo className={styles.permitInfo} permit={permitDetail} />
+      </div>
+      <div className={styles.changeLogs}>
+        <div className={styles.changeLogsTitle}>
+          {t(`${T_PATH}.changeHistory`)}
+        </div>
+        <ChangeLogs changeLogs={changeLogs} />
       </div>
     </div>
   );
