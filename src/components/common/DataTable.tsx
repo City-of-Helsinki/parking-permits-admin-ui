@@ -8,19 +8,19 @@ import Table from './table/Table';
 export interface DataTableProps<T> {
   columns: Column<T>[];
   data: T[];
-  loading: boolean;
+  loading?: boolean;
   pageInfo?: PageInfo;
   orderBy?: OrderBy;
   rowIdSelector: (row: T) => string | number;
   onPage?: (page: number) => void;
-  onOrderBy: (orderBy: OrderBy) => void;
+  onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (row: T) => void;
 }
 
 const DataTable = <T,>({
   columns,
   data,
-  loading,
+  loading = false,
   pageInfo,
   orderBy,
   rowIdSelector,

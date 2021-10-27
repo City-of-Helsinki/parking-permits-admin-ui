@@ -8,7 +8,7 @@ export interface HeaderRowProps<T> {
   columns: Column<T>[];
   orderBy?: OrderBy;
   orderDirection?: OrderDirection;
-  onOrderBy: (orderBy: OrderBy) => void;
+  onOrderBy?: (orderBy: OrderBy) => void;
 }
 
 function getNextOrderDirection(
@@ -38,7 +38,7 @@ const HeaderRow = <T,>({
           orderBy?.field === field ? orderBy?.orderDirection : null
         }
         onClick={
-          orderFields
+          orderFields && onOrderBy
             ? () =>
                 onOrderBy({
                   field,
