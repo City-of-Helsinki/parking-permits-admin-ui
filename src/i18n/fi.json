@@ -7,9 +7,16 @@
     "common": {
       "changeLogs": {
         "createdAt": "Muutosaika",
-        "event": "Tapahtuma",
+        "createdBy": "Muokkaaja",
         "description": "Selite",
-        "createdBy": "Muokkaaja"
+        "event": "Tapahtuma"
+      }
+    },
+    "createPermit": {
+      "permitTypeSelect": {
+        "companyPermit": "Yritystunnus",
+        "permitType": "Tunnuksen tyyppi",
+        "residentPermit": "Asukaspysäköintitunnus"
       }
     },
     "header": {
@@ -70,6 +77,11 @@
     }
   },
   "pages": {
+    "createPermit": {
+      "createNewPermit": "Luo uusi tunnus",
+      "createPermit": "Luo tunnus",
+      "permits": "Tunnukset"
+    },
     "login": {
       "login": "Kirjaudu sisään"
     },
@@ -78,6 +90,10 @@
       "permitId": "Permit ID",
       "permits": "Tunnukset",
       "residentParkingPermit": "Asukaspysäköintitunnus"
+    },
+    "permits": {
+      "createNewPermit": "Luo uusi tunnus",
+      "title": "Tunnukset"
     }
   },
   "permitStatus": {

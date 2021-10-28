@@ -12,6 +12,13 @@
         "event": "Event"
       }
     },
+    "createPermit": {
+      "permitTypeSelect": {
+        "companyPermit": "Företagstillstånd",
+        "permitType": "Typ av tillstånd",
+        "residentPermit": "Boendetillstånd"
+      }
+    },
     "header": {
       "appTitle": "Hantering av parkeringstillstånd",
       "login": "Logga in",
@@ -70,6 +77,11 @@
     }
   },
   "pages": {
+    "createPermit": {
+      "createNewPermit": "Skapa nytt tillstånd",
+      "createPermit": "Skapa tillstånd",
+      "permits": "Tillstånd"
+    },
     "login": {
       "login": "Logga in"
     },
@@ -78,6 +90,10 @@
       "permitId": "Tillstånds-ID",
       "permits": "Tillstånd",
       "residentParkingPermit": "Parkeringstillstånd för boende"
+    },
+    "permits": {
+      "createNewPermit": "Skapa nytt tillstånd",
+      "title": "Tillstånd"
     }
   },
   "permitStatus": {
