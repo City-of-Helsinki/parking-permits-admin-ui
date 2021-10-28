@@ -1,19 +1,89 @@
 {
+  "changelogEvent": {
+    "changed": "Uppdaterad",
+    "created": "Skapat"
+  },
   "components": {
+    "common": {
+      "changeLogs": {
+        "createdAt": "Skapade vid",
+        "createdBy": "Skapad av",
+        "description": "Beskrivning",
+        "event": "Event"
+      }
+    },
     "header": {
-      "appTitle": "",
-      "messages": "",
+      "appTitle": "Hantering av parkeringstillstånd",
       "login": "Logga in",
       "logout": "Logga ut",
-      "permits": "",
-      "reports": "",
-      "returns": "",
-      "skipToContent": ""
+      "messages": "Meddelanden",
+      "permits": "Tillstånd",
+      "reports": "Rapporter",
+      "returns": "Returnerar",
+      "skipToContent": "Hoppa till innehållet"
+    },
+    "permitDetail": {
+      "customerInfo": {
+        "address": "Adress",
+        "email": "E-post",
+        "parkingZone": "Parkeringszon",
+        "personalID": "Personligt ID",
+        "phoneNumber": "Telefonnummer",
+        "sendMessageToEmail": "Skicka meddelande till kundens e-post",
+        "title": "Kundinformation",
+        "vehicleHolder": "Fordonshållare"
+      },
+      "permitInfo": {
+        "additionalInfo": "Ytterligare information",
+        "contractType": "Kontraktstyp",
+        "endTime": "Sluttid",
+        "monthsLeft": "Månader kvar",
+        "startTime": "Starttid",
+        "status": "Status",
+        "title": "Tillståndsinformation",
+        "validPeriod": "Giltig period"
+      },
+      "vehicleInfo": {
+        "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
+        "highEmissionVechile": "Fordon med höga utsläpp",
+        "lowEmissionVechile": "Fordon med låga utsläpp",
+        "title": "Fordonsinformation"
+      }
+    },
+    "permits": {
+      "filterItems": {
+        "customer": "Kund",
+        "hetuOrBusinessId": "Hetu / Business ID",
+        "identifier": "Identifierare",
+        "registrationNumber": "Registreringsnummer"
+      },
+      "permitsSearch": {
+        "search": "Sök"
+      },
+      "permitsSearchFilters": {
+        "filterList": "Filterlista"
+      },
+      "statusSelect": {
+        "all": "Alla",
+        "status": "Status"
+      }
     }
   },
   "pages": {
     "login": {
       "login": "Logga in"
+    },
+    "permitDetail": {
+      "changeHistory": "Ändringshistorik",
+      "permitId": "Tillstånds-ID",
+      "permits": "Tillstånd",
+      "residentParkingPermit": "Parkeringstillstånd för boende"
     }
+  },
+  "permitStatus": {
+    "cancelled": "Avbruten",
+    "draft": "Utkast",
+    "expired": "Upphört",
+    "valid": "Giltigt"
   }
 }
