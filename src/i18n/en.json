@@ -12,6 +12,13 @@
         "event": "Event"
       }
     },
+    "createPermit": {
+      "permitTypeSelect": {
+        "companyPermit": "Company permit",
+        "permitType": "Permit type",
+        "residentPermit": "Resident permit"
+      }
+    },
     "header": {
       "appTitle": "Parking Permits Management",
       "login": "Login",
@@ -70,6 +77,11 @@
     }
   },
   "pages": {
+    "createPermit": {
+      "createNewPermit": "Create new permit",
+      "createPermit": "Create permit",
+      "permits": "Permits"
+    },
     "login": {
       "login": "Login"
     },
@@ -78,6 +90,10 @@
       "permitId": "Permit ID",
       "permits": "Permits",
       "residentParkingPermit": "Resident parking permit"
+    },
+    "permits": {
+      "createNewPermit": "Create new permit",
+      "title": "Permits"
     }
   },
   "permitStatus": {
