@@ -44,6 +44,11 @@ export enum PermitContractType {
 
 export type ParkingPermitStatusOrAll = ParkingPermitStatus | 'ALL';
 
+export enum PermitType {
+  RESIDENT = 'resident',
+  COMPANY = 'company',
+}
+
 export interface Permit {
   identifier: number;
   customer: Customer;
