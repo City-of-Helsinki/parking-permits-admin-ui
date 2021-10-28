@@ -1,5 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
+import { Button, IconArrowRight } from 'hds-react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { makePrivate } from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
@@ -16,6 +18,9 @@ import {
   SavedStatus,
 } from '../types';
 import { getSavedStatus, saveStatus } from '../utils';
+import styles from './Permits.module.scss';
+
+const T_PATH = 'pages.permits';
 
 const PERMITS_QUERY = gql`
   query GetPermits(
@@ -63,6 +68,7 @@ const PERMITS_QUERY = gql`
 `;
 
 const Permits = (): React.ReactElement => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const initialPage = getSavedStatus<number>(SavedStatus.PERMITS_PAGE) || 1;
   const initialOrderBy =
@@ -99,7 +105,15 @@ const Permits = (): React.ReactElement => {
     saveStatus(SavedStatus.PERMITS_ORDER_BY, newOrderBy);
   };
   return (
-    <div>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
+        <Button
+          iconLeft={<IconArrowRight />}
+          onClick={() => navigate('create')}>
+          {t(`${T_PATH}.createNewPermit`)}
+        </Button>
+      </div>
       <PermitsSearch searchInfo={searchInfo} onSearch={handleSearch} />
       <PermitsDataTable
         permits={data?.permits.objects || []}
