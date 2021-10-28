@@ -3,8 +3,8 @@
 .toggle-button {
   border-radius: 24px;
   height: 48px;
-  margin: var(--spacing-2-xs) 0;
+  margin: $spacing-2-xs 0;
   &:not(:last-child) {
-    margin-right: var(--spacing-xs);
+    margin-right: $spacing-xs;
   }
 }
