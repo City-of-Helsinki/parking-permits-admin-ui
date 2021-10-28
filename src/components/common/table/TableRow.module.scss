@@ -1,11 +1,11 @@
 @import '~hds-design-tokens/lib/all.scss';
 
 .table-row {
-  height: var(--spacing-2-xl);
-  border-bottom: 1px solid var(--color-black-30);
+  height: $spacing-2-xl;
+  border-bottom: 1px solid $color-black-30;
   cursor: pointer;
 
   td {
-    margin-right: var(--spacing-m);
+    margin-right: $spacing-m;
   }
 }

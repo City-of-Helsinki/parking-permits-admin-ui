@@ -1,5 +1,7 @@
+@import '~hds-design-tokens/lib/all.scss';
+
 .no-data-row {
   text-align: center;
-  height: var(--spacing-2-xl);
-  border-bottom: 1px solid var(--color-black-30);
+  height: $spacing-2-xl;
+  border-bottom: 1px solid $color-black-30;
 }

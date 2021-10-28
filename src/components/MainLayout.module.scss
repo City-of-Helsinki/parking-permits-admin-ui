@@ -9,7 +9,7 @@
 
 .content-container {
   margin: 0 auto;
-  max-width: var(--breakpoint-xl);
-  padding: var(--spacing-l);
+  max-width: $breakpoint-xl;
+  padding: $spacing-l;
   width: 100%;
 }
