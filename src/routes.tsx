@@ -2,7 +2,9 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import MainLayout from './components/MainLayout';
 import AuthError from './pages/AuthError';
+import CreateCompanyPermit from './pages/CreateCompanyPermit';
 import CreatePermit from './pages/CreatePermit';
+import CreateResidentPermit from './pages/CreateResidentPermit';
 import Login from './pages/Login';
 import Messages from './pages/Messages';
 import NotFound from './pages/NotFound';
@@ -20,6 +22,8 @@ const routes = [
       { path: 'permits', element: <Permits /> },
       { path: 'permits/:id', element: <PermitDetail /> },
       { path: 'permits/create', element: <CreatePermit /> },
+      { path: 'permits/create/resident', element: <CreateResidentPermit /> },
+      { path: 'permits/create/company', element: <CreateCompanyPermit /> },
       { path: 'returns', element: <Returns /> },
       { path: 'messages', element: <Messages /> },
       { path: 'reports', element: <Reports /> },
