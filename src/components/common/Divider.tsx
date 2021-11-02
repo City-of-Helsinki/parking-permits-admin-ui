@@ -2,13 +2,12 @@ import React from 'react';
 import styles from './Divider.module.scss';
 
 export interface DividerProps {
-  spacing?: string;
+  className?: string;
 }
 
-const Divider = ({ spacing = '0' }: DividerProps): React.ReactElement => (
+const Divider = ({ className }: DividerProps): React.ReactElement => (
   <div
-    className={styles.divider}
-    style={{ marginTop: spacing, marginBottom: spacing }}
+    className={className ? `${styles.divider} ${className}` : styles.divider}
   />
 );
 

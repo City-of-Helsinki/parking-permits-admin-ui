@@ -57,7 +57,7 @@ const PermitInfo = ({
             value={value}
           />
         ))}
-        <Divider spacing="var(--spacing-m)" />
+        <Divider className={styles.divider} />
         <FieldItem
           label={t(`${T_PATH}.monthsLeft`)}
           value={permit.monthsLeft || '-'}
