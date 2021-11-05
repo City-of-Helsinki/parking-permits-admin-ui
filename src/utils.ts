@@ -18,9 +18,9 @@ export function formatAddress(address: Address, lang: string): string {
   return `${lang === 'sv' ? streetNameSv : streetName} ${streetNumber}`;
 }
 
-export function formatDateTime(datetime: string): string {
-  const date = new Date(datetime);
-  return date.toLocaleString();
+export function formatDateTime(datetime: string | Date): string {
+  const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
+  return dt.toLocaleString();
 }
 
 export function formatZone(zone: ParkingZone, lang: string): string {
