@@ -107,6 +107,13 @@ export interface PermitsQueryData {
   permits: PagedPermits;
 }
 
+export interface FixedPeriodResidentPermit {
+  contractType: PermitContractType.FIXED_PERIOD;
+  monthCount: number;
+  startTime: string;
+  status: ParkingPermitStatus;
+}
+
 export interface OrderBy {
   field: string;
   orderFields: string[];
@@ -134,3 +141,5 @@ export enum SavedStatus {
   PERMITS_ORDER_BY = 'permitsOrderBy',
   PERMITS_SEARCH_INFO = 'permitsSearchInfo',
 }
+
+export type Language = 'fi' | 'sv' | 'en';
