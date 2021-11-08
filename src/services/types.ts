@@ -23,9 +23,9 @@ export interface Person {
   firstName: string;
   lastName: string;
   address: string;
-  addressSecurityBan: string;
+  addressSecurityBan: boolean;
   nationalIdNumber: string;
-  zone: ParkingZone;
+  zone?: ParkingZone;
   phoneNumber: string;
   email: string;
   driverLicenseChecked: boolean;

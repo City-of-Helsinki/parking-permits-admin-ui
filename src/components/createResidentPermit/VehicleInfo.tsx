@@ -1,7 +1,9 @@
 import { Button, Checkbox, RadioButton, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TrafiComVehicle } from '../../services/types';
+import { TrafiComUser, TrafiComVehicle } from '../../services/types';
+import { ParkingZone } from '../../types';
+import { formatMonthlyPrice } from '../../utils';
 import Divider from '../common/Divider';
 import styles from './VehicleInfo.module.scss';
 
@@ -12,10 +14,17 @@ function formatVehicleName(vehicle: TrafiComVehicle): string {
   return `${registrationNumber} ${manufacturer} ${model}`;
 }
 
+function formatUserName(user: TrafiComUser): string {
+  const { firstName, lastName, nationalIdNumber } = user;
+  return `${firstName} ${lastName}, ${nationalIdNumber}`;
+}
+
 interface VehicleInfoProps {
   className?: string;
   vehicle?: TrafiComVehicle;
   searchRegNumber: string;
+  selectedVehicleUser: string;
+  zone?: ParkingZone;
   onChangeSearchRegNumber: (regNumber: string) => void;
   onSearchRegistrationNumber: (regNumber: string) => void;
   onSelectUser: (userId: string) => void;
@@ -26,6 +35,8 @@ const VehicleInfo = ({
   className,
   vehicle,
   searchRegNumber,
+  selectedVehicleUser,
+  zone,
   onChangeSearchRegNumber,
   onSearchRegistrationNumber,
   onSelectUser,
@@ -34,7 +45,7 @@ const VehicleInfo = ({
   const { t } = useTranslation();
   return (
     <div className={className}>
-      <div className={styles.title}>{t(`${T_PATH}.vechileInfo`)}</div>
+      <div className={styles.title}>{t(`${T_PATH}.vehicleInfo`)}</div>
       <Divider />
       <div className={styles.content}>
         <TextInput
@@ -51,34 +62,54 @@ const VehicleInfo = ({
           </Button>
         </TextInput>
         {vehicle?.owner && (
-          <RadioButton
-            disabled
-            id="vehicleOwner"
-            name="vehicleUser"
-            label={t(`${T_PATH}.owner`)}
-            value={vehicle.owner.nationalIdNumber}
-            onChange={e => onSelectUser(e.target.value)}
-          />
+          <>
+            <RadioButton
+              className={styles.fieldItem}
+              id="vehicleOwner"
+              name="vehicleUser"
+              label={t(`${T_PATH}.owner`)}
+              value={vehicle.owner.nationalIdNumber}
+              checked={vehicle.owner.nationalIdNumber === selectedVehicleUser}
+              onChange={e => onSelectUser(e.target.value)}
+            />
+            <div className={styles.vehicleUser}>
+              {formatUserName(vehicle.owner)}
+            </div>
+          </>
         )}
         {vehicle?.holder && (
-          <RadioButton
-            disabled
-            id="vehicleHolder"
-            name="vehicleUser"
-            label={t(`${T_PATH}.holder`)}
-            value={vehicle.holder.nationalIdNumber}
-            onChange={e => onSelectUser(e.target.value)}
-          />
+          <>
+            <RadioButton
+              className={styles.fieldItem}
+              id="vehicleHolder"
+              name="vehicleUser"
+              label={t(`${T_PATH}.holder`)}
+              value={vehicle.holder.nationalIdNumber}
+              checked={vehicle.holder.nationalIdNumber === selectedVehicleUser}
+              onChange={e => onSelectUser(e.target.value)}
+            />
+            <div className={styles.vehicleUser}>
+              {formatUserName(vehicle.holder)}
+            </div>
+          </>
         )}
         {vehicle?.otherHolder && (
-          <RadioButton
-            disabled
-            id="vehicleOtherHolder"
-            name="vehicleUser"
-            label={t(`${T_PATH}.otherHolder`)}
-            value={vehicle.otherHolder.nationalIdNumber}
-            onChange={e => onSelectUser(e.target.value)}
-          />
+          <>
+            <RadioButton
+              className={styles.fieldItem}
+              id="vehicleOtherHolder"
+              name="vehicleUser"
+              label={t(`${T_PATH}.otherHolder`)}
+              value={vehicle.otherHolder.nationalIdNumber}
+              checked={
+                vehicle.otherHolder.nationalIdNumber === selectedVehicleUser
+              }
+              onChange={e => onSelectUser(e.target.value)}
+            />
+            <div className={styles.vehicleUser}>
+              {formatUserName(vehicle.holder)}
+            </div>
+          </>
         )}
         {vehicle && (
           <div className={styles.vehicleInfo}>
@@ -86,11 +117,31 @@ const VehicleInfo = ({
               {t(`${T_PATH}.vehicleInfo`)}
             </div>
             <div className={styles.vehicleInfoContent}>
-              <div className={styles.vehicleName}>
-                {formatVehicleName(vehicle)}
+              <div className={styles.basicInfoAndPriceInfo}>
+                <div className={styles.basicInfo}>
+                  <div className={styles.vehicleName}>
+                    {formatVehicleName(vehicle)}
+                  </div>
+                  <div className={styles.vehicleType}>{vehicle.type}</div>
+                  <div className={styles.serialNumber}>
+                    {t(`${T_PATH}.serialNumber`)} {vehicle.serialNumber}
+                  </div>
+                </div>
+                <div className={styles.priceInfo}>
+                  {vehicle.isLowEmission && (
+                    <div className={styles.discountPrice}>
+                      {zone ? formatMonthlyPrice(zone.price / 2) : '-'}
+                    </div>
+                  )}
+                  <div className={styles.originalPrice}>
+                    {vehicle.isLowEmission ? (
+                      <del>{zone ? formatMonthlyPrice(zone.price) : '-'}</del>
+                    ) : (
+                      <span>{zone ? formatMonthlyPrice(zone.price) : '-'}</span>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className={styles.vehicleType}>{vehicle.type}</div>
-              <div className={styles.serialNumber}>{vehicle.serialNumber}</div>
               <Checkbox
                 id="isLowEmission"
                 name="isLowEmission"

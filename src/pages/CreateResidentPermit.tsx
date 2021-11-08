@@ -7,13 +7,14 @@ import Breadcrumbs from '../components/common/Breadcrumbs';
 import PermitInfo from '../components/createResidentPermit/PermitInfo';
 import PersonalInfo from '../components/createResidentPermit/PersonalInfo';
 import VehicleInfo from '../components/createResidentPermit/VehicleInfo';
+import { searchPerson, searchVechile } from '../services/mock';
 import { Person, TrafiComVehicle } from '../services/types';
 import {
   FixedPeriodResidentPermit,
   ParkingPermitStatus,
   PermitContractType,
 } from '../types';
-import { formatDateTime, formatMonthlyPrice } from '../utils';
+import { formatDate, formatMonthlyPrice } from '../utils';
 import styles from './CreateResidentPermit.module.scss';
 
 const T_PATH = 'pages.createResidentPermit';
@@ -23,14 +24,18 @@ const CreateResidentPermit = (): React.ReactElement => {
   const navigate = useNavigate();
   const [searchRegNumber, setSearchRegNumber] = useState('');
   const [searchPersonalId, setSearchPersonalId] = useState('');
+  const [selectedVehicleUser, setSelectedVehicleUser] = useState('');
   const [vehicle, setVehicle] = useState<TrafiComVehicle>();
   const [person, setPerson] = useState<Person>();
   const [permit, setPermit] = useState<FixedPeriodResidentPermit>({
     contractType: PermitContractType.FIXED_PERIOD,
     monthCount: 1,
-    startTime: formatDateTime(new Date()),
+    startTime: formatDate(new Date()),
     status: ParkingPermitStatus.VALID,
   });
+  const handleSearchVehicle = (regNumber: string) => {
+    searchVechile(regNumber).then(resultVehicle => setVehicle(resultVehicle));
+  };
   const handleUpdateVehicleField = (
     field: keyof TrafiComVehicle,
     value: unknown
@@ -41,6 +46,9 @@ const CreateResidentPermit = (): React.ReactElement => {
         [field]: value,
       });
     }
+  };
+  const handleSearchPerson = (personalId: string) => {
+    searchPerson(personalId).then(resultPerson => setPerson(resultPerson));
   };
   const handleUpdatePersonField = (field: keyof Person, value: unknown) => {
     if (person) {
@@ -63,14 +71,20 @@ const CreateResidentPermit = (): React.ReactElement => {
       const amountLabel = t(`${T_PATH}.monthCount`, {
         count: permit.monthCount,
       });
-      const unitPriceLabel = formatMonthlyPrice(person.zone.price);
+      const price = vehicle?.isLowEmission
+        ? person.zone.price / 2
+        : person.zone.price;
+      const unitPriceLabel = formatMonthlyPrice(price);
       return `${amountLabel}, ${unitPriceLabel}`;
     }
     return '-';
   };
   const formatTotalPrice = () => {
     if (person?.zone && permit) {
-      return permit.monthCount * person.zone.price;
+      const price = vehicle?.isLowEmission
+        ? person.zone.price / 2
+        : person.zone.price;
+      return permit.monthCount * price;
     }
     return '-';
   };
@@ -85,11 +99,16 @@ const CreateResidentPermit = (): React.ReactElement => {
       <div className={styles.content}>
         <VehicleInfo
           vehicle={vehicle}
+          zone={person?.zone}
           className={styles.vehicleInfo}
+          selectedVehicleUser={selectedVehicleUser}
           searchRegNumber={searchRegNumber}
           onChangeSearchRegNumber={regNumber => setSearchRegNumber(regNumber)}
-          onSearchRegistrationNumber={regNumber => console.log(regNumber)}
-          onSelectUser={personalId => setSearchPersonalId(personalId)}
+          onSearchRegistrationNumber={handleSearchVehicle}
+          onSelectUser={personalId => {
+            setSelectedVehicleUser(personalId);
+            setSearchPersonalId(personalId);
+          }}
           onUpdateField={handleUpdateVehicleField}
         />
         <PersonalInfo
@@ -99,7 +118,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           onChangeSearchPersonalId={personalId =>
             setSearchPersonalId(personalId)
           }
-          onSearchPerson={nationalIdNumber => console.log(nationalIdNumber)}
+          onSearchPerson={handleSearchPerson}
           onUpdateField={handleUpdatePersonField}
         />
         <PermitInfo
