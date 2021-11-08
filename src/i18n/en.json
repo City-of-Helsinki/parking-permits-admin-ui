@@ -10,6 +10,9 @@
         "createdBy": "Created by",
         "description": "Description",
         "event": "Event"
+      },
+      "zoneSelect": {
+        "zone": "Zone"
       }
     },
     "createPermit": {
@@ -17,6 +20,41 @@
         "companyPermit": "Company permit",
         "permitType": "Permit type",
         "residentPermit": "Resident permit"
+      }
+    },
+    "createResidentPermit": {
+      "permitInfo": {
+        "additionalInfo": "Additional information",
+        "additionalInfoPlaceholder": "Additional information, e.g. information about moped",
+        "contractType": "Contract type",
+        "effectiveFrom": "Effective from",
+        "expirationDate": "Expiration date",
+        "momentWhenPermitIsSaved": "The time when the parking permit is saved",
+        "permitInfo": "Permit information",
+        "startDate": "Start date",
+        "validPeriodInMonths": "Valid period in months"
+      },
+      "personalInfo": {
+        "address": "Address",
+        "addressSecurityBan": "Security ban: do not store address",
+        "driverLicenseChecked": "Driver's licese is checked",
+        "email": "Email",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "personalId": "Personal ID",
+        "personalInfo": "Personal Information",
+        "phoneNumber": "Phone number",
+        "search": "Search"
+      },
+      "vehicleInfo": {
+        "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
+        "holder": "Vehicle holder",
+        "lowEmissionVehicle": "Low emission vehicle",
+        "owner": "Vehicle owner",
+        "registrationNumber": "Registration number",
+        "search": "Search",
+        "serialNumber": "Serial number",
+        "vehicleInfo": "Vehicle information"
       }
     },
     "header": {
@@ -52,8 +90,8 @@
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
-        "highEmissionVechile": "High emission vehicle",
-        "lowEmissionVechile": "Low emission vehicle",
+        "highEmissionVehcile": "High emission vehicle",
+        "lowEmissionVehicle": "Low emission vehicle",
         "title": "Vehicle information"
       }
     },
@@ -81,6 +119,16 @@
       "createNewPermit": "Create new permit",
       "createPermit": "Create permit",
       "permits": "Permits"
+    },
+    "createResidentPermit": {
+      "cancelAndCloseWithoutSaving": "Cancel and close without saving",
+      "createNewPermit": "Create new permit",
+      "monthCount_one": "{{count}} month",
+      "monthCount_other": "{{count}} months",
+      "permits": "Permits",
+      "residentPermit": "Resident parking permit",
+      "save": "Save",
+      "totalPrice": "Total price"
     },
     "login": {
       "login": "Login"

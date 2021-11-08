@@ -10,6 +10,9 @@
         "createdBy": "Muokkaaja",
         "description": "Selite",
         "event": "Tapahtuma"
+      },
+      "zoneSelect": {
+        "zone": "Alue"
       }
     },
     "createPermit": {
@@ -17,6 +20,41 @@
         "companyPermit": "Yritystunnus",
         "permitType": "Tunnuksen tyyppi",
         "residentPermit": "Asukaspysäköintitunnus"
+      }
+    },
+    "createResidentPermit": {
+      "permitInfo": {
+        "additionalInfo": "Lisätiedot",
+        "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
+        "contractType": "Tunnuksen tyyppi",
+        "effectiveFrom": "Voimassa alkaen",
+        "expirationDate": "Viimeinen voimassaoloaika",
+        "momentWhenPermitIsSaved": "Tunnuksen tallennushetkesä",
+        "permitInfo": "Tunnuksen tiedot",
+        "startDate": "Alkamispäivämäärä",
+        "validPeriodInMonths": "Voimassaoloaika, kuukautta"
+      },
+      "personalInfo": {
+        "address": "Osoite",
+        "addressSecurityBan": "Turvakielto: Osoitetta ei kirjata",
+        "driverLicenseChecked": "Asiakkaan ajokortti tarkistettu",
+        "email": "Sähköpostiosoite",
+        "firstName": "Etunimi",
+        "lastName": "Sukunimi",
+        "personalId": "Henkilötunnus",
+        "personalInfo": "Henkilötiedot",
+        "phoneNumber": "Puhelinnumero",
+        "search": "Hae"
+      },
+      "vehicleInfo": {
+        "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
+        "holder": "Ajoneuvon haltija",
+        "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
+        "owner": "Ajoneuvon omistaja",
+        "registrationNumber": "Rekisterinumero",
+        "search": "Hae",
+        "serialNumber": "Valmistenumero",
+        "vehicleInfo": "Ajoneuvon tiedot"
       }
     },
     "header": {
@@ -52,8 +90,8 @@
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
-        "highEmissionVechile": "Korkeapäästöinen ajoneuvo",
-        "lowEmissionVechile": "Vähäpäästöinen ajoneuvo",
+        "highEmissionVehicle": "Korkeapäästöinen ajoneuvo",
+        "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
         "title": "Ajoneuvon tiedot"
       }
     },
@@ -81,6 +119,16 @@
       "createNewPermit": "Luo uusi tunnus",
       "createPermit": "Luo tunnus",
       "permits": "Tunnukset"
+    },
+    "createResidentPermit": {
+      "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
+      "createNewPermit": "Luo uusi tunnus",
+      "monthCount_one": "{{count}} kuukausi",
+      "monthCount_other": "{{count}} kuukautta",
+      "permits": "Tunnukset",
+      "residentPermit": "Asukaspysäköintitunnus",
+      "save": "Tallenna",
+      "totalPrice": "Tunnuksen yhteissumma"
     },
     "login": {
       "login": "Kirjaudu sisään"
