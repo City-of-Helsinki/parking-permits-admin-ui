@@ -10,6 +10,9 @@
         "createdBy": "Skapad av",
         "description": "Beskrivning",
         "event": "Event"
+      },
+      "zoneSelect": {
+        "zone": "Zon"
       }
     },
     "createPermit": {
@@ -17,6 +20,41 @@
         "companyPermit": "Företagstillstånd",
         "permitType": "Typ av tillstånd",
         "residentPermit": "Boendetillstånd"
+      }
+    },
+    "createResidentPermit": {
+      "permitInfo": {
+        "additionalInfo": "Ytterligare information",
+        "additionalInfoPlaceholder": "För ytterligare information, t.ex. information om mopeden",
+        "contractType": "Kontraktstyp",
+        "effectiveFrom": "Gäller från",
+        "expirationDate": "Utgångsdatum",
+        "momentWhenPermitIsSaved": "Tiden parkeringstillståndet sparades",
+        "permitInfo": "Tillståndsinformation",
+        "startDate": "Startdatum",
+        "validPeriodInMonths": "Giltig period i månader"
+      },
+      "personalInfo": {
+        "address": "Adress",
+        "addressSecurityBan": "Säkerhetsförbud: lagra inte adress",
+        "driverLicenseChecked": "Förarlicensen är kontrollerad",
+        "email": "E-post",
+        "firstName": "Förnamn",
+        "lastName": "Efternamn",
+        "personalId": "Personligt ID",
+        "personalInfo": "Personlig information",
+        "phoneNumber": "Telefonnummer",
+        "search": "Sök"
+      },
+      "vehicleInfo": {
+        "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
+        "holder": "Fordonshållare",
+        "lowEmissionVehicle": "Fordon med låga utsläpp",
+        "owner": "Fordonsägare",
+        "registrationNumber": "Registreringsnummer",
+        "search": "Sök",
+        "serialNumber": "Serienummer",
+        "vehicleInfo": "Fordonsinformation"
       }
     },
     "header": {
@@ -52,8 +90,8 @@
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
-        "highEmissionVechile": "Fordon med höga utsläpp",
-        "lowEmissionVechile": "Fordon med låga utsläpp",
+        "highEmissionVehicle": "Fordon med höga utsläpp",
+        "lowEmissionVehicle": "Fordon med låga utsläpp",
         "title": "Fordonsinformation"
       }
     },
@@ -81,6 +119,16 @@
       "createNewPermit": "Skapa nytt tillstånd",
       "createPermit": "Skapa tillstånd",
       "permits": "Tillstånd"
+    },
+    "createResidentPermit": {
+      "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
+      "createNewPermit": "Skapa nytt tillstånd",
+      "monthCount_one": "{{count}} månad",
+      "monthCount_other": "{{count}} månader",
+      "permits": "Tillstånd",
+      "residentPermit": "Parkeringstillstånd för boende",
+      "save": "Spara",
+      "totalPrice": "Totalpris"
     },
     "login": {
       "login": "Logga in"
