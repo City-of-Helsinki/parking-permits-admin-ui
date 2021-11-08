@@ -28,7 +28,7 @@ const VehicleInfo = ({
         <div className={styles.emissionInfo}>
           {t(
             `${T_PATH}.${
-              isLowEmission ? 'lowEmissionVechile' : 'highEmissionVechile'
+              isLowEmission ? 'lowEmissionVehicle' : 'highEmissionVehicle'
             }`
           )}
         </div>
