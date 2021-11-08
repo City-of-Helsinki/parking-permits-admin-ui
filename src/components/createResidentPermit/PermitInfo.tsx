@@ -9,7 +9,7 @@ import styles from './PermitInfo.module.scss';
 
 const T_PATH = 'components.createResidentPermit.permitInfo';
 
-function calculateExpirationDate(
+function calculateExpirationDateTime(
   startTime: string,
   monthCount: number
 ): string {
@@ -41,7 +41,7 @@ const PermitInfo = ({
 }: PermitInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const expirationDate = permit
-    ? calculateExpirationDate(permit.startTime, permit.monthCount)
+    ? calculateExpirationDateTime(permit.startTime, permit.monthCount)
     : '';
   return (
     <div className={className}>
@@ -61,7 +61,12 @@ const PermitInfo = ({
           id="validPeriodInMonths"
           label={t(`${T_PATH}.validPeriodInMonths`)}
           step={1}
+          min={1}
+          max={12}
           value={permit.monthCount}
+          onChange={e =>
+            onUpdateField('monthCount', parseInt(e.target.value, 10))
+          }
         />
         <DateInput
           required

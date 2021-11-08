@@ -45,7 +45,7 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="addressSecurityBan"
           label={t(`${T_PATH}.addressSecurityBan`)}
-          value={person?.addressSecurityBan}
+          checked={person?.addressSecurityBan}
           onChange={e => onUpdateField('addressSecurityBan', e.target.checked)}
         />
         <TextInput
@@ -74,8 +74,9 @@ const PersonalInfo = ({
         />
         <ZoneSelect
           required
+          disabled={!person?.addressSecurityBan}
           className={styles.fieldItem}
-          value={person?.zone.name}
+          value={person?.zone?.name}
           onChange={zone => onUpdateField('zone', zone)}
         />
         <Divider className={styles.fieldDivider} />
@@ -83,12 +84,14 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="phoneNumber"
           label={t(`${T_PATH}.phoneNumber`)}
+          value={person?.phoneNumber}
           onChange={e => onUpdateField('phoneNumber', e.target.value)}
         />
         <TextInput
           className={styles.fieldItem}
           id="email"
           label={t(`${T_PATH}.email`)}
+          value={person?.email}
           onChange={e => onUpdateField('email', e.target.value)}
         />
         <Divider className={styles.fieldDivider} />
@@ -96,6 +99,7 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="driverLicenseChecked"
           label={t(`${T_PATH}.driverLicenseChecked`)}
+          checked={person?.driverLicenseChecked}
           onChange={e =>
             onUpdateField('driverLicenseChecked', e.target.checked)
           }
