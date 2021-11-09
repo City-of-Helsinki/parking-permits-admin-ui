@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { OrderBy, PageInfo, Permit } from '../../types';
-import { formatAddress, formatDateTime } from '../../utils';
+import { formatAddress, formatDateTimeDisplay } from '../../utils';
 import DataTable from '../common/DataTable';
 import StatusLabel from '../common/StatusLabel';
 import { Column } from '../types';
@@ -64,13 +64,13 @@ const PermitsDataTable = ({
     {
       name: 'Start time',
       field: 'startTime',
-      selector: row => formatDateTime(row.startTime),
+      selector: row => formatDateTimeDisplay(row.startTime),
       orderFields: ['start_time'],
     },
     {
       name: 'End time',
       field: 'endTime',
-      selector: row => (row.endTime ? formatDateTime(row.endTime) : '-'),
+      selector: row => (row.endTime ? formatDateTimeDisplay(row.endTime) : '-'),
       orderFields: ['end_time'],
     },
     {

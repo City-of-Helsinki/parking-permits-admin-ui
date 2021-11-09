@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail } from '../../types';
-import { formatDateTime } from '../../utils';
+import { formatDateTimeDisplay } from '../../utils';
 import Divider from '../common/Divider';
 import StatusLabel from '../common/StatusLabel';
 import FieldItem from './FieldItem';
@@ -30,11 +30,11 @@ const PermitInfo = ({
     },
     {
       label: t(`${T_PATH}.startTime`),
-      value: formatDateTime(startTime),
+      value: formatDateTimeDisplay(startTime),
     },
     {
       label: t(`${T_PATH}.endTime`),
-      value: endTime ? formatDateTime(endTime) : '-',
+      value: endTime ? formatDateTimeDisplay(endTime) : '-',
     },
     {
       label: t(`${T_PATH}.status`),
