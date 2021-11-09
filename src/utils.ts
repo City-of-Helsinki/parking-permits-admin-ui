@@ -14,11 +14,15 @@ export function getBooleanEnv(key: string): boolean {
 }
 
 export function formatAddress(address: Address, lang: string): string {
-  const { streetName, streetNameSv, streetNumber } = address;
-  return `${lang === 'sv' ? streetNameSv : streetName} ${streetNumber}`;
+  const { streetName, streetNameSv, streetNumber, postalCode, city, citySv } =
+    address;
+  if (lang === 'sv') {
+    return `${streetNameSv} ${streetNumber}, ${postalCode} ${citySv}`;
+  }
+  return `${streetName} ${streetNumber}, ${postalCode} ${city}`;
 }
 
-export function formatDate(datetime: string | Date): string {
+export function formatDateDisplay(datetime: string | Date): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
   const year = dt.getFullYear();
   const month = dt.getMonth() + 1;
@@ -26,7 +30,7 @@ export function formatDate(datetime: string | Date): string {
   return `${date}.${month}.${year}`;
 }
 
-export function formatDateTime(datetime: string | Date): string {
+export function formatDateTimeDisplay(datetime: string | Date): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
   const year = dt.getFullYear();
   const month = dt.getMonth();
