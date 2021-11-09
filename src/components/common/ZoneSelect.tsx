@@ -38,13 +38,18 @@ const ZoneSelect = ({
 }: ZoneSelectProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
-  const zones = data?.zones || [];
-  const zoneOptions: ZoneOption[] = zones.map(zone => ({
-    label: formatZone(zone, i18n.language),
-    value: zone.name,
-  }));
+  const emptyOption: ZoneOption = {
+    label: '--------',
+    value: '',
+  };
+  const zoneOptions: ZoneOption[] = data?.zones
+    ? data.zones.map(zone => ({
+        label: formatZone(zone, i18n.language),
+        value: zone.name,
+      }))
+    : [emptyOption];
   const handleChange = (option: ZoneOption) => {
-    const selectedZone = zones.find(zone => option.value === zone.name);
+    const selectedZone = data?.zones.find(zone => option.value === zone.name);
     return onChange(selectedZone);
   };
   const selectedOption = value
@@ -55,7 +60,7 @@ const ZoneSelect = ({
       {...otherProps}
       label={t(`${T_PATH}.zone`)}
       options={zoneOptions}
-      value={selectedOption}
+      value={selectedOption || zoneOptions[0]}
       onChange={handleChange}
     />
   );
