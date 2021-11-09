@@ -4,6 +4,9 @@ export interface Address {
   streetName: string;
   streetNumber: number;
   streetNameSv: string;
+  city: string;
+  citySv: string;
+  postalCode: string;
 }
 
 export interface Customer {
@@ -107,6 +110,53 @@ export interface PermitsQueryData {
   permits: PagedPermits;
 }
 
+export interface FixedPeriodResidentPermit {
+  contractType: PermitContractType.FIXED_PERIOD;
+  monthCount: number;
+  startTime: string;
+  status: ParkingPermitStatus;
+}
+
+export interface ResidentPermitCustomer {
+  firstName: string;
+  lastName: string;
+  address?: Address;
+  addressSecurityBan: boolean;
+  nationalIdNumber: string;
+  zone: ParkingZone;
+  phoneNumber: string;
+  email: string;
+  driverLicenseChecked: boolean;
+}
+
+export interface VehicleUser {
+  firstName: string;
+  lastName: string;
+  nationalIdNumber: string;
+}
+
+export interface ResidentPermitVehicle {
+  isLowEmission: boolean;
+  consentLowEmissionAccepted: boolean;
+  registrationNumber: string;
+  manufacturer: string;
+  model: string;
+  type: string;
+  serialNumber: string;
+  holder: VehicleUser;
+  owner: VehicleUser;
+  otherHolder?: VehicleUser;
+}
+
+export interface ResidentPermit extends FixedPeriodResidentPermit {
+  customer: ResidentPermitCustomer;
+  vehicle: ResidentPermitVehicle;
+}
+
+export interface CreateResidentPermitResponse {
+  success: boolean;
+}
+
 export interface OrderBy {
   field: string;
   orderFields: string[];
@@ -134,3 +184,5 @@ export enum SavedStatus {
   PERMITS_ORDER_BY = 'permitsOrderBy',
   PERMITS_SEARCH_INFO = 'permitsSearchInfo',
 }
+
+export type Language = 'fi' | 'sv' | 'en';

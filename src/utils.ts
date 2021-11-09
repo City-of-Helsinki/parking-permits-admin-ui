@@ -14,13 +14,24 @@ export function getBooleanEnv(key: string): boolean {
 }
 
 export function formatAddress(address: Address, lang: string): string {
-  const { streetName, streetNameSv, streetNumber } = address;
-  return `${lang === 'sv' ? streetNameSv : streetName} ${streetNumber}`;
+  const { streetName, streetNameSv, streetNumber, postalCode, city, citySv } =
+    address;
+  if (lang === 'sv') {
+    return `${streetNameSv} ${streetNumber}, ${postalCode} ${citySv}`;
+  }
+  return `${streetName} ${streetNumber}, ${postalCode} ${city}`;
 }
 
-export function formatDateTime(datetime: string): string {
-  const date = new Date(datetime);
-  return date.toLocaleString();
+export function formatDateDisplay(datetime: string | Date): string {
+  const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
+  return dt.toLocaleDateString('fi');
+}
+
+export function formatDateTimeDisplay(datetime: string | Date): string {
+  const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
+  const dateStr = dt.toLocaleDateString('fi');
+  const timeStr = dt.toLocaleTimeString('fi');
+  return `${dateStr}, ${timeStr}`;
 }
 
 export function formatZone(zone: ParkingZone, lang: string): string {

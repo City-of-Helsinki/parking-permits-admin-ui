@@ -1,0 +1,20 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.title {
+  font-size: $fontsize-body-xl;
+  padding: $spacing-s;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-s;
+
+  .fieldItem {
+    margin: $spacing-2-xs 0;
+  }
+
+  .fieldDivider {
+    margin: $spacing-2-xs 0;
+  }
+}

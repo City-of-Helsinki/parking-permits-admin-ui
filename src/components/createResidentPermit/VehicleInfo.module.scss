@@ -1,0 +1,48 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.title {
+  font-size: $fontsize-body-xl;
+  padding: $spacing-s;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  .fieldItem {
+    margin: $spacing-2-xs $spacing-m;
+  }
+
+  .vehicleUser {
+    margin: 0 $spacing-2-xl;
+  }
+
+  .vehicleInfo {
+    .vehicleInfoTitle {
+      margin-top: $spacing-m;
+      padding: 0 $spacing-m;
+      font-weight: 600;
+    }
+    .vehicleInfoContent {
+      padding: $spacing-s $spacing-m;
+      background-color: $color-coat-of-arms-light;
+      .basicInfoAndPriceInfo {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .basicInfo {
+          .vehicleName {
+            font-weight: 600;
+            font-size: $fontsize-body-l;
+          }
+        }
+        .priceInfo {
+          .discountPrice {
+            text-align: right;
+            font-weight: 550;
+          }
+        }
+      }
+    }
+  }
+}

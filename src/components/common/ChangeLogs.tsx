@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChangeLog, ChangeLogEvent } from '../../types';
-import { formatDateTime } from '../../utils';
+import { formatDateTimeDisplay } from '../../utils';
 import { Column } from '../types';
 import DataTable from './DataTable';
 
@@ -21,7 +21,7 @@ const ChangeLogs = ({ changeLogs }: ChangeLogsProps): React.ReactElement => {
     {
       name: t(`${T_PATH}.createdAt`),
       field: 'createdAt',
-      selector: ({ createdAt }) => formatDateTime(createdAt),
+      selector: ({ createdAt }) => formatDateTimeDisplay(createdAt),
     },
     {
       name: t(`${T_PATH}.event`),

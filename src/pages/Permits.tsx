@@ -46,6 +46,9 @@ const PERMITS_QUERY = gql`
             streetName
             streetNameSv
             streetNumber
+            city
+            citySv
+            postalCode
           }
         }
         vehicle {
@@ -88,6 +91,7 @@ const Permits = (): React.ReactElement => {
   };
   const { loading, error, data } = useQuery<PermitsQueryData>(PERMITS_QUERY, {
     variables,
+    fetchPolicy: 'no-cache',
   });
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
