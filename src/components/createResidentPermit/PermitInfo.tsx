@@ -1,3 +1,4 @@
+import { addMonths } from 'date-fns';
 import { DateInput, NumberInput, TextArea, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,22 +9,6 @@ import StatusSelect from '../permits/StatusSelect';
 import styles from './PermitInfo.module.scss';
 
 const T_PATH = 'components.createResidentPermit.permitInfo';
-
-function calculateExpirationDateTime(
-  startTime: string,
-  monthCount: number
-): string {
-  const date = new Date(startTime);
-  let newMonth = date.getMonth() + monthCount;
-  // eslint-disable-next-line no-magic-numbers
-  if (newMonth > 12) {
-    date.setFullYear(date.getFullYear() + 1);
-    // eslint-disable-next-line no-magic-numbers
-    newMonth -= 12;
-  }
-  date.setMonth(newMonth);
-  return formatDateTimeDisplay(date);
-}
 
 interface PermitInfoProps {
   className?: string;
@@ -41,7 +26,9 @@ const PermitInfo = ({
 }: PermitInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const expirationDate = permit
-    ? calculateExpirationDateTime(permit.startTime, permit.monthCount)
+    ? formatDateTimeDisplay(
+        addMonths(new Date(permit.startTime), permit.monthCount)
+      )
     : '';
   return (
     <div className={className}>
