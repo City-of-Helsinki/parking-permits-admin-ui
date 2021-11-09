@@ -24,20 +24,14 @@ export function formatAddress(address: Address, lang: string): string {
 
 export function formatDateDisplay(datetime: string | Date): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
-  const year = dt.getFullYear();
-  const month = dt.getMonth() + 1;
-  const date = dt.getDate();
-  return `${date}.${month}.${year}`;
+  return dt.toLocaleDateString('fi');
 }
 
 export function formatDateTimeDisplay(datetime: string | Date): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
-  const year = dt.getFullYear();
-  const month = dt.getMonth();
-  const date = dt.getDate();
-  const hours = dt.getHours();
-  const minutes = dt.getMinutes();
-  return `${date}.${month}.${year}, ${hours}:${minutes}`;
+  const dateStr = dt.toLocaleDateString('fi');
+  const timeStr = dt.toLocaleTimeString('fi');
+  return `${dateStr}, ${timeStr}`;
 }
 
 export function formatZone(zone: ParkingZone, lang: string): string {
