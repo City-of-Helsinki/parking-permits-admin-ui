@@ -1,9 +1,11 @@
-import { Person, TrafiComVehicle } from './types';
+import { ResidentPermitCustomer, ResidentPermitVehicle } from '../types';
 
-export function searchVechile(regNumber: string): Promise<TrafiComVehicle> {
-  const vehicle: TrafiComVehicle = {
+export function searchVechile(
+  regNumber: string
+): Promise<ResidentPermitVehicle> {
+  const vehicle: ResidentPermitVehicle = {
     isLowEmission: false,
-    consentLowEmissionDiscount: false,
+    consentLowEmissionAccepted: false,
     registrationNumber: regNumber,
     manufacturer: 'Volkswagen',
     model: 'Golf',
@@ -23,11 +25,20 @@ export function searchVechile(regNumber: string): Promise<TrafiComVehicle> {
   return Promise.resolve(vehicle);
 }
 
-export function searchPerson(personalId: string): Promise<Person> {
-  const person = {
+export function searchPerson(
+  personalId: string
+): Promise<ResidentPermitCustomer> {
+  const person: ResidentPermitCustomer = {
     firstName: 'Phil',
     lastName: 'Duncan',
-    address: 'RandomKatu 1, 00100, Helsinki',
+    address: {
+      streetName: 'RandomKatu',
+      streetNameSv: 'RandomKatu',
+      streetNumber: 1,
+      city: 'Helsinki',
+      citySv: 'Helsingfors',
+      postalCode: '00100',
+    },
     zone: {
       name: 'A',
       description: 'Kamppi',

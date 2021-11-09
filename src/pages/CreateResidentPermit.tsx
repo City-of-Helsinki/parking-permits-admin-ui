@@ -1,3 +1,4 @@
+import { gql, useMutation } from '@apollo/client';
 import { Button, IconCheckCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,36 +9,77 @@ import PermitInfo from '../components/createResidentPermit/PermitInfo';
 import PersonalInfo from '../components/createResidentPermit/PersonalInfo';
 import VehicleInfo from '../components/createResidentPermit/VehicleInfo';
 import { searchPerson, searchVechile } from '../services/mock';
-import { Person, TrafiComVehicle } from '../services/types';
 import {
+  CreateResidentPermitResponse,
   FixedPeriodResidentPermit,
   ParkingPermitStatus,
   PermitContractType,
+  ResidentPermit,
+  ResidentPermitCustomer,
+  ResidentPermitVehicle,
 } from '../types';
-import { formatDate, formatMonthlyPrice } from '../utils';
+import { formatMonthlyPrice } from '../utils';
 import styles from './CreateResidentPermit.module.scss';
 
 const T_PATH = 'pages.createResidentPermit';
 
+const CREATE_RESIDENT_PERMIT_MUTATION = gql`
+  mutation CreateResidentPermit($permit: ResidentPermitInput!) {
+    createResidentPermit(permit: $permit) {
+      success
+    }
+  }
+`;
+
 const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
+  const [createResidentPermit] = useMutation<CreateResidentPermitResponse>(
+    CREATE_RESIDENT_PERMIT_MUTATION
+  );
   const navigate = useNavigate();
   const [searchRegNumber, setSearchRegNumber] = useState('');
   const [searchPersonalId, setSearchPersonalId] = useState('');
   const [selectedVehicleUser, setSelectedVehicleUser] = useState('');
-  const [vehicle, setVehicle] = useState<TrafiComVehicle>();
-  const [person, setPerson] = useState<Person>();
+  const [vehicle, setVehicle] = useState<ResidentPermitVehicle>();
+  const [person, setPerson] = useState<ResidentPermitCustomer>({
+    firstName: '',
+    lastName: '',
+    zone: {
+      name: '',
+      description: '',
+      descriptionSv: '',
+      price: 0,
+    },
+    addressSecurityBan: false,
+    nationalIdNumber: '',
+    phoneNumber: '',
+    email: '',
+    driverLicenseChecked: false,
+  });
   const [permit, setPermit] = useState<FixedPeriodResidentPermit>({
     contractType: PermitContractType.FIXED_PERIOD,
     monthCount: 1,
-    startTime: formatDate(new Date()),
+    startTime: new Date().toISOString(),
     status: ParkingPermitStatus.VALID,
   });
+  const handleCreateResidentPermit = () => {
+    if (!vehicle || !person || !person.zone) {
+      return;
+    }
+    const permitData: ResidentPermit = {
+      ...permit,
+      customer: person,
+      vehicle,
+    };
+    createResidentPermit({ variables: { permit: permitData } }).then(() => {
+      navigate('/permits');
+    });
+  };
   const handleSearchVehicle = (regNumber: string) => {
     searchVechile(regNumber).then(resultVehicle => setVehicle(resultVehicle));
   };
   const handleUpdateVehicleField = (
-    field: keyof TrafiComVehicle,
+    field: keyof ResidentPermitVehicle,
     value: unknown
   ) => {
     if (vehicle) {
@@ -50,7 +92,10 @@ const CreateResidentPermit = (): React.ReactElement => {
   const handleSearchPerson = (personalId: string) => {
     searchPerson(personalId).then(resultPerson => setPerson(resultPerson));
   };
-  const handleUpdatePersonField = (field: keyof Person, value: unknown) => {
+  const handleUpdatePersonField = (
+    field: keyof ResidentPermitCustomer,
+    value: unknown
+  ) => {
     if (person) {
       setPerson({
         ...person,
@@ -132,7 +177,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           <Button
             className={styles.actionButton}
             iconLeft={<IconCheckCircleFill />}
-            onClick={() => console.log('save')}>
+            onClick={handleCreateResidentPermit}>
             {t(`${T_PATH}.save`)}
           </Button>
           <Button

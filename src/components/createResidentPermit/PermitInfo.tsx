@@ -2,7 +2,7 @@ import { DateInput, NumberInput, TextArea, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FixedPeriodResidentPermit, Language } from '../../types';
-import { formatDateTime } from '../../utils';
+import { formatDateDisplay, formatDateTimeDisplay } from '../../utils';
 import Divider from '../common/Divider';
 import StatusSelect from '../permits/StatusSelect';
 import styles from './PermitInfo.module.scss';
@@ -22,7 +22,7 @@ function calculateExpirationDateTime(
     newMonth -= 12;
   }
   date.setMonth(newMonth);
-  return formatDateTime(date);
+  return formatDateTimeDisplay(date);
 }
 
 interface PermitInfoProps {
@@ -75,8 +75,10 @@ const PermitInfo = ({
           initialMonth={new Date()}
           label={t(`${T_PATH}.startDate`)}
           language={i18n.language as Language}
-          value={permit.startTime}
-          onChange={value => onUpdateField('startTime', value)}
+          value={formatDateDisplay(permit.startTime)}
+          onChange={(value, date) =>
+            onUpdateField('startTime', date.toISOString())
+          }
         />
         <TextInput
           readOnly

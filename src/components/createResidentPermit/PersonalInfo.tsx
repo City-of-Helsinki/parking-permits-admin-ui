@@ -1,7 +1,8 @@
 import { Button, Checkbox, PhoneInput, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Person } from '../../services/types';
+import { ResidentPermitCustomer } from '../../types';
+import { formatAddress } from '../../utils';
 import Divider from '../common/Divider';
 import ZoneSelect from '../common/ZoneSelect';
 import styles from './PersonalInfo.module.scss';
@@ -10,11 +11,11 @@ const T_PATH = 'components.createResidentPermit.personalInfo';
 
 interface PersonalInfoProps {
   className?: string;
-  person?: Person;
+  person?: ResidentPermitCustomer;
   searchPersonalId: string;
   onChangeSearchPersonalId: (personalId: string) => void;
   onSearchPerson: (nationalIdNumber: string) => void;
-  onUpdateField: (field: keyof Person, value: unknown) => void;
+  onUpdateField: (field: keyof ResidentPermitCustomer, value: unknown) => void;
 }
 
 const PersonalInfo = ({
@@ -25,7 +26,7 @@ const PersonalInfo = ({
   onSearchPerson,
   onUpdateField,
 }: PersonalInfoProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.personalInfo`)}</div>
@@ -69,7 +70,11 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="address"
           label={t(`${T_PATH}.address`)}
-          value={person?.address}
+          value={
+            person?.address
+              ? formatAddress(person?.address, i18n.language)
+              : '-'
+          }
           onChange={e => onUpdateField('address', e.target.value)}
         />
         <ZoneSelect

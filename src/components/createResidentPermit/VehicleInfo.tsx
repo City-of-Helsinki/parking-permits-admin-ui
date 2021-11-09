@@ -1,34 +1,33 @@
 import { Button, Checkbox, RadioButton, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TrafiComUser, TrafiComVehicle } from '../../services/types';
-import { ParkingZone } from '../../types';
+import { ParkingZone, ResidentPermitVehicle, VehicleUser } from '../../types';
 import { formatMonthlyPrice } from '../../utils';
 import Divider from '../common/Divider';
 import styles from './VehicleInfo.module.scss';
 
 const T_PATH = 'components.createResidentPermit.vehicleInfo';
 
-function formatVehicleName(vehicle: TrafiComVehicle): string {
+function formatVehicleName(vehicle: ResidentPermitVehicle): string {
   const { manufacturer, model, registrationNumber } = vehicle;
   return `${registrationNumber} ${manufacturer} ${model}`;
 }
 
-function formatUserName(user: TrafiComUser): string {
+function formatUserName(user: VehicleUser): string {
   const { firstName, lastName, nationalIdNumber } = user;
   return `${firstName} ${lastName}, ${nationalIdNumber}`;
 }
 
 interface VehicleInfoProps {
   className?: string;
-  vehicle?: TrafiComVehicle;
+  vehicle?: ResidentPermitVehicle;
   searchRegNumber: string;
   selectedVehicleUser: string;
   zone?: ParkingZone;
   onChangeSearchRegNumber: (regNumber: string) => void;
   onSearchRegistrationNumber: (regNumber: string) => void;
   onSelectUser: (userId: string) => void;
-  onUpdateField: (field: keyof TrafiComVehicle, value: unknown) => void;
+  onUpdateField: (field: keyof ResidentPermitVehicle, value: unknown) => void;
 }
 
 const VehicleInfo = ({
@@ -153,9 +152,9 @@ const VehicleInfo = ({
                 id="consentLowEmissionDiscount"
                 name="consentLowEmissionDiscount"
                 label={t(`${T_PATH}.consentLowEmissionDiscountText`)}
-                checked={vehicle.consentLowEmissionDiscount}
+                checked={vehicle.consentLowEmissionAccepted}
                 onChange={e =>
-                  onUpdateField('consentLowEmissionDiscount', e.target.checked)
+                  onUpdateField('consentLowEmissionAccepted', e.target.checked)
                 }
               />
             </div>
