@@ -10,8 +10,8 @@ import PersonalInfo from '../components/createResidentPermit/PersonalInfo';
 import VehicleInfo from '../components/createResidentPermit/VehicleInfo';
 import { searchPerson, searchVechile } from '../services/mock';
 import {
-  CreateResidentPermitResponse,
   FixedPeriodResidentPermit,
+  MutationResponse,
   ParkingPermitStatus,
   PermitContractType,
   ResidentPermit,
@@ -33,7 +33,7 @@ const CREATE_RESIDENT_PERMIT_MUTATION = gql`
 
 const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
-  const [createResidentPermit] = useMutation<CreateResidentPermitResponse>(
+  const [createResidentPermit] = useMutation<MutationResponse>(
     CREATE_RESIDENT_PERMIT_MUTATION
   );
   const navigate = useNavigate();
