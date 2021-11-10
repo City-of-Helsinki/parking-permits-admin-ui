@@ -32,7 +32,7 @@
     position: fixed;
     width: 100%;
     max-width: $breakpoint-xl;
-    left: calc(100% - $breakpoint-xl) / 2;
+    left: calc(100% - #{$breakpoint-xl}) / 2;
     bottom: 0;
     background-color: white;
     display: flex;
