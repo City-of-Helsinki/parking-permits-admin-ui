@@ -157,7 +157,7 @@ export interface ResidentPermit extends FixedPeriodResidentPermit {
   vehicle: ResidentPermitVehicle;
 }
 
-export interface CreateResidentPermitResponse {
+export interface MutationResponse {
   success: boolean;
 }
 
