@@ -44,6 +44,9 @@ const PERMIT_DETAIL_QUERY = gql`
           streetName
           streetNameSv
           streetNumber
+          city
+          citySv
+          postalCode
         }
       }
       vehicle {
