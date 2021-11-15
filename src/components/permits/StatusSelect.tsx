@@ -37,12 +37,12 @@ const StatusSelect = ({
       value: ParkingPermitStatus.VALID,
     },
     {
-      label: <StatusLabel status={ParkingPermitStatus.CANCELLED} />,
-      value: ParkingPermitStatus.CANCELLED,
+      label: <StatusLabel status={ParkingPermitStatus.PAYMENT_IN_PROGRESS} />,
+      value: ParkingPermitStatus.PAYMENT_IN_PROGRESS,
     },
     {
-      label: <StatusLabel status={ParkingPermitStatus.EXPIRED} />,
-      value: ParkingPermitStatus.EXPIRED,
+      label: <StatusLabel status={ParkingPermitStatus.CLOSED} />,
+      value: ParkingPermitStatus.CLOSED,
     },
   ];
   return (

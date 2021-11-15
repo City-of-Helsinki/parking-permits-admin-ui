@@ -36,8 +36,8 @@ export interface ParkingZone {
 export enum ParkingPermitStatus {
   DRAFT = 'DRAFT',
   VALID = 'VALID',
-  CANCELLED = 'CANCELLED',
-  EXPIRED = 'EXPIRED',
+  PAYMENT_IN_PROGRESS = 'PAYMENT_IN_PROGRESS',
+  CLOSED = 'CLOSED',
 }
 
 export enum PermitContractType {
