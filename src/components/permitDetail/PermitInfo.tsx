@@ -19,10 +19,14 @@ const PermitInfo = ({
 }: PermitInfoProps): React.ReactElement => {
   const { t } = useTranslation();
   const { contractType, monthCount, startTime, endTime, status } = permit;
+  const contractTypeLabelMapping = {
+    FIXED_PERIOD: t('contractType.fixedPeriod'),
+    OPEN_ENDED: t('contractType.openEnded'),
+  };
   const fields = [
     {
       label: t(`${T_PATH}.contractType`),
-      value: contractType,
+      value: contractTypeLabelMapping[contractType] || '-',
     },
     {
       label: t(`${T_PATH}.validPeriod`),
