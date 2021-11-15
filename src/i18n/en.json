@@ -102,6 +102,15 @@
         "identifier": "Identifier",
         "registrationNumber": "Registration number"
       },
+      "permitsDataTable": {
+        "address": "Address",
+        "endTime": "End time",
+        "name": "Name",
+        "registrationNumber": "Registration number",
+        "startTime": "Start time",
+        "status": "Status",
+        "zone": "Zone"
+      },
       "permitsSearch": {
         "search": "Search"
       },

@@ -102,6 +102,15 @@
         "identifier": "Tunniste",
         "registrationNumber": "Rekisterinumero"
       },
+      "permitsDataTable": {
+        "address": "Osoite",
+        "endTime": "Loppuaika",
+        "name": "Nimi",
+        "registrationNumber": "Rekisterinumero",
+        "startTime": "Alkuaika",
+        "status": "Tila",
+        "zone": "Alue"
+      },
       "permitsSearch": {
         "search": "Hae"
       },
