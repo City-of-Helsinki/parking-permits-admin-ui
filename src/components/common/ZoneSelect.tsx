@@ -14,6 +14,7 @@ const ZONES_QUERY = gql`
       name
       description
       descriptionSv
+      price
     }
   }
 `;
