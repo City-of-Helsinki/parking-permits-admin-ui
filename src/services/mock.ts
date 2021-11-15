@@ -11,6 +11,8 @@ export function searchVechile(
     model: 'Golf',
     type: 'Personal car',
     serialNumber: '10000001',
+    productionYear: 2010,
+    emission: 60,
     holder: {
       firstName: 'Phil',
       lastName: 'Duncan',
