@@ -123,6 +123,10 @@
       }
     }
   },
+  "contractType": {
+    "fixedPeriod": "Fixed period",
+    "openEnded": "Open ended"
+  },
   "pages": {
     "createPermit": {
       "createNewPermit": "Create new permit",

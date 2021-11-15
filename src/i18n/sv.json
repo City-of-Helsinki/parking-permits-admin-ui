@@ -123,6 +123,10 @@
       }
     }
   },
+  "contractType": {
+    "fixedPeriod": "Tillfällig",
+    "openEnded": "Kontinuerlig laddning"
+  },
   "pages": {
     "createPermit": {
       "createNewPermit": "Skapa nytt tillstånd",
