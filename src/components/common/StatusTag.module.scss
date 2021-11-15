@@ -13,9 +13,9 @@ $size: 32px;
   padding: 0 $spacing-s;
 }
 
-.cancelled {
-  border: 1px solid $color-cancelled-border;
-  background-color: $color-cancelled-fill;
+.closed {
+  border: 1px solid $color-closed-border;
+  background-color: $color-closed-fill;
 }
 
 .draft {
@@ -28,7 +28,7 @@ $size: 32px;
   background-color: $color-valid-fill;
 }
 
-.expired {
-  border: 1px solid $color-expired-border;
-  background-color: $color-expired-fill;
+.paymentInProgress {
+  border: 1px solid $color-payment-in-progress-border;
+  background-color: $color-payment-in-progress-fill;
 }

@@ -10,15 +10,22 @@ export interface StatusLabeProps {
 const StatusLabel = ({ status }: StatusLabeProps): React.ReactElement => {
   const { t } = useTranslation();
   const statusLabelMapping: { [key in ParkingPermitStatus]: string } = {
-    [ParkingPermitStatus.CANCELLED]: t('permitStatus.cancelled'),
     [ParkingPermitStatus.DRAFT]: t('permitStatus.draft'),
-    [ParkingPermitStatus.EXPIRED]: t('permitStatus.expired'),
+    [ParkingPermitStatus.PAYMENT_IN_PROGRESS]: t(
+      'permitStatus.paymentInProgress'
+    ),
     [ParkingPermitStatus.VALID]: t('permitStatus.valid'),
+    [ParkingPermitStatus.CLOSED]: t('permitStatus.closed'),
   };
-  const statusStyleName = ParkingPermitStatus[status].toLowerCase();
+  const statusStyleMapping = {
+    [ParkingPermitStatus.DRAFT]: styles.draft,
+    [ParkingPermitStatus.PAYMENT_IN_PROGRESS]: styles.paymentInProgress,
+    [ParkingPermitStatus.VALID]: styles.valid,
+    [ParkingPermitStatus.CLOSED]: styles.closed,
+  };
   return (
     <div className={`${styles.container}`}>
-      <div className={styles[statusStyleName]} />
+      <div className={statusStyleMapping[status]} />
       {statusLabelMapping[status]}
     </div>
   );

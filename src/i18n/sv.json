@@ -154,9 +154,9 @@
     }
   },
   "permitStatus": {
-    "cancelled": "Avbruten",
+    "closed": "Stängt",
     "draft": "Utkast",
-    "expired": "Upphört",
+    "paymentInProgress": "Betalning pågår",
     "valid": "Giltigt"
   }
 }
