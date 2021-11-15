@@ -102,6 +102,15 @@
         "identifier": "Identifierare",
         "registrationNumber": "Registreringsnummer"
       },
+      "permitsDataTable": {
+        "address": "Adress",
+        "endTime": "Sluttid",
+        "name": "Namn",
+        "registrationNumber": "Registreringsnummer",
+        "startTime": "Starttid",
+        "status": "Status",
+        "zone": "Zon"
+      },
       "permitsSearch": {
         "search": "Sök"
       },
