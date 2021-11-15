@@ -6,6 +6,8 @@ import DataTable from '../common/DataTable';
 import StatusLabel from '../common/StatusLabel';
 import { Column } from '../types';
 
+const T_PATH = 'components.permits.permitsDataTable';
+
 export interface PermitsDataTableProps {
   permits: Permit[];
   pageInfo?: PageInfo;
@@ -25,10 +27,10 @@ const PermitsDataTable = ({
   onOrderBy,
   onRowClick,
 }: PermitsDataTableProps): React.ReactElement => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const columns: Column<Permit>[] = [
     {
-      name: 'Name',
+      name: t(`${T_PATH}.name`),
       field: 'name',
       selector: ({ customer }) => `${customer.firstName} ${customer.lastName}`,
       orderFields: ['customer__first_name', 'customer__last_name'],
@@ -40,13 +42,13 @@ const PermitsDataTable = ({
       orderFields: ['customer__national_id_number'],
     },
     {
-      name: 'Registration number',
+      name: t(`${T_PATH}.registrationNumber`),
       field: 'registrationNumber',
       selector: row => row.vehicle.registrationNumber,
       orderFields: ['vehicle__registration_number'],
     },
     {
-      name: 'Address',
+      name: t(`${T_PATH}.address`),
       field: 'address',
       selector: ({ customer }) =>
         formatAddress(customer.primaryAddress, i18n.language),
@@ -56,25 +58,25 @@ const PermitsDataTable = ({
       ],
     },
     {
-      name: 'Zone',
+      name: t(`${T_PATH}.zone`),
       field: 'parkingZone',
       selector: row => row.parkingZone.name,
       orderFields: ['parking_zone__name'],
     },
     {
-      name: 'Start time',
+      name: t(`${T_PATH}.startTime`),
       field: 'startTime',
       selector: row => formatDateTimeDisplay(row.startTime),
       orderFields: ['start_time'],
     },
     {
-      name: 'End time',
+      name: t(`${T_PATH}.endTime`),
       field: 'endTime',
       selector: row => (row.endTime ? formatDateTimeDisplay(row.endTime) : '-'),
       orderFields: ['end_time'],
     },
     {
-      name: 'Status',
+      name: t(`${T_PATH}.status`),
       field: 'status',
       selector: row => <StatusLabel status={row.status} />,
       orderFields: ['status'],
