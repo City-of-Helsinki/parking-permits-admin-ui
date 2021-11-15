@@ -12,9 +12,9 @@
     border-radius: 50%;
     margin-right: $spacing-2-xs;
 
-    &.cancelled {
-      border: 1px solid $color-cancelled-border;
-      background-color: $color-cancelled-fill;
+    &.closed {
+      border: 1px solid $color-closed-border;
+      background-color: $color-closed-fill;
     }
 
     &.draft {
@@ -27,9 +27,9 @@
       background-color: $color-valid-fill;
     }
 
-    &.expired {
-      border: 1px solid $color-expired-border;
-      background-color: $color-expired-fill;
+    &.paymentInProgress {
+      border: 1px solid $color-payment-in-progress-border;
+      background-color: $color-payment-in-progress-fill;
     }
   }
 }

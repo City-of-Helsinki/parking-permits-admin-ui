@@ -154,9 +154,9 @@
     }
   },
   "permitStatus": {
-    "cancelled": "Cancelled",
+    "closed": "Closed",
     "draft": "Draft",
-    "expired": "Expired",
+    "paymentInProgress": "Payment in progress",
     "valid": "Valid"
   }
 }
