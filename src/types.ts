@@ -139,6 +139,8 @@ export interface ResidentPermitVehicle {
   isLowEmission: boolean;
   consentLowEmissionAccepted: boolean;
   registrationNumber: string;
+  productionYear: number;
+  emission: number;
   manufacturer: string;
   model: string;
   type: string;
