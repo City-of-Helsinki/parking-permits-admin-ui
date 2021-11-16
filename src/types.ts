@@ -144,7 +144,9 @@ export interface ResidentPermitVehicle {
   manufacturer: string;
   model: string;
   type: string;
+  engineType: string;
   serialNumber: string;
+  lastInspectionDate: string;
   holder: VehicleUser;
   owner: VehicleUser;
   otherHolder?: VehicleUser;
