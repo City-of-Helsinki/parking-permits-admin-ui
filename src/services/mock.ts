@@ -10,9 +10,11 @@ export function searchVechile(
     manufacturer: 'Volkswagen',
     model: 'Golf',
     type: 'Henkilöauto',
+    engineType: 'Bensin',
     serialNumber: '10000001',
     productionYear: 2010,
     emission: 60,
+    lastInspectionDate: '2021-11-15',
     holder: {
       firstName: 'Phil',
       lastName: 'Duncan',
