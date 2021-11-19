@@ -30,7 +30,7 @@ export interface ParkingZone {
   name: string;
   description: string;
   descriptionSv: string;
-  price: number;
+  residentPrice: number;
 }
 
 export enum ParkingPermitStatus {
