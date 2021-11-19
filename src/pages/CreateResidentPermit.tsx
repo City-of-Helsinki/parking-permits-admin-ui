@@ -48,7 +48,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       name: '',
       description: '',
       descriptionSv: '',
-      price: 0,
+      residentPrice: 0,
     },
     addressSecurityBan: false,
     nationalIdNumber: '',
@@ -117,8 +117,8 @@ const CreateResidentPermit = (): React.ReactElement => {
         count: permit.monthCount,
       });
       const price = vehicle?.isLowEmission
-        ? person.zone.price / 2
-        : person.zone.price;
+        ? person.zone.residentPrice / 2
+        : person.zone.residentPrice;
       const unitPriceLabel = formatMonthlyPrice(price);
       return `${amountLabel}, ${unitPriceLabel}`;
     }
@@ -127,8 +127,8 @@ const CreateResidentPermit = (): React.ReactElement => {
   const formatTotalPrice = () => {
     if (person?.zone && permit) {
       const price = vehicle?.isLowEmission
-        ? person.zone.price / 2
-        : person.zone.price;
+        ? person.zone.residentPrice / 2
+        : person.zone.residentPrice;
       return permit.monthCount * price;
     }
     return '-';

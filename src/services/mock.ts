@@ -47,7 +47,7 @@ export function searchPerson(
       name: 'A',
       description: 'Kamppi',
       descriptionSv: 'Kampen',
-      price: 30,
+      residentPrice: 30,
     },
     addressSecurityBan: false,
     nationalIdNumber: personalId,

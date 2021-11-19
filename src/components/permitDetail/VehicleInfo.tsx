@@ -19,7 +19,7 @@ const VehicleInfo = ({
   const { t } = useTranslation();
   const { vehicle, parkingZone, consentLowEmissionAccepted } = permit;
   const { isLowEmission } = vehicle;
-  const { price } = parkingZone;
+  const { residentPrice } = parkingZone;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -35,14 +35,14 @@ const VehicleInfo = ({
         <div className={styles.priceInfo}>
           {isLowEmission && (
             <span>
-              <strong>{formatMonthlyPrice(price / 2)}</strong>
+              <strong>{formatMonthlyPrice(residentPrice / 2)}</strong>
             </span>
           )}
           <span
             style={{
               textDecoration: isLowEmission ? 'line-trhough' : 'none',
             }}>
-            {formatMonthlyPrice(price)}
+            {formatMonthlyPrice(residentPrice)}
           </span>
         </div>
         <Checkbox
