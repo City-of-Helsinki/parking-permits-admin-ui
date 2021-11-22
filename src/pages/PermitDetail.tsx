@@ -1,7 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
-import React from 'react';
+import { Button, IconPenLine } from 'hds-react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
@@ -9,9 +10,10 @@ import ChangeLogs from '../components/common/ChangeLogs';
 import StatusTag from '../components/common/StatusTag';
 import Zone from '../components/common/Zone';
 import CustomerInfo from '../components/permitDetail/CustomerInfo';
+import EndPermitDialog from '../components/permitDetail/EndPermitDialog';
 import PermitInfo from '../components/permitDetail/PermitInfo';
 import VehicleInfo from '../components/permitDetail/VehicleInfo';
-import { PermitDetailData } from '../types';
+import { PermitDetailData, PermitEndType } from '../types';
 import { formatCustomerName } from '../utils';
 import styles from './PermitDetail.module.scss';
 
@@ -23,6 +25,7 @@ const PERMIT_DETAIL_QUERY = gql`
       identifier
       startTime
       endTime
+      currentPeriodEndTime
       status
       consentLowEmissionAccepted
       contractType
@@ -60,15 +63,17 @@ const PERMIT_DETAIL_QUERY = gql`
         name
         description
         descriptionSv
-        price
+        residentPrice
       }
     }
   }
 `;
 
 const PermitDetail = (): React.ReactElement => {
+  const navigate = useNavigate();
   const params = useParams();
   const { t } = useTranslation();
+  const [openEndPermitDialog, setOpenEndPermitDialog] = useState(false);
   const { id } = params;
   const variables = { permitId: id };
   const { loading, error, data } = useQuery<PermitDetailData>(
@@ -87,7 +92,8 @@ const PermitDetail = (): React.ReactElement => {
     return <div>No data</div>;
   }
   const { permitDetail } = data;
-  const { status, customer, parkingZone, changeLogs } = permitDetail;
+  const { status, customer, parkingZone, changeLogs, currentPeriodEndTime } =
+    permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -122,6 +128,29 @@ const PermitDetail = (): React.ReactElement => {
         </div>
         <ChangeLogs changeLogs={changeLogs} />
       </div>
+      <div className={styles.footer}>
+        <Button
+          className={styles.actionButton}
+          iconLeft={<IconPenLine />}
+          onClick={() => navigate('edit')}>
+          {t(`${T_PATH}.edit`)}
+        </Button>
+        <div className={styles.spacer} />
+        <Button
+          className={styles.cancelButton}
+          variant="secondary"
+          onClick={() => setOpenEndPermitDialog(true)}>
+          {t(`${T_PATH}.endPermit`)}
+        </Button>
+      </div>
+      <EndPermitDialog
+        isOpen={openEndPermitDialog}
+        currentPeriodEndTime={currentPeriodEndTime}
+        onCancel={() => setOpenEndPermitDialog(false)}
+        onConfirm={(endType: PermitEndType) =>
+          navigate(`end/${endType.toLowerCase()}`)
+        }
+      />
     </div>
   );
 };

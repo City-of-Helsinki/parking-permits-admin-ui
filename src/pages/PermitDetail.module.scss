@@ -20,6 +20,7 @@
   }
   .content {
     display: flex;
+    flex-direction: row;
     .vehicleInfo,
     .customerInfo {
       flex: 1 1 33%;
@@ -30,9 +31,26 @@
     }
   }
   .changeLogs {
-    margin: $spacing-xl 0;
+    margin-top: $spacing-xl;
+    margin-bottom: $spacing-5-xl;
     .changeLogsTitle {
       font-size: $fontsize-body-xl;
+    }
+  }
+  .footer {
+    padding: $spacing-m 0;
+    box-shadow: 0 -5px 5px -5px $color-black-30;
+    position: fixed;
+    width: 100%;
+    max-width: $breakpoint-xl;
+    left: calc(100% - $breakpoint-xl) / 2;
+    bottom: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+
+    .spacer {
+      flex: 1 1 auto;
     }
   }
 }
