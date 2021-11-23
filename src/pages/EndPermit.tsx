@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { Button, IconPenLine } from 'hds-react';
+import { Button, IconArrowLeft } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -147,7 +147,7 @@ const EndPermit = (): React.ReactElement => {
         <Button
           className={styles.actionButton}
           variant="secondary"
-          iconLeft={<IconPenLine />}
+          iconLeft={<IconArrowLeft />}
           onClick={() => navigate(`/permits/${id}`)}>
           {t(`${T_PATH}.cancel`)}
         </Button>
