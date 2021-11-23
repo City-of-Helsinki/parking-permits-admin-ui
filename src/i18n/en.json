@@ -78,6 +78,15 @@
         "title": "Customer information",
         "vehicleHolder": "Vehicle holder"
       },
+      "endPermitDialog": {
+        "cancel": "Cancel",
+        "choosePermitEndType": "Choose when the permit is ended",
+        "continue": "Continue",
+        "endAfterCurrentPeriod": "End permit after current period",
+        "endImmediately": "End permit immediately",
+        "refund": "Refund",
+        "title": "End permit"
+      },
       "permitInfo": {
         "additionalInfo": "Additional information",
         "contractType": "Contract type",
@@ -87,6 +96,18 @@
         "status": "Status",
         "title": "Permit information",
         "validPeriod": "Valid period"
+      },
+      "refundInfoFixedPeriod": {
+        "monthCount_one": "{{count}} month",
+        "monthCount_other": "{{count}} months",
+        "orderRemaingDescription": "The price only accounts for remaining full months of the order",
+        "orderRemaining": "Paid order remaining",
+        "title": "Price"
+      },
+      "refundInfoOpenEnded": {
+        "monthlyPrice": "Monthly price",
+        "refund": "Refund",
+        "title": "Price"
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
@@ -143,11 +164,22 @@
       "save": "Save",
       "totalPrice": "Total price"
     },
+    "endPermit": {
+      "title": "Summary",
+      "cancel": "Cancel",
+      "endPermit": "End permit",
+      "permitId": "Permit ID",
+      "permits": "Permits",
+      "residentParkingPermit": "Resident parking permit"
+    },
     "login": {
       "login": "Login"
     },
     "permitDetail": {
       "changeHistory": "Change history",
+      "edit": "Edit",
+      "endPermit": "End permit",
+      "now": "Now",
       "permitId": "Permit ID",
       "permits": "Permits",
       "residentParkingPermit": "Resident parking permit"
