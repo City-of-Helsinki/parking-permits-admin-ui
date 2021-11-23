@@ -102,6 +102,7 @@
         "orderRemaingDescription": "Priset tar hänsyn till de återstående hela månaderna av beställningen.",
         "orderRemaining": "Betald order återstår",
         "refund": "Återbetalning",
+        "refunded": "Återbetalas",
         "title": "Pris"
       },
       "refundInfoOpenEnded": {

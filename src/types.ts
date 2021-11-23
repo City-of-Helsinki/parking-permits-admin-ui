@@ -86,6 +86,7 @@ export interface PermitDetail {
   currentPeriodEndTime: string;
   canEndImmediately: boolean;
   canEndAfterCurrentPeriod: boolean;
+  hasRefund: boolean;
   consentLowEmissionAccepted: boolean;
   contractType: PermitContractType;
   monthCount: number;

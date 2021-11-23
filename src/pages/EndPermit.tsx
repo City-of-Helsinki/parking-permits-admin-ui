@@ -27,6 +27,7 @@ const PERMIT_DETAIL_QUERY = gql`
       startTime
       endTime
       currentPeriodEndTime
+      hasRefund
       status
       consentLowEmissionAccepted
       contractType

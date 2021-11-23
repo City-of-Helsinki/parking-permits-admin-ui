@@ -102,6 +102,7 @@
         "monthCount_other": "{{count}} months",
         "orderRemaingDescription": "The price only accounts for remaining full months of the order",
         "orderRemaining": "Paid order remaining",
+        "refunded": "Refunded",
         "title": "Price"
       },
       "refundInfoOpenEnded": {
@@ -165,12 +166,12 @@
       "totalPrice": "Total price"
     },
     "endPermit": {
-      "title": "Summary",
       "cancel": "Cancel",
       "endPermit": "End permit",
       "permitId": "Permit ID",
       "permits": "Permits",
-      "residentParkingPermit": "Resident parking permit"
+      "residentParkingPermit": "Resident parking permit",
+      "title": "Summary"
     },
     "login": {
       "login": "Login"
