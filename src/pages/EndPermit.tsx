@@ -6,8 +6,6 @@ import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
-import StatusTag from '../components/common/StatusTag';
-import Zone from '../components/common/Zone';
 import CustomerInfo from '../components/permitDetail/CustomerInfo';
 import PermitInfo from '../components/permitDetail/PermitInfo';
 import RefundInfoFixedPeriod from '../components/permitDetail/RefundInfoFixedPeriod';
@@ -18,7 +16,6 @@ import {
   PermitContractType,
   PermitDetailData,
 } from '../types';
-import { formatCustomerName } from '../utils';
 import styles from './EndPermit.module.scss';
 
 const T_PATH = 'pages.endPermit';
@@ -100,24 +97,16 @@ const EndPermit = (): React.ReactElement => {
     return <div>No data</div>;
   }
   const { permitDetail } = data;
-  const { identifier, status, customer, parkingZone, contractType } =
-    permitDetail;
+  const { identifier, contractType } = permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
         <Link to="/permits">{t(`${T_PATH}.permits`)}</Link>
-        <span>{id}</span>
+        <Link to={`/permits/${id}`}>{id}</Link>
+        <span>{t(`${T_PATH}.endPermit`)}</span>
       </Breadcrumbs>
-      <div className={styles.status}>
-        <StatusTag status={status} />
-      </div>
       <div className={styles.header}>
-        <div className={styles.customer}>
-          <h2 className={styles.customerName}>
-            {formatCustomerName(customer)}
-          </h2>
-          <Zone name={parkingZone.name} />
-        </div>
+        <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
         <div className={styles.summary}>
           <b>{t(`${T_PATH}.residentParkingPermit`)}</b>{' '}
           <span>
@@ -149,6 +138,7 @@ const EndPermit = (): React.ReactElement => {
       <div className={styles.footer}>
         <Button
           className={styles.actionButton}
+          variant="secondary"
           iconLeft={<IconPenLine />}
           onClick={() => navigate(`/permits/${id}`)}>
           {t(`${T_PATH}.cancel`)}
@@ -156,7 +146,6 @@ const EndPermit = (): React.ReactElement => {
         <div className={styles.spacer} />
         <Button
           className={styles.cancelButton}
-          variant="secondary"
           disabled={contractType === PermitContractType.FIXED_PERIOD && !iban}
           onClick={() => {
             endPermit({
