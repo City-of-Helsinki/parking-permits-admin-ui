@@ -15,6 +15,7 @@ import {
   MutationResponse,
   PermitContractType,
   PermitDetailData,
+  PermitEndType,
 } from '../types';
 import styles from './EndPermit.module.scss';
 
@@ -98,7 +99,7 @@ const EndPermit = (): React.ReactElement => {
     return <div>No data</div>;
   }
   const { permitDetail } = data;
-  const { identifier, contractType } = permitDetail;
+  const { identifier, contractType, hasRefund } = permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -120,7 +121,13 @@ const EndPermit = (): React.ReactElement => {
           <VehicleInfo className={styles.vehicleInfo} permit={permitDetail} />
           <CustomerInfo className={styles.customerInfo} permit={permitDetail} />
         </div>
-        <PermitInfo className={styles.permitInfo} permit={permitDetail} />
+        <PermitInfo
+          className={styles.permitInfo}
+          endType={
+            endType ? (endType.toUpperCase() as PermitEndType) : undefined
+          }
+          permit={permitDetail}
+        />
         {contractType === PermitContractType.FIXED_PERIOD && (
           <RefundInfoFixedPeriod
             className={styles.refundInfo}
@@ -147,7 +154,11 @@ const EndPermit = (): React.ReactElement => {
         <div className={styles.spacer} />
         <Button
           className={styles.cancelButton}
-          disabled={contractType === PermitContractType.FIXED_PERIOD && !iban}
+          disabled={
+            contractType === PermitContractType.FIXED_PERIOD &&
+            !iban &&
+            !hasRefund
+          }
           onClick={() => {
             endPermit({
               variables: {
