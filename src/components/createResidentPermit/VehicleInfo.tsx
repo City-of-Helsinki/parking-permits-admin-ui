@@ -129,14 +129,18 @@ const VehicleInfo = ({
                 <div className={styles.priceInfo}>
                   {vehicle.isLowEmission && (
                     <div className={styles.discountPrice}>
-                      {zone ? formatMonthlyPrice(zone.price / 2) : '-'}
+                      {zone ? formatMonthlyPrice(zone.residentPrice / 2) : '-'}
                     </div>
                   )}
                   <div className={styles.originalPrice}>
                     {vehicle.isLowEmission ? (
-                      <del>{zone ? formatMonthlyPrice(zone.price) : '-'}</del>
+                      <del>
+                        {zone ? formatMonthlyPrice(zone.residentPrice) : '-'}
+                      </del>
                     ) : (
-                      <span>{zone ? formatMonthlyPrice(zone.price) : '-'}</span>
+                      <span>
+                        {zone ? formatMonthlyPrice(zone.residentPrice) : '-'}
+                      </span>
                     )}
                   </div>
                 </div>

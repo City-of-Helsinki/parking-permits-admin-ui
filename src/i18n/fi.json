@@ -78,6 +78,14 @@
         "title": "Henkilötiedot",
         "vehicleHolder": "Ajoneuvon haltija"
       },
+      "endPermitDialog": {
+        "cancel": "Peruuta",
+        "choosePermitEndType": "Valitsen milloin tunnuksen voimassaolo päättyy",
+        "continue": "Jatka",
+        "endAfterCurrentPeriod": "Päätä tunnus kuluvan tilausjakson päätteeksi",
+        "endImmediately": "Päätä tunnus välittömästi",
+        "title": "Tunnuksen päättäminen"
+      },
       "permitInfo": {
         "additionalInfo": "Lisätiedot",
         "contractType": "Tunnuksen tyyppi",
@@ -87,6 +95,20 @@
         "status": "Tila",
         "title": "Tunnuksen tiedot",
         "validPeriod": "Voimassaoloaika"
+      },
+      "refundInfoFixedPeriod": {
+        "monthCount_one": "{{count}} kuukausi",
+        "monthCount_other": "{{count}} kuukautta",
+        "orderRemaingDescription": "Hinnassa huomioidaan tilauksen jäljellä olevat täydet kuukaudet.",
+        "orderRemaining": "Maksettua tilausta jäljellä",
+        "refund": "Palautus",
+        "refunded": "Palautetaan",
+        "title": "Hinta"
+      },
+      "refundInfoOpenEnded": {
+        "monthlyPrice": "Kuukausihinta",
+        "refund": "Palautus",
+        "title": "Hinta"
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
@@ -143,11 +165,22 @@
       "save": "Tallenna",
       "totalPrice": "Tunnuksen yhteissumma"
     },
+    "endPermit": {
+      "cancel": "Peruuta",
+      "endPermit": "Pääta tunnus",
+      "permitId": "Tunnus ID",
+      "permits": "Tunnukset",
+      "residentParkingPermit": "Asukaspysäköintitunnus",
+      "title": "Yhteenveto"
+    },
     "login": {
       "login": "Kirjaudu sisään"
     },
     "permitDetail": {
       "changeHistory": "Käsittelyhistoria",
+      "edit": "Muokkaa",
+      "endPermit": "Pääta tunnus",
+      "now": "Nyt",
       "permitId": "Tunnus ID",
       "permits": "Tunnukset",
       "residentParkingPermit": "Asukaspysäköintitunnus"

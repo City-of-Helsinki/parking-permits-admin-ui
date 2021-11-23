@@ -30,7 +30,7 @@ export interface ParkingZone {
   name: string;
   description: string;
   descriptionSv: string;
-  price: number;
+  residentPrice: number;
 }
 
 export enum ParkingPermitStatus {
@@ -83,10 +83,15 @@ export interface PermitDetail {
   status: ParkingPermitStatus;
   startTime: string;
   endTime?: string;
+  currentPeriodEndTime: string;
+  canEndImmediately: boolean;
+  canEndAfterCurrentPeriod: boolean;
+  hasRefund: boolean;
   consentLowEmissionAccepted: boolean;
   contractType: PermitContractType;
   monthCount: number;
   monthsLeft: number;
+  monthlyPrice: number;
   changeLogs: ChangeLog[];
 }
 
@@ -157,7 +162,7 @@ export interface ResidentPermit extends FixedPeriodResidentPermit {
   vehicle: ResidentPermitVehicle;
 }
 
-export interface CreateResidentPermitResponse {
+export interface MutationResponse {
   success: boolean;
 }
 
@@ -190,3 +195,8 @@ export enum SavedStatus {
 }
 
 export type Language = 'fi' | 'sv' | 'en';
+
+export enum PermitEndType {
+  IMMEDIATELY = 'IMMEDIATELY',
+  AFTER_CURRENT_PERIOD = 'AFTER_CURRENT_PERIOD',
+}

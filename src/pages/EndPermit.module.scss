@@ -21,20 +21,21 @@
   .content {
     display: flex;
     flex-direction: row;
-    .vehicleInfo,
-    .customerInfo {
+    margin-bottom: $spacing-5-xl;
+    .vehicleAndPerson {
       flex: 1 1 33%;
       margin-right: $spacing-m;
+      .vehicleInfo,
+      .customerInfo {
+        margin-bottom: $spacing-l;
+      }
     }
     .permitInfo {
       flex: 1 1 33%;
+      margin-right: $spacing-m;
     }
-  }
-  .changeLogs {
-    margin-top: $spacing-xl;
-    margin-bottom: $spacing-5-xl;
-    .changeLogsTitle {
-      font-size: $fontsize-body-xl;
+    .refundInfo {
+      flex: 1 1 33%;
     }
   }
   .footer {
