@@ -102,6 +102,7 @@
         "orderRemaingDescription": "Hinnassa huomioidaan tilauksen jäljellä olevat täydet kuukaudet.",
         "orderRemaining": "Maksettua tilausta jäljellä",
         "refund": "Palautus",
+        "refunded": "Palautetaan",
         "title": "Hinta"
       },
       "refundInfoOpenEnded": {
