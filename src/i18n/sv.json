@@ -78,6 +78,14 @@
         "title": "Kundinformation",
         "vehicleHolder": "Fordonshållare"
       },
+      "endPermitDialog": {
+        "cancel": "Avbryt",
+        "choosePermitEndType": "Välj när tillståndet upphör",
+        "continue": "Fortsätt",
+        "endAfterCurrentPeriod": "Sluttillstånd efter aktuell period",
+        "endImmediately": "Avsluta tillstånd omedelbart",
+        "title": "Sluttillstånd"
+      },
       "permitInfo": {
         "additionalInfo": "Ytterligare information",
         "contractType": "Kontraktstyp",
@@ -87,6 +95,19 @@
         "status": "Status",
         "title": "Tillståndsinformation",
         "validPeriod": "Giltig period"
+      },
+      "refundInfoFixedPeriod": {
+        "monthCount_one": "{{count}} månad",
+        "monthCount_other": "{{count}} månader",
+        "orderRemaingDescription": "Priset tar hänsyn till de återstående hela månaderna av beställningen.",
+        "orderRemaining": "Betald order återstår",
+        "refund": "Återbetalning",
+        "title": "Pris"
+      },
+      "refundInfoOpenEnded": {
+        "monthlyPrice": "Månadspris",
+        "refund": "Återbetalning",
+        "title": "Pris"
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
@@ -143,11 +164,22 @@
       "save": "Spara",
       "totalPrice": "Totalpris"
     },
+    "endPermit": {
+      "cancel": "Avbryt",
+      "endPermit": "Sluttillstånd",
+      "permitId": "Tillstånds-ID",
+      "permits": "Tillstånd",
+      "residentParkingPermit": "Parkeringstillstånd för boende",
+      "title": "Sammanfattning"
+    },
     "login": {
       "login": "Logga in"
     },
     "permitDetail": {
       "changeHistory": "Ändringshistorik",
+      "edit": "Redigera",
+      "endPermit": "Sluttillstånd",
+      "now": "Nu",
       "permitId": "Tillstånds-ID",
       "permits": "Tillstånd",
       "residentParkingPermit": "Parkeringstillstånd för boende"
