@@ -9,6 +9,7 @@ const T_PATH = 'components.permitDetail.endPermitDialog';
 
 interface EndPermitDialogProps {
   isOpen: boolean;
+  canEndAfterCurrentPeriod: boolean;
   currentPeriodEndTime: string;
   onCancel: () => void;
   onConfirm: (endType: PermitEndType) => void;
@@ -16,6 +17,7 @@ interface EndPermitDialogProps {
 
 const EndPermitDialog = ({
   isOpen,
+  canEndAfterCurrentPeriod,
   currentPeriodEndTime,
   onCancel,
   onConfirm,
@@ -43,6 +45,7 @@ const EndPermitDialog = ({
         <RadioButton
           id="endAfterCurrentPeriod"
           name="endType"
+          disabled={!canEndAfterCurrentPeriod}
           label={t(`${T_PATH}.endAfterCurrentPeriod`)}
           value={PermitEndType.AFTER_CURRENT_PERIOD}
           checked={endType === PermitEndType.AFTER_CURRENT_PERIOD}

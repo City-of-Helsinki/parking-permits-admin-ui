@@ -26,6 +26,8 @@ const PERMIT_DETAIL_QUERY = gql`
       startTime
       endTime
       currentPeriodEndTime
+      canEndImmediately
+      canEndAfterCurrentPeriod
       status
       consentLowEmissionAccepted
       contractType
@@ -92,8 +94,15 @@ const PermitDetail = (): React.ReactElement => {
     return <div>No data</div>;
   }
   const { permitDetail } = data;
-  const { status, customer, parkingZone, changeLogs, currentPeriodEndTime } =
-    permitDetail;
+  const {
+    status,
+    customer,
+    parkingZone,
+    changeLogs,
+    currentPeriodEndTime,
+    canEndImmediately,
+    canEndAfterCurrentPeriod,
+  } = permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -139,6 +148,7 @@ const PermitDetail = (): React.ReactElement => {
         <Button
           className={styles.cancelButton}
           variant="secondary"
+          disabled={!canEndImmediately}
           onClick={() => setOpenEndPermitDialog(true)}>
           {t(`${T_PATH}.endPermit`)}
         </Button>
@@ -146,6 +156,7 @@ const PermitDetail = (): React.ReactElement => {
       <EndPermitDialog
         isOpen={openEndPermitDialog}
         currentPeriodEndTime={currentPeriodEndTime}
+        canEndAfterCurrentPeriod={canEndAfterCurrentPeriod}
         onCancel={() => setOpenEndPermitDialog(false)}
         onConfirm={(endType: PermitEndType) =>
           navigate(`end/${endType.toLowerCase()}`)
