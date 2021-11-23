@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitDetail } from '../../types';
+import { PermitDetail, PermitEndType } from '../../types';
 import { formatDateTimeDisplay } from '../../utils';
 import Divider from '../common/Divider';
 import StatusLabel from '../common/StatusLabel';
@@ -10,15 +10,32 @@ import styles from './PermitInfo.module.scss';
 const T_PATH = 'components.permitDetail.permitInfo';
 export interface PermitInfoProps {
   className?: string;
+  endType?: PermitEndType;
   permit: PermitDetail;
 }
 
 const PermitInfo = ({
   className,
+  endType,
   permit,
 }: PermitInfoProps): React.ReactElement => {
   const { t } = useTranslation();
-  const { contractType, monthCount, startTime, endTime, status } = permit;
+  const {
+    contractType,
+    monthCount,
+    startTime,
+    endTime,
+    status,
+    currentPeriodEndTime,
+  } = permit;
+  let endTimeValue = '';
+  if (endType === PermitEndType.IMMEDIATELY) {
+    endTimeValue = t(`${T_PATH}.now`);
+  } else if (endTimeValue === PermitEndType.AFTER_CURRENT_PERIOD) {
+    endTimeValue = formatDateTimeDisplay(currentPeriodEndTime);
+  } else {
+    endTimeValue = endTime ? formatDateTimeDisplay(endTime) : '-';
+  }
   const contractTypeLabelMapping = {
     FIXED_PERIOD: t('contractType.fixedPeriod'),
     OPEN_ENDED: t('contractType.openEnded'),
@@ -38,7 +55,7 @@ const PermitInfo = ({
     },
     {
       label: t(`${T_PATH}.endTime`),
-      value: endTime ? formatDateTimeDisplay(endTime) : '-',
+      value: endTimeValue,
     },
     {
       label: t(`${T_PATH}.status`),
