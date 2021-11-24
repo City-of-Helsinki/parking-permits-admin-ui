@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { Button, IconArrowLeft } from 'hds-react';
+import { Button, IconArrowLeft, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -82,21 +82,14 @@ const EndPermit = (): React.ReactElement => {
   const { id, endType } = params;
   const variables = { permitId: id };
   const [iban, setIban] = useState('');
-  const { loading, error, data } = useQuery<PermitDetailData>(
-    PERMIT_DETAIL_QUERY,
-    {
-      variables,
-    }
-  );
+  const [errorMessage, setErrorMessage] = useState('');
+  const { loading, data } = useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
+    variables,
+    onError: error => setErrorMessage(error.message),
+  });
   const [endPermit] = useMutation<MutationResponse>(END_PERMIT_MUTATION);
-  if (loading) {
+  if (loading || !data) {
     return <div>loading...</div>;
-  }
-  if (error) {
-    return <div>{JSON.stringify(error)}</div>;
-  }
-  if (!data) {
-    return <div>No data</div>;
   }
   const { permitDetail } = data;
   const { identifier, contractType, hasRefund } = permitDetail;
@@ -169,11 +162,27 @@ const EndPermit = (): React.ReactElement => {
                     ? iban
                     : undefined,
               },
-            }).then(() => navigate(`/permits/${id}`));
+            })
+              .then(() => navigate(`/permits/${id}`))
+              .catch(e => {
+                setErrorMessage(e.message);
+              });
           }}>
           {t(`${T_PATH}.endPermit`)}
         </Button>
       </div>
+      {errorMessage && (
+        <Notification
+          type="error"
+          label={t('message.error')}
+          position="bottom-center"
+          dismissible
+          closeButtonLabelText={t('message.close')}
+          onClose={() => setErrorMessage('')}
+          style={{ zIndex: 100 }}>
+          {errorMessage}
+        </Notification>
+      )}
     </div>
   );
 };
