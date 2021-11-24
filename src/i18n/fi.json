@@ -149,6 +149,10 @@
     "fixedPeriod": "Määräaikainen",
     "openEnded": "Jatkuvaveloitteinen kuukausitunnus"
   },
+  "message": {
+    "close": "Sulje",
+    "error": "Virhe"
+  },
   "pages": {
     "createPermit": {
       "createNewPermit": "Luo uusi tunnus",

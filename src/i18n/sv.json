@@ -149,6 +149,10 @@
     "fixedPeriod": "Tillfällig",
     "openEnded": "Kontinuerlig laddning"
   },
+  "message": {
+    "close": "Stänga",
+    "error": "Fel"
+  },
   "pages": {
     "createPermit": {
       "createNewPermit": "Skapa nytt tillstånd",
