@@ -149,6 +149,10 @@
     "fixedPeriod": "Fixed period",
     "openEnded": "Open ended"
   },
+  "message": {
+    "close": "Close",
+    "error": "Error"
+  },
   "pages": {
     "createPermit": {
       "createNewPermit": "Create new permit",

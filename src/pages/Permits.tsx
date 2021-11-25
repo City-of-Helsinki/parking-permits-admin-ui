@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button, IconArrowRight } from 'hds-react';
+import { Button, IconArrowRight, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -83,19 +83,18 @@ const Permits = (): React.ReactElement => {
   const [orderBy, setOrderBy] = useState<OrderBy | undefined>(initialOrderBy);
   const [searchInfo, setSearchInfo] =
     useState<PermitsSearchInfo>(initialSearchInfo);
+  const [errorMessage, setErrorMessage] = useState('');
   const searchItems = getSearchItems(searchInfo);
   const variables: PermitsQueryVariables = {
     pageInput: { page },
     orderBy,
     searchItems,
   };
-  const { loading, error, data } = useQuery<PermitsQueryData>(PERMITS_QUERY, {
+  const { loading, data } = useQuery<PermitsQueryData>(PERMITS_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
+    onError: error => setErrorMessage(error.message),
   });
-  if (error) {
-    return <div>{JSON.stringify(error)}</div>;
-  }
   const handleSearch = (newSearchInfo: PermitsSearchInfo) => {
     setSearchInfo(newSearchInfo);
     saveStatus(SavedStatus.PERMITS_SEARCH_INFO, newSearchInfo);
@@ -128,6 +127,18 @@ const Permits = (): React.ReactElement => {
         onOrderBy={handleOrderBy}
         onRowClick={row => navigate(row.identifier.toString())}
       />
+      {errorMessage && (
+        <Notification
+          type="error"
+          label={t('message.error')}
+          position="bottom-center"
+          dismissible
+          closeButtonLabelText={t('message.close')}
+          onClose={() => setErrorMessage('')}
+          style={{ zIndex: 100 }}>
+          {errorMessage}
+        </Notification>
+      )}
     </div>
   );
 };

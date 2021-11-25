@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button, IconPenLine } from 'hds-react';
+import { Button, IconPenLine, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -76,92 +76,106 @@ const PermitDetail = (): React.ReactElement => {
   const params = useParams();
   const { t } = useTranslation();
   const [openEndPermitDialog, setOpenEndPermitDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const { id } = params;
   const variables = { permitId: id };
-  const { loading, error, data } = useQuery<PermitDetailData>(
-    PERMIT_DETAIL_QUERY,
-    {
-      variables,
-    }
-  );
-  if (loading) {
-    return <div>loading...</div>;
+  const { loading, data } = useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
+    variables,
+    onError: error => setErrorMessage(error.message),
+  });
+
+  let content = null;
+  if (loading || !data) {
+    content = <div>loading...</div>;
+  } else {
+    const { permitDetail } = data;
+    const {
+      status,
+      customer,
+      parkingZone,
+      changeLogs,
+      currentPeriodEndTime,
+      canEndImmediately,
+      canEndAfterCurrentPeriod,
+    } = permitDetail;
+    content = (
+      <>
+        <Breadcrumbs>
+          <Link to="/permits">{t(`${T_PATH}.permits`)}</Link>
+          <span>{id}</span>
+        </Breadcrumbs>
+        <div className={styles.status}>
+          <StatusTag status={status} />
+        </div>
+        <div className={styles.header}>
+          <div className={styles.customer}>
+            <h2 className={styles.customerName}>
+              {formatCustomerName(customer)}
+            </h2>
+            <Zone name={parkingZone.name} />
+          </div>
+          <div className={styles.summary}>
+            <b>{t(`${T_PATH}.residentParkingPermit`)}</b>{' '}
+            <span>
+              {t(`${T_PATH}.permitId`)}: {id}
+            </span>
+          </div>
+        </div>
+        <div className={styles.content}>
+          <VehicleInfo className={styles.vehicleInfo} permit={permitDetail} />
+          <CustomerInfo className={styles.customerInfo} permit={permitDetail} />
+          <PermitInfo className={styles.permitInfo} permit={permitDetail} />
+        </div>
+        <div className={styles.changeLogs}>
+          <div className={styles.changeLogsTitle}>
+            {t(`${T_PATH}.changeHistory`)}
+          </div>
+          <ChangeLogs changeLogs={changeLogs} />
+        </div>
+        <div className={styles.footer}>
+          <Button
+            className={styles.actionButton}
+            iconLeft={<IconPenLine />}
+            onClick={() => navigate('edit')}>
+            {t(`${T_PATH}.edit`)}
+          </Button>
+          <div className={styles.spacer} />
+          <Button
+            className={styles.cancelButton}
+            variant="secondary"
+            disabled={!canEndImmediately}
+            onClick={() => setOpenEndPermitDialog(true)}>
+            {t(`${T_PATH}.endPermit`)}
+          </Button>
+        </div>
+        <EndPermitDialog
+          isOpen={openEndPermitDialog}
+          currentPeriodEndTime={currentPeriodEndTime}
+          canEndAfterCurrentPeriod={canEndAfterCurrentPeriod}
+          onCancel={() => setOpenEndPermitDialog(false)}
+          onConfirm={(endType: PermitEndType) =>
+            navigate(`end/${endType.toLowerCase()}`)
+          }
+        />
+      </>
+    );
   }
-  if (error) {
-    return <div>{JSON.stringify(error)}</div>;
-  }
-  if (!data) {
-    return <div>No data</div>;
-  }
-  const { permitDetail } = data;
-  const {
-    status,
-    customer,
-    parkingZone,
-    changeLogs,
-    currentPeriodEndTime,
-    canEndImmediately,
-    canEndAfterCurrentPeriod,
-  } = permitDetail;
+
   return (
     <div className={styles.container}>
-      <Breadcrumbs>
-        <Link to="/permits">{t(`${T_PATH}.permits`)}</Link>
-        <span>{id}</span>
-      </Breadcrumbs>
-      <div className={styles.status}>
-        <StatusTag status={status} />
-      </div>
-      <div className={styles.header}>
-        <div className={styles.customer}>
-          <h2 className={styles.customerName}>
-            {formatCustomerName(customer)}
-          </h2>
-          <Zone name={parkingZone.name} />
-        </div>
-        <div className={styles.summary}>
-          <b>{t(`${T_PATH}.residentParkingPermit`)}</b>{' '}
-          <span>
-            {t(`${T_PATH}.permitId`)}: {id}
-          </span>
-        </div>
-      </div>
-      <div className={styles.content}>
-        <VehicleInfo className={styles.vehicleInfo} permit={permitDetail} />
-        <CustomerInfo className={styles.customerInfo} permit={permitDetail} />
-        <PermitInfo className={styles.permitInfo} permit={permitDetail} />
-      </div>
-      <div className={styles.changeLogs}>
-        <div className={styles.changeLogsTitle}>
-          {t(`${T_PATH}.changeHistory`)}
-        </div>
-        <ChangeLogs changeLogs={changeLogs} />
-      </div>
-      <div className={styles.footer}>
-        <Button
-          className={styles.actionButton}
-          iconLeft={<IconPenLine />}
-          onClick={() => navigate('edit')}>
-          {t(`${T_PATH}.edit`)}
-        </Button>
-        <div className={styles.spacer} />
-        <Button
-          className={styles.cancelButton}
-          variant="secondary"
-          disabled={!canEndImmediately}
-          onClick={() => setOpenEndPermitDialog(true)}>
-          {t(`${T_PATH}.endPermit`)}
-        </Button>
-      </div>
-      <EndPermitDialog
-        isOpen={openEndPermitDialog}
-        currentPeriodEndTime={currentPeriodEndTime}
-        canEndAfterCurrentPeriod={canEndAfterCurrentPeriod}
-        onCancel={() => setOpenEndPermitDialog(false)}
-        onConfirm={(endType: PermitEndType) =>
-          navigate(`end/${endType.toLowerCase()}`)
-        }
-      />
+      {content}
+      {errorMessage && (
+        <Notification
+          type="error"
+          label={t('message.error')}
+          position="bottom-center"
+          dismissible
+          closeButtonLabelText={t('message.close')}
+          onClose={() => setErrorMessage('')}
+          style={{ zIndex: 100 }}>
+          {errorMessage}
+        </Notification>
+      )}
     </div>
   );
 };
