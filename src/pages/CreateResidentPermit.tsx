@@ -142,6 +142,16 @@ const CreateResidentPermit = (): React.ReactElement => {
       </Breadcrumbs>
       <div className={styles.title}>{t(`${T_PATH}.residentPermit`)}</div>
       <div className={styles.content}>
+        <PersonalInfo
+          person={person}
+          className={styles.personalInfo}
+          searchPersonalId={searchPersonalId}
+          onChangeSearchPersonalId={personalId =>
+            setSearchPersonalId(personalId)
+          }
+          onSearchPerson={handleSearchPerson}
+          onUpdateField={handleUpdatePersonField}
+        />
         <VehicleInfo
           vehicle={vehicle}
           zone={person?.zone}
@@ -155,16 +165,6 @@ const CreateResidentPermit = (): React.ReactElement => {
             setSearchPersonalId(personalId);
           }}
           onUpdateField={handleUpdateVehicleField}
-        />
-        <PersonalInfo
-          person={person}
-          className={styles.personalInfo}
-          searchPersonalId={searchPersonalId}
-          onChangeSearchPersonalId={personalId =>
-            setSearchPersonalId(personalId)
-          }
-          onSearchPerson={handleSearchPerson}
-          onUpdateField={handleUpdatePersonField}
         />
         <PermitInfo
           permit={permit}
