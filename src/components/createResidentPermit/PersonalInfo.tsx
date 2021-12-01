@@ -1,7 +1,7 @@
 import { Button, Checkbox, PhoneInput, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ResidentPermitCustomer } from '../../types';
+import { Customer } from '../../types';
 import { formatAddress } from '../../utils';
 import Divider from '../common/Divider';
 import ZoneSelect from '../common/ZoneSelect';
@@ -11,22 +11,19 @@ const T_PATH = 'components.createResidentPermit.personalInfo';
 
 interface PersonalInfoProps {
   className?: string;
-  person?: ResidentPermitCustomer;
-  searchPersonalId: string;
-  onChangeSearchPersonalId: (personalId: string) => void;
+  person: Customer;
   onSearchPerson: (nationalIdNumber: string) => void;
-  onUpdateField: (field: keyof ResidentPermitCustomer, value: unknown) => void;
+  onUpdateField: (field: keyof Customer, value: unknown) => void;
 }
 
 const PersonalInfo = ({
   className,
   person,
-  searchPersonalId,
-  onChangeSearchPersonalId,
   onSearchPerson,
   onUpdateField,
 }: PersonalInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
+  const defaultZone = person.zone?.name || person.primaryAddress?.zone?.name;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.personalInfo`)}</div>
@@ -36,9 +33,9 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="personalId"
           label={t(`${T_PATH}.personalId`)}
-          value={searchPersonalId}
-          onChange={e => onChangeSearchPersonalId(e.target.value)}>
-          <Button onClick={() => onSearchPerson(searchPersonalId)}>
+          value={person.nationalIdNumber}
+          onChange={e => onUpdateField('nationalIdNumber', e.target.value)}>
+          <Button onClick={() => onSearchPerson(person.nationalIdNumber)}>
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
@@ -71,17 +68,16 @@ const PersonalInfo = ({
           id="address"
           label={t(`${T_PATH}.address`)}
           value={
-            person?.address
-              ? formatAddress(person?.address, i18n.language)
+            person.primaryAddress
+              ? formatAddress(person.primaryAddress, i18n.language)
               : '-'
           }
-          onChange={e => onUpdateField('address', e.target.value)}
         />
         <ZoneSelect
           required
           disabled={!person?.addressSecurityBan}
           className={styles.fieldItem}
-          value={person?.zone?.name}
+          value={defaultZone}
           onChange={zone => onUpdateField('zone', zone)}
         />
         <Divider className={styles.fieldDivider} />

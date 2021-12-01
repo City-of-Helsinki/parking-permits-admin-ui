@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import { Button, IconCheckCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,20 +8,50 @@ import Breadcrumbs from '../components/common/Breadcrumbs';
 import PermitInfo from '../components/createResidentPermit/PermitInfo';
 import PersonalInfo from '../components/createResidentPermit/PersonalInfo';
 import VehicleInfo from '../components/createResidentPermit/VehicleInfo';
-import { searchPerson, searchVechile } from '../services/mock';
+import { searchVechile } from '../services/mock';
 import {
+  Customer,
   FixedPeriodResidentPermit,
   MutationResponse,
   ParkingPermitStatus,
   PermitContractType,
   ResidentPermit,
-  ResidentPermitCustomer,
   ResidentPermitVehicle,
 } from '../types';
 import { formatMonthlyPrice } from '../utils';
 import styles from './CreateResidentPermit.module.scss';
 
 const T_PATH = 'pages.createResidentPermit';
+
+const CUSTOMER_QUERY = gql`
+  query GetCustomer($nationalIdNumber: String!) {
+    customer(nationalIdNumber: $nationalIdNumber) {
+      firstName
+      lastName
+      nationalIdNumber
+      zone {
+        name
+        description
+        descriptionSv
+        residentPrice
+      }
+      primaryAddress {
+        city
+        citySv
+        streetName
+        streetNumber
+        zone {
+          name
+          description
+          descriptionSv
+          residentPrice
+        }
+      }
+      email
+      phoneNumber
+    }
+  }
+`;
 
 const CREATE_RESIDENT_PERMIT_MUTATION = gql`
   mutation CreateResidentPermit($permit: ResidentPermitInput!) {
@@ -31,37 +61,46 @@ const CREATE_RESIDENT_PERMIT_MUTATION = gql`
   }
 `;
 
+const initialPerson: Customer = {
+  firstName: '',
+  lastName: '',
+  addressSecurityBan: false,
+  nationalIdNumber: '',
+  phoneNumber: '',
+  email: '',
+  driverLicenseChecked: false,
+};
+
+const initialPermit: FixedPeriodResidentPermit = {
+  contractType: PermitContractType.FIXED_PERIOD,
+  monthCount: 1,
+  startTime: new Date().toISOString(),
+  status: ParkingPermitStatus.VALID,
+};
+
 const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  // states
+  const [searchRegNumber, setSearchRegNumber] = useState('');
+  const [selectedVehicleUser, setSelectedVehicleUser] = useState('');
+  const [vehicle, setVehicle] = useState<ResidentPermitVehicle>();
+  const [person, setPerson] = useState<Customer>(initialPerson);
+  const [permit, setPermit] =
+    useState<FixedPeriodResidentPermit>(initialPermit);
+
+  // graphql queries and mutations
+  const [getCustomer] = useLazyQuery<{
+    customer: Customer;
+  }>(CUSTOMER_QUERY, {
+    onCompleted: ({ customer }) => setPerson(customer),
+    onError: error => console.log(error.message),
+  });
   const [createResidentPermit] = useMutation<MutationResponse>(
     CREATE_RESIDENT_PERMIT_MUTATION
   );
-  const navigate = useNavigate();
-  const [searchRegNumber, setSearchRegNumber] = useState('');
-  const [searchPersonalId, setSearchPersonalId] = useState('');
-  const [selectedVehicleUser, setSelectedVehicleUser] = useState('');
-  const [vehicle, setVehicle] = useState<ResidentPermitVehicle>();
-  const [person, setPerson] = useState<ResidentPermitCustomer>({
-    firstName: '',
-    lastName: '',
-    zone: {
-      name: '',
-      description: '',
-      descriptionSv: '',
-      residentPrice: 0,
-    },
-    addressSecurityBan: false,
-    nationalIdNumber: '',
-    phoneNumber: '',
-    email: '',
-    driverLicenseChecked: false,
-  });
-  const [permit, setPermit] = useState<FixedPeriodResidentPermit>({
-    contractType: PermitContractType.FIXED_PERIOD,
-    monthCount: 1,
-    startTime: new Date().toISOString(),
-    status: ParkingPermitStatus.VALID,
-  });
+
+  // component event handlers
   const handleCreateResidentPermit = () => {
     if (!vehicle || !person || !person.zone) {
       return;
@@ -89,13 +128,12 @@ const CreateResidentPermit = (): React.ReactElement => {
       });
     }
   };
-  const handleSearchPerson = (personalId: string) => {
-    searchPerson(personalId).then(resultPerson => setPerson(resultPerson));
+  const handleSearchPerson = (nationalIdNumber: string) => {
+    getCustomer({
+      variables: { nationalIdNumber },
+    });
   };
-  const handleUpdatePersonField = (
-    field: keyof ResidentPermitCustomer,
-    value: unknown
-  ) => {
+  const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
     if (person) {
       setPerson({
         ...person,
@@ -111,6 +149,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       ...permit,
       [field]: value,
     });
+
   const formatDetailPrice = () => {
     if (person?.zone && permit) {
       const amountLabel = t(`${T_PATH}.monthCount`, {
@@ -145,10 +184,6 @@ const CreateResidentPermit = (): React.ReactElement => {
         <PersonalInfo
           person={person}
           className={styles.personalInfo}
-          searchPersonalId={searchPersonalId}
-          onChangeSearchPersonalId={personalId =>
-            setSearchPersonalId(personalId)
-          }
           onSearchPerson={handleSearchPerson}
           onUpdateField={handleUpdatePersonField}
         />
@@ -162,7 +197,6 @@ const CreateResidentPermit = (): React.ReactElement => {
           onSearchRegistrationNumber={handleSearchVehicle}
           onSelectUser={personalId => {
             setSelectedVehicleUser(personalId);
-            setSearchPersonalId(personalId);
           }}
           onUpdateField={handleUpdateVehicleField}
         />

@@ -7,15 +7,19 @@ export interface Address {
   city: string;
   citySv: string;
   postalCode: string;
+  zone?: ParkingZone;
 }
 
 export interface Customer {
   firstName: string;
   lastName: string;
   nationalIdNumber: string;
-  primaryAddress: Address;
+  primaryAddress?: Address;
   email: string;
   phoneNumber: string;
+  zone?: ParkingZone;
+  addressSecurityBan: boolean;
+  driverLicenseChecked: boolean;
 }
 
 export interface Vehicle {
@@ -122,18 +126,6 @@ export interface FixedPeriodResidentPermit {
   status: ParkingPermitStatus;
 }
 
-export interface ResidentPermitCustomer {
-  firstName: string;
-  lastName: string;
-  address?: Address;
-  addressSecurityBan: boolean;
-  nationalIdNumber: string;
-  zone: ParkingZone;
-  phoneNumber: string;
-  email: string;
-  driverLicenseChecked: boolean;
-}
-
 export interface VehicleUser {
   firstName: string;
   lastName: string;
@@ -158,7 +150,7 @@ export interface ResidentPermitVehicle {
 }
 
 export interface ResidentPermit extends FixedPeriodResidentPermit {
-  customer: ResidentPermitCustomer;
+  customer: Customer;
   vehicle: ResidentPermitVehicle;
 }
 

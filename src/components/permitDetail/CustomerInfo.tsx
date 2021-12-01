@@ -30,7 +30,9 @@ const CustomerInfo = ({
     },
     {
       label: t(`${T_PATH}.address`),
-      value: formatAddress(customer.primaryAddress, i18n.language),
+      value: customer?.primaryAddress
+        ? formatAddress(customer.primaryAddress, i18n.language)
+        : '-',
     },
     {
       label: t(`${T_PATH}.parkingZone`),
