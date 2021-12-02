@@ -27,7 +27,9 @@ export interface Vehicle {
   model: string;
   registrationNumber: string;
   isLowEmission: boolean;
-  holder: string;
+  consentLowEmissionAccepted: boolean;
+  serialNumber: string;
+  category: string;
 }
 
 export interface ParkingZone {
@@ -151,7 +153,7 @@ export interface ResidentPermitVehicle {
 
 export interface ResidentPermit extends FixedPeriodResidentPermit {
   customer: Customer;
-  vehicle: ResidentPermitVehicle;
+  vehicle: Vehicle;
 }
 
 export interface MutationResponse {
