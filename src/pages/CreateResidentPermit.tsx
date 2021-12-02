@@ -8,7 +8,6 @@ import Breadcrumbs from '../components/common/Breadcrumbs';
 import PermitInfo from '../components/createResidentPermit/PermitInfo';
 import PersonalInfo from '../components/createResidentPermit/PersonalInfo';
 import VehicleInfo from '../components/createResidentPermit/VehicleInfo';
-import { searchVechile } from '../services/mock';
 import {
   Customer,
   FixedPeriodResidentPermit,
@@ -16,7 +15,7 @@ import {
   ParkingPermitStatus,
   PermitContractType,
   ResidentPermit,
-  ResidentPermitVehicle,
+  Vehicle,
 } from '../types';
 import { formatMonthlyPrice } from '../utils';
 import styles from './CreateResidentPermit.module.scss';
@@ -29,6 +28,8 @@ const CUSTOMER_QUERY = gql`
       firstName
       lastName
       nationalIdNumber
+      email
+      phoneNumber
       zone {
         name
         description
@@ -47,8 +48,20 @@ const CUSTOMER_QUERY = gql`
           residentPrice
         }
       }
-      email
-      phoneNumber
+    }
+  }
+`;
+
+const VEHICLE_QUERY = gql`
+  query GetVehicle($regNumber: String!, $nationalIdNumber: String!) {
+    vehicle(regNumber: $regNumber, nationalIdNumber: $nationalIdNumber) {
+      manufacturer
+      model
+      registrationNumber
+      isLowEmission
+      consentLowEmissionAccepted
+      serialNumber
+      category
     }
   }
 `;
@@ -78,13 +91,21 @@ const initialPermit: FixedPeriodResidentPermit = {
   status: ParkingPermitStatus.VALID,
 };
 
+const initialVehicle: Vehicle = {
+  manufacturer: '',
+  model: '',
+  registrationNumber: '',
+  isLowEmission: false,
+  consentLowEmissionAccepted: false,
+  serialNumber: '',
+  category: 'M1',
+};
+
 const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   // states
-  const [searchRegNumber, setSearchRegNumber] = useState('');
-  const [selectedVehicleUser, setSelectedVehicleUser] = useState('');
-  const [vehicle, setVehicle] = useState<ResidentPermitVehicle>();
+  const [vehicle, setVehicle] = useState<Vehicle>(initialVehicle);
   const [person, setPerson] = useState<Customer>(initialPerson);
   const [permit, setPermit] =
     useState<FixedPeriodResidentPermit>(initialPermit);
@@ -93,14 +114,20 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
   }>(CUSTOMER_QUERY, {
-    onCompleted: ({ customer }) => setPerson(customer),
+    onCompleted: data => setPerson(data.customer),
+    onError: error => console.log(error.message),
+  });
+  const [getVehicle] = useLazyQuery<{
+    vehicle: Vehicle;
+  }>(VEHICLE_QUERY, {
+    onCompleted: data => setVehicle(data.vehicle),
     onError: error => console.log(error.message),
   });
   const [createResidentPermit] = useMutation<MutationResponse>(
     CREATE_RESIDENT_PERMIT_MUTATION
   );
 
-  // component event handlers
+  // event handlers
   const handleCreateResidentPermit = () => {
     if (!vehicle || !person || !person.zone) {
       return;
@@ -115,18 +142,18 @@ const CreateResidentPermit = (): React.ReactElement => {
     });
   };
   const handleSearchVehicle = (regNumber: string) => {
-    searchVechile(regNumber).then(resultVehicle => setVehicle(resultVehicle));
-  };
-  const handleUpdateVehicleField = (
-    field: keyof ResidentPermitVehicle,
-    value: unknown
-  ) => {
-    if (vehicle) {
-      setVehicle({
-        ...vehicle,
-        [field]: value,
-      });
+    if (!person.nationalIdNumber) {
+      return;
     }
+    getVehicle({
+      variables: { regNumber, nationalIdNumber: person.nationalIdNumber },
+    });
+  };
+  const handleUpdateVehicleField = (field: keyof Vehicle, value: unknown) => {
+    setVehicle({
+      ...vehicle,
+      [field]: value,
+    });
   };
   const handleSearchPerson = (nationalIdNumber: string) => {
     getCustomer({
@@ -134,12 +161,10 @@ const CreateResidentPermit = (): React.ReactElement => {
     });
   };
   const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
-    if (person) {
-      setPerson({
-        ...person,
-        [field]: value,
-      });
-    }
+    setPerson({
+      ...person,
+      [field]: value,
+    });
   };
   const handleUpdatePermitField = (
     field: keyof FixedPeriodResidentPermit,
@@ -191,13 +216,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           vehicle={vehicle}
           zone={person?.zone}
           className={styles.vehicleInfo}
-          selectedVehicleUser={selectedVehicleUser}
-          searchRegNumber={searchRegNumber}
-          onChangeSearchRegNumber={regNumber => setSearchRegNumber(regNumber)}
           onSearchRegistrationNumber={handleSearchVehicle}
-          onSelectUser={personalId => {
-            setSelectedVehicleUser(personalId);
-          }}
           onUpdateField={handleUpdateVehicleField}
         />
         <PermitInfo

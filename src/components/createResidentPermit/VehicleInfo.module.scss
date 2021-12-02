@@ -8,40 +8,25 @@
 .content {
   display: flex;
   flex-direction: column;
+  padding: $spacing-2-xs $spacing-m;
 
   .fieldItem {
-    margin: $spacing-2-xs $spacing-m;
+    margin: $spacing-2-xs 0;
   }
 
-  .vehicleUser {
-    margin: 0 $spacing-2-xl;
-  }
+  .priceInfo {
+    margin: $spacing-m 0;
 
-  .vehicleInfo {
-    .vehicleInfoTitle {
-      margin-top: $spacing-m;
-      padding: 0 $spacing-m;
-      font-weight: 600;
+    .priceTitle {
+      font-size: $fontsize-body-l;
     }
-    .vehicleInfoContent {
-      padding: $spacing-s $spacing-m;
-      background-color: $color-coat-of-arms-light;
-      .basicInfoAndPriceInfo {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        .basicInfo {
-          .vehicleName {
-            font-weight: 600;
-            font-size: $fontsize-body-l;
-          }
-        }
-        .priceInfo {
-          .discountPrice {
-            text-align: right;
-            font-weight: 550;
-          }
-        }
+
+    .priceDetail {
+      display: flex;
+      flex-direction: row;
+
+      .discountPrice {
+        margin-right: $spacing-s;
       }
     }
   }
