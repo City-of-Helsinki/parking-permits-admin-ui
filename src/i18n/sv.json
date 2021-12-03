@@ -1,7 +1,7 @@
 {
   "changelogEvent": {
-    "changed": "Uppdaterad",
-    "created": "Skapat"
+    "CHANGED": "Uppdaterad",
+    "CREATED": "Skapat"
   },
   "components": {
     "common": {
@@ -47,10 +47,12 @@
         "search": "Sök"
       },
       "vehicleInfo": {
+        "category": "Kategori",
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
-        "holder": "Fordonshållare",
         "lowEmissionVehicle": "Fordon med låga utsläpp",
-        "owner": "Fordonsägare",
+        "manufacturer": "Tillverkare",
+        "model": "Modell",
+        "price": "Pris",
         "registrationNumber": "Registreringsnummer",
         "search": "Sök",
         "serialNumber": "Serienummer",
