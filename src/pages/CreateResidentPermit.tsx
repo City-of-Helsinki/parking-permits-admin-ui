@@ -13,6 +13,7 @@ import {
   FixedPeriodResidentPermit,
   MutationResponse,
   ParkingPermitStatus,
+  ParkingZone,
   PermitContractType,
   ResidentPermit,
   Vehicle,
@@ -30,17 +31,13 @@ const CUSTOMER_QUERY = gql`
       nationalIdNumber
       email
       phoneNumber
-      zone {
-        name
-        description
-        descriptionSv
-        residentPrice
-      }
+      zone
       primaryAddress {
         city
         citySv
         streetName
         streetNumber
+        postalCode
         zone {
           name
           description
@@ -81,6 +78,7 @@ const initialPerson: Customer = {
   nationalIdNumber: '',
   phoneNumber: '',
   email: '',
+  zone: '',
   driverLicenseChecked: false,
 };
 
@@ -105,6 +103,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   // states
+  const [selectedZone, setSelectedZone] = useState<ParkingZone | undefined>();
   const [vehicle, setVehicle] = useState<Vehicle>(initialVehicle);
   const [person, setPerson] = useState<Customer>(initialPerson);
   const [permit, setPermit] =
@@ -129,7 +128,7 @@ const CreateResidentPermit = (): React.ReactElement => {
 
   // event handlers
   const handleCreateResidentPermit = () => {
-    if (!vehicle || !person || !person.zone) {
+    if (!vehicle || !person || !selectedZone) {
       return;
     }
     const permitData: ResidentPermit = {
@@ -176,23 +175,23 @@ const CreateResidentPermit = (): React.ReactElement => {
     });
 
   const formatDetailPrice = () => {
-    if (person?.zone && permit) {
+    if (selectedZone && permit) {
       const amountLabel = t(`${T_PATH}.monthCount`, {
         count: permit.monthCount,
       });
       const price = vehicle?.isLowEmission
-        ? person.zone.residentPrice / 2
-        : person.zone.residentPrice;
+        ? selectedZone.residentPrice / 2
+        : selectedZone.residentPrice;
       const unitPriceLabel = formatMonthlyPrice(price);
       return `${amountLabel}, ${unitPriceLabel}`;
     }
     return '-';
   };
   const formatTotalPrice = () => {
-    if (person?.zone && permit) {
+    if (selectedZone && permit) {
       const price = vehicle?.isLowEmission
-        ? person.zone.residentPrice / 2
-        : person.zone.residentPrice;
+        ? selectedZone.residentPrice / 2
+        : selectedZone.residentPrice;
       return permit.monthCount * price;
     }
     return '-';
@@ -211,10 +210,11 @@ const CreateResidentPermit = (): React.ReactElement => {
           className={styles.personalInfo}
           onSearchPerson={handleSearchPerson}
           onUpdateField={handleUpdatePersonField}
+          onSelectZone={zone => setSelectedZone(zone)}
         />
         <VehicleInfo
           vehicle={vehicle}
-          zone={person?.zone}
+          zone={selectedZone}
           className={styles.vehicleInfo}
           onSearchRegistrationNumber={handleSearchVehicle}
           onUpdateField={handleUpdateVehicleField}

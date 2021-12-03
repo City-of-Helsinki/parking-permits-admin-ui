@@ -17,7 +17,7 @@ export interface Customer {
   primaryAddress?: Address;
   email: string;
   phoneNumber: string;
-  zone?: ParkingZone;
+  zone: string;
   addressSecurityBan: boolean;
   driverLicenseChecked: boolean;
 }

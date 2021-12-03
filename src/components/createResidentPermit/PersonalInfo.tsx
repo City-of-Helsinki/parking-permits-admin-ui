@@ -1,7 +1,7 @@
 import { Button, Checkbox, PhoneInput, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Customer } from '../../types';
+import { Customer, ParkingZone } from '../../types';
 import { formatAddress } from '../../utils';
 import Divider from '../common/Divider';
 import ZoneSelect from '../common/ZoneSelect';
@@ -14,6 +14,7 @@ interface PersonalInfoProps {
   person: Customer;
   onSearchPerson: (nationalIdNumber: string) => void;
   onUpdateField: (field: keyof Customer, value: unknown) => void;
+  onSelectZone: (zone: ParkingZone | undefined) => void;
 }
 
 const PersonalInfo = ({
@@ -21,9 +22,10 @@ const PersonalInfo = ({
   person,
   onSearchPerson,
   onUpdateField,
+  onSelectZone,
 }: PersonalInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const defaultZone = person.zone?.name || person.primaryAddress?.zone?.name;
+  const defaultZone = person.zone || person.primaryAddress?.zone?.name;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.personalInfo`)}</div>
@@ -47,7 +49,6 @@ const PersonalInfo = ({
           onChange={e => onUpdateField('addressSecurityBan', e.target.checked)}
         />
         <TextInput
-          required
           className={styles.fieldItem}
           id="firstName"
           label={t(`${T_PATH}.firstName`)}
@@ -55,7 +56,6 @@ const PersonalInfo = ({
           onChange={e => onUpdateField('firstName', e.target.value)}
         />
         <TextInput
-          required
           className={styles.fieldItem}
           id="lastName"
           label={t(`${T_PATH}.lastName`)}
@@ -75,10 +75,12 @@ const PersonalInfo = ({
         />
         <ZoneSelect
           required
-          disabled={!person?.addressSecurityBan}
           className={styles.fieldItem}
           value={defaultZone}
-          onChange={zone => onUpdateField('zone', zone)}
+          onChange={zone => {
+            onUpdateField('zone', zone?.name || '');
+            onSelectZone(zone);
+          }}
         />
         <Divider className={styles.fieldDivider} />
         <PhoneInput

@@ -44,10 +44,12 @@ const ZoneSelect = ({
     value: '',
   };
   const zoneOptions: ZoneOption[] = data?.zones
-    ? data.zones.map(zone => ({
-        label: formatZone(zone, i18n.language),
-        value: zone.name,
-      }))
+    ? [emptyOption].concat(
+        data.zones.map(zone => ({
+          label: formatZone(zone, i18n.language),
+          value: zone.name,
+        }))
+      )
     : [emptyOption];
   const handleChange = (option: ZoneOption) => {
     const selectedZone = data?.zones.find(zone => option.value === zone.name);
