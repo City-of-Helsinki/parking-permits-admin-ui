@@ -41,6 +41,7 @@ export function searchPerson(personalId: string): Promise<Customer> {
       citySv: 'Helsingfors',
       postalCode: '00100',
     },
+    zone: 'A',
     addressSecurityBan: false,
     nationalIdNumber: personalId,
     phoneNumber: '04412345678',
