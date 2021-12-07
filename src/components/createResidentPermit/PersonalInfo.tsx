@@ -25,7 +25,18 @@ const PersonalInfo = ({
   onSelectZone,
 }: PersonalInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const defaultZone = person.zone || person.primaryAddress?.zone?.name;
+  const {
+    zone,
+    primaryAddress,
+    nationalIdNumber,
+    addressSecurityBan,
+    firstName,
+    lastName,
+    phoneNumber,
+    email,
+    driverLicenseChecked,
+  } = person;
+  const defaultZone = zone || primaryAddress?.zone?.name;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.personalInfo`)}</div>
@@ -35,9 +46,9 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="personalId"
           label={t(`${T_PATH}.personalId`)}
-          value={person.nationalIdNumber}
+          value={nationalIdNumber}
           onChange={e => onUpdateField('nationalIdNumber', e.target.value)}>
-          <Button onClick={() => onSearchPerson(person.nationalIdNumber)}>
+          <Button onClick={() => onSearchPerson(nationalIdNumber)}>
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
@@ -45,21 +56,23 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="addressSecurityBan"
           label={t(`${T_PATH}.addressSecurityBan`)}
-          checked={person?.addressSecurityBan}
+          checked={addressSecurityBan}
           onChange={e => onUpdateField('addressSecurityBan', e.target.checked)}
         />
         <TextInput
           className={styles.fieldItem}
           id="firstName"
+          disabled={addressSecurityBan}
           label={t(`${T_PATH}.firstName`)}
-          value={person?.firstName}
+          value={firstName}
           onChange={e => onUpdateField('firstName', e.target.value)}
         />
         <TextInput
           className={styles.fieldItem}
+          disabled={addressSecurityBan}
           id="lastName"
           label={t(`${T_PATH}.lastName`)}
-          value={person?.lastName}
+          value={lastName}
           onChange={e => onUpdateField('lastName', e.target.value)}
         />
         <TextInput
@@ -68,18 +81,16 @@ const PersonalInfo = ({
           id="address"
           label={t(`${T_PATH}.address`)}
           value={
-            person.primaryAddress
-              ? formatAddress(person.primaryAddress, i18n.language)
-              : '-'
+            primaryAddress ? formatAddress(primaryAddress, i18n.language) : '-'
           }
         />
         <ZoneSelect
           required
           className={styles.fieldItem}
           value={defaultZone}
-          onChange={zone => {
-            onUpdateField('zone', zone?.name || '');
-            onSelectZone(zone);
+          onChange={selectedZone => {
+            onUpdateField('zone', selectedZone?.name || '');
+            onSelectZone(selectedZone);
           }}
         />
         <Divider className={styles.fieldDivider} />
@@ -87,14 +98,14 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="phoneNumber"
           label={t(`${T_PATH}.phoneNumber`)}
-          value={person?.phoneNumber}
+          value={phoneNumber}
           onChange={e => onUpdateField('phoneNumber', e.target.value)}
         />
         <TextInput
           className={styles.fieldItem}
           id="email"
           label={t(`${T_PATH}.email`)}
-          value={person?.email}
+          value={email}
           onChange={e => onUpdateField('email', e.target.value)}
         />
         <Divider className={styles.fieldDivider} />
@@ -102,7 +113,7 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="driverLicenseChecked"
           label={t(`${T_PATH}.driverLicenseChecked`)}
-          checked={person?.driverLicenseChecked}
+          checked={driverLicenseChecked}
           onChange={e =>
             onUpdateField('driverLicenseChecked', e.target.checked)
           }
