@@ -1,4 +1,4 @@
-import { Button, Checkbox, TextInput } from 'hds-react';
+import { Button, Checkbox, Notification, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ParkingZone, Vehicle } from '../../types';
@@ -12,6 +12,7 @@ interface VehicleInfoProps {
   className?: string;
   vehicle: Vehicle;
   zone?: ParkingZone;
+  searchError?: string;
   onSearchRegistrationNumber: (regNumber: string) => void;
   onUpdateField: (field: keyof Vehicle, value: unknown) => void;
 }
@@ -20,6 +21,7 @@ const VehicleInfo = ({
   className,
   vehicle,
   zone,
+  searchError,
   onSearchRegistrationNumber,
   onUpdateField,
 }: VehicleInfoProps): React.ReactElement => {
@@ -52,6 +54,7 @@ const VehicleInfo = ({
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
+        {searchError && <Notification type="error">{searchError}</Notification>}
         <TextInput
           className={styles.fieldItem}
           id="manufacturer"
