@@ -1,5 +1,5 @@
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
-import { Button, IconCheckCircleFill } from 'hds-react';
+import { Button, IconCheckCircleFill, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -108,22 +108,34 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [person, setPerson] = useState<Customer>(initialPerson);
   const [permit, setPermit] =
     useState<FixedPeriodResidentPermit>(initialPermit);
+  const [personSearchError, setPersonSearchError] = useState('');
+  const [vehicleSearchError, setVehicleSearchError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   // graphql queries and mutations
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
   }>(CUSTOMER_QUERY, {
-    onCompleted: data => setPerson(data.customer),
-    onError: error => console.log(error.message),
+    onCompleted: data => {
+      setPersonSearchError('');
+      setPerson(data.customer);
+    },
+    onError: error => setPersonSearchError(error.message),
   });
   const [getVehicle] = useLazyQuery<{
     vehicle: Vehicle;
   }>(VEHICLE_QUERY, {
-    onCompleted: data => setVehicle(data.vehicle),
-    onError: error => console.log(error.message),
+    onCompleted: data => {
+      setVehicleSearchError('');
+      setVehicle(data.vehicle);
+    },
+    onError: error => setVehicleSearchError(error.message),
   });
   const [createResidentPermit] = useMutation<MutationResponse>(
-    CREATE_RESIDENT_PERMIT_MUTATION
+    CREATE_RESIDENT_PERMIT_MUTATION,
+    {
+      onError: error => setErrorMessage(error.message),
+    }
   );
 
   // event handlers
@@ -208,6 +220,7 @@ const CreateResidentPermit = (): React.ReactElement => {
         <PersonalInfo
           person={person}
           className={styles.personalInfo}
+          searchError={personSearchError}
           onSearchPerson={handleSearchPerson}
           onUpdateField={handleUpdatePersonField}
           onSelectZone={zone => setSelectedZone(zone)}
@@ -216,6 +229,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           vehicle={vehicle}
           zone={selectedZone}
           className={styles.vehicleInfo}
+          searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
           onUpdateField={handleUpdateVehicleField}
         />
@@ -253,6 +267,18 @@ const CreateResidentPermit = (): React.ReactElement => {
           </div>
         </div>
       </div>
+      {errorMessage && (
+        <Notification
+          type="error"
+          label={t('message.error')}
+          position="bottom-center"
+          dismissible
+          closeButtonLabelText={t('message.close')}
+          onClose={() => setErrorMessage('')}
+          style={{ zIndex: 100 }}>
+          {errorMessage}
+        </Notification>
+      )}
     </div>
   );
 };

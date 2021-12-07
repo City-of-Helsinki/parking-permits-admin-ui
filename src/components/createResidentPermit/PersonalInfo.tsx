@@ -1,4 +1,10 @@
-import { Button, Checkbox, PhoneInput, TextInput } from 'hds-react';
+import {
+  Button,
+  Checkbox,
+  Notification,
+  PhoneInput,
+  TextInput,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Customer, ParkingZone } from '../../types';
@@ -12,6 +18,7 @@ const T_PATH = 'components.createResidentPermit.personalInfo';
 interface PersonalInfoProps {
   className?: string;
   person: Customer;
+  searchError?: string;
   onSearchPerson: (nationalIdNumber: string) => void;
   onUpdateField: (field: keyof Customer, value: unknown) => void;
   onSelectZone: (zone: ParkingZone | undefined) => void;
@@ -20,6 +27,7 @@ interface PersonalInfoProps {
 const PersonalInfo = ({
   className,
   person,
+  searchError,
   onSearchPerson,
   onUpdateField,
   onSelectZone,
@@ -52,6 +60,7 @@ const PersonalInfo = ({
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
+        {searchError && <Notification type="error">{searchError}</Notification>}
         <Checkbox
           className={styles.fieldItem}
           id="addressSecurityBan"
