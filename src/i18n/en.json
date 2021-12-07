@@ -1,7 +1,7 @@
 {
   "changelogEvent": {
-    "changed": "Updated",
-    "created": "Created"
+    "CHANGED": "Updated",
+    "CREATED": "Created"
   },
   "components": {
     "common": {
@@ -47,10 +47,12 @@
         "search": "Search"
       },
       "vehicleInfo": {
+        "category": "Category",
         "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
-        "holder": "Vehicle holder",
         "lowEmissionVehicle": "Low emission vehicle",
-        "owner": "Vehicle owner",
+        "manufacturer": "Manufacturer",
+        "model": "Model",
+        "price": "Price",
         "registrationNumber": "Registration number",
         "search": "Search",
         "serialNumber": "Serial number",

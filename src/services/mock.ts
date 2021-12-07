@@ -1,4 +1,4 @@
-import { ResidentPermitCustomer, ResidentPermitVehicle } from '../types';
+import { Customer, ResidentPermitVehicle } from '../types';
 
 export function searchVechile(
   regNumber: string
@@ -29,13 +29,11 @@ export function searchVechile(
   return Promise.resolve(vehicle);
 }
 
-export function searchPerson(
-  personalId: string
-): Promise<ResidentPermitCustomer> {
-  const person: ResidentPermitCustomer = {
+export function searchPerson(personalId: string): Promise<Customer> {
+  const person: Customer = {
     firstName: 'Phil',
     lastName: 'Duncan',
-    address: {
+    primaryAddress: {
       streetName: 'Mannerheimintie',
       streetNameSv: 'Mannerheimintie',
       streetNumber: 2,
@@ -43,12 +41,7 @@ export function searchPerson(
       citySv: 'Helsingfors',
       postalCode: '00100',
     },
-    zone: {
-      name: 'A',
-      description: 'Kamppi',
-      descriptionSv: 'Kampen',
-      residentPrice: 30,
-    },
+    zone: 'A',
     addressSecurityBan: false,
     nationalIdNumber: personalId,
     phoneNumber: '04412345678',

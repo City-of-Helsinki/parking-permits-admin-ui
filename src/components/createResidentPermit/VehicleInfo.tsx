@@ -1,47 +1,38 @@
-import { Button, Checkbox, RadioButton, TextInput } from 'hds-react';
+import { Button, Checkbox, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ParkingZone, ResidentPermitVehicle, VehicleUser } from '../../types';
+import { ParkingZone, Vehicle } from '../../types';
 import { formatMonthlyPrice } from '../../utils';
 import Divider from '../common/Divider';
+import VehicleCategorySelect from '../common/VehicleCategorySelect';
 import styles from './VehicleInfo.module.scss';
 
 const T_PATH = 'components.createResidentPermit.vehicleInfo';
-
-function formatVehicleName(vehicle: ResidentPermitVehicle): string {
-  const { manufacturer, model, registrationNumber } = vehicle;
-  return `${registrationNumber} ${manufacturer} ${model}`;
-}
-
-function formatUserName(user: VehicleUser): string {
-  const { firstName, lastName, nationalIdNumber } = user;
-  return `${firstName} ${lastName}, ${nationalIdNumber}`;
-}
-
 interface VehicleInfoProps {
   className?: string;
-  vehicle?: ResidentPermitVehicle;
-  searchRegNumber: string;
-  selectedVehicleUser: string;
+  vehicle: Vehicle;
   zone?: ParkingZone;
-  onChangeSearchRegNumber: (regNumber: string) => void;
   onSearchRegistrationNumber: (regNumber: string) => void;
-  onSelectUser: (userId: string) => void;
-  onUpdateField: (field: keyof ResidentPermitVehicle, value: unknown) => void;
+  onUpdateField: (field: keyof Vehicle, value: unknown) => void;
 }
 
 const VehicleInfo = ({
   className,
   vehicle,
-  searchRegNumber,
-  selectedVehicleUser,
   zone,
-  onChangeSearchRegNumber,
   onSearchRegistrationNumber,
-  onSelectUser,
   onUpdateField,
 }: VehicleInfoProps): React.ReactElement => {
   const { t } = useTranslation();
+  const {
+    manufacturer,
+    model,
+    registrationNumber,
+    isLowEmission,
+    consentLowEmissionAccepted,
+    serialNumber,
+    category,
+  } = vehicle;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.vehicleInfo`)}</div>
@@ -51,119 +42,80 @@ const VehicleInfo = ({
           className={styles.fieldItem}
           id="registrationNumber"
           label={t(`${T_PATH}.registrationNumber`)}
-          value={searchRegNumber}
-          onChange={e => onChangeSearchRegNumber(e.target.value)}>
+          value={registrationNumber}
+          onChange={e => onUpdateField('registrationNumber', e.target.value)}>
           <Button
             onClick={() =>
-              searchRegNumber && onSearchRegistrationNumber(searchRegNumber)
+              registrationNumber &&
+              onSearchRegistrationNumber(registrationNumber)
             }>
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
-        {vehicle?.owner && (
-          <>
-            <RadioButton
-              className={styles.fieldItem}
-              id="vehicleOwner"
-              name="vehicleUser"
-              label={t(`${T_PATH}.owner`)}
-              value={vehicle.owner.nationalIdNumber}
-              checked={vehicle.owner.nationalIdNumber === selectedVehicleUser}
-              onChange={e => onSelectUser(e.target.value)}
-            />
-            <div className={styles.vehicleUser}>
-              {formatUserName(vehicle.owner)}
-            </div>
-          </>
-        )}
-        {vehicle?.holder && (
-          <>
-            <RadioButton
-              className={styles.fieldItem}
-              id="vehicleHolder"
-              name="vehicleUser"
-              label={t(`${T_PATH}.holder`)}
-              value={vehicle.holder.nationalIdNumber}
-              checked={vehicle.holder.nationalIdNumber === selectedVehicleUser}
-              onChange={e => onSelectUser(e.target.value)}
-            />
-            <div className={styles.vehicleUser}>
-              {formatUserName(vehicle.holder)}
-            </div>
-          </>
-        )}
-        {vehicle?.otherHolder && (
-          <>
-            <RadioButton
-              className={styles.fieldItem}
-              id="vehicleOtherHolder"
-              name="vehicleUser"
-              label={t(`${T_PATH}.otherHolder`)}
-              value={vehicle.otherHolder.nationalIdNumber}
-              checked={
-                vehicle.otherHolder.nationalIdNumber === selectedVehicleUser
-              }
-              onChange={e => onSelectUser(e.target.value)}
-            />
-            <div className={styles.vehicleUser}>
-              {formatUserName(vehicle.holder)}
-            </div>
-          </>
-        )}
-        {vehicle && (
-          <div className={styles.vehicleInfo}>
-            <div className={styles.vehicleInfoTitle}>
-              {t(`${T_PATH}.vehicleInfo`)}
-            </div>
-            <div className={styles.vehicleInfoContent}>
-              <div className={styles.basicInfoAndPriceInfo}>
-                <div className={styles.basicInfo}>
-                  <div className={styles.vehicleName}>
-                    {formatVehicleName(vehicle)}
-                  </div>
-                  <div className={styles.vehicleType}>{vehicle.type}</div>
-                  <div className={styles.serialNumber}>
-                    {t(`${T_PATH}.serialNumber`)} {vehicle.serialNumber}
-                  </div>
-                </div>
-                <div className={styles.priceInfo}>
-                  {vehicle.isLowEmission && (
-                    <div className={styles.discountPrice}>
-                      {zone ? formatMonthlyPrice(zone.residentPrice / 2) : '-'}
-                    </div>
-                  )}
-                  <div className={styles.originalPrice}>
-                    {vehicle.isLowEmission ? (
-                      <del>
-                        {zone ? formatMonthlyPrice(zone.residentPrice) : '-'}
-                      </del>
-                    ) : (
-                      <span>
-                        {zone ? formatMonthlyPrice(zone.residentPrice) : '-'}
-                      </span>
-                    )}
-                  </div>
-                </div>
+        <TextInput
+          className={styles.fieldItem}
+          id="manufacturer"
+          label={t(`${T_PATH}.manufacturer`)}
+          value={manufacturer}
+          onChange={e => onUpdateField('manufacturer', e.target.value)}
+        />
+        <TextInput
+          className={styles.fieldItem}
+          id="model"
+          label={t(`${T_PATH}.model`)}
+          value={model}
+          onChange={e => onUpdateField('model', e.target.value)}
+        />
+        <VehicleCategorySelect
+          className={styles.fieldItem}
+          label={t(`${T_PATH}.category`)}
+          value={category}
+          onChange={value => onUpdateField('category', value)}
+        />
+        <TextInput
+          className={styles.fieldItem}
+          id="serialNumber"
+          label={t(`${T_PATH}.serialNumber`)}
+          value={serialNumber}
+          onChange={e => onUpdateField('serialNumber', e.target.value)}
+        />
+        <Checkbox
+          className={styles.fieldItem}
+          id="isLowEmission"
+          name="isLowEmission"
+          label={t(`${T_PATH}.lowEmissionVehicle`)}
+          checked={isLowEmission}
+          onChange={e => onUpdateField('isLowEmission', e.target.checked)}
+        />
+        <Checkbox
+          className={styles.fieldItem}
+          id="consentLowEmissionDiscount"
+          name="consentLowEmissionDiscount"
+          label={t(`${T_PATH}.consentLowEmissionDiscountText`)}
+          checked={consentLowEmissionAccepted}
+          onChange={e =>
+            onUpdateField('consentLowEmissionAccepted', e.target.checked)
+          }
+        />
+        <div className={styles.priceInfo}>
+          <div className={styles.priceTitle}>{t(`${T_PATH}.price`)}</div>
+          <div className={styles.priceDetail}>
+            {zone && vehicle.isLowEmission && (
+              <div className={styles.discountPrice}>
+                {zone ? formatMonthlyPrice(zone.residentPrice / 2) : '-'}
               </div>
-              <Checkbox
-                id="isLowEmission"
-                name="isLowEmission"
-                label={t(`${T_PATH}.lowEmissionVehicle`)}
-                checked={vehicle.isLowEmission}
-                onChange={e => onUpdateField('isLowEmission', e.target.checked)}
-              />
-              <Checkbox
-                id="consentLowEmissionDiscount"
-                name="consentLowEmissionDiscount"
-                label={t(`${T_PATH}.consentLowEmissionDiscountText`)}
-                checked={vehicle.consentLowEmissionAccepted}
-                onChange={e =>
-                  onUpdateField('consentLowEmissionAccepted', e.target.checked)
-                }
-              />
+            )}
+            <div className={styles.originalPrice}>
+              {isLowEmission ? (
+                <del>{zone ? formatMonthlyPrice(zone.residentPrice) : '-'}</del>
+              ) : (
+                <span>
+                  {zone ? formatMonthlyPrice(zone.residentPrice) : '-'}
+                </span>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

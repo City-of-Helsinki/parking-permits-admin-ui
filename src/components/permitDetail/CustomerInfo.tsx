@@ -18,19 +18,17 @@ const CustomerInfo = ({
   permit,
 }: CustomerInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const { vehicle, customer, parkingZone } = permit;
+  const { customer, parkingZone } = permit;
   const fields = [
-    {
-      label: t(`${T_PATH}.vehicleHolder`),
-      value: vehicle.holder,
-    },
     {
       label: t(`${T_PATH}.personalID`),
       value: customer.nationalIdNumber || '-',
     },
     {
       label: t(`${T_PATH}.address`),
-      value: formatAddress(customer.primaryAddress, i18n.language),
+      value: customer?.primaryAddress
+        ? formatAddress(customer.primaryAddress, i18n.language)
+        : '-',
     },
     {
       label: t(`${T_PATH}.parkingZone`),

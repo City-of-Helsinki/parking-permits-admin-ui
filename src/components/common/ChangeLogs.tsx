@@ -14,8 +14,8 @@ export interface ChangeLogsProps {
 const ChangeLogs = ({ changeLogs }: ChangeLogsProps): React.ReactElement => {
   const { t } = useTranslation();
   const eventLabels = {
-    [ChangeLogEvent.CREATED]: t('changelogEvent.created'),
-    [ChangeLogEvent.CHANGED]: t('changelogEvent.changed'),
+    [ChangeLogEvent.CREATED]: t('changelogEvent.CREATED'),
+    [ChangeLogEvent.CHANGED]: t('changelogEvent.CHANGED'),
   };
   const columns: Column<ChangeLog>[] = [
     {

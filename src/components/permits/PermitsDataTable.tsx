@@ -51,7 +51,9 @@ const PermitsDataTable = ({
       name: t(`${T_PATH}.address`),
       field: 'address',
       selector: ({ customer }) =>
-        formatAddress(customer.primaryAddress, i18n.language),
+        customer?.primaryAddress
+          ? formatAddress(customer.primaryAddress, i18n.language)
+          : '-',
       orderFields: [
         'customer__primary_address__street_name',
         'customer__primary_address__street_number',

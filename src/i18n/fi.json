@@ -1,7 +1,7 @@
 {
   "changelogEvent": {
-    "changed": "Muokkaus",
-    "created": "Luotu"
+    "CHANGED": "Muokkaus",
+    "CREATED": "Luotu"
   },
   "components": {
     "common": {
@@ -47,10 +47,12 @@
         "search": "Hae"
       },
       "vehicleInfo": {
+        "category": "Kategoria",
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
-        "holder": "Ajoneuvon haltija",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
-        "owner": "Ajoneuvon omistaja",
+        "manufacturer": "Valmistaja",
+        "model": "Malli",
+        "price": "Hinta",
         "registrationNumber": "Rekisterinumero",
         "search": "Hae",
         "serialNumber": "Valmistenumero",

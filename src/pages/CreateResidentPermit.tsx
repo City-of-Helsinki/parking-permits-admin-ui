@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import { Button, IconCheckCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,20 +8,60 @@ import Breadcrumbs from '../components/common/Breadcrumbs';
 import PermitInfo from '../components/createResidentPermit/PermitInfo';
 import PersonalInfo from '../components/createResidentPermit/PersonalInfo';
 import VehicleInfo from '../components/createResidentPermit/VehicleInfo';
-import { searchPerson, searchVechile } from '../services/mock';
 import {
+  Customer,
   FixedPeriodResidentPermit,
   MutationResponse,
   ParkingPermitStatus,
+  ParkingZone,
   PermitContractType,
   ResidentPermit,
-  ResidentPermitCustomer,
-  ResidentPermitVehicle,
+  Vehicle,
 } from '../types';
 import { formatMonthlyPrice } from '../utils';
 import styles from './CreateResidentPermit.module.scss';
 
 const T_PATH = 'pages.createResidentPermit';
+
+const CUSTOMER_QUERY = gql`
+  query GetCustomer($nationalIdNumber: String!) {
+    customer(nationalIdNumber: $nationalIdNumber) {
+      firstName
+      lastName
+      nationalIdNumber
+      email
+      phoneNumber
+      zone
+      primaryAddress {
+        city
+        citySv
+        streetName
+        streetNumber
+        postalCode
+        zone {
+          name
+          description
+          descriptionSv
+          residentPrice
+        }
+      }
+    }
+  }
+`;
+
+const VEHICLE_QUERY = gql`
+  query GetVehicle($regNumber: String!, $nationalIdNumber: String!) {
+    vehicle(regNumber: $regNumber, nationalIdNumber: $nationalIdNumber) {
+      manufacturer
+      model
+      registrationNumber
+      isLowEmission
+      consentLowEmissionAccepted
+      serialNumber
+      category
+    }
+  }
+`;
 
 const CREATE_RESIDENT_PERMIT_MUTATION = gql`
   mutation CreateResidentPermit($permit: ResidentPermitInput!) {
@@ -31,39 +71,64 @@ const CREATE_RESIDENT_PERMIT_MUTATION = gql`
   }
 `;
 
+const initialPerson: Customer = {
+  firstName: '',
+  lastName: '',
+  addressSecurityBan: false,
+  nationalIdNumber: '',
+  phoneNumber: '',
+  email: '',
+  zone: '',
+  driverLicenseChecked: false,
+};
+
+const initialPermit: FixedPeriodResidentPermit = {
+  contractType: PermitContractType.FIXED_PERIOD,
+  monthCount: 1,
+  startTime: new Date().toISOString(),
+  status: ParkingPermitStatus.VALID,
+};
+
+const initialVehicle: Vehicle = {
+  manufacturer: '',
+  model: '',
+  registrationNumber: '',
+  isLowEmission: false,
+  consentLowEmissionAccepted: false,
+  serialNumber: '',
+  category: 'M1',
+};
+
 const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  // states
+  const [selectedZone, setSelectedZone] = useState<ParkingZone | undefined>();
+  const [vehicle, setVehicle] = useState<Vehicle>(initialVehicle);
+  const [person, setPerson] = useState<Customer>(initialPerson);
+  const [permit, setPermit] =
+    useState<FixedPeriodResidentPermit>(initialPermit);
+
+  // graphql queries and mutations
+  const [getCustomer] = useLazyQuery<{
+    customer: Customer;
+  }>(CUSTOMER_QUERY, {
+    onCompleted: data => setPerson(data.customer),
+    onError: error => console.log(error.message),
+  });
+  const [getVehicle] = useLazyQuery<{
+    vehicle: Vehicle;
+  }>(VEHICLE_QUERY, {
+    onCompleted: data => setVehicle(data.vehicle),
+    onError: error => console.log(error.message),
+  });
   const [createResidentPermit] = useMutation<MutationResponse>(
     CREATE_RESIDENT_PERMIT_MUTATION
   );
-  const navigate = useNavigate();
-  const [searchRegNumber, setSearchRegNumber] = useState('');
-  const [searchPersonalId, setSearchPersonalId] = useState('');
-  const [selectedVehicleUser, setSelectedVehicleUser] = useState('');
-  const [vehicle, setVehicle] = useState<ResidentPermitVehicle>();
-  const [person, setPerson] = useState<ResidentPermitCustomer>({
-    firstName: '',
-    lastName: '',
-    zone: {
-      name: '',
-      description: '',
-      descriptionSv: '',
-      residentPrice: 0,
-    },
-    addressSecurityBan: false,
-    nationalIdNumber: '',
-    phoneNumber: '',
-    email: '',
-    driverLicenseChecked: false,
-  });
-  const [permit, setPermit] = useState<FixedPeriodResidentPermit>({
-    contractType: PermitContractType.FIXED_PERIOD,
-    monthCount: 1,
-    startTime: new Date().toISOString(),
-    status: ParkingPermitStatus.VALID,
-  });
+
+  // event handlers
   const handleCreateResidentPermit = () => {
-    if (!vehicle || !person || !person.zone) {
+    if (!vehicle || !person || !selectedZone) {
       return;
     }
     const permitData: ResidentPermit = {
@@ -76,32 +141,29 @@ const CreateResidentPermit = (): React.ReactElement => {
     });
   };
   const handleSearchVehicle = (regNumber: string) => {
-    searchVechile(regNumber).then(resultVehicle => setVehicle(resultVehicle));
-  };
-  const handleUpdateVehicleField = (
-    field: keyof ResidentPermitVehicle,
-    value: unknown
-  ) => {
-    if (vehicle) {
-      setVehicle({
-        ...vehicle,
-        [field]: value,
-      });
+    if (!person.nationalIdNumber) {
+      return;
     }
+    getVehicle({
+      variables: { regNumber, nationalIdNumber: person.nationalIdNumber },
+    });
   };
-  const handleSearchPerson = (personalId: string) => {
-    searchPerson(personalId).then(resultPerson => setPerson(resultPerson));
+  const handleUpdateVehicleField = (field: keyof Vehicle, value: unknown) => {
+    setVehicle({
+      ...vehicle,
+      [field]: value,
+    });
   };
-  const handleUpdatePersonField = (
-    field: keyof ResidentPermitCustomer,
-    value: unknown
-  ) => {
-    if (person) {
-      setPerson({
-        ...person,
-        [field]: value,
-      });
-    }
+  const handleSearchPerson = (nationalIdNumber: string) => {
+    getCustomer({
+      variables: { nationalIdNumber },
+    });
+  };
+  const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
+    setPerson({
+      ...person,
+      [field]: value,
+    });
   };
   const handleUpdatePermitField = (
     field: keyof FixedPeriodResidentPermit,
@@ -111,24 +173,25 @@ const CreateResidentPermit = (): React.ReactElement => {
       ...permit,
       [field]: value,
     });
+
   const formatDetailPrice = () => {
-    if (person?.zone && permit) {
+    if (selectedZone && permit) {
       const amountLabel = t(`${T_PATH}.monthCount`, {
         count: permit.monthCount,
       });
       const price = vehicle?.isLowEmission
-        ? person.zone.residentPrice / 2
-        : person.zone.residentPrice;
+        ? selectedZone.residentPrice / 2
+        : selectedZone.residentPrice;
       const unitPriceLabel = formatMonthlyPrice(price);
       return `${amountLabel}, ${unitPriceLabel}`;
     }
     return '-';
   };
   const formatTotalPrice = () => {
-    if (person?.zone && permit) {
+    if (selectedZone && permit) {
       const price = vehicle?.isLowEmission
-        ? person.zone.residentPrice / 2
-        : person.zone.residentPrice;
+        ? selectedZone.residentPrice / 2
+        : selectedZone.residentPrice;
       return permit.monthCount * price;
     }
     return '-';
@@ -142,29 +205,19 @@ const CreateResidentPermit = (): React.ReactElement => {
       </Breadcrumbs>
       <div className={styles.title}>{t(`${T_PATH}.residentPermit`)}</div>
       <div className={styles.content}>
-        <VehicleInfo
-          vehicle={vehicle}
-          zone={person?.zone}
-          className={styles.vehicleInfo}
-          selectedVehicleUser={selectedVehicleUser}
-          searchRegNumber={searchRegNumber}
-          onChangeSearchRegNumber={regNumber => setSearchRegNumber(regNumber)}
-          onSearchRegistrationNumber={handleSearchVehicle}
-          onSelectUser={personalId => {
-            setSelectedVehicleUser(personalId);
-            setSearchPersonalId(personalId);
-          }}
-          onUpdateField={handleUpdateVehicleField}
-        />
         <PersonalInfo
           person={person}
           className={styles.personalInfo}
-          searchPersonalId={searchPersonalId}
-          onChangeSearchPersonalId={personalId =>
-            setSearchPersonalId(personalId)
-          }
           onSearchPerson={handleSearchPerson}
           onUpdateField={handleUpdatePersonField}
+          onSelectZone={zone => setSelectedZone(zone)}
+        />
+        <VehicleInfo
+          vehicle={vehicle}
+          zone={selectedZone}
+          className={styles.vehicleInfo}
+          onSearchRegistrationNumber={handleSearchVehicle}
+          onUpdateField={handleUpdateVehicleField}
         />
         <PermitInfo
           permit={permit}

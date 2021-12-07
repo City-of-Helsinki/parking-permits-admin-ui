@@ -7,15 +7,19 @@ export interface Address {
   city: string;
   citySv: string;
   postalCode: string;
+  zone?: ParkingZone;
 }
 
 export interface Customer {
   firstName: string;
   lastName: string;
   nationalIdNumber: string;
-  primaryAddress: Address;
+  primaryAddress?: Address;
   email: string;
   phoneNumber: string;
+  zone: string;
+  addressSecurityBan: boolean;
+  driverLicenseChecked: boolean;
 }
 
 export interface Vehicle {
@@ -23,7 +27,9 @@ export interface Vehicle {
   model: string;
   registrationNumber: string;
   isLowEmission: boolean;
-  holder: string;
+  consentLowEmissionAccepted: boolean;
+  serialNumber: string;
+  category: string;
 }
 
 export interface ParkingZone {
@@ -122,18 +128,6 @@ export interface FixedPeriodResidentPermit {
   status: ParkingPermitStatus;
 }
 
-export interface ResidentPermitCustomer {
-  firstName: string;
-  lastName: string;
-  address?: Address;
-  addressSecurityBan: boolean;
-  nationalIdNumber: string;
-  zone: ParkingZone;
-  phoneNumber: string;
-  email: string;
-  driverLicenseChecked: boolean;
-}
-
 export interface VehicleUser {
   firstName: string;
   lastName: string;
@@ -158,8 +152,8 @@ export interface ResidentPermitVehicle {
 }
 
 export interface ResidentPermit extends FixedPeriodResidentPermit {
-  customer: ResidentPermitCustomer;
-  vehicle: ResidentPermitVehicle;
+  customer: Customer;
+  vehicle: Vehicle;
 }
 
 export interface MutationResponse {
