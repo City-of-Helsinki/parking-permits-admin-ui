@@ -36,7 +36,7 @@
       },
       "personalInfo": {
         "address": "Adress",
-        "addressSecurityBan": "Säkerhetsförbud: lagra inte adress",
+        "addressSecurityBan": "Säkerhetsförbud: Adress och namn kommer inte att registreras",
         "driverLicenseChecked": "Förarlicensen är kontrollerad",
         "email": "E-post",
         "firstName": "Förnamn",
