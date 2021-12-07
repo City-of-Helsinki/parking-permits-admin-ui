@@ -36,7 +36,7 @@
       },
       "personalInfo": {
         "address": "Osoite",
-        "addressSecurityBan": "Turvakielto: Osoitetta ei kirjata",
+        "addressSecurityBan": "Turvakielto: Osoitetta ja nimeä ei kirjata",
         "driverLicenseChecked": "Asiakkaan ajokortti tarkistettu",
         "email": "Sähköpostiosoite",
         "firstName": "Etunimi",

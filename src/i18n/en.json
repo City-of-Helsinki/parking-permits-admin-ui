@@ -36,7 +36,7 @@
       },
       "personalInfo": {
         "address": "Address",
-        "addressSecurityBan": "Security ban: do not store address",
+        "addressSecurityBan": "Non-disclosure for personal safety",
         "driverLicenseChecked": "Driver's licese is checked",
         "email": "Email",
         "firstName": "First name",
