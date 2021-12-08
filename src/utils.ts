@@ -30,7 +30,10 @@ export function formatDateDisplay(datetime: string | Date): string {
 export function formatDateTimeDisplay(datetime: string | Date): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
   const dateStr = dt.toLocaleDateString('fi');
-  const timeStr = dt.toLocaleTimeString('fi');
+  const timeStr = dt.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
   return `${dateStr}, ${timeStr}`;
 }
 
