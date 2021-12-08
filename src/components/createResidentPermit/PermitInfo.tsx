@@ -1,4 +1,4 @@
-import { addMonths } from 'date-fns';
+import { addDays, addMonths, endOfDay } from 'date-fns';
 import { DateInput, NumberInput, TextArea, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,11 +25,9 @@ const PermitInfo = ({
   onUpdateField,
 }: PermitInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const expirationDate = permit
-    ? formatDateTimeDisplay(
-        addMonths(new Date(permit.startTime), permit.monthCount)
-      )
-    : '';
+  const expirationDate = endOfDay(
+    addDays(addMonths(new Date(permit.startTime), permit.monthCount), -1)
+  );
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.permitInfo`)}</div>
@@ -84,7 +82,7 @@ const PermitInfo = ({
           className={styles.fieldItem}
           id="expirationDate"
           label={t(`${T_PATH}.expirationDate`)}
-          value={expirationDate}
+          value={formatDateTimeDisplay(expirationDate)}
         />
         <Divider className={styles.fieldDivider} />
         <TextArea
