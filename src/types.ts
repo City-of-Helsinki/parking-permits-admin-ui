@@ -101,6 +101,11 @@ export interface PermitDetail {
   changeLogs: ChangeLog[];
 }
 
+export type PermitInfoDetail = Pick<
+  PermitDetail,
+  'contractType' | 'monthCount' | 'startTime' | 'endTime' | 'status'
+>;
+
 export interface PermitDetailData {
   permitDetail: PermitDetail;
 }
@@ -119,13 +124,6 @@ export interface PagedPermits {
 
 export interface PermitsQueryData {
   permits: PagedPermits;
-}
-
-export interface FixedPeriodResidentPermit {
-  contractType: PermitContractType.FIXED_PERIOD;
-  monthCount: number;
-  startTime: string;
-  status: ParkingPermitStatus;
 }
 
 export interface VehicleUser {
@@ -149,11 +147,6 @@ export interface ResidentPermitVehicle {
   holder: VehicleUser;
   owner: VehicleUser;
   otherHolder?: VehicleUser;
-}
-
-export interface ResidentPermit extends FixedPeriodResidentPermit {
-  customer: Customer;
-  vehicle: Vehicle;
 }
 
 export interface MutationResponse {

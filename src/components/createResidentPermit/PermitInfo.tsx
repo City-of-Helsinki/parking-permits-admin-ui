@@ -2,7 +2,7 @@ import { addDays, addMonths, endOfDay } from 'date-fns';
 import { DateInput, NumberInput, TextArea, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FixedPeriodResidentPermit, Language } from '../../types';
+import { Language, PermitInfoDetail } from '../../types';
 import { formatDateDisplay, formatDateTimeDisplay } from '../../utils';
 import Divider from '../common/Divider';
 import StatusSelect from '../permits/StatusSelect';
@@ -12,11 +12,8 @@ const T_PATH = 'components.createResidentPermit.permitInfo';
 
 interface PermitInfoProps {
   className?: string;
-  permit: FixedPeriodResidentPermit;
-  onUpdateField: (
-    field: keyof FixedPeriodResidentPermit,
-    value: unknown
-  ) => void;
+  permit: PermitInfoDetail;
+  onUpdateField: (field: keyof PermitInfoDetail, value: unknown) => void;
 }
 
 const PermitInfo = ({

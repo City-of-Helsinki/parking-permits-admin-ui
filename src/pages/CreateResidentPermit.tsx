@@ -10,12 +10,12 @@ import PersonalInfo from '../components/createResidentPermit/PersonalInfo';
 import VehicleInfo from '../components/createResidentPermit/VehicleInfo';
 import {
   Customer,
-  FixedPeriodResidentPermit,
   MutationResponse,
   ParkingPermitStatus,
   ParkingZone,
   PermitContractType,
-  ResidentPermit,
+  PermitDetail,
+  PermitInfoDetail,
   Vehicle,
 } from '../types';
 import { formatMonthlyPrice } from '../utils';
@@ -82,7 +82,7 @@ const initialPerson: Customer = {
   driverLicenseChecked: false,
 };
 
-const initialPermit: FixedPeriodResidentPermit = {
+const initialPermit: PermitInfoDetail = {
   contractType: PermitContractType.FIXED_PERIOD,
   monthCount: 1,
   startTime: new Date().toISOString(),
@@ -106,8 +106,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [selectedZone, setSelectedZone] = useState<ParkingZone | undefined>();
   const [vehicle, setVehicle] = useState<Vehicle>(initialVehicle);
   const [person, setPerson] = useState<Customer>(initialPerson);
-  const [permit, setPermit] =
-    useState<FixedPeriodResidentPermit>(initialPermit);
+  const [permit, setPermit] = useState<PermitInfoDetail>(initialPermit);
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -143,7 +142,7 @@ const CreateResidentPermit = (): React.ReactElement => {
     if (!vehicle || !person || !selectedZone) {
       return;
     }
-    const permitData: ResidentPermit = {
+    const permitData: Partial<PermitDetail> = {
       ...permit,
       customer: person,
       vehicle,
@@ -177,10 +176,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       [field]: value,
     });
   };
-  const handleUpdatePermitField = (
-    field: keyof FixedPeriodResidentPermit,
-    value: unknown
-  ) =>
+  const handleUpdatePermitField = (field: keyof PermitDetail, value: unknown) =>
     setPermit({
       ...permit,
       [field]: value,
