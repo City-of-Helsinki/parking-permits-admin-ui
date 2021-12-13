@@ -1,5 +1,7 @@
 import { OrderDirection, SearchItem } from './components/types';
 
+export type AnyObject = Record<string, unknown>;
+
 export interface Address {
   streetName: string;
   streetNumber: number;
@@ -17,7 +19,7 @@ export interface Customer {
   primaryAddress?: Address;
   email: string;
   phoneNumber: string;
-  zone: string;
+  zone?: ParkingZone;
   addressSecurityBan: boolean;
   driverLicenseChecked: boolean;
 }
@@ -130,23 +132,6 @@ export interface VehicleUser {
   firstName: string;
   lastName: string;
   nationalIdNumber: string;
-}
-
-export interface ResidentPermitVehicle {
-  isLowEmission: boolean;
-  consentLowEmissionAccepted: boolean;
-  registrationNumber: string;
-  productionYear: number;
-  emission: number;
-  manufacturer: string;
-  model: string;
-  type: string;
-  engineType: string;
-  serialNumber: string;
-  lastInspectionDate: string;
-  holder: VehicleUser;
-  owner: VehicleUser;
-  otherHolder?: VehicleUser;
 }
 
 export interface MutationResponse {

@@ -1,4 +1,11 @@
-import { Address, Customer, ParkingZone, SavedStatus, Vehicle } from './types';
+import {
+  Address,
+  AnyObject,
+  Customer,
+  ParkingZone,
+  SavedStatus,
+  Vehicle,
+} from './types';
 
 export function getEnv(key: string): string {
   const variable = process.env[key];
@@ -64,4 +71,19 @@ export function getSavedStatus<T>(key: SavedStatus): T | null {
 
 export function saveStatus(item: SavedStatus, value: unknown): void {
   sessionStorage.setItem(item as string, JSON.stringify(value));
+}
+
+export function stripTypenames(obj: AnyObject): AnyObject {
+  const newObj: AnyObject = {};
+  Object.entries(obj).forEach(([key, value]) => {
+    if (key === '__typename') {
+      return;
+    }
+    if (value && !Array.isArray(value) && typeof value === 'object') {
+      newObj[key] = stripTypenames(value as AnyObject);
+    } else {
+      newObj[key] = value;
+    }
+  });
+  return newObj;
 }

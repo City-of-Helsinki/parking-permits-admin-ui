@@ -12,13 +12,12 @@ import {
   Customer,
   MutationResponse,
   ParkingPermitStatus,
-  ParkingZone,
   PermitContractType,
   PermitDetail,
   PermitInfoDetail,
   Vehicle,
 } from '../types';
-import { formatMonthlyPrice } from '../utils';
+import { formatMonthlyPrice, stripTypenames } from '../utils';
 import styles from './CreateResidentPermit.module.scss';
 
 const T_PATH = 'pages.createResidentPermit';
@@ -78,7 +77,6 @@ const initialPerson: Customer = {
   nationalIdNumber: '',
   phoneNumber: '',
   email: '',
-  zone: '',
   driverLicenseChecked: false,
 };
 
@@ -103,7 +101,6 @@ const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   // states
-  const [selectedZone, setSelectedZone] = useState<ParkingZone | undefined>();
   const [vehicle, setVehicle] = useState<Vehicle>(initialVehicle);
   const [person, setPerson] = useState<Customer>(initialPerson);
   const [permit, setPermit] = useState<PermitInfoDetail>(initialPermit);
@@ -139,7 +136,7 @@ const CreateResidentPermit = (): React.ReactElement => {
 
   // event handlers
   const handleCreateResidentPermit = () => {
-    if (!vehicle || !person || !selectedZone) {
+    if (!vehicle || !person) {
       return;
     }
     const permitData: Partial<PermitDetail> = {
@@ -147,7 +144,9 @@ const CreateResidentPermit = (): React.ReactElement => {
       customer: person,
       vehicle,
     };
-    createResidentPermit({ variables: { permit: permitData } }).then(() => {
+    createResidentPermit({
+      variables: { permit: stripTypenames(permitData) },
+    }).then(() => {
       navigate('/permits');
     });
   };
@@ -183,23 +182,23 @@ const CreateResidentPermit = (): React.ReactElement => {
     });
 
   const formatDetailPrice = () => {
-    if (selectedZone && permit) {
+    if (person.zone && permit) {
       const amountLabel = t(`${T_PATH}.monthCount`, {
         count: permit.monthCount,
       });
       const price = vehicle?.isLowEmission
-        ? selectedZone.residentPrice / 2
-        : selectedZone.residentPrice;
+        ? person.zone.residentPrice / 2
+        : person.zone.residentPrice;
       const unitPriceLabel = formatMonthlyPrice(price);
       return `${amountLabel}, ${unitPriceLabel}`;
     }
     return '-';
   };
   const formatTotalPrice = () => {
-    if (selectedZone && permit) {
+    if (person.zone && permit) {
       const price = vehicle?.isLowEmission
-        ? selectedZone.residentPrice / 2
-        : selectedZone.residentPrice;
+        ? person.zone.residentPrice / 2
+        : person.zone.residentPrice;
       return permit.monthCount * price;
     }
     return '-';
@@ -219,11 +218,10 @@ const CreateResidentPermit = (): React.ReactElement => {
           searchError={personSearchError}
           onSearchPerson={handleSearchPerson}
           onUpdateField={handleUpdatePersonField}
-          onSelectZone={zone => setSelectedZone(zone)}
         />
         <VehicleInfo
           vehicle={vehicle}
-          zone={selectedZone}
+          zone={person.zone}
           className={styles.vehicleInfo}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}

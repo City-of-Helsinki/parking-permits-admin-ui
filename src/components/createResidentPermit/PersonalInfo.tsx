@@ -7,7 +7,7 @@ import {
 } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Customer, ParkingZone } from '../../types';
+import { Customer } from '../../types';
 import { formatAddress } from '../../utils';
 import Divider from '../common/Divider';
 import ZoneSelect from '../common/ZoneSelect';
@@ -21,7 +21,6 @@ interface PersonalInfoProps {
   searchError?: string;
   onSearchPerson: (nationalIdNumber: string) => void;
   onUpdateField: (field: keyof Customer, value: unknown) => void;
-  onSelectZone: (zone: ParkingZone | undefined) => void;
 }
 
 const PersonalInfo = ({
@@ -30,7 +29,6 @@ const PersonalInfo = ({
   searchError,
   onSearchPerson,
   onUpdateField,
-  onSelectZone,
 }: PersonalInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const {
@@ -44,7 +42,7 @@ const PersonalInfo = ({
     email,
     driverLicenseChecked,
   } = person;
-  const defaultZone = zone || primaryAddress?.zone?.name;
+  const defaultZone = zone?.name || primaryAddress?.zone?.name;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.personalInfo`)}</div>
@@ -97,10 +95,7 @@ const PersonalInfo = ({
           required
           className={styles.fieldItem}
           value={defaultZone}
-          onChange={selectedZone => {
-            onUpdateField('zone', selectedZone?.name || '');
-            onSelectZone(selectedZone);
-          }}
+          onChange={selectedZone => onUpdateField('zone', selectedZone)}
         />
         <Divider className={styles.fieldDivider} />
         <PhoneInput
