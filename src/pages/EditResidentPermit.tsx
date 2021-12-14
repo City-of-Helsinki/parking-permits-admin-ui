@@ -1,7 +1,8 @@
-import { gql, useLazyQuery, useMutation } from '@apollo/client';
+import { gql, useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { Button, IconCheckCircleFill, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
@@ -17,13 +18,63 @@ import {
   Customer,
   MutationResponse,
   PermitDetail,
+  PermitDetailData,
   PermitInfoDetail,
   Vehicle,
 } from '../types';
-import { formatMonthlyPrice, stripTypenames } from '../utils';
-import styles from './CreateResidentPermit.module.scss';
+import { extractPermitInfoDetail, stripTypenames } from '../utils';
+import styles from './EditResidentPermit.module.scss';
 
-const T_PATH = 'pages.createResidentPermit';
+const T_PATH = 'pages.editPermit';
+
+const PERMIT_DETAIL_QUERY = gql`
+  query GetPermitDetail($permitId: ID!) {
+    permitDetail(permitId: $permitId) {
+      identifier
+      startTime
+      endTime
+      currentPeriodEndTime
+      canEndImmediately
+      canEndAfterCurrentPeriod
+      status
+      consentLowEmissionAccepted
+      contractType
+      monthCount
+      customer {
+        firstName
+        lastName
+        nationalIdNumber
+        email
+        phoneNumber
+        addressSecurityBan
+        driverLicenseChecked
+        primaryAddress {
+          streetName
+          streetNameSv
+          streetNumber
+          city
+          citySv
+          postalCode
+        }
+      }
+      vehicle {
+        manufacturer
+        model
+        registrationNumber
+        isLowEmission
+        consentLowEmissionAccepted
+        serialNumber
+        category
+      }
+      parkingZone {
+        name
+        description
+        descriptionSv
+        residentPrice
+      }
+    }
+  }
+`;
 
 const CUSTOMER_QUERY = gql`
   query GetCustomer($nationalIdNumber: String!) {
@@ -65,17 +116,23 @@ const VEHICLE_QUERY = gql`
   }
 `;
 
-const CREATE_RESIDENT_PERMIT_MUTATION = gql`
-  mutation CreateResidentPermit($permit: ResidentPermitInput!) {
-    createResidentPermit(permit: $permit) {
+const UPDATE_RESIDENT_PERMIT_MUTATION = gql`
+  mutation UpdateResidentPermit(
+    $permitId: ID!
+    $permitInfo: ResidentPermitInput!
+  ) {
+    updateResidentPermit(permitId: $permitId, permitInfo: $permitInfo) {
       success
     }
   }
 `;
 
-const CreateResidentPermit = (): React.ReactElement => {
-  const { t } = useTranslation();
+const EditPermit = (): React.ReactElement => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const params = useParams();
+  const { id: permitId } = params;
+
   // states
   const [vehicle, setVehicle] = useState<Vehicle>(initialVehicle);
   const [person, setPerson] = useState<Customer>(initialPerson);
@@ -85,6 +142,18 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [errorMessage, setErrorMessage] = useState('');
 
   // graphql queries and mutations
+  useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
+    variables: { permitId },
+    onCompleted: ({ permitDetail }) => {
+      setVehicle(permitDetail.vehicle);
+      setPerson({
+        ...permitDetail.customer,
+        zone: permitDetail.parkingZone,
+      });
+      setPermit(extractPermitInfoDetail(permitDetail));
+    },
+    onError: error => setErrorMessage(error.message),
+  });
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
   }>(CUSTOMER_QUERY, {
@@ -103,27 +172,23 @@ const CreateResidentPermit = (): React.ReactElement => {
     },
     onError: error => setVehicleSearchError(error.message),
   });
-  const [createResidentPermit] = useMutation<MutationResponse>(
-    CREATE_RESIDENT_PERMIT_MUTATION,
+  const [updateResidentPermit] = useMutation<MutationResponse>(
+    UPDATE_RESIDENT_PERMIT_MUTATION,
     {
+      onCompleted: () => navigate('/permits'),
       onError: error => setErrorMessage(error.message),
     }
   );
 
   // event handlers
-  const handleCreateResidentPermit = () => {
-    if (!vehicle || !person) {
-      return;
-    }
+  const handleUpdatePermit = () => {
     const permitData: Partial<PermitDetail> = {
       ...permit,
       customer: person,
       vehicle,
     };
-    createResidentPermit({
-      variables: { permit: stripTypenames(permitData) },
-    }).then(() => {
-      navigate('/permits');
+    updateResidentPermit({
+      variables: { permitId, permitInfo: stripTypenames(permitData) },
     });
   };
   const handleSearchVehicle = (regNumber: string) => {
@@ -151,42 +216,23 @@ const CreateResidentPermit = (): React.ReactElement => {
       [field]: value,
     });
   };
-  const handleUpdatePermitField = (field: keyof PermitDetail, value: unknown) =>
+  const handleUpdatePermitField = (
+    field: keyof PermitInfoDetail,
+    value: unknown
+  ) =>
     setPermit({
       ...permit,
       [field]: value,
     });
 
-  const formatDetailPrice = () => {
-    if (person.zone && permit) {
-      const amountLabel = t(`${T_PATH}.monthCount`, {
-        count: permit.monthCount,
-      });
-      const price = vehicle?.isLowEmission
-        ? person.zone.residentPrice / 2
-        : person.zone.residentPrice;
-      const unitPriceLabel = formatMonthlyPrice(price);
-      return `${amountLabel}, ${unitPriceLabel}`;
-    }
-    return '-';
-  };
-  const formatTotalPrice = () => {
-    if (person.zone && permit) {
-      const price = vehicle?.isLowEmission
-        ? person.zone.residentPrice / 2
-        : person.zone.residentPrice;
-      return permit.monthCount * price;
-    }
-    return '-';
-  };
   return (
     <div className={styles.container}>
       <Breadcrumbs>
         <Link to="/permits">{t(`${T_PATH}.permits`)}</Link>
-        <Link to="/create">{t(`${T_PATH}.createNewPermit`)}</Link>
-        <span>{t(`${T_PATH}.residentPermit`)}</span>
+        <Link to={`/permits/${permitId}`}>{permitId}</Link>
+        <span>{t(`${T_PATH}.edit`)}</span>
       </Breadcrumbs>
-      <div className={styles.title}>{t(`${T_PATH}.residentPermit`)}</div>
+      <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
       <div className={styles.content}>
         <PersonalInfo
           person={person}
@@ -204,38 +250,25 @@ const CreateResidentPermit = (): React.ReactElement => {
           onUpdateField={handleUpdateVehicleField}
         />
         <PermitInfo
+          editMode
           permit={permit}
           className={styles.permitInfo}
           onUpdateField={handleUpdatePermitField}
         />
       </div>
       <div className={styles.footer}>
-        <div className={styles.actions}>
-          <Button
-            className={styles.actionButton}
-            iconLeft={<IconCheckCircleFill />}
-            onClick={handleCreateResidentPermit}>
-            {t(`${T_PATH}.save`)}
-          </Button>
-          <Button
-            className={styles.actionButton}
-            variant="secondary"
-            onClick={() => navigate('/permits')}>
-            {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
-          </Button>
-        </div>
-        <div className={styles.priceInfo}>
-          <div className={styles.priceLabel}>
-            <div className={styles.totalPriceLabel}>
-              {t(`${T_PATH}.totalPrice`)}
-            </div>
-            <div className={styles.priceDetail}>{formatDetailPrice()}</div>
-          </div>
-          <div className={styles.totalPrice}>
-            <span className={styles.totalPriceValue}>{formatTotalPrice()}</span>
-            <span className={styles.totalPriceCurrency}>€</span>
-          </div>
-        </div>
+        <Button
+          className={styles.actionButton}
+          variant="secondary"
+          onClick={() => navigate('/permits')}>
+          {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
+        </Button>
+        <Button
+          className={styles.actionButton}
+          iconLeft={<IconCheckCircleFill />}
+          onClick={handleUpdatePermit}>
+          {t(`${T_PATH}.save`)}
+        </Button>
       </div>
       {errorMessage && (
         <Notification
@@ -252,4 +285,4 @@ const CreateResidentPermit = (): React.ReactElement => {
     </div>
   );
 };
-export default makePrivate(CreateResidentPermit);
+export default makePrivate(EditPermit);

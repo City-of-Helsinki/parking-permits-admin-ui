@@ -1,5 +1,7 @@
 import { OrderDirection, SearchItem } from './components/types';
 
+export type AnyObject = Record<string, unknown>;
+
 export interface Address {
   streetName: string;
   streetNumber: number;
@@ -17,7 +19,7 @@ export interface Customer {
   primaryAddress?: Address;
   email: string;
   phoneNumber: string;
-  zone: string;
+  zone?: ParkingZone;
   addressSecurityBan: boolean;
   driverLicenseChecked: boolean;
 }
@@ -101,6 +103,11 @@ export interface PermitDetail {
   changeLogs: ChangeLog[];
 }
 
+export type PermitInfoDetail = Pick<
+  PermitDetail,
+  'contractType' | 'monthCount' | 'startTime' | 'endTime' | 'status'
+>;
+
 export interface PermitDetailData {
   permitDetail: PermitDetail;
 }
@@ -121,39 +128,10 @@ export interface PermitsQueryData {
   permits: PagedPermits;
 }
 
-export interface FixedPeriodResidentPermit {
-  contractType: PermitContractType.FIXED_PERIOD;
-  monthCount: number;
-  startTime: string;
-  status: ParkingPermitStatus;
-}
-
 export interface VehicleUser {
   firstName: string;
   lastName: string;
   nationalIdNumber: string;
-}
-
-export interface ResidentPermitVehicle {
-  isLowEmission: boolean;
-  consentLowEmissionAccepted: boolean;
-  registrationNumber: string;
-  productionYear: number;
-  emission: number;
-  manufacturer: string;
-  model: string;
-  type: string;
-  engineType: string;
-  serialNumber: string;
-  lastInspectionDate: string;
-  holder: VehicleUser;
-  owner: VehicleUser;
-  otherHolder?: VehicleUser;
-}
-
-export interface ResidentPermit extends FixedPeriodResidentPermit {
-  customer: Customer;
-  vehicle: Vehicle;
 }
 
 export interface MutationResponse {

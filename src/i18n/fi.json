@@ -171,6 +171,13 @@
       "save": "Tallenna",
       "totalPrice": "Tunnuksen yhteissumma"
     },
+    "editPermit": {
+      "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
+      "edit": "Muokkaustilassa",
+      "permits": "Tunnukset",
+      "save": "Tallenna",
+      "title": "Asukaspysäköintitunnus"
+    },
     "endPermit": {
       "cancel": "Peruuta",
       "endPermit": "Pääta tunnus",
