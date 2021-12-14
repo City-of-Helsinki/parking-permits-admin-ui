@@ -1,0 +1,42 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.container {
+  margin: $spacing-s 0;
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    font-weight: 600;
+    font-size: $fontsize-heading-xxs;
+    margin: $spacing-m 0;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: $spacing-5-xl;
+    .vehicleInfo,
+    .personalInfo,
+    .permitInfo {
+      flex: 1 1 33%;
+      border: 1px solid $color-black-30;
+    }
+    .vehicleInfo,
+    .personalInfo {
+      margin-right: $spacing-m;
+    }
+  }
+  .footer {
+    padding: $spacing-m 0;
+    box-shadow: 0 -5px 5px -5px $color-black-30;
+    position: fixed;
+    width: 100%;
+    max-width: $breakpoint-xl;
+    left: calc(100% - #{$breakpoint-xl}) / 2;
+    bottom: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
