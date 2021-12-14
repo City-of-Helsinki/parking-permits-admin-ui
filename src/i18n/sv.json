@@ -171,6 +171,13 @@
       "save": "Spara",
       "totalPrice": "Totalpris"
     },
+    "editPermit": {
+      "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
+      "edit": "Redigera",
+      "permits": "Tillstånd",
+      "save": "Spara",
+      "title": "Parkeringstillstånd för boende"
+    },
     "endPermit": {
       "cancel": "Avbryt",
       "endPermit": "Sluttillstånd",

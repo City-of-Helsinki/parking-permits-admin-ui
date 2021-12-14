@@ -171,6 +171,13 @@
       "save": "Save",
       "totalPrice": "Total price"
     },
+    "editPermit": {
+      "cancelAndCloseWithoutSaving": "Cancel and close without saving",
+      "edit": "Edit",
+      "permits": "Permits",
+      "save": "Save",
+      "title": "Resident parking permit"
+    },
     "endPermit": {
       "cancel": "Cancel",
       "endPermit": "End permit",
