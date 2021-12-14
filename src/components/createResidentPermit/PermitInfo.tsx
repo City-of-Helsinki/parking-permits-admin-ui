@@ -12,12 +12,14 @@ const T_PATH = 'components.createResidentPermit.permitInfo';
 
 interface PermitInfoProps {
   className?: string;
+  editMode?: boolean;
   permit: PermitInfoDetail;
   onUpdateField: (field: keyof PermitInfoDetail, value: unknown) => void;
 }
 
 const PermitInfo = ({
   className,
+  editMode = false,
   permit,
   onUpdateField,
 }: PermitInfoProps): React.ReactElement => {
@@ -39,6 +41,7 @@ const PermitInfo = ({
         />
         <NumberInput
           required
+          readOnly={editMode}
           className={styles.fieldItem}
           id="validPeriodInMonths"
           label={t(`${T_PATH}.validPeriodInMonths`)}
@@ -52,6 +55,7 @@ const PermitInfo = ({
         />
         <DateInput
           required
+          readOnly={editMode}
           className={styles.fieldItem}
           id="startDate"
           initialMonth={new Date()}

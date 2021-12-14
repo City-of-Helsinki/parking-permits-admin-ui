@@ -274,6 +274,7 @@ const EditPermit = (): React.ReactElement => {
           onUpdateField={handleUpdateVehicleField}
         />
         <PermitInfo
+          editMode
           permit={permit}
           className={styles.permitInfo}
           onUpdateField={handleUpdatePermitField}
