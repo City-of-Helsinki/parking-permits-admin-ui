@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
-import PermitInfo from '../components/createResidentPermit/PermitInfo';
-import PersonalInfo from '../components/createResidentPermit/PersonalInfo';
-import VehicleInfo from '../components/createResidentPermit/VehicleInfo';
+import PermitInfo from '../components/residentPermit/PermitInfo';
+import PersonalInfo from '../components/residentPermit/PersonalInfo';
+import VehicleInfo from '../components/residentPermit/VehicleInfo';
 import {
   Customer,
   MutationResponse,
