@@ -3,6 +3,8 @@ import {
   AnyObject,
   Customer,
   ParkingZone,
+  PermitDetail,
+  PermitInfoDetail,
   SavedStatus,
   Vehicle,
 } from './types';
@@ -86,4 +88,16 @@ export function stripTypenames(obj: AnyObject): AnyObject {
     }
   });
   return newObj;
+}
+
+export function extractPermitInfoDetail(
+  permitDetail: PermitDetail
+): PermitInfoDetail {
+  return {
+    contractType: permitDetail.contractType,
+    monthCount: permitDetail.monthCount,
+    startTime: permitDetail.startTime,
+    endTime: permitDetail.endTime,
+    status: permitDetail.status,
+  };
 }
