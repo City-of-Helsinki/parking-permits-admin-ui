@@ -6,14 +6,17 @@ import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
+import {
+  initialPermit,
+  initialPerson,
+  initialVehicle,
+} from '../components/residentPermit/consts';
 import PermitInfo from '../components/residentPermit/PermitInfo';
 import PersonalInfo from '../components/residentPermit/PersonalInfo';
 import VehicleInfo from '../components/residentPermit/VehicleInfo';
 import {
   Customer,
   MutationResponse,
-  ParkingPermitStatus,
-  PermitContractType,
   PermitDetail,
   PermitDetailData,
   PermitInfoDetail,
@@ -123,33 +126,6 @@ const UPDATE_RESIDENT_PERMIT_MUTATION = gql`
     }
   }
 `;
-
-const initialPerson: Customer = {
-  firstName: '',
-  lastName: '',
-  addressSecurityBan: false,
-  nationalIdNumber: '',
-  phoneNumber: '',
-  email: '',
-  driverLicenseChecked: false,
-};
-
-const initialPermit: PermitInfoDetail = {
-  contractType: PermitContractType.FIXED_PERIOD,
-  monthCount: 1,
-  startTime: new Date().toISOString(),
-  status: ParkingPermitStatus.VALID,
-};
-
-const initialVehicle: Vehicle = {
-  manufacturer: '',
-  model: '',
-  registrationNumber: '',
-  isLowEmission: false,
-  consentLowEmissionAccepted: false,
-  serialNumber: '',
-  category: 'M1',
-};
 
 const EditPermit = (): React.ReactElement => {
   const navigate = useNavigate();
