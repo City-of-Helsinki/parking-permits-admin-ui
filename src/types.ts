@@ -34,11 +34,27 @@ export interface Vehicle {
   category: string;
 }
 
+export interface Product {
+  unitPrice: number;
+  startDate: string;
+  endDate: string;
+  vat: number;
+  lowEmissionDiscount: number;
+  secondaryVehicleIncreaseRate: number;
+}
+
+export type ProductWithQuantity = [Product, number];
+
+export interface PriceModifiers {
+  isLowEmission: boolean;
+  isSecondaryVehicle: boolean;
+}
+
 export interface ParkingZone {
   name: string;
   description: string;
   descriptionSv: string;
-  residentPrice: number;
+  residentProducts?: [Product];
 }
 
 export enum ParkingPermitStatus {
@@ -103,13 +119,59 @@ export interface PermitDetail {
   changeLogs: ChangeLog[];
 }
 
-export type PermitInfoDetail = Pick<
+export type EditPermitDetail = Pick<
   PermitDetail,
-  'contractType' | 'monthCount' | 'startTime' | 'endTime' | 'status'
+  | 'contractType'
+  | 'monthCount'
+  | 'startTime'
+  | 'endTime'
+  | 'status'
+  | 'vehicle'
+  | 'customer'
 >;
 
 export interface PermitDetailData {
   permitDetail: PermitDetail;
+}
+
+export interface AddressInput {
+  streetName: string;
+  streetNumber: number;
+  streetNameSv: string;
+  city: string;
+  citySv: string;
+  postalCode: string;
+}
+
+export interface CustomerInput {
+  firstName: string;
+  lastName: string;
+  nationalIdNumber: string;
+  primaryAddress?: AddressInput;
+  zone?: string;
+  email: string;
+  phoneNumber: string;
+  addressSecurityBan: boolean;
+  driverLicenseChecked: boolean;
+}
+
+export interface VehicleInput {
+  manufacturer: string;
+  model: string;
+  registrationNumber: string;
+  isLowEmission: boolean;
+  serialNumber: string;
+  consentLowEmissionAccepted: boolean;
+  category: string;
+}
+
+export interface PermitInput {
+  contractType: string;
+  customer: CustomerInput;
+  vehicle: VehicleInput;
+  status: string;
+  startTime: string;
+  monthCount: number;
 }
 
 export interface PageInfo {
