@@ -10,11 +10,17 @@ const T_PATH = 'components.common.zoneSelect';
 const ZONES_QUERY = gql`
   query Query {
     zones {
-      id
       name
       description
       descriptionSv
-      residentPrice
+      residentProducts {
+        unitPrice
+        startDate
+        endDate
+        vat
+        lowEmissionDiscount
+        secondaryVehicleIncreaseRate
+      }
     }
   }
 `;
