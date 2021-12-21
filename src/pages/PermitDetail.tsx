@@ -64,7 +64,14 @@ const PERMIT_DETAIL_QUERY = gql`
         name
         description
         descriptionSv
-        residentPrice
+        residentProducts {
+          unitPrice
+          startDate
+          endDate
+          vat
+          lowEmissionDiscount
+          secondaryVehicleIncreaseRate
+        }
       }
     }
   }
