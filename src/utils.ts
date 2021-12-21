@@ -1,12 +1,18 @@
+import { addMonths } from 'date-fns';
 import {
   Address,
-  AnyObject,
+  AddressInput,
   Customer,
+  CustomerInput,
+  EditPermitDetail,
   ParkingZone,
-  PermitDetail,
-  PermitInfoDetail,
+  PermitInput,
+  PriceModifiers,
+  Product,
+  ProductWithQuantity,
   SavedStatus,
   Vehicle,
+  VehicleInput,
 } from './types';
 
 export function getEnv(key: string): string {
@@ -75,29 +81,144 @@ export function saveStatus(item: SavedStatus, value: unknown): void {
   sessionStorage.setItem(item as string, JSON.stringify(value));
 }
 
-export function stripTypenames(obj: AnyObject): AnyObject {
-  const newObj: AnyObject = {};
-  Object.entries(obj).forEach(([key, value]) => {
-    if (key === '__typename') {
-      return;
-    }
-    if (value && !Array.isArray(value) && typeof value === 'object') {
-      newObj[key] = stripTypenames(value as AnyObject);
-    } else {
-      newObj[key] = value;
-    }
-  });
-  return newObj;
+export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
+  const {
+    manufacturer,
+    model,
+    registrationNumber,
+    isLowEmission,
+    consentLowEmissionAccepted,
+    serialNumber,
+    category,
+  } = vehicle;
+  return {
+    manufacturer,
+    model,
+    registrationNumber,
+    isLowEmission,
+    consentLowEmissionAccepted,
+    serialNumber,
+    category,
+  };
 }
 
-export function extractPermitInfoDetail(
-  permitDetail: PermitDetail
-): PermitInfoDetail {
+export function convertToAddressInput(address: Address): AddressInput {
+  const { city, citySv, streetName, streetNameSv, streetNumber, postalCode } =
+    address;
   return {
-    contractType: permitDetail.contractType,
-    monthCount: permitDetail.monthCount,
-    startTime: permitDetail.startTime,
-    endTime: permitDetail.endTime,
-    status: permitDetail.status,
+    city,
+    citySv,
+    streetName,
+    streetNameSv,
+    streetNumber,
+    postalCode,
   };
+}
+
+export function convertToCustomerInput(customer: Customer): CustomerInput {
+  const {
+    firstName,
+    lastName,
+    nationalIdNumber,
+    primaryAddress,
+    email,
+    phoneNumber,
+    zone,
+    addressSecurityBan,
+    driverLicenseChecked,
+  } = customer;
+  const primaryAddressInput = primaryAddress
+    ? convertToAddressInput(primaryAddress)
+    : undefined;
+  return {
+    firstName,
+    lastName,
+    nationalIdNumber,
+    primaryAddress: primaryAddressInput,
+    email,
+    phoneNumber,
+    zone: zone?.name,
+    addressSecurityBan,
+    driverLicenseChecked,
+  };
+}
+
+export function convertToPermitInput(permit: EditPermitDetail): PermitInput {
+  const { contractType, customer, vehicle, status, startTime, monthCount } =
+    permit;
+  const vehicleInput = convertToVehicleInput(vehicle);
+  const customerInput = convertToCustomerInput(customer);
+  return {
+    contractType,
+    customer: customerInput,
+    vehicle: vehicleInput,
+    status,
+    startTime,
+    monthCount,
+  };
+}
+
+export function getProductsWithQuantities(
+  products: Product[],
+  startDate: Date,
+  monthCount: number
+): ProductWithQuantity[] {
+  const periodStartDates = [];
+  for (let i = 0; i < monthCount; i += 1) {
+    const periodStartDate = addMonths(startDate, i);
+    periodStartDates.push(periodStartDate);
+  }
+  let productIndex = 0;
+  let periodStartIndex = 0;
+  const productWithQuantieis: ProductWithQuantity[] = products.map(product => [
+    product,
+    0,
+  ]);
+  while (
+    productIndex < products.length &&
+    periodStartIndex < periodStartDates.length
+  ) {
+    const productEndDate = new Date(products[productIndex].endDate);
+    if (periodStartDates[periodStartIndex] <= productEndDate) {
+      productWithQuantieis[productIndex][1] += 1;
+      periodStartIndex += 1;
+    } else {
+      productIndex += 1;
+    }
+  }
+  return productWithQuantieis;
+}
+
+export function getProductPrice(
+  product: Product,
+  quantity: number,
+  priceModifiers: PriceModifiers
+): number {
+  const { isLowEmission, isSecondaryVehicle } = priceModifiers;
+  let price = product.unitPrice * quantity;
+  if (isLowEmission) {
+    price *= 1 - product.lowEmissionDiscount;
+  }
+  if (isSecondaryVehicle) {
+    price *= 1 + product.secondaryVehicleIncreaseRate;
+  }
+  return price;
+}
+
+export function getPermitTotalPrice(
+  products: Product[],
+  startDate: Date,
+  monthCount: number,
+  priceModifiers: PriceModifiers
+): number {
+  const productsWithQuantities = getProductsWithQuantities(
+    products,
+    startDate,
+    monthCount
+  );
+  return productsWithQuantities.reduce(
+    (totalPrice, [product, quantity]) =>
+      totalPrice + getProductPrice(product, quantity, priceModifiers),
+    0
+  );
 }
