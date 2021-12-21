@@ -5,22 +5,18 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
-import {
-  initialPermit,
-  initialPerson,
-  initialVehicle,
-} from '../components/residentPermit/consts';
+import { initialPermit } from '../components/residentPermit/consts';
 import PermitInfo from '../components/residentPermit/PermitInfo';
 import PersonalInfo from '../components/residentPermit/PersonalInfo';
 import VehicleInfo from '../components/residentPermit/VehicleInfo';
 import {
   Customer,
+  EditPermitDetail,
   MutationResponse,
   PermitDetail,
-  PermitInfoDetail,
   Vehicle,
 } from '../types';
-import { formatMonthlyPrice, stripTypenames } from '../utils';
+import { convertToPermitInput, getPermitTotalPrice } from '../utils';
 import styles from './CreateResidentPermit.module.scss';
 
 const T_PATH = 'pages.createResidentPermit';
@@ -44,7 +40,14 @@ const CUSTOMER_QUERY = gql`
           name
           description
           descriptionSv
-          residentPrice
+          residentProducts {
+            unitPrice
+            startDate
+            endDate
+            vat
+            lowEmissionDiscount
+            secondaryVehicleIncreaseRate
+          }
         }
       }
     }
@@ -77,12 +80,12 @@ const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   // states
-  const [vehicle, setVehicle] = useState<Vehicle>(initialVehicle);
-  const [person, setPerson] = useState<Customer>(initialPerson);
-  const [permit, setPermit] = useState<PermitInfoDetail>(initialPermit);
+  const [permit, setPermit] = useState<EditPermitDetail>(initialPermit);
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const { vehicle, customer } = permit;
 
   // graphql queries and mutations
   const [getCustomer] = useLazyQuery<{
@@ -90,7 +93,10 @@ const CreateResidentPermit = (): React.ReactElement => {
   }>(CUSTOMER_QUERY, {
     onCompleted: data => {
       setPersonSearchError('');
-      setPerson(data.customer);
+      setPermit({
+        ...permit,
+        customer: data.customer,
+      });
     },
     onError: error => setPersonSearchError(error.message),
   });
@@ -99,7 +105,10 @@ const CreateResidentPermit = (): React.ReactElement => {
   }>(VEHICLE_QUERY, {
     onCompleted: data => {
       setVehicleSearchError('');
-      setVehicle(data.vehicle);
+      setPermit({
+        ...permit,
+        vehicle: data.vehicle,
+      });
     },
     onError: error => setVehicleSearchError(error.message),
   });
@@ -112,32 +121,28 @@ const CreateResidentPermit = (): React.ReactElement => {
 
   // event handlers
   const handleCreateResidentPermit = () => {
-    if (!vehicle || !person) {
-      return;
-    }
-    const permitData: Partial<PermitDetail> = {
-      ...permit,
-      customer: person,
-      vehicle,
-    };
     createResidentPermit({
-      variables: { permit: stripTypenames(permitData) },
+      variables: { permit: convertToPermitInput(permit) },
     }).then(() => {
       navigate('/permits');
     });
   };
   const handleSearchVehicle = (regNumber: string) => {
-    if (!person.nationalIdNumber) {
+    if (!customer.nationalIdNumber) {
       return;
     }
     getVehicle({
-      variables: { regNumber, nationalIdNumber: person.nationalIdNumber },
+      variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
   };
   const handleUpdateVehicleField = (field: keyof Vehicle, value: unknown) => {
-    setVehicle({
+    const newVehicle = {
       ...vehicle,
       [field]: value,
+    };
+    setPermit({
+      ...permit,
+      vehicle: newVehicle,
     });
   };
   const handleSearchPerson = (nationalIdNumber: string) => {
@@ -146,9 +151,13 @@ const CreateResidentPermit = (): React.ReactElement => {
     });
   };
   const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
-    setPerson({
-      ...person,
+    const newCustomer = {
+      ...permit.customer,
       [field]: value,
+    };
+    setPermit({
+      ...permit,
+      customer: newCustomer,
     });
   };
   const handleUpdatePermitField = (field: keyof PermitDetail, value: unknown) =>
@@ -157,25 +166,18 @@ const CreateResidentPermit = (): React.ReactElement => {
       [field]: value,
     });
 
-  const formatDetailPrice = () => {
-    if (person.zone && permit) {
-      const amountLabel = t(`${T_PATH}.monthCount`, {
-        count: permit.monthCount,
-      });
-      const price = vehicle?.isLowEmission
-        ? person.zone.residentPrice / 2
-        : person.zone.residentPrice;
-      const unitPriceLabel = formatMonthlyPrice(price);
-      return `${amountLabel}, ${unitPriceLabel}`;
-    }
-    return '-';
-  };
   const formatTotalPrice = () => {
-    if (person.zone && permit) {
-      const price = vehicle?.isLowEmission
-        ? person.zone.residentPrice / 2
-        : person.zone.residentPrice;
-      return permit.monthCount * price;
+    if (permit.customer.zone?.residentProducts && permit) {
+      const startDate = new Date(permit.startTime);
+      return getPermitTotalPrice(
+        permit.customer.zone.residentProducts,
+        startDate,
+        permit.monthCount,
+        {
+          isLowEmission: permit.vehicle.isLowEmission,
+          isSecondaryVehicle: false,
+        }
+      );
     }
     return '-';
   };
@@ -189,7 +191,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       <div className={styles.title}>{t(`${T_PATH}.residentPermit`)}</div>
       <div className={styles.content}>
         <PersonalInfo
-          person={person}
+          person={customer}
           className={styles.personalInfo}
           searchError={personSearchError}
           onSearchPerson={handleSearchPerson}
@@ -197,7 +199,7 @@ const CreateResidentPermit = (): React.ReactElement => {
         />
         <VehicleInfo
           vehicle={vehicle}
-          zone={person.zone}
+          zone={customer.zone}
           className={styles.vehicleInfo}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
@@ -225,12 +227,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           </Button>
         </div>
         <div className={styles.priceInfo}>
-          <div className={styles.priceLabel}>
-            <div className={styles.totalPriceLabel}>
-              {t(`${T_PATH}.totalPrice`)}
-            </div>
-            <div className={styles.priceDetail}>{formatDetailPrice()}</div>
-          </div>
+          <div className={styles.priceLabel}>{t(`${T_PATH}.totalPrice`)}</div>
           <div className={styles.totalPrice}>
             <span className={styles.totalPriceValue}>{formatTotalPrice()}</span>
             <span className={styles.totalPriceCurrency}>€</span>

@@ -13,7 +13,14 @@ const ZONES_QUERY = gql`
       name
       description
       descriptionSv
-      residentPrice
+      residentProducts {
+        unitPrice
+        startDate
+        endDate
+        vat
+        lowEmissionDiscount
+        secondaryVehicleIncreaseRate
+      }
     }
   }
 `;

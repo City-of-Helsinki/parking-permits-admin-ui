@@ -1,9 +1,9 @@
 import { Button, Checkbox, Notification, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ParkingZone, Vehicle } from '../../types';
-import { formatMonthlyPrice } from '../../utils';
+import { ParkingZone, PriceModifiers, Vehicle } from '../../types';
 import Divider from '../common/Divider';
+import ProductPriceRow from '../common/ProductPriceRow';
 import VehicleCategorySelect from '../common/VehicleCategorySelect';
 import styles from './VehicleInfo.module.scss';
 
@@ -35,6 +35,10 @@ const VehicleInfo = ({
     serialNumber,
     category,
   } = vehicle;
+  const priceModifiers: PriceModifiers = {
+    isLowEmission,
+    isSecondaryVehicle: false,
+  };
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.vehicleInfo`)}</div>
@@ -102,21 +106,15 @@ const VehicleInfo = ({
         />
         <div className={styles.priceInfo}>
           <div className={styles.priceTitle}>{t(`${T_PATH}.price`)}</div>
-          <div className={styles.priceDetail}>
-            {zone && vehicle.isLowEmission && (
-              <div className={styles.discountPrice}>
-                {zone ? formatMonthlyPrice(zone.residentPrice / 2) : '-'}
-              </div>
-            )}
-            <div className={styles.originalPrice}>
-              {isLowEmission ? (
-                <del>{zone ? formatMonthlyPrice(zone.residentPrice) : '-'}</del>
-              ) : (
-                <span>
-                  {zone ? formatMonthlyPrice(zone.residentPrice) : '-'}
-                </span>
-              )}
-            </div>
+          <div className={styles.priceList}>
+            {zone?.residentProducts?.map(product => (
+              <ProductPriceRow
+                key={product.startDate}
+                className={styles.productPriceRow}
+                product={product}
+                priceModifiers={priceModifiers}
+              />
+            ))}
           </div>
         </div>
       </div>

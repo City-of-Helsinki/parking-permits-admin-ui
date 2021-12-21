@@ -6,23 +6,18 @@ import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
-import {
-  initialPermit,
-  initialPerson,
-  initialVehicle,
-} from '../components/residentPermit/consts';
+import { initialPermit } from '../components/residentPermit/consts';
 import PermitInfo from '../components/residentPermit/PermitInfo';
 import PersonalInfo from '../components/residentPermit/PersonalInfo';
 import VehicleInfo from '../components/residentPermit/VehicleInfo';
 import {
   Customer,
+  EditPermitDetail,
   MutationResponse,
-  PermitDetail,
   PermitDetailData,
-  PermitInfoDetail,
   Vehicle,
 } from '../types';
-import { extractPermitInfoDetail, stripTypenames } from '../utils';
+import { convertToPermitInput } from '../utils';
 import styles from './EditResidentPermit.module.scss';
 
 const T_PATH = 'pages.editPermit';
@@ -70,7 +65,14 @@ const PERMIT_DETAIL_QUERY = gql`
         name
         description
         descriptionSv
-        residentPrice
+        residentProducts {
+          unitPrice
+          startDate
+          endDate
+          vat
+          lowEmissionDiscount
+          secondaryVehicleIncreaseRate
+        }
       }
     }
   }
@@ -95,7 +97,14 @@ const CUSTOMER_QUERY = gql`
           name
           description
           descriptionSv
-          residentPrice
+          residentProducts {
+            unitPrice
+            startDate
+            endDate
+            vat
+            lowEmissionDiscount
+            secondaryVehicleIncreaseRate
+          }
         }
       }
     }
@@ -134,23 +143,26 @@ const EditPermit = (): React.ReactElement => {
   const { id: permitId } = params;
 
   // states
-  const [vehicle, setVehicle] = useState<Vehicle>(initialVehicle);
-  const [person, setPerson] = useState<Customer>(initialPerson);
-  const [permit, setPermit] = useState<PermitInfoDetail>(initialPermit);
+  const [permit, setPermit] = useState<EditPermitDetail>(initialPermit);
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const { vehicle, customer } = permit;
 
   // graphql queries and mutations
   useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
     variables: { permitId },
     onCompleted: ({ permitDetail }) => {
-      setVehicle(permitDetail.vehicle);
-      setPerson({
+      // permit parking zone should override customer
+      // zone as pre-selected vaule
+      const newCustomer = {
         ...permitDetail.customer,
         zone: permitDetail.parkingZone,
+      };
+      setPermit({
+        ...permitDetail,
+        customer: newCustomer,
       });
-      setPermit(extractPermitInfoDetail(permitDetail));
     },
     onError: error => setErrorMessage(error.message),
   });
@@ -159,7 +171,10 @@ const EditPermit = (): React.ReactElement => {
   }>(CUSTOMER_QUERY, {
     onCompleted: data => {
       setPersonSearchError('');
-      setPerson(data.customer);
+      setPermit({
+        ...permit,
+        customer: data.customer,
+      });
     },
     onError: error => setPersonSearchError(error.message),
   });
@@ -168,7 +183,10 @@ const EditPermit = (): React.ReactElement => {
   }>(VEHICLE_QUERY, {
     onCompleted: data => {
       setVehicleSearchError('');
-      setVehicle(data.vehicle);
+      setPermit({
+        ...permit,
+        vehicle: data.vehicle,
+      });
     },
     onError: error => setVehicleSearchError(error.message),
   });
@@ -182,27 +200,26 @@ const EditPermit = (): React.ReactElement => {
 
   // event handlers
   const handleUpdatePermit = () => {
-    const permitData: Partial<PermitDetail> = {
-      ...permit,
-      customer: person,
-      vehicle,
-    };
     updateResidentPermit({
-      variables: { permitId, permitInfo: stripTypenames(permitData) },
+      variables: { permitId, permitInfo: convertToPermitInput(permit) },
     });
   };
   const handleSearchVehicle = (regNumber: string) => {
-    if (!person.nationalIdNumber) {
+    if (!customer.nationalIdNumber) {
       return;
     }
     getVehicle({
-      variables: { regNumber, nationalIdNumber: person.nationalIdNumber },
+      variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
   };
   const handleUpdateVehicleField = (field: keyof Vehicle, value: unknown) => {
-    setVehicle({
+    const newVehicle = {
       ...vehicle,
       [field]: value,
+    };
+    setPermit({
+      ...permit,
+      vehicle: newVehicle,
     });
   };
   const handleSearchPerson = (nationalIdNumber: string) => {
@@ -211,13 +228,17 @@ const EditPermit = (): React.ReactElement => {
     });
   };
   const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
-    setPerson({
-      ...person,
+    const newCustomer = {
+      ...customer,
       [field]: value,
+    };
+    setPermit({
+      ...permit,
+      customer: newCustomer,
     });
   };
   const handleUpdatePermitField = (
-    field: keyof PermitInfoDetail,
+    field: keyof EditPermitDetail,
     value: unknown
   ) =>
     setPermit({
@@ -235,7 +256,7 @@ const EditPermit = (): React.ReactElement => {
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
       <div className={styles.content}>
         <PersonalInfo
-          person={person}
+          person={customer}
           className={styles.personalInfo}
           searchError={personSearchError}
           onSearchPerson={handleSearchPerson}
@@ -243,7 +264,7 @@ const EditPermit = (): React.ReactElement => {
         />
         <VehicleInfo
           vehicle={vehicle}
-          zone={person.zone}
+          zone={customer.zone}
           className={styles.vehicleInfo}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}

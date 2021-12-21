@@ -22,7 +22,9 @@
     font-size: $fontsize-body-s;
     background-color: $color-coat-of-arms-medium-light;
   }
-  .priceInfo {
+  .priceList {
     margin: $spacing-xs 0;
+    display: flex;
+    flex-direction: column;
   }
 }
