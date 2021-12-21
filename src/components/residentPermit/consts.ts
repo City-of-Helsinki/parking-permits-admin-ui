@@ -1,8 +1,8 @@
 import {
   Customer,
+  EditPermitDetail,
   ParkingPermitStatus,
   PermitContractType,
-  PermitInfoDetail,
   Vehicle,
 } from '../../types';
 
@@ -16,13 +16,6 @@ export const initialPerson: Customer = {
   driverLicenseChecked: false,
 };
 
-export const initialPermit: PermitInfoDetail = {
-  contractType: PermitContractType.FIXED_PERIOD,
-  monthCount: 1,
-  startTime: new Date().toISOString(),
-  status: ParkingPermitStatus.VALID,
-};
-
 export const initialVehicle: Vehicle = {
   manufacturer: '',
   model: '',
@@ -31,4 +24,13 @@ export const initialVehicle: Vehicle = {
   consentLowEmissionAccepted: false,
   serialNumber: '',
   category: 'M1',
+};
+
+export const initialPermit: EditPermitDetail = {
+  contractType: PermitContractType.FIXED_PERIOD,
+  monthCount: 1,
+  startTime: new Date().toISOString(),
+  status: ParkingPermitStatus.VALID,
+  vehicle: initialVehicle,
+  customer: initialPerson,
 };

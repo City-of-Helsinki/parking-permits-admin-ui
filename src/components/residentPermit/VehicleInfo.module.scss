@@ -21,13 +21,9 @@
       font-size: $fontsize-body-l;
     }
 
-    .priceDetail {
+    .priceList {
       display: flex;
-      flex-direction: row;
-
-      .discountPrice {
-        margin-right: $spacing-s;
-      }
+      flex-direction: column;
     }
   }
 }
