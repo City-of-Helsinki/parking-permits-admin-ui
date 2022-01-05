@@ -145,6 +145,13 @@
         "all": "All",
         "status": "Status"
       }
+    },
+    "superAdmin": {
+      "sideNav": {
+        "menu": "Menu",
+        "products": "Products",
+        "users": "Users"
+      }
     }
   },
   "contractType": {
