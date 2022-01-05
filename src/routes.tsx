@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import MainLayout from './components/MainLayout';
+import SuperAdminLayout from './components/SuperAdminLayout';
 import AuthError from './pages/AuthError';
 import CreateCompanyPermit from './pages/CreateCompanyPermit';
 import CreatePermit from './pages/CreatePermit';
@@ -14,8 +15,14 @@ import PermitDetail from './pages/PermitDetail';
 import Permits from './pages/Permits';
 import Reports from './pages/Reports';
 import Returns from './pages/Returns';
+import Products from './pages/superAdmin/Products';
 
 const routes = [
+  {
+    path: 'admin',
+    element: <SuperAdminLayout />,
+    children: [{ path: 'products', element: <Products /> }],
+  },
   {
     path: '/',
     element: <MainLayout />,
