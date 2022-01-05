@@ -145,6 +145,13 @@
         "all": "All",
         "status": "Tila"
       }
+    },
+    "superAdmin": {
+      "sideNav": {
+        "menu": "Valikko",
+        "products": "Tuotteet",
+        "users": "Käyttäjät"
+      }
     }
   },
   "contractType": {

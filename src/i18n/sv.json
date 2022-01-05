@@ -145,6 +145,13 @@
         "all": "Alla",
         "status": "Status"
       }
+    },
+    "superAdmin": {
+      "sideNav": {
+        "menu": "Meny",
+        "products": "Produkter",
+        "users": "Användare"
+      }
     }
   },
   "contractType": {
