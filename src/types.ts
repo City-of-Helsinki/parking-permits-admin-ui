@@ -34,13 +34,24 @@ export interface Vehicle {
   category: string;
 }
 
+export enum ProductType {
+  COMPANY = 'COMPANY',
+  RESIDENT = 'RESIDENT',
+}
+
 export interface Product {
+  id: string;
+  type: ProductType;
+  zone: string;
   unitPrice: number;
   startDate: string;
   endDate: string;
   vat: number;
+  vatPercentage: number;
   lowEmissionDiscount: number;
   secondaryVehicleIncreaseRate: number;
+  modifiedAt: string;
+  modifiedBy: string;
 }
 
 export type ProductWithQuantity = [Product, number];
@@ -188,6 +199,15 @@ export interface PagedPermits {
 
 export interface PermitsQueryData {
   permits: PagedPermits;
+}
+
+export interface PagedProducts {
+  objects: Product[];
+  pageInfo: PageInfo;
+}
+
+export interface ProductsQueryData {
+  products: PagedProducts;
 }
 
 export interface VehicleUser {
