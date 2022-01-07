@@ -147,6 +147,17 @@
       }
     },
     "superAdmin": {
+      "products": {
+        "productsDataTable": {
+          "modifiedAt": "Modified at",
+          "modifiedBy": "Modified by",
+          "price": "Price",
+          "productType": "Product type",
+          "validPeriod": "Valid period",
+          "vat": "VAT",
+          "zone": "Zone"
+        }
+      },
       "sideNav": {
         "menu": "Menu",
         "products": "Products",
@@ -208,6 +219,11 @@
     "permits": {
       "createNewPermit": "Create new permit",
       "title": "Permits"
+    },
+    "superAdmin": {
+      "products": {
+        "title": "Product price list"
+      }
     }
   },
   "permitStatus": {
@@ -215,5 +231,9 @@
     "draft": "Draft",
     "paymentInProgress": "Payment in progress",
     "valid": "Valid"
+  },
+  "productType": {
+    "company": "Company parking",
+    "resident": "Resident parking"
   }
 }

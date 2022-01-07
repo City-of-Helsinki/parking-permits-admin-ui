@@ -147,6 +147,17 @@
       }
     },
     "superAdmin": {
+      "products": {
+        "productsDataTable": {
+          "modifiedAt": "Viimeksi muokattu",
+          "modifiedBy": "Muokkaaja",
+          "price": "Hinta",
+          "productType": "Tuotetyyppi",
+          "validPeriod": "Voimassaoloaika",
+          "vat": "ALV",
+          "zone": "Alue"
+        }
+      },
       "sideNav": {
         "menu": "Valikko",
         "products": "Tuotteet",
@@ -208,6 +219,11 @@
     "permits": {
       "createNewPermit": "Luo uusi tunnus",
       "title": "Tunnukset"
+    },
+    "superAdmin": {
+      "products": {
+        "title": "Tuotehinnasto"
+      }
     }
   },
   "permitStatus": {
@@ -215,5 +231,9 @@
     "draft": "Luonnos",
     "paymentInProgress": "Maksussa",
     "valid": "Voimassa"
+  },
+  "productType": {
+    "company": "Yrityspysäköinti",
+    "resident": "Asukaspysäköinti"
   }
 }

@@ -147,6 +147,17 @@
       }
     },
     "superAdmin": {
+      "products": {
+        "productsDataTable": {
+          "modifiedAt": "Senast ändrad",
+          "modifiedBy": "Modifierare",
+          "price": "Pris",
+          "productType": "Produkttyp",
+          "validPeriod": "Giltighetsperiod",
+          "vat": "VAT",
+          "zone": "Zon"
+        }
+      },
       "sideNav": {
         "menu": "Meny",
         "products": "Produkter",
@@ -208,6 +219,11 @@
     "permits": {
       "createNewPermit": "Skapa nytt tillstånd",
       "title": "Tillstånd"
+    },
+    "superAdmin": {
+      "products": {
+        "title": "Produktprislista"
+      }
     }
   },
   "permitStatus": {
@@ -215,5 +231,9 @@
     "draft": "Utkast",
     "paymentInProgress": "Betalning pågår",
     "valid": "Giltigt"
+  },
+  "productType": {
+    "company": "Företagsparkering",
+    "resident": "Boendeparkering"
   }
 }
