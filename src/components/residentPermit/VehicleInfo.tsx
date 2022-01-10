@@ -7,7 +7,7 @@ import ProductPriceRow from '../common/ProductPriceRow';
 import VehicleCategorySelect from '../common/VehicleCategorySelect';
 import styles from './VehicleInfo.module.scss';
 
-const T_PATH = 'components.createResidentPermit.vehicleInfo';
+const T_PATH = 'components.residentPermit.vehicleInfo';
 interface VehicleInfoProps {
   className?: string;
   vehicle: Vehicle;
