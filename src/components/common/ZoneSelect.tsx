@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { ParkingZone } from '../../types';
 import { formatZone } from '../../utils';
 
-const T_PATH = 'components.common.zoneSelect';
-
 const ZONES_QUERY = gql`
   query Query {
     zones {
@@ -32,9 +30,11 @@ interface ZoneOption {
 
 interface ZoneSelectProps {
   className?: string;
+  label: string;
   required?: boolean;
   disabled?: boolean;
   value?: string;
+  error?: string;
   onChange: (zone: ParkingZone | undefined) => void;
 }
 
@@ -43,7 +43,7 @@ const ZoneSelect = ({
   onChange,
   ...otherProps
 }: ZoneSelectProps): React.ReactElement => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
   const emptyOption: ZoneOption = {
     label: '--------',
@@ -67,7 +67,6 @@ const ZoneSelect = ({
   return (
     <Select
       {...otherProps}
-      label={t(`${T_PATH}.zone`)}
       options={zoneOptions}
       value={selectedOption || zoneOptions[0]}
       onChange={handleChange}
