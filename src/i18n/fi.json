@@ -10,9 +10,6 @@
         "createdBy": "Muokkaaja",
         "description": "Selite",
         "event": "Tapahtuma"
-      },
-      "zoneSelect": {
-        "zone": "Alue"
       }
     },
     "createPermit": {
@@ -20,43 +17,6 @@
         "companyPermit": "Yritystunnus",
         "permitType": "Tunnuksen tyyppi",
         "residentPermit": "Asukaspysäköintitunnus"
-      }
-    },
-    "createResidentPermit": {
-      "permitInfo": {
-        "additionalInfo": "Lisätiedot",
-        "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
-        "contractType": "Tunnuksen tyyppi",
-        "effectiveFrom": "Voimassa alkaen",
-        "expirationDate": "Viimeinen voimassaoloaika",
-        "momentWhenPermitIsSaved": "Tunnuksen tallennushetkestä",
-        "permitInfo": "Tunnuksen tiedot",
-        "startDate": "Alkamispäivämäärä",
-        "validPeriodInMonths": "Voimassaoloaika, kuukautta"
-      },
-      "personalInfo": {
-        "address": "Osoite",
-        "addressSecurityBan": "Turvakielto: Osoitetta ja nimeä ei kirjata",
-        "driverLicenseChecked": "Asiakkaan ajokortti tarkistettu",
-        "email": "Sähköpostiosoite",
-        "firstName": "Etunimi",
-        "lastName": "Sukunimi",
-        "personalId": "Henkilötunnus",
-        "personalInfo": "Henkilötiedot",
-        "phoneNumber": "Puhelinnumero",
-        "search": "Hae"
-      },
-      "vehicleInfo": {
-        "category": "Kategoria",
-        "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
-        "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
-        "manufacturer": "Valmistaja",
-        "model": "Malli",
-        "price": "Hinta",
-        "registrationNumber": "Rekisterinumero",
-        "search": "Hae",
-        "serialNumber": "Valmistenumero",
-        "vehicleInfo": "Ajoneuvon tiedot"
       }
     },
     "header": {
@@ -146,6 +106,44 @@
         "status": "Tila"
       }
     },
+    "residentPermit": {
+      "permitInfo": {
+        "additionalInfo": "Lisätiedot",
+        "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
+        "contractType": "Tunnuksen tyyppi",
+        "effectiveFrom": "Voimassa alkaen",
+        "expirationDate": "Viimeinen voimassaoloaika",
+        "momentWhenPermitIsSaved": "Tunnuksen tallennushetkestä",
+        "permitInfo": "Tunnuksen tiedot",
+        "startDate": "Alkamispäivämäärä",
+        "validPeriodInMonths": "Voimassaoloaika, kuukautta"
+      },
+      "personalInfo": {
+        "address": "Osoite",
+        "addressSecurityBan": "Turvakielto: Osoitetta ja nimeä ei kirjata",
+        "driverLicenseChecked": "Asiakkaan ajokortti tarkistettu",
+        "email": "Sähköpostiosoite",
+        "firstName": "Etunimi",
+        "lastName": "Sukunimi",
+        "personalId": "Henkilötunnus",
+        "personalInfo": "Henkilötiedot",
+        "phoneNumber": "Puhelinnumero",
+        "search": "Hae",
+        "zone": "Alue"
+      },
+      "vehicleInfo": {
+        "category": "Kategoria",
+        "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
+        "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
+        "manufacturer": "Valmistaja",
+        "model": "Malli",
+        "price": "Hinta",
+        "registrationNumber": "Rekisterinumero",
+        "search": "Hae",
+        "serialNumber": "Valmistenumero",
+        "vehicleInfo": "Ajoneuvon tiedot"
+      }
+    },
     "superAdmin": {
       "products": {
         "productsDataTable": {
@@ -179,16 +177,6 @@
       "createPermit": "Luo tunnus",
       "permits": "Tunnukset"
     },
-    "createResidentPermit": {
-      "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
-      "createNewPermit": "Luo uusi tunnus",
-      "monthCount_one": "{{count}} kuukausi",
-      "monthCount_other": "{{count}} kuukautta",
-      "permits": "Tunnukset",
-      "residentPermit": "Asukaspysäköintitunnus",
-      "save": "Tallenna",
-      "totalPrice": "Tunnuksen yhteissumma"
-    },
     "editPermit": {
       "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
       "edit": "Muokkaustilassa",
@@ -219,6 +207,16 @@
     "permits": {
       "createNewPermit": "Luo uusi tunnus",
       "title": "Tunnukset"
+    },
+    "residentPermit": {
+      "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
+      "createNewPermit": "Luo uusi tunnus",
+      "monthCount_one": "{{count}} kuukausi",
+      "monthCount_other": "{{count}} kuukautta",
+      "permits": "Tunnukset",
+      "residentPermit": "Asukaspysäköintitunnus",
+      "save": "Tallenna",
+      "totalPrice": "Tunnuksen yhteissumma"
     },
     "superAdmin": {
       "products": {

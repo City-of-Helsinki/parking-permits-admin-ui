@@ -8,7 +8,7 @@ import Divider from '../common/Divider';
 import StatusSelect from '../permits/StatusSelect';
 import styles from './PermitInfo.module.scss';
 
-const T_PATH = 'components.createResidentPermit.permitInfo';
+const T_PATH = 'components.residentPermit.permitInfo';
 
 interface PermitInfoProps {
   className?: string;

@@ -10,9 +10,6 @@
         "createdBy": "Skapad av",
         "description": "Beskrivning",
         "event": "Event"
-      },
-      "zoneSelect": {
-        "zone": "Zon"
       }
     },
     "createPermit": {
@@ -20,43 +17,6 @@
         "companyPermit": "Företagstillstånd",
         "permitType": "Typ av tillstånd",
         "residentPermit": "Boendetillstånd"
-      }
-    },
-    "createResidentPermit": {
-      "permitInfo": {
-        "additionalInfo": "Ytterligare information",
-        "additionalInfoPlaceholder": "För ytterligare information, t.ex. information om mopeden",
-        "contractType": "Kontraktstyp",
-        "effectiveFrom": "Gäller från",
-        "expirationDate": "Utgångsdatum",
-        "momentWhenPermitIsSaved": "Tiden parkeringstillståndet sparades",
-        "permitInfo": "Tillståndsinformation",
-        "startDate": "Startdatum",
-        "validPeriodInMonths": "Giltig period i månader"
-      },
-      "personalInfo": {
-        "address": "Adress",
-        "addressSecurityBan": "Säkerhetsförbud: Adress och namn kommer inte att registreras",
-        "driverLicenseChecked": "Förarlicensen är kontrollerad",
-        "email": "E-post",
-        "firstName": "Förnamn",
-        "lastName": "Efternamn",
-        "personalId": "Personligt ID",
-        "personalInfo": "Personlig information",
-        "phoneNumber": "Telefonnummer",
-        "search": "Sök"
-      },
-      "vehicleInfo": {
-        "category": "Kategori",
-        "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
-        "lowEmissionVehicle": "Fordon med låga utsläpp",
-        "manufacturer": "Tillverkare",
-        "model": "Modell",
-        "price": "Pris",
-        "registrationNumber": "Registreringsnummer",
-        "search": "Sök",
-        "serialNumber": "Serienummer",
-        "vehicleInfo": "Fordonsinformation"
       }
     },
     "header": {
@@ -146,6 +106,44 @@
         "status": "Status"
       }
     },
+    "residentPermit": {
+      "permitInfo": {
+        "additionalInfo": "Ytterligare information",
+        "additionalInfoPlaceholder": "För ytterligare information, t.ex. information om mopeden",
+        "contractType": "Kontraktstyp",
+        "effectiveFrom": "Gäller från",
+        "expirationDate": "Utgångsdatum",
+        "momentWhenPermitIsSaved": "Tiden parkeringstillståndet sparades",
+        "permitInfo": "Tillståndsinformation",
+        "startDate": "Startdatum",
+        "validPeriodInMonths": "Giltig period i månader"
+      },
+      "personalInfo": {
+        "address": "Adress",
+        "addressSecurityBan": "Säkerhetsförbud: Adress och namn kommer inte att registreras",
+        "driverLicenseChecked": "Förarlicensen är kontrollerad",
+        "email": "E-post",
+        "firstName": "Förnamn",
+        "lastName": "Efternamn",
+        "personalId": "Personligt ID",
+        "personalInfo": "Personlig information",
+        "phoneNumber": "Telefonnummer",
+        "search": "Sök",
+        "zone": "Zon"
+      },
+      "vehicleInfo": {
+        "category": "Kategori",
+        "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
+        "lowEmissionVehicle": "Fordon med låga utsläpp",
+        "manufacturer": "Tillverkare",
+        "model": "Modell",
+        "price": "Pris",
+        "registrationNumber": "Registreringsnummer",
+        "search": "Sök",
+        "serialNumber": "Serienummer",
+        "vehicleInfo": "Fordonsinformation"
+      }
+    },
     "superAdmin": {
       "products": {
         "productsDataTable": {
@@ -179,16 +177,6 @@
       "createPermit": "Skapa tillstånd",
       "permits": "Tillstånd"
     },
-    "createResidentPermit": {
-      "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
-      "createNewPermit": "Skapa nytt tillstånd",
-      "monthCount_one": "{{count}} månad",
-      "monthCount_other": "{{count}} månader",
-      "permits": "Tillstånd",
-      "residentPermit": "Parkeringstillstånd för boende",
-      "save": "Spara",
-      "totalPrice": "Totalpris"
-    },
     "editPermit": {
       "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
       "edit": "Redigera",
@@ -219,6 +207,16 @@
     "permits": {
       "createNewPermit": "Skapa nytt tillstånd",
       "title": "Tillstånd"
+    },
+    "residentPermit": {
+      "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
+      "createNewPermit": "Skapa nytt tillstånd",
+      "monthCount_one": "{{count}} månad",
+      "monthCount_other": "{{count}} månader",
+      "permits": "Tillstånd",
+      "residentPermit": "Parkeringstillstånd för boende",
+      "save": "Spara",
+      "totalPrice": "Totalpris"
     },
     "superAdmin": {
       "products": {
