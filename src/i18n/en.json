@@ -10,9 +10,6 @@
         "createdBy": "Created by",
         "description": "Description",
         "event": "Event"
-      },
-      "zoneSelect": {
-        "zone": "Zone"
       }
     },
     "createPermit": {
@@ -22,44 +19,8 @@
         "residentPermit": "Resident permit"
       }
     },
-    "createResidentPermit": {
-      "permitInfo": {
-        "additionalInfo": "Additional information",
-        "additionalInfoPlaceholder": "Additional information, e.g. information about moped",
-        "contractType": "Contract type",
-        "effectiveFrom": "Effective from",
-        "expirationDate": "Expiration date",
-        "momentWhenPermitIsSaved": "The time when the parking permit is saved",
-        "permitInfo": "Permit information",
-        "startDate": "Start date",
-        "validPeriodInMonths": "Valid period in months"
-      },
-      "personalInfo": {
-        "address": "Address",
-        "addressSecurityBan": "Non-disclosure for personal safety",
-        "driverLicenseChecked": "Driver's licese is checked",
-        "email": "Email",
-        "firstName": "First name",
-        "lastName": "Last name",
-        "personalId": "Personal ID",
-        "personalInfo": "Personal Information",
-        "phoneNumber": "Phone number",
-        "search": "Search"
-      },
-      "vehicleInfo": {
-        "category": "Category",
-        "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
-        "lowEmissionVehicle": "Low emission vehicle",
-        "manufacturer": "Manufacturer",
-        "model": "Model",
-        "price": "Price",
-        "registrationNumber": "Registration number",
-        "search": "Search",
-        "serialNumber": "Serial number",
-        "vehicleInfo": "Vehicle information"
-      }
-    },
     "header": {
+      "admin": "Admin",
       "appTitle": "Parking Permits Management",
       "login": "Login",
       "logout": "Log Out",
@@ -146,8 +107,69 @@
         "status": "Status"
       }
     },
+    "residentPermit": {
+      "permitInfo": {
+        "additionalInfo": "Additional information",
+        "additionalInfoPlaceholder": "Additional information, e.g. information about moped",
+        "contractType": "Contract type",
+        "effectiveFrom": "Effective from",
+        "expirationDate": "Expiration date",
+        "momentWhenPermitIsSaved": "The time when the parking permit is saved",
+        "permitInfo": "Permit information",
+        "startDate": "Start date",
+        "validPeriodInMonths": "Valid period in months"
+      },
+      "personalInfo": {
+        "address": "Address",
+        "addressSecurityBan": "Non-disclosure for personal safety",
+        "driverLicenseChecked": "Driver's licese is checked",
+        "email": "Email",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "personalId": "Personal ID",
+        "personalInfo": "Personal Information",
+        "phoneNumber": "Phone number",
+        "search": "Search",
+        "zone": "Zone"
+      },
+      "vehicleInfo": {
+        "category": "Category",
+        "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
+        "lowEmissionVehicle": "Low emission vehicle",
+        "manufacturer": "Manufacturer",
+        "model": "Model",
+        "price": "Price",
+        "registrationNumber": "Registration number",
+        "search": "Search",
+        "serialNumber": "Serial number",
+        "vehicleInfo": "Vehicle information"
+      }
+    },
     "superAdmin": {
       "products": {
+        "lowEmissionDiscountSelect": {
+          "noDiscount": "No discount"
+        },
+        "productForm": {
+          "delete": "Delete",
+          "endDate": "End date",
+          "errorEnterEndDate": "Please enter a end date",
+          "errorEnterPrice": "Please enter a price",
+          "errorEnterStartDate": "Please enter a start date",
+          "errorEnterVAT": "Please enter a VAT percentage",
+          "errorSelectZone": "Please select a zone",
+          "lowEmissionDiscount": "Low emission discount",
+          "price": "Price",
+          "priceGroup": "Price group",
+          "productPrice": "Product price",
+          "productType": "Product type",
+          "save": "Save",
+          "startDate": "Start date",
+          "unit": "Unit",
+          "validPeriod": "Valid period",
+          "vat": "VAT",
+          "zone": "Zone"
+        },
         "productsDataTable": {
           "modifiedAt": "Modified at",
           "modifiedBy": "Modified by",
@@ -178,16 +200,6 @@
       "createNewPermit": "Create new permit",
       "createPermit": "Create permit",
       "permits": "Permits"
-    },
-    "createResidentPermit": {
-      "cancelAndCloseWithoutSaving": "Cancel and close without saving",
-      "createNewPermit": "Create new permit",
-      "monthCount_one": "{{count}} month",
-      "monthCount_other": "{{count}} months",
-      "permits": "Permits",
-      "residentPermit": "Resident parking permit",
-      "save": "Save",
-      "totalPrice": "Total price"
     },
     "editPermit": {
       "cancelAndCloseWithoutSaving": "Cancel and close without saving",
@@ -220,6 +232,16 @@
       "createNewPermit": "Create new permit",
       "title": "Permits"
     },
+    "residentPermit": {
+      "cancelAndCloseWithoutSaving": "Cancel and close without saving",
+      "createNewPermit": "Create new permit",
+      "monthCount_one": "{{count}} month",
+      "monthCount_other": "{{count}} months",
+      "permits": "Permits",
+      "residentPermit": "Resident parking permit",
+      "save": "Save",
+      "totalPrice": "Total price"
+    },
     "superAdmin": {
       "products": {
         "title": "Product price list"
@@ -235,5 +257,9 @@
   "productType": {
     "company": "Company parking",
     "resident": "Resident parking"
+  },
+  "productUnit": {
+    "monthly": "p/m",
+    "pieces": "pcs"
   }
 }

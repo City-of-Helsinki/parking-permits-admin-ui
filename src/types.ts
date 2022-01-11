@@ -39,11 +39,29 @@ export enum ProductType {
   RESIDENT = 'RESIDENT',
 }
 
+export enum ProductUnit {
+  MONTHLY = 'MONTHLY',
+  PIECES = 'PIECES',
+}
+
+export interface ProductInput {
+  id?: string;
+  type: ProductType;
+  zone: string;
+  unitPrice: number;
+  unit: ProductUnit;
+  startDate: string;
+  endDate: string;
+  vatPercentage: number;
+  lowEmissionDiscount: number;
+}
+
 export interface Product {
   id: string;
   type: ProductType;
   zone: string;
   unitPrice: number;
+  unit: ProductUnit;
   startDate: string;
   endDate: string;
   vat: number;

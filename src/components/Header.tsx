@@ -40,6 +40,10 @@ const Header = (): React.ReactElement => {
       path: '/reports',
       label: t(`${T_PATH}.reports`),
     },
+    {
+      path: '/admin',
+      label: t(`${T_PATH}.admin`),
+    },
   ];
 
   return (

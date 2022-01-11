@@ -15,13 +15,18 @@ import PermitDetail from './pages/PermitDetail';
 import Permits from './pages/Permits';
 import Reports from './pages/Reports';
 import Returns from './pages/Returns';
+import EditProduct from './pages/superAdmin/EditProduct';
 import Products from './pages/superAdmin/Products';
 
 const routes = [
   {
     path: 'admin',
     element: <SuperAdminLayout />,
-    children: [{ path: 'products', element: <Products /> }],
+    children: [
+      { path: 'products', element: <Products /> },
+      { path: 'products/:id', element: <EditProduct /> },
+      { path: '', element: <Navigate to="products" /> },
+    ],
   },
   {
     path: '/',

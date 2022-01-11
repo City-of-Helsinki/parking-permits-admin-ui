@@ -13,7 +13,7 @@ import Divider from '../common/Divider';
 import ZoneSelect from '../common/ZoneSelect';
 import styles from './PersonalInfo.module.scss';
 
-const T_PATH = 'components.createResidentPermit.personalInfo';
+const T_PATH = 'components.residentPermit.personalInfo';
 
 interface PersonalInfoProps {
   className?: string;
@@ -94,6 +94,7 @@ const PersonalInfo = ({
         <ZoneSelect
           required
           className={styles.fieldItem}
+          label={t(`${T_PATH}.zone`)}
           value={defaultZone}
           onChange={selectedZone => onUpdateField('zone', selectedZone)}
         />
