@@ -250,6 +250,7 @@
         "title": "Redigera produktpris"
       },
       "products": {
+        "addNewPrice": "Skapa ett nytt pris",
         "title": "Produktprislista"
       }
     }

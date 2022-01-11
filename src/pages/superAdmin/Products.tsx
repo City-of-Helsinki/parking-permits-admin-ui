@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Notification } from 'hds-react';
+import { Button, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -55,7 +55,7 @@ const Products = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
-      <div className={styles.productsTable}>
+      <div className={styles.content}>
         <ProductsDataTable
           products={data?.products.objects || []}
           pageInfo={data?.products.pageInfo}
@@ -65,19 +65,24 @@ const Products = (): React.ReactElement => {
           onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
           onRowClick={product => navigate(product.id)}
         />
-        {errorMessage && (
-          <Notification
-            type="error"
-            label={t('message.error')}
-            position="bottom-center"
-            dismissible
-            closeButtonLabelText={t('message.close')}
-            onClose={() => setErrorMessage('')}
-            style={{ zIndex: 100 }}>
-            {errorMessage}
-          </Notification>
-        )}
+        <div className={styles.actions}>
+          <Button onClick={() => navigate('create')}>
+            {t(`${T_PATH}.addNewPrice`)}
+          </Button>
+        </div>
       </div>
+      {errorMessage && (
+        <Notification
+          type="error"
+          label={t('message.error')}
+          position="bottom-center"
+          dismissible
+          closeButtonLabelText={t('message.close')}
+          onClose={() => setErrorMessage('')}
+          style={{ zIndex: 100 }}>
+          {errorMessage}
+        </Notification>
+      )}
     </div>
   );
 };
