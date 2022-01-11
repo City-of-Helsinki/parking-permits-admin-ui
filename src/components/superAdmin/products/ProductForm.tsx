@@ -38,7 +38,7 @@ const ProductForm = ({
         unit: product.unit,
         startDate: product.startDate,
         endDate: product.endDate,
-        vat: product.vat,
+        vatPercentage: product.vatPercentage,
         lowEmissionDiscount: product.lowEmissionDiscount,
       }
     : {
@@ -48,18 +48,17 @@ const ProductForm = ({
         unit: ProductUnit.MONTHLY,
         startDate: currentDate.toISOString(),
         endDate: currentDate.toISOString(),
-        vat: 0.24,
+        vatPercentage: 24,
         lowEmissionDiscount: 0.5,
       };
   const validationSchema = Yup.object().shape({
+    type: Yup.string(),
     zone: Yup.string().required(t(`${T_PATH}.errorSelectZone`)),
     unitPrice: Yup.number().required(t(`${T_PATH}.errorEnterPrice`)),
     startDate: Yup.string().required(t(`${T_PATH}.errorEnterStartDate`)),
     endDate: Yup.string().required(t(`${T_PATH}.errorEnterEndDate`)),
-    vat: Yup.number().required(t(`${T_PATH}.errorEnterVAT`)),
-    lowEmissionDiscount: Yup.number().required(
-      t(`${T_PATH}.errorEnterLowEmissionDiscount`)
-    ),
+    vatPercentage: Yup.number().required(t(`${T_PATH}.errorEnterVAT`)),
+    lowEmissionDiscount: Yup.number(),
   });
 
   return (
@@ -94,7 +93,7 @@ const ProductForm = ({
                     className={styles.field}
                     label={t(`${T_PATH}.zone`)}
                     value={field.value}
-                    onChange={zone => form.setFieldValue('zone', zone)}
+                    onChange={zone => form.setFieldValue('zone', zone?.name)}
                     error={meta.touched && meta.error ? meta.error : undefined}
                   />
                 )}
@@ -110,10 +109,8 @@ const ProductForm = ({
                     id="unitPrice"
                     unit="€"
                     label={t(`${T_PATH}.price`)}
-                    onChange={unitPrice =>
-                      form.setFieldValue('unitPrice', unitPrice)
-                    }
-                    onBlur={field.onBlur}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
                     value={field.value}
                     errorText={
                       meta.touched && meta.error ? meta.error : undefined
@@ -132,24 +129,16 @@ const ProductForm = ({
                   />
                 )}
               </Field>
-              <Field name="vat">
+              <Field name="vatPercentage">
                 {({ field, form, meta }: FieldProps) => (
                   <NumberInput
                     className={styles.field}
-                    id="vat"
+                    id="vatPercentage"
                     unit="%"
                     label={t(`${T_PATH}.vat`)}
-                    onChange={e => {
-                      const { value } = e.target;
-                      form.setFieldValue(
-                        'vat',
-                        // eslint-disable-next-line no-magic-numbers
-                        value ? parseFloat(value) / 100 : undefined
-                      );
-                    }}
-                    onBlur={props.handleBlur}
-                    // eslint-disable-next-line no-magic-numbers
-                    value={field.value * 100}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                    value={field.value}
                     errorText={
                       meta.touched && meta.error ? meta.error : undefined
                     }
@@ -213,7 +202,10 @@ const ProductForm = ({
               </Field>
             </Fieldset>
             <div className={styles.actions}>
-              <Button className={styles.submit} type="submit">
+              <Button
+                className={styles.submit}
+                disabled={!(props.dirty && props.isValid)}
+                type="submit">
                 {t(`${T_PATH}.save`)}
               </Button>
               {product && (

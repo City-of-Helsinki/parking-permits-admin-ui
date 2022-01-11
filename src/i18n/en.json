@@ -153,6 +153,11 @@
         "productForm": {
           "delete": "Delete",
           "endDate": "End date",
+          "errorEnterEndDate": "Please enter a end date",
+          "errorEnterPrice": "Please enter a price",
+          "errorEnterStartDate": "Please enter a start date",
+          "errorEnterVAT": "Please enter a VAT percentage",
+          "errorSelectZone": "Please select a zone",
           "lowEmissionDiscount": "Low emission discount",
           "price": "Price",
           "priceGroup": "Price group",
@@ -161,9 +166,9 @@
           "save": "Save",
           "startDate": "Start date",
           "unit": "Unit",
+          "validPeriod": "Valid period",
           "vat": "VAT",
-          "zone": "Zone",
-          "validPeriod": "Valid period"
+          "zone": "Zone"
         },
         "productsDataTable": {
           "modifiedAt": "Modified at",

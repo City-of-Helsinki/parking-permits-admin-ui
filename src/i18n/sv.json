@@ -153,6 +153,11 @@
         "productForm": {
           "delete": "Radera",
           "endDate": "Slutdatum",
+          "errorEnterEndDate": "Ange ett slutdatum",
+          "errorEnterPrice": "Ange ett pris",
+          "errorEnterStartDate": "Ange ett startdatum",
+          "errorEnterVAT": "Ange en momsprocent",
+          "errorSelectZone": "Välj en zon",
           "lowEmissionDiscount": "Vähäpäästöinen alennus",
           "price": "Pris",
           "priceGroup": "Prisgrupp",
