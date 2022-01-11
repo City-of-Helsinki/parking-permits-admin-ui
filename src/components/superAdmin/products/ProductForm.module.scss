@@ -1,0 +1,19 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.fieldset {
+  display: flex;
+  flex-direction: row;
+
+  .field {
+    margin-right: $spacing-s;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+
+  .submit {
+    margin-right: $spacing-s;
+  }
+}
