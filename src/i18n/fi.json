@@ -153,6 +153,11 @@
         "productForm": {
           "delete": "Poista",
           "endDate": "Pvm asti",
+          "errorEnterEndDate": "Anna aloituspäivä",
+          "errorEnterPrice": "Anna hinta",
+          "errorEnterStartDate": "Anna aloituspäivä",
+          "errorEnterVAT": "Anna ALV-prosentti",
+          "errorSelectZone": "Valitse vyöhyke",
           "lowEmissionDiscount": "Vähäpäästöinen alennus",
           "price": "Hinta",
           "priceGroup": "Hintaryhmä",

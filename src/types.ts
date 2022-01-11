@@ -52,7 +52,7 @@ export interface ProductInput {
   unit: ProductUnit;
   startDate: string;
   endDate: string;
-  vat: number;
+  vatPercentage: number;
   lowEmissionDiscount: number;
 }
 
