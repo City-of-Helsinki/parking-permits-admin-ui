@@ -20,6 +20,7 @@
       }
     },
     "header": {
+      "admin": "Underhåll",
       "appTitle": "Hantering av parkeringstillstånd",
       "login": "Logga in",
       "logout": "Logga ut",
@@ -151,18 +152,18 @@
         },
         "productForm": {
           "delete": "Radera",
+          "endDate": "Slutdatum",
           "lowEmissionDiscount": "Vähäpäästöinen alennus",
           "price": "Pris",
           "priceGroup": "Prisgrupp",
           "productPrice": "Produktpris",
           "productType": "Produkttyp",
           "save": "Spara",
-          "unit": "Enhet",
-          "vat": "VAT",
-          "zone": "Zon",
           "startDate": "Startdatum",
-          "endDate": "Slutdatum",
-          "validPeriod": "Giltighetsperiod"
+          "unit": "Enhet",
+          "validPeriod": "Giltighetsperiod",
+          "vat": "VAT",
+          "zone": "Zon"
         },
         "productsDataTable": {
           "modifiedAt": "Senast ändrad",

@@ -20,6 +20,7 @@
       }
     },
     "header": {
+      "admin": "Admin",
       "appTitle": "Parking Permits Management",
       "login": "Login",
       "logout": "Log Out",

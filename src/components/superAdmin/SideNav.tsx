@@ -16,12 +16,12 @@ const SideNav = (): React.ReactElement => {
   const menuItems: MenuItem[] = [
     {
       id: 'users',
-      href: '/users',
+      href: '/admin/users',
       label: t(`${T_PATH}.users`),
     },
     {
       id: 'products',
-      href: '/products',
+      href: '/admin/products',
       label: t(`${T_PATH}.products`),
     },
   ];
