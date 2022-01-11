@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: row;
 
+  .zoneSelect {
+    min-width: 300px;
+  }
+
   .field {
     margin-right: $spacing-s;
   }

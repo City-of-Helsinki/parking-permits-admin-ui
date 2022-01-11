@@ -90,7 +90,7 @@ const ProductForm = ({
               <Field name="zone">
                 {({ field, form, meta }: FieldProps) => (
                   <ZoneSelect
-                    className={styles.field}
+                    className={styles.zoneSelect}
                     label={t(`${T_PATH}.zone`)}
                     value={field.value}
                     onChange={zone => form.setFieldValue('zone', zone?.name)}
