@@ -146,6 +146,24 @@
     },
     "superAdmin": {
       "products": {
+        "lowEmissionDiscountSelect": {
+          "noDiscount": "No discount"
+        },
+        "productForm": {
+          "delete": "Delete",
+          "endDate": "End date",
+          "lowEmissionDiscount": "Low emission discount",
+          "price": "Price",
+          "priceGroup": "Price group",
+          "productPrice": "Product price",
+          "productType": "Product type",
+          "save": "Save",
+          "startDate": "Start date",
+          "unit": "Unit",
+          "vat": "VAT",
+          "zone": "Zone",
+          "validPeriod": "Valid period"
+        },
         "productsDataTable": {
           "modifiedAt": "Modified at",
           "modifiedBy": "Modified by",
@@ -233,5 +251,9 @@
   "productType": {
     "company": "Company parking",
     "resident": "Resident parking"
+  },
+  "productUnit": {
+    "monthly": "p/m",
+    "pieces": "pcs"
   }
 }
