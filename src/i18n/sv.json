@@ -201,6 +201,16 @@
       "createPermit": "Skapa tillstånd",
       "permits": "Tillstånd"
     },
+    "createResidentPermit": {
+      "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
+      "createNewPermit": "Skapa nytt tillstånd",
+      "monthCount_one": "{{count}} månad",
+      "monthCount_other": "{{count}} månader",
+      "permits": "Tillstånd",
+      "residentPermit": "Parkeringstillstånd för boende",
+      "save": "Spara",
+      "totalPrice": "Totalpris"
+    },
     "editPermit": {
       "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
       "edit": "Redigera",
@@ -231,16 +241,6 @@
     "permits": {
       "createNewPermit": "Skapa nytt tillstånd",
       "title": "Tillstånd"
-    },
-    "residentPermit": {
-      "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
-      "createNewPermit": "Skapa nytt tillstånd",
-      "monthCount_one": "{{count}} månad",
-      "monthCount_other": "{{count}} månader",
-      "permits": "Tillstånd",
-      "residentPermit": "Parkeringstillstånd för boende",
-      "save": "Spara",
-      "totalPrice": "Totalpris"
     },
     "superAdmin": {
       "createProduct": {
