@@ -15,6 +15,7 @@ import PermitDetail from './pages/PermitDetail';
 import Permits from './pages/Permits';
 import Reports from './pages/Reports';
 import Returns from './pages/Returns';
+import CreateProduct from './pages/superAdmin/CreateProduct';
 import EditProduct from './pages/superAdmin/EditProduct';
 import Products from './pages/superAdmin/Products';
 
@@ -24,6 +25,7 @@ const routes = [
     element: <SuperAdminLayout />,
     children: [
       { path: 'products', element: <Products /> },
+      { path: 'products/create', element: <CreateProduct /> },
       { path: 'products/:id', element: <EditProduct /> },
       { path: '', element: <Navigate to="products" /> },
     ],
