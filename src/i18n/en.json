@@ -243,6 +243,9 @@
       "totalPrice": "Total price"
     },
     "superAdmin": {
+      "editProduct": {
+        "title": "Edit product price"
+      },
       "products": {
         "title": "Product price list"
       }
