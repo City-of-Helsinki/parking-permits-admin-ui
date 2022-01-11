@@ -25,6 +25,7 @@ const routes = [
     children: [
       { path: 'products', element: <Products /> },
       { path: 'products/:id', element: <EditProduct /> },
+      { path: '', element: <Navigate to="products" /> },
     ],
   },
   {
