@@ -146,6 +146,24 @@
     },
     "superAdmin": {
       "products": {
+        "lowEmissionDiscountSelect": {
+          "noDiscount": "Ei alennusta"
+        },
+        "productForm": {
+          "delete": "Poista",
+          "endDate": "Pvm asti",
+          "lowEmissionDiscount": "Vähäpäästöinen alennus",
+          "price": "Hinta",
+          "priceGroup": "Hintaryhmä",
+          "productPrice": "Tuotteen hinta",
+          "productType": "Tuottetyyppi",
+          "save": "Tallenna",
+          "startDate": "Pvm alkaen",
+          "unit": "Jakso",
+          "validPeriod": "Voimassaoloaika",
+          "vat": "ALV",
+          "zone": "Alue"
+        },
         "productsDataTable": {
           "modifiedAt": "Viimeksi muokattu",
           "modifiedBy": "Muokkaaja",
@@ -233,5 +251,9 @@
   "productType": {
     "company": "Yrityspysäköinti",
     "resident": "Asukaspysäköinti"
+  },
+  "productUnit": {
+    "monthly": "kk",
+    "pieces": "kpl"
   }
 }

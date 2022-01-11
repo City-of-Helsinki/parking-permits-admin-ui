@@ -146,6 +146,24 @@
     },
     "superAdmin": {
       "products": {
+        "lowEmissionDiscountSelect": {
+          "noDiscount": "Ingen rabatt"
+        },
+        "productForm": {
+          "delete": "Radera",
+          "lowEmissionDiscount": "Vähäpäästöinen alennus",
+          "price": "Pris",
+          "priceGroup": "Prisgrupp",
+          "productPrice": "Produktpris",
+          "productType": "Produkttyp",
+          "save": "Spara",
+          "unit": "Enhet",
+          "vat": "VAT",
+          "zone": "Zon",
+          "startDate": "Startdatum",
+          "endDate": "Slutdatum",
+          "validPeriod": "Giltighetsperiod"
+        },
         "productsDataTable": {
           "modifiedAt": "Senast ändrad",
           "modifiedBy": "Modifierare",
@@ -233,5 +251,9 @@
   "productType": {
     "company": "Företagsparkering",
     "resident": "Boendeparkering"
+  },
+  "productUnit": {
+    "monthly": "kk",
+    "pieces": "kpl"
   }
 }
