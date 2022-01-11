@@ -8,7 +8,7 @@ import ProductForm from '../../components/superAdmin/products/ProductForm';
 import { MutationResponse, Product } from '../../types';
 import styles from './Products.module.scss';
 
-const T_PATH = 'pages.superAdmin.products';
+const T_PATH = 'pages.superAdmin.editProduct';
 
 const PRODUCT_QUERY = gql`
   query GetProduct($productId: ID!) {
