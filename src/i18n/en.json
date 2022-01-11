@@ -201,6 +201,16 @@
       "createPermit": "Create permit",
       "permits": "Permits"
     },
+    "createResidentPermit": {
+      "cancelAndCloseWithoutSaving": "Cancel and close without saving",
+      "createNewPermit": "Create new permit",
+      "monthCount_one": "{{count}} month",
+      "monthCount_other": "{{count}} months",
+      "permits": "Permits",
+      "residentPermit": "Resident parking permit",
+      "save": "Save",
+      "totalPrice": "Total price"
+    },
     "editPermit": {
       "cancelAndCloseWithoutSaving": "Cancel and close without saving",
       "edit": "Edit",
@@ -231,16 +241,6 @@
     "permits": {
       "createNewPermit": "Create new permit",
       "title": "Permits"
-    },
-    "residentPermit": {
-      "cancelAndCloseWithoutSaving": "Cancel and close without saving",
-      "createNewPermit": "Create new permit",
-      "monthCount_one": "{{count}} month",
-      "monthCount_other": "{{count}} months",
-      "permits": "Permits",
-      "residentPermit": "Resident parking permit",
-      "save": "Save",
-      "totalPrice": "Total price"
     },
     "superAdmin": {
       "createProduct": {
