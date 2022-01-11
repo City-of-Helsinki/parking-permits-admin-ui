@@ -250,6 +250,7 @@
         "title": "Muokkaa tuotteen hintaa"
       },
       "products": {
+        "addNewPrice": "Luo uusi hinta",
         "title": "Tuotehinnasto"
       }
     }
