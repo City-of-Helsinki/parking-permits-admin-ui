@@ -250,6 +250,7 @@
         "title": "Edit product price"
       },
       "products": {
+        "addNewPrice": "Add new price",
         "title": "Product price list"
       }
     }
