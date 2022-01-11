@@ -243,6 +243,9 @@
       "totalPrice": "Tunnuksen yhteissumma"
     },
     "superAdmin": {
+      "createProduct": {
+        "title": "Luo uusi hinta"
+      },
       "editProduct": {
         "title": "Muokkaa tuotteen hintaa"
       },

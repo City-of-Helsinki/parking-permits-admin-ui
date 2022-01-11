@@ -243,6 +243,9 @@
       "totalPrice": "Totalpris"
     },
     "superAdmin": {
+      "createProduct": {
+        "title": "Skapa ett nytt pris"
+      },
       "editProduct": {
         "title": "Redigera produktpris"
       },
