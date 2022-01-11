@@ -201,6 +201,16 @@
       "createPermit": "Luo tunnus",
       "permits": "Tunnukset"
     },
+    "createResidentPermit": {
+      "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
+      "createNewPermit": "Luo uusi tunnus",
+      "monthCount_one": "{{count}} kuukausi",
+      "monthCount_other": "{{count}} kuukautta",
+      "permits": "Tunnukset",
+      "residentPermit": "Asukaspysäköintitunnus",
+      "save": "Tallenna",
+      "totalPrice": "Tunnuksen yhteissumma"
+    },
     "editPermit": {
       "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
       "edit": "Muokkaustilassa",
@@ -231,16 +241,6 @@
     "permits": {
       "createNewPermit": "Luo uusi tunnus",
       "title": "Tunnukset"
-    },
-    "residentPermit": {
-      "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
-      "createNewPermit": "Luo uusi tunnus",
-      "monthCount_one": "{{count}} kuukausi",
-      "monthCount_other": "{{count}} kuukautta",
-      "permits": "Tunnukset",
-      "residentPermit": "Asukaspysäköintitunnus",
-      "save": "Tallenna",
-      "totalPrice": "Tunnuksen yhteissumma"
     },
     "superAdmin": {
       "createProduct": {
