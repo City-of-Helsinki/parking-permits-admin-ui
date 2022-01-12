@@ -55,7 +55,6 @@ const PERMIT_DETAIL_QUERY = gql`
         model
         registrationNumber
         isLowEmission
-        holder
       }
       parkingZone {
         name
