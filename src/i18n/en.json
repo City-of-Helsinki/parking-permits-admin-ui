@@ -38,8 +38,7 @@
         "personalID": "Personal ID",
         "phoneNumber": "Phone number",
         "sendMessageToEmail": "Send message to customer email",
-        "title": "Customer information",
-        "vehicleHolder": "Vehicle holder"
+        "title": "Customer information"
       },
       "endPermitDialog": {
         "cancel": "Cancel",

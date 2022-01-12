@@ -38,8 +38,7 @@
         "personalID": "Henkilötunnus",
         "phoneNumber": "Puhelinnumero",
         "sendMessageToEmail": "Lähetä tiedot sähköpostiin",
-        "title": "Henkilötiedot",
-        "vehicleHolder": "Ajoneuvon haltija"
+        "title": "Henkilötiedot"
       },
       "endPermitDialog": {
         "cancel": "Peruuta",
