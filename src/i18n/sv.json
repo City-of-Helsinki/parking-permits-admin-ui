@@ -38,8 +38,7 @@
         "personalID": "Personligt ID",
         "phoneNumber": "Telefonnummer",
         "sendMessageToEmail": "Skicka meddelande till kundens e-post",
-        "title": "Kundinformation",
-        "vehicleHolder": "Fordonshållare"
+        "title": "Kundinformation"
       },
       "endPermitDialog": {
         "cancel": "Avbryt",
