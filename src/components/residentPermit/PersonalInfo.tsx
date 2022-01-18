@@ -8,7 +8,7 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Customer } from '../../types';
-import { formatAddress } from '../../utils';
+import AddressSearch from '../common/AddressSearch';
 import Divider from '../common/Divider';
 import ZoneSelect from '../common/ZoneSelect';
 import styles from './PersonalInfo.module.scss';
@@ -30,7 +30,7 @@ const PersonalInfo = ({
   onSearchPerson,
   onUpdateField,
 }: PersonalInfoProps): React.ReactElement => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const {
     zone,
     primaryAddress,
@@ -42,7 +42,7 @@ const PersonalInfo = ({
     email,
     driverLicenseChecked,
   } = person;
-  const defaultZone = zone?.name || primaryAddress?.zone?.name;
+  const defaultZone = zone?.name;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.personalInfo`)}</div>
@@ -82,14 +82,11 @@ const PersonalInfo = ({
           value={lastName}
           onChange={e => onUpdateField('lastName', e.target.value)}
         />
-        <TextInput
-          readOnly
+        <AddressSearch
           className={styles.fieldItem}
-          id="address"
           label={t(`${T_PATH}.address`)}
-          value={
-            primaryAddress ? formatAddress(primaryAddress, i18n.language) : '-'
-          }
+          address={primaryAddress}
+          onSelect={address => onUpdateField('primaryAddress', address)}
         />
         <ZoneSelect
           required
