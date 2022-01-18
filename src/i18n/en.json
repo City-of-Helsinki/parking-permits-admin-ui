@@ -5,6 +5,11 @@
   },
   "components": {
     "common": {
+      "addressSearch": {
+        "cancel": "Cancel editing",
+        "clear": "Clear",
+        "edit": "Edit address"
+      },
       "changeLogs": {
         "createdAt": "Created at",
         "createdBy": "Created by",

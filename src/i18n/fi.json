@@ -5,6 +5,11 @@
   },
   "components": {
     "common": {
+      "addressSearch": {
+        "cancel": "Peruuta muokkaus",
+        "clear": "Tyhjennä",
+        "edit": "Muokkaa osoitetta"
+      },
       "changeLogs": {
         "createdAt": "Muutosaika",
         "createdBy": "Muokkaaja",
