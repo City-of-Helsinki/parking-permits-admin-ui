@@ -5,6 +5,11 @@
   },
   "components": {
     "common": {
+      "addressSearch": {
+        "cancel": "Avbryt redigering",
+        "clear": "Rensa",
+        "edit": "Redigera adress"
+      },
       "changeLogs": {
         "createdAt": "Skapade vid",
         "createdBy": "Skapad av",
