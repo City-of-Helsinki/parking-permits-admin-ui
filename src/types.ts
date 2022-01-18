@@ -2,21 +2,22 @@ import { OrderDirection, SearchItem } from './components/types';
 
 export type AnyObject = Record<string, unknown>;
 
+export type AddressSourceSystem = 'KMO' | 'HELSINKI_PROFILE';
+
 export interface Address {
   streetName: string;
-  streetNumber: number;
+  streetNumber: string;
   streetNameSv: string;
   city: string;
   citySv: string;
   postalCode: string;
-  zone?: ParkingZone;
 }
 
 export interface Customer {
   firstName: string;
   lastName: string;
   nationalIdNumber: string;
-  primaryAddress?: Address;
+  primaryAddress?: Address | AddressInput;
   email: string;
   phoneNumber: string;
   zone?: ParkingZone;
@@ -163,13 +164,10 @@ export interface PermitDetailData {
   permitDetail: PermitDetail;
 }
 
-export interface AddressInput {
-  streetName: string;
-  streetNumber: number;
-  streetNameSv: string;
-  city: string;
-  citySv: string;
-  postalCode: string;
+export interface AddressInput extends Address {
+  sourceSystem: AddressSourceSystem;
+  sourceId: string;
+  location: [number, number];
 }
 
 export interface CustomerInput {
