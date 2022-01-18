@@ -102,17 +102,10 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
   };
 }
 
-export function convertToAddressInput(address: Address): AddressInput {
-  const { city, citySv, streetName, streetNameSv, streetNumber, postalCode } =
-    address;
-  return {
-    city,
-    citySv,
-    streetName,
-    streetNameSv,
-    streetNumber,
-    postalCode,
-  };
+function isAddressInput(
+  address: Address | AddressInput
+): address is AddressInput {
+  return 'sourceSystem' in address && 'sourceId' in address;
 }
 
 export function convertToCustomerInput(customer: Customer): CustomerInput {
@@ -127,14 +120,15 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     addressSecurityBan,
     driverLicenseChecked,
   } = customer;
-  const primaryAddressInput = primaryAddress
-    ? convertToAddressInput(primaryAddress)
-    : undefined;
+  const addressInput =
+    primaryAddress && isAddressInput(primaryAddress)
+      ? primaryAddress
+      : undefined;
   return {
     firstName,
     lastName,
     nationalIdNumber,
-    primaryAddress: primaryAddressInput,
+    primaryAddress: addressInput,
     email,
     phoneNumber,
     zone: zone?.name,
