@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery, useQuery } from '@apollo/client';
 import {
   Button,
   Checkbox,
@@ -7,7 +7,7 @@ import {
   Select,
   TextInput,
 } from 'hds-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Customer, ParkingZone } from '../../types';
 import AddressSearch from '../common/AddressSearch';
@@ -19,6 +19,24 @@ const T_PATH = 'components.residentPermit.personalInfo';
 const ZONES_QUERY = gql`
   query Query {
     zones {
+      name
+      label
+      labelSv
+      residentProducts {
+        unitPrice
+        startDate
+        endDate
+        vat
+        lowEmissionDiscount
+        secondaryVehicleIncreaseRate
+      }
+    }
+  }
+`;
+
+const ZONE_BY_LOCATION_QIERY = gql`
+  query GetZoneByLocation($location: [Float]!) {
+    zoneByLocation(location: $location) {
       name
       label
       labelSv
@@ -50,7 +68,18 @@ const PersonalInfo = ({
   onUpdateField,
 }: PersonalInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
+  const [addressSearchError, setAddressSearchError] = useState('');
   const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
+  const [getZoneByLocation] = useLazyQuery<{ zoneByLocation: ParkingZone }>(
+    ZONE_BY_LOCATION_QIERY,
+    {
+      onCompleted: ({ zoneByLocation }) => {
+        onUpdateField('zone', zoneByLocation);
+        setAddressSearchError('');
+      },
+      onError: error => setAddressSearchError(error.message),
+    }
+  );
   const {
     zone,
     primaryAddress,
@@ -107,7 +136,13 @@ const PersonalInfo = ({
           address={primaryAddress}
           onSelect={address => {
             onUpdateField('primaryAddress', address);
+            getZoneByLocation({
+              variables: {
+                location: address.location,
+              },
+            });
           }}
+          errorText={addressSearchError}
         />
         {data?.zones && (
           <Select
@@ -116,7 +151,7 @@ const PersonalInfo = ({
             label={t(`${T_PATH}.zone`)}
             options={data.zones}
             optionLabelField={i18n.language === 'sv' ? 'labelSv' : 'label'}
-            value={zone}
+            value={zone || null}
             onChange={(selectedZone: ParkingZone) =>
               onUpdateField('zone', selectedZone)
             }
