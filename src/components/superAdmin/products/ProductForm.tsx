@@ -1,19 +1,34 @@
+import { gql, useQuery } from '@apollo/client';
 import { formatISO } from 'date-fns';
 import { Field, FieldProps, Formik } from 'formik';
-import { Button, DateInput, Fieldset, NumberInput } from 'hds-react';
+import { Button, DateInput, Fieldset, NumberInput, Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
-import { ProductInput, ProductType, ProductUnit } from '../../../types';
+import {
+  ParkingZone,
+  ProductInput,
+  ProductType,
+  ProductUnit,
+} from '../../../types';
 import { formatDateDisplay } from '../../../utils';
-import ZoneSelect from '../../common/ZoneSelect';
 import LowEmissionDiscountSelect from './LowEmissionDiscountSelect';
 import styles from './ProductForm.module.scss';
 import ProductTypeSelect from './ProductTypeSelect';
 import ProductUnitSelect from './ProductUnitSelect';
 
 const T_PATH = 'components.superAdmin.products.productForm';
+
+const ZONES_QUERY = gql`
+  query Query {
+    zones {
+      name
+      label
+      labelSv
+    }
+  }
+`;
 
 interface ProductFormProps {
   className?: string;
@@ -28,7 +43,8 @@ const ProductForm = ({
   onSubmit,
   onDelete,
 }: ProductFormProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
   const currentDate = new Date();
   const initialValues: ProductInput = product
     ? {
@@ -43,7 +59,7 @@ const ProductForm = ({
       }
     : {
         type: ProductType.RESIDENT,
-        zone: '',
+        zone: 'A',
         unitPrice: 30,
         unit: ProductUnit.MONTHLY,
         startDate: currentDate.toISOString(),
@@ -87,17 +103,28 @@ const ProductForm = ({
                   />
                 )}
               </Field>
-              <Field name="zone">
-                {({ field, form, meta }: FieldProps) => (
-                  <ZoneSelect
-                    className={styles.zoneSelect}
-                    label={t(`${T_PATH}.zone`)}
-                    value={field.value}
-                    onChange={zone => form.setFieldValue('zone', zone?.name)}
-                    error={meta.touched && meta.error ? meta.error : undefined}
-                  />
-                )}
-              </Field>
+              {data?.zones && (
+                <Field name="zone">
+                  {({ field, form, meta }: FieldProps) => (
+                    <Select
+                      required
+                      className={styles.zoneSelect}
+                      label={t(`${T_PATH}.zone`)}
+                      options={data.zones}
+                      value={data.zones.find(z => z.name === field.value)}
+                      optionLabelField={
+                        i18n.language === 'sv' ? 'labelSv' : 'label'
+                      }
+                      onChange={(zone: ParkingZone) =>
+                        form.setFieldValue('zone', zone?.name)
+                      }
+                      error={
+                        meta.touched && meta.error ? meta.error : undefined
+                      }
+                    />
+                  )}
+                </Field>
+              )}
             </Fieldset>
             <Fieldset
               className={styles.fieldset}

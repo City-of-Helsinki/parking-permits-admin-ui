@@ -2,7 +2,7 @@ import { Button, IconEnvelope } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail } from '../../types';
-import { formatAddress, formatZone } from '../../utils';
+import { formatAddress } from '../../utils';
 import styles from './CustomerInfo.module.scss';
 import FieldItem from './FieldItem';
 
@@ -32,7 +32,7 @@ const CustomerInfo = ({
     },
     {
       label: t(`${T_PATH}.parkingZone`),
-      value: formatZone(parkingZone, i18n.language),
+      value: i18n.language === 'sv' ? parkingZone.labelSv : parkingZone.label,
     },
     {
       label: t(`${T_PATH}.phoneNumber`),
