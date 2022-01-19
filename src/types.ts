@@ -82,8 +82,8 @@ export interface PriceModifiers {
 
 export interface ParkingZone {
   name: string;
-  description: string;
-  descriptionSv: string;
+  label: string;
+  labelSv: string;
   residentProducts?: [Product];
 }
 

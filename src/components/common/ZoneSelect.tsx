@@ -3,14 +3,13 @@ import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ParkingZone } from '../../types';
-import { formatZone } from '../../utils';
 
 const ZONES_QUERY = gql`
   query Query {
     zones {
       name
-      description
-      descriptionSv
+      label
+      labelSv
       residentProducts {
         unitPrice
         startDate
@@ -52,7 +51,7 @@ const ZoneSelect = ({
   const zoneOptions: ZoneOption[] = data?.zones
     ? [emptyOption].concat(
         data.zones.map(zone => ({
-          label: formatZone(zone, i18n.language),
+          label: i18n.language === 'sv' ? zone.labelSv : zone.label,
           value: zone.name,
         }))
       )

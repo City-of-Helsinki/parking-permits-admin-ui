@@ -38,8 +38,8 @@ const CUSTOMER_QUERY = gql`
         postalCode
         zone {
           name
-          description
-          descriptionSv
+          label
+          labelSv
           residentProducts {
             unitPrice
             startDate

@@ -63,8 +63,8 @@ const PERMIT_DETAIL_QUERY = gql`
       }
       parkingZone {
         name
-        description
-        descriptionSv
+        label
+        labelSv
         residentProducts {
           unitPrice
           startDate
@@ -95,8 +95,8 @@ const CUSTOMER_QUERY = gql`
         postalCode
         zone {
           name
-          description
-          descriptionSv
+          label
+          labelSv
           residentProducts {
             unitPrice
             startDate

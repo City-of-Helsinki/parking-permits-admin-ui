@@ -62,8 +62,8 @@ const PERMIT_DETAIL_QUERY = gql`
       }
       parkingZone {
         name
-        description
-        descriptionSv
+        label
+        labelSv
         residentProducts {
           unitPrice
           startDate

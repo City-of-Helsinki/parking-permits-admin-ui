@@ -5,7 +5,6 @@ import {
   Customer,
   CustomerInput,
   EditPermitDetail,
-  ParkingZone,
   PermitInput,
   PriceModifiers,
   Product,
@@ -50,11 +49,6 @@ export function formatDateTimeDisplay(datetime: string | Date): string {
     minute: '2-digit',
   });
   return `${dateStr}, ${timeStr}`;
-}
-
-export function formatZone(zone: ParkingZone, lang: string): string {
-  const { name, description, descriptionSv } = zone;
-  return `${name} - ${lang === 'sv' ? descriptionSv : description}`;
 }
 
 export function formatCustomerName(customer: Customer): string {
