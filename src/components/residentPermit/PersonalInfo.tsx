@@ -1,19 +1,56 @@
+import { gql, useLazyQuery, useQuery } from '@apollo/client';
 import {
   Button,
   Checkbox,
   Notification,
   PhoneInput,
+  Select,
   TextInput,
 } from 'hds-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Customer } from '../../types';
+import { Customer, ParkingZone } from '../../types';
 import AddressSearch from '../common/AddressSearch';
 import Divider from '../common/Divider';
-import ZoneSelect from '../common/ZoneSelect';
 import styles from './PersonalInfo.module.scss';
 
 const T_PATH = 'components.residentPermit.personalInfo';
+
+const ZONES_QUERY = gql`
+  query Query {
+    zones {
+      name
+      label
+      labelSv
+      residentProducts {
+        unitPrice
+        startDate
+        endDate
+        vat
+        lowEmissionDiscount
+        secondaryVehicleIncreaseRate
+      }
+    }
+  }
+`;
+
+const ZONE_BY_LOCATION_QIERY = gql`
+  query GetZoneByLocation($location: [Float]!) {
+    zoneByLocation(location: $location) {
+      name
+      label
+      labelSv
+      residentProducts {
+        unitPrice
+        startDate
+        endDate
+        vat
+        lowEmissionDiscount
+        secondaryVehicleIncreaseRate
+      }
+    }
+  }
+`;
 
 interface PersonalInfoProps {
   className?: string;
@@ -30,7 +67,19 @@ const PersonalInfo = ({
   onSearchPerson,
   onUpdateField,
 }: PersonalInfoProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [addressSearchError, setAddressSearchError] = useState('');
+  const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
+  const [getZoneByLocation] = useLazyQuery<{ zoneByLocation: ParkingZone }>(
+    ZONE_BY_LOCATION_QIERY,
+    {
+      onCompleted: ({ zoneByLocation }) => {
+        onUpdateField('zone', zoneByLocation);
+        setAddressSearchError('');
+      },
+      onError: error => setAddressSearchError(error.message),
+    }
+  );
   const {
     zone,
     primaryAddress,
@@ -42,7 +91,6 @@ const PersonalInfo = ({
     email,
     driverLicenseChecked,
   } = person;
-  const defaultZone = zone?.name;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.personalInfo`)}</div>
@@ -83,18 +131,33 @@ const PersonalInfo = ({
           onChange={e => onUpdateField('lastName', e.target.value)}
         />
         <AddressSearch
+          disabled={addressSecurityBan}
           className={styles.fieldItem}
           label={t(`${T_PATH}.address`)}
           address={primaryAddress}
-          onSelect={address => onUpdateField('primaryAddress', address)}
+          onSelect={address => {
+            onUpdateField('primaryAddress', address);
+            getZoneByLocation({
+              variables: {
+                location: address.location,
+              },
+            });
+          }}
+          errorText={addressSearchError}
         />
-        <ZoneSelect
-          required
-          className={styles.fieldItem}
-          label={t(`${T_PATH}.zone`)}
-          value={defaultZone}
-          onChange={selectedZone => onUpdateField('zone', selectedZone)}
-        />
+        {data?.zones && (
+          <Select
+            required
+            className={styles.fieldItem}
+            label={t(`${T_PATH}.zone`)}
+            options={data.zones}
+            optionLabelField={i18n.language === 'sv' ? 'labelSv' : 'label'}
+            value={zone || null}
+            onChange={(selectedZone: ParkingZone) =>
+              onUpdateField('zone', selectedZone)
+            }
+          />
+        )}
         <Divider className={styles.fieldDivider} />
         <PhoneInput
           className={styles.fieldItem}

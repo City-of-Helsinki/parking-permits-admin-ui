@@ -15,8 +15,10 @@ const T_PATH = 'components.common.addressSearch';
 
 interface AddressSearchProps {
   className?: string;
+  disabled?: boolean;
   label: string;
   address?: Address;
+  errorText?: string;
   onSelect: (address: AddressInput) => void;
 }
 
@@ -27,8 +29,10 @@ interface AddressSuggestionItem {
 
 const AddressSearch = ({
   className,
+  disabled = false,
   label,
   address,
+  errorText,
   onSelect,
 }: AddressSearchProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
@@ -53,7 +57,7 @@ const AddressSearch = ({
     }
   };
 
-  if (isEditing) {
+  if (isEditing && !disabled) {
     return (
       <>
         <SearchInput
@@ -83,14 +87,17 @@ const AddressSearch = ({
         id="address"
         label={label}
         value={address ? formatAddress(address, i18n.language) : '-'}
+        errorText={errorText}
       />
-      <Button
-        variant="supplementary"
-        size="small"
-        iconLeft={<IconPen />}
-        onClick={() => setIsEditing(true)}>
-        {t(`${T_PATH}.edit`)}
-      </Button>
+      {!disabled && (
+        <Button
+          variant="supplementary"
+          size="small"
+          iconLeft={<IconPen />}
+          onClick={() => setIsEditing(true)}>
+          {t(`${T_PATH}.edit`)}
+        </Button>
+      )}
     </>
   );
 };
