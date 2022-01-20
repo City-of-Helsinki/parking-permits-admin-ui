@@ -131,6 +131,7 @@ const PersonalInfo = ({
           onChange={e => onUpdateField('lastName', e.target.value)}
         />
         <AddressSearch
+          disabled={addressSecurityBan}
           className={styles.fieldItem}
           label={t(`${T_PATH}.address`)}
           address={primaryAddress}

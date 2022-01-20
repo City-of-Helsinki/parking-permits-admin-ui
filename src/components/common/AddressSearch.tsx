@@ -15,6 +15,7 @@ const T_PATH = 'components.common.addressSearch';
 
 interface AddressSearchProps {
   className?: string;
+  disabled?: boolean;
   label: string;
   address?: Address;
   errorText?: string;
@@ -28,6 +29,7 @@ interface AddressSuggestionItem {
 
 const AddressSearch = ({
   className,
+  disabled = false,
   label,
   address,
   errorText,
@@ -55,7 +57,7 @@ const AddressSearch = ({
     }
   };
 
-  if (isEditing) {
+  if (isEditing && !disabled) {
     return (
       <>
         <SearchInput
@@ -87,13 +89,15 @@ const AddressSearch = ({
         value={address ? formatAddress(address, i18n.language) : '-'}
         errorText={errorText}
       />
-      <Button
-        variant="supplementary"
-        size="small"
-        iconLeft={<IconPen />}
-        onClick={() => setIsEditing(true)}>
-        {t(`${T_PATH}.edit`)}
-      </Button>
+      {!disabled && (
+        <Button
+          variant="supplementary"
+          size="small"
+          iconLeft={<IconPen />}
+          onClick={() => setIsEditing(true)}>
+          {t(`${T_PATH}.edit`)}
+        </Button>
+      )}
     </>
   );
 };
