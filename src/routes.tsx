@@ -13,8 +13,8 @@ import Messages from './pages/Messages';
 import NotFound from './pages/NotFound';
 import PermitDetail from './pages/PermitDetail';
 import Permits from './pages/Permits';
+import Refunds from './pages/Refunds';
 import Reports from './pages/Reports';
-import Returns from './pages/Returns';
 import CreateProduct from './pages/superAdmin/CreateProduct';
 import EditProduct from './pages/superAdmin/EditProduct';
 import Products from './pages/superAdmin/Products';
@@ -42,7 +42,7 @@ const routes = [
       { path: 'permits/create', element: <CreatePermit /> },
       { path: 'permits/create/resident', element: <CreateResidentPermit /> },
       { path: 'permits/create/company', element: <CreateCompanyPermit /> },
-      { path: 'returns', element: <Returns /> },
+      { path: 'refunds', element: <Refunds /> },
       { path: 'messages', element: <Messages /> },
       { path: 'reports', element: <Reports /> },
       { path: 'authError', element: <AuthError /> },
