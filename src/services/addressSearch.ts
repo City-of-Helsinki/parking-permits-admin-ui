@@ -102,12 +102,18 @@ class AddressSearch {
 
   private async doSearch(searchText: string): Promise<AddressInput[]> {
     const searchUrl = this.buildSearchUrl(searchText);
-    const response = await fetch(searchUrl);
+    const response = await fetch(searchUrl).catch(() => null);
+    if (!response) {
+      return [];
+    }
     const data = (await response.json()) as { features: AddressWfsFeature[] };
     return data.features.map(feature => {
       const { coordinates } = feature.geometry;
       const entries = Object.entries(this.fieldMapping).map(
-        ([field, wfsField]) => [field, feature.properties[wfsField].toString()]
+        ([field, wfsField]) => {
+          const value = feature.properties[wfsField];
+          return [field, value ? value.toString() : ''];
+        }
       );
       return {
         sourceSystem: this.dataSource,
