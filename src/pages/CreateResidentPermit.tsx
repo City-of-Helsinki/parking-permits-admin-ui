@@ -30,6 +30,7 @@ const CUSTOMER_QUERY = gql`
       email
       phoneNumber
       zone
+      addressSecurityBan
       primaryAddress {
         city
         citySv
@@ -123,9 +124,11 @@ const CreateResidentPermit = (): React.ReactElement => {
   const handleCreateResidentPermit = () => {
     createResidentPermit({
       variables: { permit: convertToPermitInput(permit) },
-    }).then(() => {
-      navigate('/permits');
-    });
+    })
+      .then(() => {
+        navigate('/permits');
+      })
+      .catch(error => setErrorMessage(error.message));
   };
   const handleSearchVehicle = (regNumber: string) => {
     if (!customer.nationalIdNumber) {
