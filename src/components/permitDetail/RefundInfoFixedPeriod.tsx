@@ -20,7 +20,7 @@ const RefundInfoFixedPeriod = ({
   onChangeIban,
 }: RefundInfoFixedPeriodProps): React.ReactElement => {
   const { t } = useTranslation();
-  const { monthsLeft, monthlyPrice, hasRefund } = permit;
+  const { monthsLeft, monthlyPrice, canBeRefunded } = permit;
   const refundAmount = `${(-monthsLeft * monthlyPrice).toFixed(2)} €`;
   const amountLabel = t(`${T_PATH}.monthCount`, {
     count: monthsLeft,
@@ -44,9 +44,7 @@ const RefundInfoFixedPeriod = ({
           <div className={styles.refundLabel}>{t(`${T_PATH}.refund`)}</div>
           <div className={styles.refundAmount}>{refundAmount}</div>
         </div>
-        {hasRefund ? (
-          <div className={styles.refunded}>{t(`${T_PATH}.refunded`)}</div>
-        ) : (
+        {canBeRefunded ? (
           <TextInput
             className={styles.iban}
             required
@@ -55,6 +53,8 @@ const RefundInfoFixedPeriod = ({
             value={iban}
             onChange={e => onChangeIban(e.target.value)}
           />
+        ) : (
+          <div className={styles.refunded}>{t(`${T_PATH}.refunded`)}</div>
         )}
       </div>
     </div>
