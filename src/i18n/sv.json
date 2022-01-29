@@ -111,6 +111,14 @@
         "status": "Status"
       }
     },
+    "refunds": {
+      "refundsDataTable": {
+        "name": "Namn",
+        "amount": "Mängd",
+        "status": "Status",
+        "createdAt": "Skapade vid"
+      }
+    },
     "residentPermit": {
       "permitInfo": {
         "additionalInfo": "Ytterligare information",
@@ -245,6 +253,9 @@
     "permits": {
       "createNewPermit": "Skapa nytt tillstånd",
       "title": "Tillstånd"
+    },
+    "refunds": {
+      "title": "Returnerar"
     },
     "superAdmin": {
       "createProduct": {

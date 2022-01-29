@@ -111,6 +111,14 @@
         "status": "Status"
       }
     },
+    "refunds": {
+      "refundsDataTable": {
+        "amount": "Amount",
+        "createdAt": "Created at",
+        "name": "Name",
+        "status": "Status"
+      }
+    },
     "residentPermit": {
       "permitInfo": {
         "additionalInfo": "Additional information",
@@ -245,6 +253,9 @@
     "permits": {
       "createNewPermit": "Create new permit",
       "title": "Permits"
+    },
+    "refunds": {
+      "title": "Returns"
     },
     "superAdmin": {
       "createProduct": {
