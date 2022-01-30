@@ -29,7 +29,7 @@ const Header = (): React.ReactElement => {
       label: t(`${T_PATH}.permits`),
     },
     {
-      path: '/returns',
+      path: '/refunds',
       label: t(`${T_PATH}.returns`),
     },
     {

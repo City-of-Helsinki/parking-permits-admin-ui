@@ -140,7 +140,7 @@ export interface PermitDetail {
   currentPeriodEndTime: string;
   canEndImmediately: boolean;
   canEndAfterCurrentPeriod: boolean;
-  hasRefund: boolean;
+  canBeRefunded: boolean;
   consentLowEmissionAccepted: boolean;
   contractType: PermitContractType;
   monthCount: number;
@@ -269,4 +269,24 @@ export type Language = 'fi' | 'sv' | 'en';
 export enum PermitEndType {
   IMMEDIATELY = 'IMMEDIATELY',
   AFTER_CURRENT_PERIOD = 'AFTER_CURRENT_PERIOD',
+}
+
+export interface Refund {
+  id: string;
+  name: string;
+  amount: number;
+  iban: string;
+  status: string;
+  description: string;
+  createdAt: string;
+  createdBy: string;
+}
+
+export interface PagedRefunds {
+  objects: Refund[];
+  pageInfo: PageInfo;
+}
+
+export interface RefundsQueryData {
+  refunds: PagedRefunds;
 }

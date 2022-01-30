@@ -111,6 +111,14 @@
         "status": "Tila"
       }
     },
+    "refunds": {
+      "refundsDataTable": {
+        "amount": "Määrä",
+        "createdAt": "Muutosaika",
+        "name": "Nimi",
+        "status": "Tila"
+      }
+    },
     "residentPermit": {
       "permitInfo": {
         "additionalInfo": "Lisätiedot",
@@ -245,6 +253,9 @@
     "permits": {
       "createNewPermit": "Luo uusi tunnus",
       "title": "Tunnukset"
+    },
+    "refunds": {
+      "title": "Palautukset"
     },
     "superAdmin": {
       "createProduct": {

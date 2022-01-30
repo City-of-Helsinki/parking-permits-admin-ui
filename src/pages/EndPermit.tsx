@@ -28,7 +28,7 @@ const PERMIT_DETAIL_QUERY = gql`
       startTime
       endTime
       currentPeriodEndTime
-      hasRefund
+      canBeRefunded
       status
       consentLowEmissionAccepted
       contractType
@@ -98,7 +98,7 @@ const EndPermit = (): React.ReactElement => {
     return <div>loading...</div>;
   }
   const { permitDetail } = data;
-  const { identifier, contractType, hasRefund } = permitDetail;
+  const { identifier, contractType, canBeRefunded } = permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -156,7 +156,7 @@ const EndPermit = (): React.ReactElement => {
           disabled={
             contractType === PermitContractType.FIXED_PERIOD &&
             !iban &&
-            !hasRefund
+            !canBeRefunded
           }
           onClick={() => {
             endPermit({
