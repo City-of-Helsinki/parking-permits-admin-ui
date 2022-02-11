@@ -113,10 +113,10 @@
     },
     "refunds": {
       "refundsDataTable": {
-        "name": "Namn",
         "amount": "Mängd",
-        "status": "Status",
-        "createdAt": "Skapade vid"
+        "createdAt": "Skapade vid",
+        "name": "Namn",
+        "status": "Status"
       }
     },
     "residentPermit": {
@@ -253,6 +253,13 @@
     "permits": {
       "createNewPermit": "Skapa nytt tillstånd",
       "title": "Tillstånd"
+    },
+    "refundDetail": {
+      "cancel": "Avbryt",
+      "name": "Namn",
+      "refunds": "Returnerar",
+      "save": "Spara",
+      "title": "Redigera Retur"
     },
     "refunds": {
       "title": "Returnerar"

@@ -254,6 +254,13 @@
       "createNewPermit": "Luo uusi tunnus",
       "title": "Tunnukset"
     },
+    "refundDetail": {
+      "cancel": "Peruuta",
+      "name": "Nimi",
+      "refunds": "Palautukset",
+      "save": "Tallenna",
+      "title": "Muokkaa Palautusta"
+    },
     "refunds": {
       "title": "Palautukset"
     },
