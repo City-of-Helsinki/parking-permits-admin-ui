@@ -15,12 +15,16 @@ const REFUNDS_QUERY = gql`
     refunds(pageInput: $pageInput, orderBy: $orderBy) {
       objects {
         id
+        refundNumber
         name
         amount
         iban
         status
         description
         createdAt
+        createdBy
+        modifiedAt
+        modifiedBy
       }
       pageInfo {
         numPages
@@ -47,18 +51,27 @@ const Refunds = (): React.ReactElement => {
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
+
+  if (!data) {
+    return <div>No data</div>;
+  }
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
       <div className={styles.content}>
         <RefundsDataTable
-          refunds={data?.refunds.objects || []}
-          pageInfo={data?.refunds.pageInfo}
+          refunds={data.refunds.objects}
+          pageInfo={data.refunds.pageInfo}
           loading={loading}
           orderBy={orderBy}
           onPage={newPage => setPage(newPage)}
           onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
-          onRowClick={refund => navigate(refund.id)}
+          onRowClick={refund => navigate(refund.refundNumber.toString())}
         />
       </div>
       {errorMessage && (
