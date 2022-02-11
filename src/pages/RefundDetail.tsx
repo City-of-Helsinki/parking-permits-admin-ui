@@ -50,6 +50,7 @@ const RefundDetail = (): React.ReactElement => {
   const variables = { refundNumber };
   const { loading, data } = useQuery<{ refund: Refund }>(REFUND_DETAIL_QUERY, {
     variables,
+    fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
   const [updateRefund] = useMutation<MutationResponse>(UPDATE_REFUND_MUTATION, {
@@ -128,6 +129,7 @@ const RefundDetail = (): React.ReactElement => {
                   {t(`${T_PATH}.save`)}
                 </Button>
                 <Button
+                  variant="secondary"
                   className={styles.cancel}
                   onClick={() => navigate('/refunds')}>
                   {t(`${T_PATH}.cancel`)}

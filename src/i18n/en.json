@@ -254,6 +254,13 @@
       "createNewPermit": "Create new permit",
       "title": "Permits"
     },
+    "refundDetail": {
+      "cancel": "Cancel",
+      "name": "Name",
+      "refunds": "Refunds",
+      "save": "Save",
+      "title": "Edit Refund"
+    },
     "refunds": {
       "title": "Returns"
     },
