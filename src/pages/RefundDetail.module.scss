@@ -1,0 +1,29 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.container {
+  margin: $spacing-m;
+
+  .title {
+    font-size: $fontsize-heading-m;
+    font-weight: 700;
+    margin: $spacing-m 0;
+  }
+
+  .fieldRow {
+    display: flex;
+    flex-direction: row;
+
+    .nameInput {
+      margin-right: $spacing-m;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+
+    .save {
+      margin-right: $spacing-m;
+    }
+  }
+}

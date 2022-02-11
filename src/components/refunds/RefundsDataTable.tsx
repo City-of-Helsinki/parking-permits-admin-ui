@@ -10,17 +10,17 @@ const T_PATH = 'components.refunds.refundsDataTable';
 export interface RefundsDataTableProps {
   refunds: Refund[];
   pageInfo?: PageInfo;
-  loading: boolean;
+  loading?: boolean;
   orderBy?: OrderBy;
   onPage?: (page: number) => void;
-  onOrderBy: (orderBy: OrderBy) => void;
+  onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (refund: Refund) => void;
 }
 
 const RefundsDataTable = ({
   refunds,
   pageInfo,
-  loading,
+  loading = false,
   orderBy,
   onPage,
   onOrderBy,
