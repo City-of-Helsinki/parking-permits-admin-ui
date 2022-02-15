@@ -13,6 +13,7 @@ import Messages from './pages/Messages';
 import NotFound from './pages/NotFound';
 import PermitDetail from './pages/PermitDetail';
 import Permits from './pages/Permits';
+import RefundDetail from './pages/RefundDetail';
 import Refunds from './pages/Refunds';
 import Reports from './pages/Reports';
 import CreateProduct from './pages/superAdmin/CreateProduct';
@@ -43,6 +44,7 @@ const routes = [
       { path: 'permits/create/resident', element: <CreateResidentPermit /> },
       { path: 'permits/create/company', element: <CreateCompanyPermit /> },
       { path: 'refunds', element: <Refunds /> },
+      { path: 'refunds/:refundNumber', element: <RefundDetail /> },
       { path: 'messages', element: <Messages /> },
       { path: 'reports', element: <Reports /> },
       { path: 'authError', element: <AuthError /> },

@@ -273,6 +273,7 @@ export enum PermitEndType {
 
 export interface Refund {
   id: string;
+  refundNumber: number;
   name: string;
   amount: number;
   iban: string;
@@ -280,8 +281,9 @@ export interface Refund {
   description: string;
   createdAt: string;
   createdBy: string;
+  modifiedAt: string;
+  modifiedBy: string;
 }
-
 export interface PagedRefunds {
   objects: Refund[];
   pageInfo: PageInfo;
@@ -289,4 +291,9 @@ export interface PagedRefunds {
 
 export interface RefundsQueryData {
   refunds: PagedRefunds;
+}
+
+export interface RefundInput {
+  name: string;
+  iban: string;
 }
