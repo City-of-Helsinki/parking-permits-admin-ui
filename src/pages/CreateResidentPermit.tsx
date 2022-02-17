@@ -5,14 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
+import ConfirmDialog from '../components/common/ConfirmDialog';
 import { initialPermit } from '../components/residentPermit/consts';
 import PermitInfo from '../components/residentPermit/PermitInfo';
 import PersonalInfo from '../components/residentPermit/PersonalInfo';
 import VehicleInfo from '../components/residentPermit/VehicleInfo';
 import {
+  CreatePermitResponse,
   Customer,
   EditPermitDetail,
-  MutationResponse,
   PermitDetail,
   Vehicle,
 } from '../types';
@@ -73,6 +74,9 @@ const CREATE_RESIDENT_PERMIT_MUTATION = gql`
   mutation CreateResidentPermit($permit: ResidentPermitInput!) {
     createResidentPermit(permit: $permit) {
       success
+      permit {
+        identifier
+      }
     }
   }
 `;
@@ -85,6 +89,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
   const { vehicle, customer } = permit;
 
@@ -113,7 +118,7 @@ const CreateResidentPermit = (): React.ReactElement => {
     },
     onError: error => setVehicleSearchError(error.message),
   });
-  const [createResidentPermit] = useMutation<MutationResponse>(
+  const [createResidentPermit] = useMutation<CreatePermitResponse>(
     CREATE_RESIDENT_PERMIT_MUTATION,
     {
       onError: error => setErrorMessage(error.message),
@@ -125,8 +130,13 @@ const CreateResidentPermit = (): React.ReactElement => {
     createResidentPermit({
       variables: { permit: convertToPermitInput(permit) },
     })
-      .then(() => {
-        navigate('/permits');
+      .then(response => {
+        const permitId = response.data?.createResidentPermit.permit.identifier;
+        if (permitId) {
+          navigate(`/permits/${permitId}`);
+        } else {
+          setErrorMessage('Create permit error');
+        }
       })
       .catch(error => setErrorMessage(error.message));
   };
@@ -169,21 +179,19 @@ const CreateResidentPermit = (): React.ReactElement => {
       [field]: value,
     });
 
-  const formatTotalPrice = () => {
-    if (permit.customer.zone?.residentProducts && permit) {
-      const startDate = new Date(permit.startTime);
-      return getPermitTotalPrice(
-        permit.customer.zone.residentProducts,
-        startDate,
-        permit.monthCount,
-        {
-          isLowEmission: permit.vehicle.isLowEmission,
-          isSecondaryVehicle: false,
-        }
-      );
-    }
-    return '-';
-  };
+  let totalPrice: string | number = '-';
+  if (permit.customer.zone?.residentProducts && permit) {
+    const startDate = new Date(permit.startTime);
+    totalPrice = getPermitTotalPrice(
+      permit.customer.zone.residentProducts,
+      startDate,
+      permit.monthCount,
+      {
+        isLowEmission: permit.vehicle.isLowEmission,
+        isSecondaryVehicle: false,
+      }
+    );
+  }
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -219,7 +227,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           <Button
             className={styles.actionButton}
             iconLeft={<IconCheckCircleFill />}
-            onClick={handleCreateResidentPermit}>
+            onClick={() => setIsConfirmDialogOpen(true)}>
             {t(`${T_PATH}.save`)}
           </Button>
           <Button
@@ -232,11 +240,26 @@ const CreateResidentPermit = (): React.ReactElement => {
         <div className={styles.priceInfo}>
           <div className={styles.priceLabel}>{t(`${T_PATH}.totalPrice`)}</div>
           <div className={styles.totalPrice}>
-            <span className={styles.totalPriceValue}>{formatTotalPrice()}</span>
+            <span className={styles.totalPriceValue}>{totalPrice}</span>
             <span className={styles.totalPriceCurrency}>€</span>
           </div>
         </div>
       </div>
+      <ConfirmDialog
+        isOpen={isConfirmDialogOpen}
+        title={t(`${T_PATH}.confirmPaymentTitle`)}
+        message={t(`${T_PATH}.confirmPaymentMessage`)}
+        secondaryMessage={t(`${T_PATH}.confirmPaymentTotalAmount`, {
+          amount: totalPrice,
+        })}
+        confirmLabel={t(`${T_PATH}.confirmPayment`)}
+        cancelLabel={t(`${T_PATH}.cancelPayment`)}
+        onConfirm={() => {
+          setIsConfirmDialogOpen(false);
+          handleCreateResidentPermit();
+        }}
+        onCancel={() => setIsConfirmDialogOpen(false)}
+      />
       {errorMessage && (
         <Notification
           type="error"

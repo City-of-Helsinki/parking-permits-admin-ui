@@ -215,6 +215,11 @@
     },
     "createResidentPermit": {
       "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
+      "cancelPayment": "Avbryt betalning",
+      "confirmPayment": "Betalning slutförd",
+      "confirmPaymentMessage": "Kunden måste göra en betalning innan ID:t kan träda i kraft.",
+      "confirmPaymentTitle": "Bekräfta betalning",
+      "confirmPaymentTotalAmount": "Det totala beloppet för beställningen är {{amount}} €.",
       "createNewPermit": "Skapa nytt tillstånd",
       "monthCount_one": "{{count}} månad",
       "monthCount_other": "{{count}} månader",

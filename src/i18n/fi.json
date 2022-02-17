@@ -215,6 +215,11 @@
     },
     "createResidentPermit": {
       "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
+      "cancelPayment": "Peruuta maksu",
+      "confirmPayment": "Maksu on suoritettu",
+      "confirmPaymentMessage": "Ennen tunnuksen voimaan asettamista, asiakkaan tulee suorittaa maksu.",
+      "confirmPaymentTitle": "Vahvista maksu",
+      "confirmPaymentTotalAmount": "Tilauksen kokonaissumma on {{amount}} €.",
       "createNewPermit": "Luo uusi tunnus",
       "monthCount_one": "{{count}} kuukausi",
       "monthCount_other": "{{count}} kuukautta",

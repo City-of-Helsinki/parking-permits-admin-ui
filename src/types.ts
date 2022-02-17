@@ -236,6 +236,13 @@ export interface MutationResponse {
   success: boolean;
 }
 
+export interface CreatePermitResponse {
+  createResidentPermit: {
+    success: boolean;
+    permit: Pick<Permit, 'identifier'>;
+  };
+}
+
 export interface OrderBy {
   field: string;
   orderFields: string[];
