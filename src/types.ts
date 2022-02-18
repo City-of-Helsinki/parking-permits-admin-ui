@@ -206,6 +206,9 @@ export interface PageInfo {
   page: number;
   prev: number | null;
   next: number | null;
+  startIndex: number;
+  endIndex: number;
+  count: number;
 }
 
 export interface PagedPermits {

@@ -1,5 +1,10 @@
 @import '~hds-design-tokens/lib/all.scss';
 
-.data-table {
+.dataTable {
   margin: $spacing-m 0;
+
+  .totalInfo {
+    font-size: $fontsize-body-l;
+    font-weight: 600;
+  }
 }

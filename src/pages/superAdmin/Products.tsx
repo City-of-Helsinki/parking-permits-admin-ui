@@ -32,6 +32,9 @@ const PRODUCTS_QUERY = gql`
         page
         next
         prev
+        startIndex
+        endIndex
+        count
       }
     }
   }
