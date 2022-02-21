@@ -15,6 +15,9 @@
         "createdBy": "Skapad av",
         "description": "Beskrivning",
         "event": "Event"
+      },
+      "dataTable": {
+        "results": "Resultat: {{count}}"
       }
     },
     "createPermit": {

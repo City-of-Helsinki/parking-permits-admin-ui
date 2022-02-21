@@ -15,6 +15,9 @@
         "createdBy": "Muokkaaja",
         "description": "Selite",
         "event": "Tapahtuma"
+      },
+      "dataTable": {
+        "results": "Tuloksia: {{count}}"
       }
     },
     "createPermit": {

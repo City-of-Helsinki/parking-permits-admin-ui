@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { OrderBy, PageInfo } from '../../types';
 import { Column } from '../types';
 import styles from './DataTable.module.scss';
@@ -17,6 +18,8 @@ export interface DataTableProps<T> {
   onRowClick?: (row: T) => void;
 }
 
+const T_PATH = 'components.common.dataTable';
+
 const DataTable = <T,>({
   columns,
   data,
@@ -27,19 +30,27 @@ const DataTable = <T,>({
   onPage,
   onOrderBy,
   onRowClick,
-}: DataTableProps<T>): React.ReactElement => (
-  <div className={styles['data-table']}>
-    <Table
-      columns={columns}
-      data={data}
-      loading={loading}
-      orderBy={orderBy}
-      rowIdSelector={rowIdSelector}
-      onOrderBy={onOrderBy}
-      onRowClick={onRowClick}
-    />
-    {pageInfo && onPage && <Paginator pageInfo={pageInfo} onPage={onPage} />}
-  </div>
-);
+}: DataTableProps<T>): React.ReactElement => {
+  const { t } = useTranslation();
+  return (
+    <div className={styles.dataTable}>
+      {pageInfo && (
+        <div className={styles.totalInfo}>
+          {t(`${T_PATH}.results`, { count: pageInfo.count })}
+        </div>
+      )}
+      <Table
+        columns={columns}
+        data={data}
+        loading={loading}
+        orderBy={orderBy}
+        rowIdSelector={rowIdSelector}
+        onOrderBy={onOrderBy}
+        onRowClick={onRowClick}
+      />
+      {pageInfo && onPage && <Paginator pageInfo={pageInfo} onPage={onPage} />}
+    </div>
+  );
+};
 
 export default DataTable;

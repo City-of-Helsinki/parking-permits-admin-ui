@@ -15,6 +15,9 @@
         "createdBy": "Created by",
         "description": "Description",
         "event": "Event"
+      },
+      "dataTable": {
+        "results": "Results: {{count}}"
       }
     },
     "createPermit": {
