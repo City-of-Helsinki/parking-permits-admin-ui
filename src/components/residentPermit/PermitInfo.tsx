@@ -2,7 +2,7 @@ import { addDays, addMonths, endOfDay } from 'date-fns';
 import { DateInput, NumberInput, TextArea, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { EditPermitDetail, Language } from '../../types';
+import { Language, PermitDetail } from '../../types';
 import { formatDateDisplay, formatDateTimeDisplay } from '../../utils';
 import Divider from '../common/Divider';
 import StatusSelect from '../permits/StatusSelect';
@@ -13,8 +13,8 @@ const T_PATH = 'components.residentPermit.permitInfo';
 interface PermitInfoProps {
   className?: string;
   editMode?: boolean;
-  permit: EditPermitDetail;
-  onUpdateField: (field: keyof EditPermitDetail, value: unknown) => void;
+  permit: PermitDetail;
+  onUpdateField: (field: keyof PermitDetail, value: unknown) => void;
 }
 
 const PermitInfo = ({

@@ -4,7 +4,7 @@ import {
   AddressInput,
   Customer,
   CustomerInput,
-  EditPermitDetail,
+  PermitDetail,
   PermitInput,
   PriceModifiers,
   Product,
@@ -131,7 +131,7 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
   };
 }
 
-export function convertToPermitInput(permit: EditPermitDetail): PermitInput {
+export function convertToPermitInput(permit: PermitDetail): PermitInput {
   const { contractType, customer, vehicle, status, startTime, monthCount } =
     permit;
   const vehicleInput = convertToVehicleInput(vehicle);
