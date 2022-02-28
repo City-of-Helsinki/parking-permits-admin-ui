@@ -6,7 +6,7 @@ import AuthError from './pages/AuthError';
 import CreateCompanyPermit from './pages/CreateCompanyPermit';
 import CreatePermit from './pages/CreatePermit';
 import CreateResidentPermit from './pages/CreateResidentPermit';
-import EditPermit from './pages/EditResidentPermit';
+import EditResidentPermit from './pages/EditResidentPermit';
 import EndPermit from './pages/EndPermit';
 import Login from './pages/Login';
 import Messages from './pages/Messages';
@@ -39,7 +39,7 @@ const routes = [
       { path: 'permits', element: <Permits /> },
       { path: 'permits/:id', element: <PermitDetail /> },
       { path: 'permits/:id/end/:endType', element: <EndPermit /> },
-      { path: 'permits/:id/edit/', element: <EditPermit /> },
+      { path: 'permits/:id/edit/', element: <EditResidentPermit /> },
       { path: 'permits/create', element: <CreatePermit /> },
       { path: 'permits/create/resident', element: <CreateResidentPermit /> },
       { path: 'permits/create/company', element: <CreateCompanyPermit /> },

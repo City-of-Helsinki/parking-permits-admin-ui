@@ -67,6 +67,20 @@
         "title": "Permit information",
         "validPeriod": "Valid period"
       },
+      "permitPriceChangeInfo": {
+        "customerAccountKnown": "Customer account number for refund",
+        "customerAccountUnknown": "Customer account number unknown",
+        "extraPaymentTotal": "Total additional payment",
+        "extraPaymentVatTotal": "Incl. VAT (24%)",
+        "newOrderTotal": "New order, total price",
+        "previousOrderRemaining": "Previous order, total price",
+        "priceCalcDescription": "Prices take into account the remaining full months of the order.",
+        "priceChangeItemTotalLabel": "{{count}} months total (incl. VAT 24%)",
+        "priceDifference": "PriceDifference",
+        "refundTotal": "Total amount to be refunded",
+        "refundTotalVat": "Incl. VAT (24%)",
+        "title": "New Order"
+      },
       "refundInfoFixedPeriod": {
         "monthCount_one": "{{count}} month",
         "monthCount_other": "{{count}} months",
@@ -123,6 +137,16 @@
       }
     },
     "residentPermit": {
+      "editResidentPermitForm": {
+        "cancelAndCloseWithoutSaving": "Cancel and close without saving",
+        "continue": "Continue",
+        "title": "Resident parking permit"
+      },
+      "editResidentPermitPreview": {
+        "goBack": "Go back",
+        "save": "Save",
+        "title": "Summary"
+      },
       "permitInfo": {
         "additionalInfo": "Additional information",
         "additionalInfoPlaceholder": "Additional information, e.g. information about moped",
@@ -231,12 +255,16 @@
       "save": "Save",
       "totalPrice": "Total price"
     },
-    "editPermit": {
-      "cancelAndCloseWithoutSaving": "Cancel and close without saving",
+    "editResidentPermit": {
+      "cancelPayment": "Cancel payment",
+      "confirmPayment": "Payment completed",
+      "confirmPaymentMessage": "Before the permit becomes valid, the customer must make the payment.",
+      "confirmPaymentTitle": "Confirm Payment",
+      "confirmPaymentTotalAmount": "The total amount of the order is {{amount}} €.",
       "edit": "Edit",
+      "loading": "Loading...",
       "permits": "Permits",
-      "save": "Save",
-      "title": "Resident parking permit"
+      "save": "Save"
     },
     "endPermit": {
       "cancel": "Cancel",

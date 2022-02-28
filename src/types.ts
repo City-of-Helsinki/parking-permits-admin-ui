@@ -130,7 +130,7 @@ export interface ChangeLog {
 }
 
 export interface PermitDetail {
-  identifier: number;
+  identifier?: number;
   customer: Customer;
   vehicle: Vehicle;
   parkingZone: ParkingZone;
@@ -148,17 +148,6 @@ export interface PermitDetail {
   monthlyPrice: number;
   changeLogs: ChangeLog[];
 }
-
-export type EditPermitDetail = Pick<
-  PermitDetail,
-  | 'contractType'
-  | 'monthCount'
-  | 'startTime'
-  | 'endTime'
-  | 'status'
-  | 'vehicle'
-  | 'customer'
->;
 
 export interface PermitDetailData {
   permitDetail: PermitDetail;
@@ -306,4 +295,15 @@ export interface RefundsQueryData {
 export interface RefundInput {
   name: string;
   iban: string;
+}
+
+export interface PermitPriceChange {
+  product: string;
+  previousPrice: number;
+  newPrice: number;
+  priceChange: number;
+  priceChangeVat: number;
+  startDate: string;
+  endDate: string;
+  monthCount: number;
 }

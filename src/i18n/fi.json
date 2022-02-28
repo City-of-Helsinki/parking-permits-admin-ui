@@ -66,6 +66,20 @@
         "title": "Tunnuksen tiedot",
         "validPeriod": "Voimassaoloaika"
       },
+      "permitPriceChangeInfo": {
+        "customerAccountKnown": "Asiakkaan tilinumero hyvitystä varten",
+        "customerAccountUnknown": "Asiakkaan tilinumero ei tiedossa",
+        "extraPaymentTotal": "Lisäveloitus yhteensä",
+        "extraPaymentVatTotal": "Sis. alv (24%)",
+        "newOrderTotal": "Uusi tilaus, kokonaishinta",
+        "previousOrderRemaining": "Edellinen tilaus, kokonaishinta",
+        "priceCalcDescription": "Hinnoissa huomioidaan tilauksen jäljellä olevat täydet kuukaudet.",
+        "priceChangeItemTotalLabel": "{{count}} kk yhteensä (sis. alv 24%)",
+        "priceDifference": "Hintaero",
+        "refundTotal": "Palautettava summa yhteensä",
+        "refundTotalVat": "Sis. alv (24%)",
+        "title": "Uusi tilaus"
+      },
       "refundInfoFixedPeriod": {
         "monthCount_one": "{{count}} kuukausi",
         "monthCount_other": "{{count}} kuukautta",
@@ -123,6 +137,16 @@
       }
     },
     "residentPermit": {
+      "editResidentPermitForm": {
+        "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
+        "continue": "Jatkaa",
+        "title": "Asukaspysäköintitunnus"
+      },
+      "editResidentPermitPreview": {
+        "goBack": "Edellinen",
+        "save": "Tallenna",
+        "title": "Yhteenveto"
+      },
       "permitInfo": {
         "additionalInfo": "Lisätiedot",
         "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
@@ -231,12 +255,16 @@
       "save": "Tallenna",
       "totalPrice": "Tunnuksen yhteissumma"
     },
-    "editPermit": {
-      "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
+    "editResidentPermit": {
+      "cancelPayment": "Peruuta maksu",
+      "confirmPayment": "Maksu on suoritettu",
+      "confirmPaymentMessage": "Ennen tunnuksen voimaan asettamista, asiakkaan tulee suorittaa maksu.",
+      "confirmPaymentTitle": "Vahvista maksu",
+      "confirmPaymentTotalAmount": "Tilauksen kokonaissumma on {{amount}} €.",
       "edit": "Muokkaustilassa",
+      "loading": "Ladataan...",
       "permits": "Tunnukset",
-      "save": "Tallenna",
-      "title": "Asukaspysäköintitunnus"
+      "save": "Tallenna"
     },
     "endPermit": {
       "cancel": "Peruuta",
