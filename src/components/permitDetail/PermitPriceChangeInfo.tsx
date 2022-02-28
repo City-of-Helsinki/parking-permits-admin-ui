@@ -48,7 +48,9 @@ const PriceChangeItem = ({
         </div>
       </div>
       <div className={styles.row}>
-        <div>{t(`${T_PATH}.priceChangeItemTotalLabel`)}</div>
+        <div>
+          {t(`${T_PATH}.priceChangeItemTotalLabel`, { count: monthCount })}
+        </div>
         <div>
           <b>{formatMonthlyPrice(newPrice * monthCount)}</b>
         </div>
@@ -133,6 +135,9 @@ const PermitPriceChangeInfo = ({
           <div className={styles.row}>
             <div>{t(`${T_PATH}.priceDifference`)}</div>
             <div>{priceChangeTotal} €</div>
+          </div>
+          <div className={styles.row}>
+            <div>{t(`${T_PATH}.priceCalcDescription`)}</div>
           </div>
         </div>
         {priceChangeType === PriceChangeType.HIGHER_PRICE && (
