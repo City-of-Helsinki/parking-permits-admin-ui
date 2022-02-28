@@ -1,0 +1,18 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.title {
+  font-weight: 600;
+  font-size: $fontsize-heading-xxs;
+  margin: $spacing-m 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  .column {
+    flex: 1 1 33%;
+    &:not(:last-child) {
+      margin-right: $spacing-m;
+    }
+  }
+}
