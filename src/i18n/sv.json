@@ -66,6 +66,20 @@
         "title": "Tillståndsinformation",
         "validPeriod": "Giltig period"
       },
+      "permitPriceChangeInfo": {
+        "customerAccountKnown": "Kundkontonummer för återbetalning",
+        "customerAccountUnknown": "Kundkontonummer okänt",
+        "extraPaymentTotal": "Total extra kostnad",
+        "extraPaymentVatTotal": "Inkl. moms (24%)",
+        "newOrderTotal": "Ny order, totalpris",
+        "previousOrderRemaining": "föregående beställning, totalpris",
+        "priceCalcDescription": "Priserna tar hänsyn till de återstående hela månaderna av beställningen.",
+        "priceChangeItemTotalLabel": "{{count}} månader totalt (inkl. moms 24%)",
+        "priceDifference": "PriceDifference",
+        "refundTotal": "Totalt belopp som ska återbetalas",
+        "refundTotalVat": "Inkl. moms (24%)",
+        "title": "Ny prenumeration"
+      },
       "refundInfoFixedPeriod": {
         "monthCount_one": "{{count}} månad",
         "monthCount_other": "{{count}} månader",
@@ -123,6 +137,16 @@
       }
     },
     "residentPermit": {
+      "editResidentPermitForm": {
+        "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
+        "continue": "Fortsätta",
+        "title": "Parkeringstillstånd för boende"
+      },
+      "editResidentPermitPreview": {
+        "title": "Sammanfattning",
+        "goBack": "Föregående",
+        "save": "Spara"
+      },
       "permitInfo": {
         "additionalInfo": "Ytterligare information",
         "additionalInfoPlaceholder": "För ytterligare information, t.ex. information om mopeden",
@@ -231,12 +255,11 @@
       "save": "Spara",
       "totalPrice": "Totalpris"
     },
-    "editPermit": {
-      "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
+    "editResidentPermit": {
       "edit": "Redigera",
+      "loading": "Läser in...",
       "permits": "Tillstånd",
-      "save": "Spara",
-      "title": "Parkeringstillstånd för boende"
+      "save": "Spara"
     },
     "endPermit": {
       "cancel": "Avbryt",

@@ -61,7 +61,7 @@ const EditResidentPermitPreview = ({
           className={styles.actionButton}
           iconLeft={<IconCheckCircleFill />}
           onClick={() => onConfirm(refundAccountNumber)}>
-          {t(`${T_PATH}.continue`)}
+          {t(`${T_PATH}.save`)}
         </Button>
       </div>
     </div>
