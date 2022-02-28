@@ -18,40 +18,4 @@
       }
     }
   }
-  .content {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: $spacing-5-xl;
-    .vehicleAndPerson {
-      flex: 1 1 33%;
-      margin-right: $spacing-m;
-      .vehicleInfo,
-      .customerInfo {
-        margin-bottom: $spacing-l;
-      }
-    }
-    .permitInfo {
-      flex: 1 1 33%;
-      margin-right: $spacing-m;
-    }
-    .refundInfo {
-      flex: 1 1 33%;
-    }
-  }
-  .footer {
-    padding: $spacing-m 0;
-    box-shadow: 0 -5px 5px -5px $color-black-30;
-    position: fixed;
-    width: 100%;
-    max-width: $breakpoint-xl;
-    left: calc(100% - #{$breakpoint-xl}) / 2;
-    bottom: 0;
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-
-    .spacer {
-      flex: 1 1 auto;
-    }
-  }
 }

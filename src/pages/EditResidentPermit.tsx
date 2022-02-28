@@ -1,26 +1,23 @@
 import { gql, useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import { Button, IconCheckCircleFill, Notification } from 'hds-react';
+import { Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
-import { initialPermit } from '../components/residentPermit/consts';
-import PermitInfo from '../components/residentPermit/PermitInfo';
-import PersonalInfo from '../components/residentPermit/PersonalInfo';
-import VehicleInfo from '../components/residentPermit/VehicleInfo';
+import EditResidentPermitForm from '../components/residentPermit/EditResidentPermitForm';
+import EditResidentPermitPreview from '../components/residentPermit/EditResidentPermitPreview';
 import {
-  Customer,
-  EditPermitDetail,
   MutationResponse,
+  PermitDetail,
   PermitDetailData,
-  Vehicle,
+  PermitPriceChange,
 } from '../types';
 import { convertToPermitInput } from '../utils';
 import styles from './EditResidentPermit.module.scss';
 
-const T_PATH = 'pages.editPermit';
+const T_PATH = 'pages.editResidentPermit';
 
 const PERMIT_DETAIL_QUERY = gql`
   query GetPermitDetail($permitId: ID!) {
@@ -78,49 +75,17 @@ const PERMIT_DETAIL_QUERY = gql`
   }
 `;
 
-const CUSTOMER_QUERY = gql`
-  query GetCustomer($nationalIdNumber: String!) {
-    customer(nationalIdNumber: $nationalIdNumber) {
-      firstName
-      lastName
-      nationalIdNumber
-      email
-      phoneNumber
-      zone
-      primaryAddress {
-        city
-        citySv
-        streetName
-        streetNumber
-        postalCode
-        zone {
-          name
-          label
-          labelSv
-          residentProducts {
-            unitPrice
-            startDate
-            endDate
-            vat
-            lowEmissionDiscount
-            secondaryVehicleIncreaseRate
-          }
-        }
-      }
-    }
-  }
-`;
-
-const VEHICLE_QUERY = gql`
-  query GetVehicle($regNumber: String!, $nationalIdNumber: String!) {
-    vehicle(regNumber: $regNumber, nationalIdNumber: $nationalIdNumber) {
-      manufacturer
-      model
-      registrationNumber
-      isLowEmission
-      consentLowEmissionAccepted
-      serialNumber
-      category
+const PERMIT_PRICE_CHANGE_QUERY = gql`
+  query GetPriceChangeList($permitId: ID!, $permitInfo: ResidentPermitInput!) {
+    permitPriceChangeList(permitId: $permitId, permitInfo: $permitInfo) {
+      product
+      previousPrice
+      newPrice
+      priceChange
+      priceChangeVat
+      startDate
+      endDate
+      monthCount
     }
   }
 `;
@@ -129,25 +94,31 @@ const UPDATE_RESIDENT_PERMIT_MUTATION = gql`
   mutation UpdateResidentPermit(
     $permitId: ID!
     $permitInfo: ResidentPermitInput!
+    $iban: String
   ) {
-    updateResidentPermit(permitId: $permitId, permitInfo: $permitInfo) {
+    updateResidentPermit(
+      permitId: $permitId
+      permitInfo: $permitInfo
+      iban: $iban
+    ) {
       success
     }
   }
 `;
 
-const EditPermit = (): React.ReactElement => {
+const EditResidentPermit = (): React.ReactElement => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const params = useParams();
   const { id: permitId } = params;
 
   // states
-  const [permit, setPermit] = useState<EditPermitDetail>(initialPermit);
-  const [personSearchError, setPersonSearchError] = useState('');
-  const [vehicleSearchError, setVehicleSearchError] = useState('');
+  const [permit, setPermit] = useState<PermitDetail | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
-  const { vehicle, customer } = permit;
+  const [showEditPreview, setShowEditPreview] = useState(false);
+  const [priceChangeList, setPriceChangeList] = useState<
+    PermitPriceChange[] | null
+  >(null);
 
   // graphql queries and mutations
   useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
@@ -166,30 +137,15 @@ const EditPermit = (): React.ReactElement => {
     },
     onError: error => setErrorMessage(error.message),
   });
-  const [getCustomer] = useLazyQuery<{
-    customer: Customer;
-  }>(CUSTOMER_QUERY, {
-    onCompleted: data => {
-      setPersonSearchError('');
-      setPermit({
-        ...permit,
-        customer: data.customer,
-      });
-    },
-    onError: error => setPersonSearchError(error.message),
+
+  const [getPermitPriceChangeList] = useLazyQuery<{
+    permitPriceChangeList: PermitPriceChange[];
+  }>(PERMIT_PRICE_CHANGE_QUERY, {
+    fetchPolicy: 'network-only',
+    onCompleted: data => setPriceChangeList(data.permitPriceChangeList),
+    onError: error => setErrorMessage(error.message),
   });
-  const [getVehicle] = useLazyQuery<{
-    vehicle: Vehicle;
-  }>(VEHICLE_QUERY, {
-    onCompleted: data => {
-      setVehicleSearchError('');
-      setPermit({
-        ...permit,
-        vehicle: data.vehicle,
-      });
-    },
-    onError: error => setVehicleSearchError(error.message),
-  });
+
   const [updateResidentPermit] = useMutation<MutationResponse>(
     UPDATE_RESIDENT_PERMIT_MUTATION,
     {
@@ -198,53 +154,19 @@ const EditPermit = (): React.ReactElement => {
     }
   );
 
-  // event handlers
-  const handleUpdatePermit = () => {
+  if (!permit) {
+    return <div>{t(`${T_PATH}.loading`)}</div>;
+  }
+
+  const handleUpdatePermit = (refundAccountNumber: string) => {
     updateResidentPermit({
-      variables: { permitId, permitInfo: convertToPermitInput(permit) },
+      variables: {
+        permitId,
+        permitInfo: convertToPermitInput(permit),
+        iban: refundAccountNumber,
+      },
     });
   };
-  const handleSearchVehicle = (regNumber: string) => {
-    if (!customer.nationalIdNumber) {
-      return;
-    }
-    getVehicle({
-      variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
-    });
-  };
-  const handleUpdateVehicleField = (field: keyof Vehicle, value: unknown) => {
-    const newVehicle = {
-      ...vehicle,
-      [field]: value,
-    };
-    setPermit({
-      ...permit,
-      vehicle: newVehicle,
-    });
-  };
-  const handleSearchPerson = (nationalIdNumber: string) => {
-    getCustomer({
-      variables: { nationalIdNumber },
-    });
-  };
-  const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
-    const newCustomer = {
-      ...customer,
-      [field]: value,
-    };
-    setPermit({
-      ...permit,
-      customer: newCustomer,
-    });
-  };
-  const handleUpdatePermitField = (
-    field: keyof EditPermitDetail,
-    value: unknown
-  ) =>
-    setPermit({
-      ...permit,
-      [field]: value,
-    });
 
   return (
     <div className={styles.container}>
@@ -253,44 +175,30 @@ const EditPermit = (): React.ReactElement => {
         <Link to={`/permits/${permitId}`}>{permitId}</Link>
         <span>{t(`${T_PATH}.edit`)}</span>
       </Breadcrumbs>
-      <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
-      <div className={styles.content}>
-        <PersonalInfo
-          person={customer}
-          className={styles.personalInfo}
-          searchError={personSearchError}
-          onSearchPerson={handleSearchPerson}
-          onUpdateField={handleUpdatePersonField}
-        />
-        <VehicleInfo
-          vehicle={vehicle}
-          zone={customer.zone}
-          className={styles.vehicleInfo}
-          searchError={vehicleSearchError}
-          onSearchRegistrationNumber={handleSearchVehicle}
-          onUpdateField={handleUpdateVehicleField}
-        />
-        <PermitInfo
-          editMode
+      {!showEditPreview && (
+        <EditResidentPermitForm
           permit={permit}
-          className={styles.permitInfo}
-          onUpdateField={handleUpdatePermitField}
+          onUpdatePermit={updatedPermit => setPermit(updatedPermit)}
+          onCancel={() => navigate('/permits')}
+          onConfirm={() => {
+            getPermitPriceChangeList({
+              variables: { permitId, permitInfo: convertToPermitInput(permit) },
+            });
+            setShowEditPreview(true);
+          }}
         />
-      </div>
-      <div className={styles.footer}>
-        <Button
-          className={styles.actionButton}
-          variant="secondary"
-          onClick={() => navigate('/permits')}>
-          {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
-        </Button>
-        <Button
-          className={styles.actionButton}
-          iconLeft={<IconCheckCircleFill />}
-          onClick={handleUpdatePermit}>
-          {t(`${T_PATH}.save`)}
-        </Button>
-      </div>
+      )}
+      {showEditPreview && priceChangeList && (
+        <EditResidentPermitPreview
+          permit={permit}
+          priceChangeList={priceChangeList}
+          onCancel={() => {
+            setShowEditPreview(false);
+            setPriceChangeList(null);
+          }}
+          onConfirm={handleUpdatePermit}
+        />
+      )}
       {errorMessage && (
         <Notification
           type="error"
@@ -306,4 +214,4 @@ const EditPermit = (): React.ReactElement => {
     </div>
   );
 };
-export default makePrivate(EditPermit);
+export default makePrivate(EditResidentPermit);

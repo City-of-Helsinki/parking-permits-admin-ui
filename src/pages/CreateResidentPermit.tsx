@@ -6,14 +6,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import ConfirmDialog from '../components/common/ConfirmDialog';
-import { initialPermit } from '../components/residentPermit/consts';
+import { getEmptyPermit } from '../components/residentPermit/consts';
 import PermitInfo from '../components/residentPermit/PermitInfo';
 import PersonalInfo from '../components/residentPermit/PersonalInfo';
 import VehicleInfo from '../components/residentPermit/VehicleInfo';
 import {
   CreatePermitResponse,
   Customer,
-  EditPermitDetail,
   PermitDetail,
   Vehicle,
 } from '../types';
@@ -85,7 +84,8 @@ const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   // states
-  const [permit, setPermit] = useState<EditPermitDetail>(initialPermit);
+  const initialPermit = getEmptyPermit();
+  const [permit, setPermit] = useState<PermitDetail>(initialPermit);
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
