@@ -1,5 +1,5 @@
 import { Button, IconCheckCircleFill } from 'hds-react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail, PermitPriceChange } from '../../types';
 import CustomerInfo from '../permitDetail/CustomerInfo';
@@ -14,20 +14,22 @@ interface EditResidentPermitPreviewProps {
   className?: string;
   permit: PermitDetail;
   priceChangeList: PermitPriceChange[];
+  refundAccountNumber: string;
+  onChangeRefundAccountNumber: (accountNumber: string) => void;
   onCancel: () => void;
-  onConfirm: (refundAccountNumber: string) => void;
+  onConfirm: () => void;
 }
 
 const EditResidentPermitPreview = ({
   className,
   permit,
   priceChangeList,
+  refundAccountNumber,
+  onChangeRefundAccountNumber,
   onCancel,
   onConfirm,
 }: EditResidentPermitPreviewProps): React.ReactElement => {
   const { t } = useTranslation();
-  const [refundAccountNumber, setRefundAccountNumber] = useState('');
-
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -44,9 +46,7 @@ const EditResidentPermitPreview = ({
             className={styles.permitPriceChange}
             priceChangeList={priceChangeList}
             refundAccountNumber={refundAccountNumber}
-            onChangeRefundAccountNumber={accountNumber =>
-              setRefundAccountNumber(accountNumber)
-            }
+            onChangeRefundAccountNumber={onChangeRefundAccountNumber}
           />
         </div>
       </div>
@@ -60,7 +60,7 @@ const EditResidentPermitPreview = ({
         <Button
           className={styles.actionButton}
           iconLeft={<IconCheckCircleFill />}
-          onClick={() => onConfirm(refundAccountNumber)}>
+          onClick={() => onConfirm()}>
           {t(`${T_PATH}.save`)}
         </Button>
       </div>

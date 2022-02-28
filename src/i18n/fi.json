@@ -256,6 +256,11 @@
       "totalPrice": "Tunnuksen yhteissumma"
     },
     "editResidentPermit": {
+      "cancelPayment": "Peruuta maksu",
+      "confirmPayment": "Maksu on suoritettu",
+      "confirmPaymentMessage": "Ennen tunnuksen voimaan asettamista, asiakkaan tulee suorittaa maksu.",
+      "confirmPaymentTitle": "Vahvista maksu",
+      "confirmPaymentTotalAmount": "Tilauksen kokonaissumma on {{amount}} €.",
       "edit": "Muokkaustilassa",
       "loading": "Ladataan...",
       "permits": "Tunnukset",
