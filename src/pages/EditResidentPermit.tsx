@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
+import ConfirmDialog from '../components/common/ConfirmDialog';
 import EditResidentPermitForm from '../components/residentPermit/EditResidentPermitForm';
 import EditResidentPermitPreview from '../components/residentPermit/EditResidentPermitPreview';
 import {
@@ -119,6 +120,8 @@ const EditResidentPermit = (): React.ReactElement => {
   const [priceChangeList, setPriceChangeList] = useState<
     PermitPriceChange[] | null
   >(null);
+  const [refundAccountNumber, setRefundAccountNumber] = useState('');
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
   // graphql queries and mutations
   useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
@@ -158,7 +161,7 @@ const EditResidentPermit = (): React.ReactElement => {
     return <div>{t(`${T_PATH}.loading`)}</div>;
   }
 
-  const handleUpdatePermit = (refundAccountNumber: string) => {
+  const handleUpdatePermit = () => {
     updateResidentPermit({
       variables: {
         permitId,
@@ -167,6 +170,13 @@ const EditResidentPermit = (): React.ReactElement => {
       },
     });
   };
+
+  const totalPriceChange = priceChangeList
+    ? priceChangeList.reduce(
+        (total, item) => total + item.priceChange * item.monthCount,
+        0
+      )
+    : null;
 
   return (
     <div className={styles.container}>
@@ -192,13 +202,42 @@ const EditResidentPermit = (): React.ReactElement => {
         <EditResidentPermitPreview
           permit={permit}
           priceChangeList={priceChangeList}
+          refundAccountNumber={refundAccountNumber}
+          onChangeRefundAccountNumber={accountNumber =>
+            setRefundAccountNumber(accountNumber)
+          }
           onCancel={() => {
             setShowEditPreview(false);
             setPriceChangeList(null);
           }}
-          onConfirm={handleUpdatePermit}
+          onConfirm={() => {
+            if (totalPriceChange && totalPriceChange > 0) {
+              // show paymore confirmation dialog if
+              // extra payment is needed
+              setIsConfirmDialogOpen(true);
+            } else {
+              // udpate the permit directly if no
+              // extra payment needed
+              handleUpdatePermit();
+            }
+          }}
         />
       )}
+      <ConfirmDialog
+        isOpen={isConfirmDialogOpen}
+        title={t(`${T_PATH}.confirmPaymentTitle`)}
+        message={t(`${T_PATH}.confirmPaymentMessage`)}
+        secondaryMessage={t(`${T_PATH}.confirmPaymentTotalAmount`, {
+          amount: totalPriceChange,
+        })}
+        confirmLabel={t(`${T_PATH}.confirmPayment`)}
+        cancelLabel={t(`${T_PATH}.cancelPayment`)}
+        onConfirm={() => {
+          setIsConfirmDialogOpen(false);
+          handleUpdatePermit();
+        }}
+        onCancel={() => setIsConfirmDialogOpen(false)}
+      />
       {errorMessage && (
         <Notification
           type="error"

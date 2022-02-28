@@ -143,9 +143,9 @@
         "title": "Parkeringstillstånd för boende"
       },
       "editResidentPermitPreview": {
-        "title": "Sammanfattning",
         "goBack": "Föregående",
-        "save": "Spara"
+        "save": "Spara",
+        "title": "Sammanfattning"
       },
       "permitInfo": {
         "additionalInfo": "Ytterligare information",
@@ -256,6 +256,11 @@
       "totalPrice": "Totalpris"
     },
     "editResidentPermit": {
+      "cancelPayment": "Avbryt betalning",
+      "confirmPayment": "Betalning slutförd",
+      "confirmPaymentMessage": "Kunden måste göra en betalning innan ID:t kan träda i kraft.",
+      "confirmPaymentTitle": "Bekräfta betalning",
+      "confirmPaymentTotalAmount": "Det totala beloppet för beställningen är {{amount}} €.",
       "edit": "Redigera",
       "loading": "Läser in...",
       "permits": "Tillstånd",
