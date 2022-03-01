@@ -41,7 +41,7 @@ const PermitInfo = ({
         />
         <NumberInput
           required
-          readOnly={editMode}
+          disabled={editMode}
           className={styles.fieldItem}
           id="validPeriodInMonths"
           label={t(`${T_PATH}.validPeriodInMonths`)}
@@ -55,7 +55,7 @@ const PermitInfo = ({
         />
         <DateInput
           required
-          readOnly={editMode}
+          disabled={editMode}
           className={styles.fieldItem}
           id="startDate"
           initialMonth={new Date()}
