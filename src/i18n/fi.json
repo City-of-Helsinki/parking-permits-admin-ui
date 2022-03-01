@@ -139,7 +139,7 @@
     "residentPermit": {
       "editResidentPermitForm": {
         "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
-        "continue": "Jatkaa",
+        "continue": "Jatka",
         "title": "Asukaspysäköintitunnus"
       },
       "editResidentPermitPreview": {
