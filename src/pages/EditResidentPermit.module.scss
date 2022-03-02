@@ -15,15 +15,5 @@
     display: flex;
     flex-direction: row;
     margin-bottom: $spacing-5-xl;
-    .vehicleInfo,
-    .personalInfo,
-    .permitInfo {
-      flex: 1 1 33%;
-      border: 1px solid $color-black-30;
-    }
-    .vehicleInfo,
-    .personalInfo {
-      margin-right: $spacing-m;
-    }
   }
 }
