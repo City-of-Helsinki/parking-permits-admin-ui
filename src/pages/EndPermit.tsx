@@ -116,12 +116,12 @@ const EndPermit = (): React.ReactElement => {
         </div>
       </div>
       <div className={styles.content}>
-        <div className={styles.vehicleAndPerson}>
+        <div className={styles.column}>
           <VehicleInfo className={styles.vehicleInfo} permit={permitDetail} />
           <CustomerInfo className={styles.customerInfo} permit={permitDetail} />
         </div>
         <PermitInfo
-          className={styles.permitInfo}
+          className={styles.column}
           endType={
             endType ? (endType.toUpperCase() as PermitEndType) : undefined
           }
@@ -129,7 +129,7 @@ const EndPermit = (): React.ReactElement => {
         />
         {contractType === PermitContractType.FIXED_PERIOD && (
           <RefundInfoFixedPeriod
-            className={styles.refundInfo}
+            className={styles.column}
             iban={iban}
             permit={permitDetail}
             onChangeIban={newIban => setIban(newIban)}
@@ -137,12 +137,12 @@ const EndPermit = (): React.ReactElement => {
         )}
         {contractType === PermitContractType.OPEN_ENDED && (
           <RefundInfoOpenEnded
-            className={styles.refundInfo}
+            className={styles.column}
             permit={permitDetail}
           />
         )}
       </div>
-      <div className={styles.footer}>
+      <div className={styles.actions}>
         <Button
           className={styles.actionButton}
           variant="secondary"
