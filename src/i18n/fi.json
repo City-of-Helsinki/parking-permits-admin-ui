@@ -61,6 +61,7 @@
         "contractType": "Tunnuksen tyyppi",
         "endTime": "Viimeinen voimassaoloaika",
         "monthsLeft": "Tilausta jäljellä",
+        "now": "",
         "startTime": "Voimassa alkaen",
         "status": "Tila",
         "title": "Tunnuksen tiedot",

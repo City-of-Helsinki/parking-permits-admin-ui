@@ -30,7 +30,7 @@ const PermitInfo = ({
   } = permit;
   let endTimeValue = '';
   if (endType === PermitEndType.IMMEDIATELY) {
-    endTimeValue = t(`${T_PATH}.now`);
+    endTimeValue = formatDateTimeDisplay(new Date());
   } else if (endType === PermitEndType.AFTER_CURRENT_PERIOD) {
     endTimeValue = formatDateTimeDisplay(currentPeriodEndTime);
   } else {
