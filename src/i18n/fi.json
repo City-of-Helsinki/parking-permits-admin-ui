@@ -231,6 +231,9 @@
     "fixedPeriod": "Määräaikainen",
     "openEnded": "Jatkuvaveloitteinen kuukausitunnus"
   },
+  "errors": {
+    "invalidIBAN": "Virheellinen IBAN-numero"
+  },
   "message": {
     "close": "Sulje",
     "error": "Virhe"

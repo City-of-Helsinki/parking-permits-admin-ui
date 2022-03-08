@@ -230,6 +230,9 @@
     "fixedPeriod": "Tillfällig",
     "openEnded": "Kontinuerlig laddning"
   },
+  "errors": {
+    "invalidIBAN": "Ogiltigt IBAN-nummer"
+  },
   "message": {
     "close": "Stänga",
     "error": "Fel"
