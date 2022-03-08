@@ -1,7 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { OrderBy, PageInfo, Permit } from '../../types';
-import { formatAddress, formatDateTimeDisplay } from '../../utils';
+import {
+  formatAddress,
+  formatCustomerName,
+  formatDateTimeDisplay,
+} from '../../utils';
 import DataTable from '../common/DataTable';
 import StatusLabel from '../common/StatusLabel';
 import { Column } from '../types';
@@ -32,7 +36,7 @@ const PermitsDataTable = ({
     {
       name: t(`${T_PATH}.name`),
       field: 'name',
-      selector: ({ customer }) => `${customer.firstName} ${customer.lastName}`,
+      selector: ({ customer }) => formatCustomerName(customer),
       orderFields: ['customer__first_name', 'customer__last_name'],
     },
     {
