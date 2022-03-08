@@ -53,7 +53,7 @@ export function formatDateTimeDisplay(datetime: string | Date): string {
 
 export function formatCustomerName(customer: Customer): string {
   const { firstName, lastName } = customer;
-  return `${firstName} ${lastName}`;
+  return `${lastName} ${firstName}`;
 }
 
 export function formatVehicleName(vehicle: Vehicle): string {
