@@ -1,5 +1,6 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Button, IconArrowLeft, Notification } from 'hds-react';
+import { isValidIBAN } from 'ibantools';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -98,7 +99,7 @@ const EndPermit = (): React.ReactElement => {
     return <div>loading...</div>;
   }
   const { permitDetail } = data;
-  const { identifier, contractType, canBeRefunded } = permitDetail;
+  const { identifier, contractType } = permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -144,7 +145,7 @@ const EndPermit = (): React.ReactElement => {
       </div>
       <div className={styles.actions}>
         <Button
-          className={styles.actionButton}
+          className={styles.cancelButton}
           variant="secondary"
           iconLeft={<IconArrowLeft />}
           onClick={() => navigate(`/permits/${id}`)}>
@@ -152,11 +153,10 @@ const EndPermit = (): React.ReactElement => {
         </Button>
         <div className={styles.spacer} />
         <Button
-          className={styles.cancelButton}
+          className={styles.actionButton}
           disabled={
             contractType === PermitContractType.FIXED_PERIOD &&
-            !iban &&
-            !canBeRefunded
+            !(iban && isValidIBAN(iban))
           }
           onClick={() => {
             endPermit({

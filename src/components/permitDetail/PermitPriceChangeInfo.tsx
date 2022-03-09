@@ -1,4 +1,5 @@
 import { RadioButton, TextInput } from 'hds-react';
+import { isValidIBAN } from 'ibantools';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitPriceChange } from '../../types';
@@ -191,6 +192,11 @@ const PermitPriceChangeInfo = ({
                 disabled={refundAccountOption !== RefundAccountOption.KNOWN}
                 value={refundAccountNumber}
                 onChange={e => onChangeRefundAccountNumber(e.target.value)}
+                errorText={
+                  isValidIBAN(refundAccountNumber)
+                    ? undefined
+                    : t('errors.invalidIBAN')
+                }
               />
               <RadioButton
                 id="customerAccountUnknown"
