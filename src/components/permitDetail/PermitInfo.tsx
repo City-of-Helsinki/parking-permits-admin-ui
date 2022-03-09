@@ -27,6 +27,7 @@ const PermitInfo = ({
     endTime,
     status,
     currentPeriodEndTime,
+    description,
   } = permit;
   let endTimeValue = '';
   if (endType === PermitEndType.IMMEDIATELY) {
@@ -63,7 +64,7 @@ const PermitInfo = ({
     },
     {
       label: t(`${T_PATH}.additionalInfo`),
-      value: '-',
+      value: description,
     },
   ];
   return (

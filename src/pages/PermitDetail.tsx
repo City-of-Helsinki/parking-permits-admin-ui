@@ -32,6 +32,7 @@ const PERMIT_DETAIL_QUERY = gql`
       consentLowEmissionAccepted
       contractType
       monthCount
+      description
       changeLogs {
         id
         event

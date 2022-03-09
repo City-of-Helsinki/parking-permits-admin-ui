@@ -44,6 +44,7 @@ export function getEmptyPermit(): PermitDetail {
     status: ParkingPermitStatus.VALID,
     startTime: startTime.toISOString(),
     endTime: endTime.toISOString(),
+    description: '',
     currentPeriodEndTime: '',
     canEndImmediately: false,
     canEndAfterCurrentPeriod: false,

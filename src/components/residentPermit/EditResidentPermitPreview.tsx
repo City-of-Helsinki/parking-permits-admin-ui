@@ -59,7 +59,9 @@ const EditResidentPermitPreview = ({
           {t(`${T_PATH}.goBack`)}
         </Button>
         <Button
-          disabled={!(refundAccountNumber && isValidIBAN(refundAccountNumber))}
+          disabled={
+            refundAccountNumber !== '' && isValidIBAN(refundAccountNumber)
+          }
           className={styles.actionButton}
           iconLeft={<IconCheckCircleFill />}
           onClick={() => onConfirm()}>
