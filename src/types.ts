@@ -137,6 +137,7 @@ export interface PermitDetail {
   status: ParkingPermitStatus;
   startTime: string;
   endTime?: string;
+  description: string;
   currentPeriodEndTime: string;
   canEndImmediately: boolean;
   canEndAfterCurrentPeriod: boolean;
@@ -188,6 +189,7 @@ export interface PermitInput {
   status: string;
   startTime: string;
   monthCount: number;
+  description: string;
 }
 
 export interface PageInfo {

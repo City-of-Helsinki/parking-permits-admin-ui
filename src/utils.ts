@@ -132,8 +132,15 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
 }
 
 export function convertToPermitInput(permit: PermitDetail): PermitInput {
-  const { contractType, customer, vehicle, status, startTime, monthCount } =
-    permit;
+  const {
+    contractType,
+    customer,
+    vehicle,
+    status,
+    startTime,
+    monthCount,
+    description,
+  } = permit;
   const vehicleInput = convertToVehicleInput(vehicle);
   const customerInput = convertToCustomerInput(customer);
   return {
@@ -143,6 +150,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     status,
     startTime,
     monthCount,
+    description,
   };
 }
 
