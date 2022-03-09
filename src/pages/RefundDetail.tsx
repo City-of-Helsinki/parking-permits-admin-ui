@@ -1,6 +1,7 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Formik } from 'formik';
 import { Button, Notification, TextInput } from 'hds-react';
+import { isValidIBAN } from 'ibantools';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -70,7 +71,13 @@ const RefundDetail = (): React.ReactElement => {
   const initialValues: RefundInput = { name, iban };
   const validationSchema = Yup.object().shape({
     name: Yup.string().required(t(`${T_PATH}.nameIsRequired`)),
-    iban: Yup.string().required(`${T_PATH}.IbanIsRequired`),
+    iban: Yup.string()
+      .required(`${T_PATH}.IbanIsRequired`)
+      .test({
+        name: 'isValidIBAN',
+        test: value => isValidIBAN(value as string),
+        message: t('errors.invalidIBAN'),
+      }),
   });
 
   return (
@@ -94,8 +101,17 @@ const RefundDetail = (): React.ReactElement => {
               },
             })
           }>
-          {props => (
-            <form onSubmit={props.handleSubmit}>
+          {({
+            values,
+            errors,
+            touched,
+            dirty,
+            isValid,
+            handleSubmit,
+            handleChange,
+            handleBlur,
+          }) => (
+            <form onSubmit={handleSubmit}>
               <div className={styles.fieldRow}>
                 <TextInput
                   required
@@ -103,9 +119,12 @@ const RefundDetail = (): React.ReactElement => {
                   id="name"
                   name="name"
                   label={t(`${T_PATH}.name`)}
-                  value={props.values.name}
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errorText={
+                    touched.name && errors.name ? errors.name : undefined
+                  }
                 />
                 <TextInput
                   required
@@ -113,9 +132,12 @@ const RefundDetail = (): React.ReactElement => {
                   id="iban"
                   name="iban"
                   label="IBAN"
-                  value={props.values.iban}
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
+                  value={values.iban}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errorText={
+                    touched.iban && errors.iban ? errors.iban : undefined
+                  }
                 />
               </div>
               <div className={styles.refundDetail}>
@@ -124,7 +146,7 @@ const RefundDetail = (): React.ReactElement => {
               <div className={styles.actions}>
                 <Button
                   className={styles.save}
-                  disabled={!(props.dirty && props.isValid)}
+                  disabled={!(dirty && isValid)}
                   type="submit">
                   {t(`${T_PATH}.save`)}
                 </Button>

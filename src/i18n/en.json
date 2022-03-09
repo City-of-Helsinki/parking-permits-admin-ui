@@ -230,6 +230,9 @@
     "fixedPeriod": "Fixed period",
     "openEnded": "Open ended"
   },
+  "errors": {
+    "invalidIBAN": "Invalid IBAN number"
+  },
   "message": {
     "close": "Close",
     "error": "Error"

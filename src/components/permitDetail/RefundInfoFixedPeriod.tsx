@@ -1,4 +1,5 @@
 import { TextInput } from 'hds-react';
+import { isValidIBAN } from 'ibantools';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail } from '../../types';
@@ -52,6 +53,7 @@ const RefundInfoFixedPeriod = ({
             label="IBAN"
             value={iban}
             onChange={e => onChangeIban(e.target.value)}
+            errorText={isValidIBAN(iban) ? undefined : t('errors.invalidIBAN')}
           />
         ) : (
           <div className={styles.refunded}>{t(`${T_PATH}.refunded`)}</div>
