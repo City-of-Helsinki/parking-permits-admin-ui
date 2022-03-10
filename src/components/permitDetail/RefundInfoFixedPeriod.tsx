@@ -1,9 +1,8 @@
 import { TextInput } from 'hds-react';
-import { isValidIBAN } from 'ibantools';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail } from '../../types';
-import { formatMonthlyPrice } from '../../utils';
+import { formatMonthlyPrice, isValidIBAN } from '../../utils';
 import styles from './RefundInfoFixedPeriod.module.scss';
 
 const T_PATH = 'components.permitDetail.refundInfoFixedPeriod';
