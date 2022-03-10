@@ -1,8 +1,8 @@
 import { Button, IconCheckCircleFill } from 'hds-react';
-import { isValidIBAN } from 'ibantools';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail, PermitPriceChange } from '../../types';
+import { isValidIBAN } from '../../utils';
 import CustomerInfo from '../permitDetail/CustomerInfo';
 import PermitInfo from '../permitDetail/PermitInfo';
 import PermitPriceChangeInfo from '../permitDetail/PermitPriceChangeInfo';
@@ -59,7 +59,9 @@ const EditResidentPermitPreview = ({
           {t(`${T_PATH}.goBack`)}
         </Button>
         <Button
-          disabled={!(refundAccountNumber && isValidIBAN(refundAccountNumber))}
+          disabled={
+            refundAccountNumber !== '' && isValidIBAN(refundAccountNumber)
+          }
           className={styles.actionButton}
           iconLeft={<IconCheckCircleFill />}
           onClick={() => onConfirm()}>

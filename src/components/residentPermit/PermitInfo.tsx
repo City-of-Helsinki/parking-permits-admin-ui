@@ -91,6 +91,8 @@ const PermitInfo = ({
           id="additionalInfo"
           label={t(`${T_PATH}.additionalInfo`)}
           placeholder={t(`${T_PATH}.additionalInfoPlaceholder`)}
+          value={permit.description}
+          onChange={e => onUpdateField('description', e.target.value)}
         />
       </div>
     </div>

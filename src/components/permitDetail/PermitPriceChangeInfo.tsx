@@ -1,9 +1,12 @@
 import { RadioButton, TextInput } from 'hds-react';
-import { isValidIBAN } from 'ibantools';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitPriceChange } from '../../types';
-import { formatDateDisplay, formatMonthlyPrice } from '../../utils';
+import {
+  formatDateDisplay,
+  formatMonthlyPrice,
+  isValidIBAN,
+} from '../../utils';
 import Divider from '../common/Divider';
 import styles from './PermitPriceChangeInfo.module.scss';
 

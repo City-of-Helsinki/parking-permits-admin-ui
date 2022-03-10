@@ -1,4 +1,5 @@
 import { addMonths } from 'date-fns';
+import { extractIBAN } from 'ibantools';
 import {
   Address,
   AddressInput,
@@ -132,8 +133,15 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
 }
 
 export function convertToPermitInput(permit: PermitDetail): PermitInput {
-  const { contractType, customer, vehicle, status, startTime, monthCount } =
-    permit;
+  const {
+    contractType,
+    customer,
+    vehicle,
+    status,
+    startTime,
+    monthCount,
+    description,
+  } = permit;
   const vehicleInput = convertToVehicleInput(vehicle);
   const customerInput = convertToCustomerInput(customer);
   return {
@@ -143,6 +151,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     status,
     startTime,
     monthCount,
+    description,
   };
 }
 
@@ -209,4 +218,9 @@ export function getPermitTotalPrice(
       totalPrice + getProductPrice(product, quantity, priceModifiers),
     0
   );
+}
+
+export function isValidIBAN(value: string): boolean {
+  const iban = extractIBAN(value);
+  return iban.valid && iban.countryCode === 'FI';
 }
