@@ -1,4 +1,5 @@
 import { addMonths } from 'date-fns';
+import { extractIBAN } from 'ibantools';
 import {
   Address,
   AddressInput,
@@ -217,4 +218,9 @@ export function getPermitTotalPrice(
       totalPrice + getProductPrice(product, quantity, priceModifiers),
     0
   );
+}
+
+export function isValidIBAN(value: string): boolean {
+  const iban = extractIBAN(value);
+  return iban.valid && iban.countryCode === 'FI';
 }

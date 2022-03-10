@@ -1,7 +1,6 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Formik } from 'formik';
 import { Button, Notification, TextInput } from 'hds-react';
-import { isValidIBAN } from 'ibantools';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -12,6 +11,7 @@ import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
 import { MutationResponse, Refund, RefundInput } from '../types';
+import { isValidIBAN } from '../utils';
 import styles from './RefundDetail.module.scss';
 
 const T_PATH = 'pages.refundDetail';

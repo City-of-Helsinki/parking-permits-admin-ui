@@ -1,6 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Button, IconArrowLeft, Notification } from 'hds-react';
-import { isValidIBAN } from 'ibantools';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -18,6 +17,7 @@ import {
   PermitDetailData,
   PermitEndType,
 } from '../types';
+import { isValidIBAN } from '../utils';
 import styles from './EndPermit.module.scss';
 
 const T_PATH = 'pages.endPermit';
