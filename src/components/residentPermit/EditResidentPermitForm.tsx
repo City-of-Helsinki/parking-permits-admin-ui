@@ -122,6 +122,9 @@ const EditResidentPermitForm = ({
       ...vehicle,
       [field]: value,
     };
+    if (field === 'isLowEmission' && value === false) {
+      newVehicle.consentLowEmissionAccepted = false;
+    }
     onUpdatePermit({
       ...permit,
       vehicle: newVehicle,

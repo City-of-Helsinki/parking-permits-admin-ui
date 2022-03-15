@@ -96,6 +96,7 @@ const VehicleInfo = ({
         />
         <Checkbox
           className={styles.fieldItem}
+          disabled={!isLowEmission}
           id="consentLowEmissionDiscount"
           name="consentLowEmissionDiscount"
           label={t(`${T_PATH}.consentLowEmissionDiscountText`)}
