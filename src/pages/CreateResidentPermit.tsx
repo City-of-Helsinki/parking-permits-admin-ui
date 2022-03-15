@@ -153,6 +153,9 @@ const CreateResidentPermit = (): React.ReactElement => {
       ...vehicle,
       [field]: value,
     };
+    if (field === 'isLowEmission' && value === false) {
+      newVehicle.consentLowEmissionAccepted = false;
+    }
     setPermit({
       ...permit,
       vehicle: newVehicle,
