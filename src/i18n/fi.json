@@ -40,11 +40,12 @@
     },
     "permitDetail": {
       "customerInfo": {
-        "address": "Osoite",
         "email": "Sähköpostiosoite",
+        "otherAddress": "Tilapäinen osoite",
         "parkingZone": "Pysäköintialue",
         "personalID": "Henkilötunnus",
         "phoneNumber": "Puhelinnumero",
+        "primaryAddress": "Vakituinen osoite",
         "sendMessageToEmail": "Lähetä tiedot sähköpostiin",
         "title": "Henkilötiedot"
       },
@@ -110,9 +111,10 @@
         "registrationNumber": "Rekisterinumero"
       },
       "permitsDataTable": {
-        "address": "Osoite",
         "endTime": "Loppuaika",
         "name": "Nimi",
+        "otherAddress": "Tilapäinen osoite",
+        "primaryAddress": "Vakituinen osoite",
         "registrationNumber": "Rekisterinumero",
         "startTime": "Alkuaika",
         "status": "Tila",
@@ -160,15 +162,16 @@
         "validPeriodInMonths": "Voimassaoloaika, kuukautta"
       },
       "personalInfo": {
-        "address": "Osoite",
         "addressSecurityBan": "Turvakielto: Osoitetta ja nimeä ei kirjata",
         "driverLicenseChecked": "Asiakkaan ajokortti tarkistettu",
         "email": "Sähköpostiosoite",
         "firstName": "Etunimi",
         "lastName": "Sukunimi",
+        "otherAddress": "Tilapäinen osoite",
         "personalId": "Henkilötunnus",
         "personalInfo": "Henkilötiedot",
         "phoneNumber": "Puhelinnumero",
+        "primaryAddress": "Vakituinen osoite",
         "search": "Hae",
         "zone": "Alue"
       },
