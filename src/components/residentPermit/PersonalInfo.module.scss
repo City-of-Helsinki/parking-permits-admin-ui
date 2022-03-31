@@ -10,6 +10,11 @@
   flex-direction: column;
   padding: $spacing-s;
 
+  .addressSearch {
+    margin-left: $spacing-l;
+    margin-bottom: $spacing-s;
+  }
+
   .fieldItem {
     margin: $spacing-2-xs 0;
   }

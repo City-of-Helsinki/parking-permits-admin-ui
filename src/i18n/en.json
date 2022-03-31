@@ -40,7 +40,8 @@
     },
     "permitDetail": {
       "customerInfo": {
-        "address": "Address",
+        "primaryAddress": "Permanent address",
+        "otherAddress": "Temporary address",
         "email": "Email",
         "parkingZone": "Parking zone",
         "personalID": "Personal ID",
@@ -109,7 +110,8 @@
         "registrationNumber": "Registration number"
       },
       "permitsDataTable": {
-        "address": "Address",
+        "primaryAddress": "Permanent address",
+        "otherAddress": "Temporary address",
         "endTime": "End time",
         "name": "Name",
         "registrationNumber": "Registration number",
@@ -159,7 +161,8 @@
         "validPeriodInMonths": "Valid period in months"
       },
       "personalInfo": {
-        "address": "Address",
+        "primaryAddress": "Permanent address",
+        "otherAddress": "Temporary address",
         "addressSecurityBan": "Non-disclosure for personal safety",
         "driverLicenseChecked": "Driver's licese is checked",
         "email": "Email",

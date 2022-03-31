@@ -18,6 +18,7 @@ export interface Customer {
   lastName: string;
   nationalIdNumber: string;
   primaryAddress?: Address | AddressInput;
+  otherAddress?: Address | AddressInput;
   email: string;
   phoneNumber: string;
   zone?: ParkingZone;
@@ -165,6 +166,7 @@ export interface CustomerInput {
   lastName: string;
   nationalIdNumber: string;
   primaryAddress?: AddressInput;
+  otherAddress?: AddressInput;
   zone?: string;
   email: string;
   phoneNumber: string;

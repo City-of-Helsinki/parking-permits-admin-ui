@@ -51,6 +51,26 @@ const CUSTOMER_QUERY = gql`
           }
         }
       }
+      otherAddress {
+        city
+        citySv
+        streetName
+        streetNumber
+        postalCode
+        zone {
+          name
+          label
+          labelSv
+          residentProducts {
+            unitPrice
+            startDate
+            endDate
+            vat
+            lowEmissionDiscount
+            secondaryVehicleIncreaseRate
+          }
+        }
+      }
     }
   }
 `;

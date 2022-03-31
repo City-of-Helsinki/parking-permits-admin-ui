@@ -52,8 +52,8 @@ const PermitsDataTable = ({
       orderFields: ['vehicle__registration_number'],
     },
     {
-      name: t(`${T_PATH}.address`),
-      field: 'address',
+      name: t(`${T_PATH}.primaryAddress`),
+      field: 'primaryAddress',
       selector: ({ customer }) =>
         customer?.primaryAddress
           ? formatAddress(customer.primaryAddress, i18n.language)
@@ -61,6 +61,18 @@ const PermitsDataTable = ({
       orderFields: [
         'customer__primary_address__street_name',
         'customer__primary_address__street_number',
+      ],
+    },
+    {
+      name: t(`${T_PATH}.otherAddress`),
+      field: 'otherAddress',
+      selector: ({ customer }) =>
+        customer?.otherAddress
+          ? formatAddress(customer.otherAddress, i18n.language)
+          : '-',
+      orderFields: [
+        'customer__other_address__street_name',
+        'customer__other_address__street_number',
       ],
     },
     {

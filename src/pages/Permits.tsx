@@ -50,6 +50,14 @@ const PERMITS_QUERY = gql`
             citySv
             postalCode
           }
+          otherAddress {
+            streetName
+            streetNameSv
+            streetNumber
+            city
+            citySv
+            postalCode
+          }
         }
         vehicle {
           manufacturer

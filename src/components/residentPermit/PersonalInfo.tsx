@@ -4,6 +4,7 @@ import {
   Checkbox,
   Notification,
   PhoneInput,
+  RadioButton,
   Select,
   TextInput,
 } from 'hds-react';
@@ -52,6 +53,11 @@ const ZONE_BY_LOCATION_QIERY = gql`
   }
 `;
 
+enum SelectedAddress {
+  PRIMARY = 'primary',
+  OTHER = 'other',
+}
+
 interface PersonalInfoProps {
   className?: string;
   person: Customer;
@@ -69,6 +75,9 @@ const PersonalInfo = ({
 }: PersonalInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const [addressSearchError, setAddressSearchError] = useState('');
+  const [selectedAddress, setSelectedAddress] = useState<SelectedAddress>(
+    SelectedAddress.PRIMARY
+  );
   const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
   const [getZoneByLocation] = useLazyQuery<{ zoneByLocation: ParkingZone }>(
     ZONE_BY_LOCATION_QIERY,
@@ -83,6 +92,7 @@ const PersonalInfo = ({
   const {
     zone,
     primaryAddress,
+    otherAddress,
     nationalIdNumber,
     addressSecurityBan,
     firstName,
@@ -130,10 +140,21 @@ const PersonalInfo = ({
           value={lastName}
           onChange={e => onUpdateField('lastName', e.target.value)}
         />
-        <AddressSearch
+        <RadioButton
           disabled={addressSecurityBan}
           className={styles.fieldItem}
-          label={t(`${T_PATH}.address`)}
+          id="usePrimaryAddress"
+          name="selectedAddress"
+          label={t(`${T_PATH}.primaryAddress`)}
+          value={SelectedAddress.PRIMARY}
+          checked={selectedAddress === SelectedAddress.PRIMARY}
+          onChange={() => setSelectedAddress(SelectedAddress.PRIMARY)}
+        />
+        <AddressSearch
+          disabled={
+            addressSecurityBan || selectedAddress !== SelectedAddress.PRIMARY
+          }
+          className={styles.addressSearch}
           address={primaryAddress}
           onSelect={address => {
             onUpdateField('primaryAddress', address);
@@ -143,7 +164,31 @@ const PersonalInfo = ({
               },
             });
           }}
-          errorText={addressSearchError}
+        />
+        <RadioButton
+          disabled={addressSecurityBan}
+          className={styles.fieldItem}
+          id="useOtherAddress"
+          name="selectedAddress"
+          label={t(`${T_PATH}.otherAddress`)}
+          value={SelectedAddress.OTHER}
+          checked={selectedAddress === SelectedAddress.OTHER}
+          onChange={() => setSelectedAddress(SelectedAddress.OTHER)}
+        />
+        <AddressSearch
+          disabled={
+            addressSecurityBan || selectedAddress !== SelectedAddress.OTHER
+          }
+          className={styles.addressSearch}
+          address={otherAddress}
+          onSelect={address => {
+            onUpdateField('otherAddress', address);
+            getZoneByLocation({
+              variables: {
+                location: address.location,
+              },
+            });
+          }}
         />
         {data?.zones && (
           <Select
@@ -156,6 +201,7 @@ const PersonalInfo = ({
             onChange={(selectedZone: ParkingZone) =>
               onUpdateField('zone', selectedZone)
             }
+            error={addressSearchError}
           />
         )}
         <Divider className={styles.fieldDivider} />

@@ -1,11 +1,5 @@
-import {
-  Button,
-  IconArrowLeft,
-  IconPen,
-  SearchInput,
-  TextInput,
-} from 'hds-react';
-import React, { useState } from 'react';
+import { SearchInput, TextInput } from 'hds-react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import addressSearch from '../../services/addressSearch';
 import { Address, AddressInput } from '../../types';
@@ -16,7 +10,7 @@ const T_PATH = 'components.common.addressSearch';
 interface AddressSearchProps {
   className?: string;
   disabled?: boolean;
-  label: string;
+  label?: string;
   address?: Address;
   errorText?: string;
   onSelect: (address: AddressInput) => void;
@@ -36,7 +30,6 @@ const AddressSearch = ({
   onSelect,
 }: AddressSearchProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const [isEditing, setIsEditing] = useState(false);
   let searchSuggestions: AddressSuggestionItem[] = [];
   const getSuggestions = (inputValue: string) =>
     addressSearch.search(inputValue).then(addresses => {
@@ -53,52 +46,34 @@ const AddressSearch = ({
     );
     if (item) {
       onSelect(item.address);
-      setIsEditing(false);
     }
   };
 
-  if (isEditing && !disabled) {
+  if (!disabled) {
     return (
-      <>
-        <SearchInput
-          hideSearchButton
-          className={className}
-          label={label}
-          clearButtonAriaLabel={t(`${T_PATH}.clear`)}
-          suggestionLabelField="label"
-          getSuggestions={getSuggestions}
-          onSubmit={handleSubmit}
-        />
-        <Button
-          variant="supplementary"
-          size="small"
-          iconLeft={<IconArrowLeft />}
-          onClick={() => setIsEditing(false)}>
-          {t(`${T_PATH}.cancel`)}
-        </Button>
-      </>
+      <SearchInput
+        hideSearchButton
+        className={className}
+        label={label}
+        placeholder={address ? formatAddress(address, i18n.language) : ''}
+        clearButtonAriaLabel={t(`${T_PATH}.clear`)}
+        suggestionLabelField="label"
+        getSuggestions={getSuggestions}
+        onSubmit={handleSubmit}
+      />
     );
   }
+  // HDS SearchInput does not have a disabled property,
+  // so use a TextInput for disabled
   return (
-    <>
-      <TextInput
-        readOnly
-        className={className}
-        id="address"
-        label={label}
-        value={address ? formatAddress(address, i18n.language) : '-'}
-        errorText={errorText}
-      />
-      {!disabled && (
-        <Button
-          variant="supplementary"
-          size="small"
-          iconLeft={<IconPen />}
-          onClick={() => setIsEditing(true)}>
-          {t(`${T_PATH}.edit`)}
-        </Button>
-      )}
-    </>
+    <TextInput
+      disabled
+      className={className}
+      id="address"
+      label={label}
+      value={address ? formatAddress(address, i18n.language) : ''}
+      errorText={errorText}
+    />
   );
 };
 

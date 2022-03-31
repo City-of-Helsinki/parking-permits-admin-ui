@@ -54,7 +54,7 @@ export function formatDateTimeDisplay(datetime: string | Date): string {
 
 export function formatCustomerName(customer: Customer): string {
   const { firstName, lastName } = customer;
-  return `${lastName} ${firstName}`;
+  return `${lastName}, ${firstName}`;
 }
 
 export function formatVehicleName(vehicle: Vehicle): string {
@@ -109,21 +109,25 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     lastName,
     nationalIdNumber,
     primaryAddress,
+    otherAddress,
     email,
     phoneNumber,
     zone,
     addressSecurityBan,
     driverLicenseChecked,
   } = customer;
-  const addressInput =
+  const primaryAddressInput =
     primaryAddress && isAddressInput(primaryAddress)
       ? primaryAddress
       : undefined;
+  const otherAddressInput =
+    otherAddress && isAddressInput(otherAddress) ? otherAddress : undefined;
   return {
     firstName,
     lastName,
     nationalIdNumber,
-    primaryAddress: addressInput,
+    primaryAddress: primaryAddressInput,
+    otherAddress: otherAddressInput,
     email,
     phoneNumber,
     zone: zone?.name,

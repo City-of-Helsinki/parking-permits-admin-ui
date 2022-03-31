@@ -40,11 +40,12 @@
     },
     "permitDetail": {
       "customerInfo": {
-        "address": "Adress",
         "email": "E-post",
+        "otherAddress": "Temporär adress",
         "parkingZone": "Parkeringszon",
         "personalID": "Personligt ID",
         "phoneNumber": "Telefonnummer",
+        "primaryAddress": "Permanent adress",
         "sendMessageToEmail": "Skicka meddelande till kundens e-post",
         "title": "Kundinformation"
       },
@@ -109,9 +110,10 @@
         "registrationNumber": "Registreringsnummer"
       },
       "permitsDataTable": {
-        "address": "Adress",
         "endTime": "Sluttid",
         "name": "Namn",
+        "otherAddress": "Temporär adress",
+        "primaryAddress": "Permanent adress",
         "registrationNumber": "Registreringsnummer",
         "startTime": "Starttid",
         "status": "Status",
@@ -159,15 +161,16 @@
         "validPeriodInMonths": "Giltig period i månader"
       },
       "personalInfo": {
-        "address": "Adress",
         "addressSecurityBan": "Säkerhetsförbud: Adress och namn kommer inte att registreras",
         "driverLicenseChecked": "Förarlicensen är kontrollerad",
         "email": "E-post",
         "firstName": "Förnamn",
         "lastName": "Efternamn",
+        "otherAddress": "Temporär adress",
         "personalId": "Personligt ID",
         "personalInfo": "Personlig information",
         "phoneNumber": "Telefonnummer",
+        "primaryAddress": "Permanent adress",
         "search": "Sök",
         "zone": "Zon"
       },
