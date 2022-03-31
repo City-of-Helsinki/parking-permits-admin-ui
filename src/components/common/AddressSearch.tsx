@@ -55,6 +55,7 @@ const AddressSearch = ({
         hideSearchButton
         className={className}
         label={label}
+        placeholder={address ? formatAddress(address, i18n.language) : ''}
         clearButtonAriaLabel={t(`${T_PATH}.clear`)}
         suggestionLabelField="label"
         getSuggestions={getSuggestions}

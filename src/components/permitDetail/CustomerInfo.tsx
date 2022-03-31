@@ -25,9 +25,15 @@ const CustomerInfo = ({
       value: customer.nationalIdNumber || '-',
     },
     {
-      label: t(`${T_PATH}.address`),
+      label: t(`${T_PATH}.primaryAddress`),
       value: customer?.primaryAddress
         ? formatAddress(customer.primaryAddress, i18n.language)
+        : '-',
+    },
+    {
+      label: t(`${T_PATH}.otherAddress`),
+      value: customer?.otherAddress
+        ? formatAddress(customer.otherAddress, i18n.language)
         : '-',
     },
     {
