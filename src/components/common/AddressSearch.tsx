@@ -12,7 +12,6 @@ interface AddressSearchProps {
   disabled?: boolean;
   label?: string;
   address?: Address;
-  errorText?: string;
   onSelect: (address: AddressInput) => void;
 }
 
@@ -26,7 +25,6 @@ const AddressSearch = ({
   disabled = false,
   label,
   address,
-  errorText,
   onSelect,
 }: AddressSearchProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
@@ -72,7 +70,6 @@ const AddressSearch = ({
       id="address"
       label={label}
       value={address ? formatAddress(address, i18n.language) : ''}
-      errorText={errorText}
     />
   );
 };

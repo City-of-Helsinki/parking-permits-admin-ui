@@ -11,6 +11,7 @@ export interface Address {
   city: string;
   citySv: string;
   postalCode: string;
+  zone?: ParkingZone;
 }
 
 export interface Customer {
