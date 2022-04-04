@@ -117,11 +117,16 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
   }>(CUSTOMER_QUERY, {
-    onCompleted: data => {
+    onCompleted: ({ customer: newCustomer }) => {
       setPersonSearchError('');
+      const defaultZone =
+        newCustomer?.primaryAddress?.zone || customer?.otherAddress?.zone;
       setPermit({
         ...permit,
-        customer: data.customer,
+        customer: {
+          ...newCustomer,
+          zone: defaultZone,
+        },
       });
     },
     onError: error => setPersonSearchError(error.message),

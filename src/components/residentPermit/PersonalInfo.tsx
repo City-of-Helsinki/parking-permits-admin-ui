@@ -1,4 +1,4 @@
-import { gql, useLazyQuery, useQuery } from '@apollo/client';
+import { gql, useApolloClient, useQuery } from '@apollo/client';
 import {
   Button,
   Checkbox,
@@ -10,7 +10,7 @@ import {
 } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Customer, ParkingZone } from '../../types';
+import { AddressInput, Customer, ParkingZone } from '../../types';
 import AddressSearch from '../common/AddressSearch';
 import Divider from '../common/Divider';
 import styles from './PersonalInfo.module.scss';
@@ -35,7 +35,7 @@ const ZONES_QUERY = gql`
   }
 `;
 
-const ZONE_BY_LOCATION_QIERY = gql`
+const ZONE_BY_LOCATION_QUERY = gql`
   query GetZoneByLocation($location: [Float]!) {
     zoneByLocation(location: $location) {
       name
@@ -58,6 +58,8 @@ enum SelectedAddress {
   OTHER = 'other',
 }
 
+type AddressField = 'primaryAddress' | 'otherAddress';
+
 interface PersonalInfoProps {
   className?: string;
   person: Customer;
@@ -74,21 +76,6 @@ const PersonalInfo = ({
   onUpdateField,
 }: PersonalInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const [addressSearchError, setAddressSearchError] = useState('');
-  const [selectedAddress, setSelectedAddress] = useState<SelectedAddress>(
-    SelectedAddress.PRIMARY
-  );
-  const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
-  const [getZoneByLocation] = useLazyQuery<{ zoneByLocation: ParkingZone }>(
-    ZONE_BY_LOCATION_QIERY,
-    {
-      onCompleted: ({ zoneByLocation }) => {
-        onUpdateField('zone', zoneByLocation);
-        setAddressSearchError('');
-      },
-      onError: error => setAddressSearchError(error.message),
-    }
-  );
   const {
     zone,
     primaryAddress,
@@ -101,6 +88,32 @@ const PersonalInfo = ({
     email,
     driverLicenseChecked,
   } = person;
+  const [addressSearchError, setAddressSearchError] = useState('');
+  const [selectedAddress, setSelectedAddress] = useState<SelectedAddress>(
+    SelectedAddress.PRIMARY
+  );
+  const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
+  const client = useApolloClient();
+  const onSelectAddress = (
+    addressField: AddressField,
+    address: AddressInput
+  ) => {
+    client
+      .query<{ zoneByLocation: ParkingZone }>({
+        query: ZONE_BY_LOCATION_QUERY,
+        variables: {
+          location: address.location,
+        },
+      })
+      .then(zoneByLocation => {
+        const newAddress = {
+          ...address,
+          zone: zoneByLocation,
+        };
+        onUpdateField(addressField, newAddress);
+      })
+      .catch(error => setAddressSearchError(error.message));
+  };
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.personalInfo`)}</div>
@@ -148,7 +161,12 @@ const PersonalInfo = ({
           label={t(`${T_PATH}.primaryAddress`)}
           value={SelectedAddress.PRIMARY}
           checked={selectedAddress === SelectedAddress.PRIMARY}
-          onChange={() => setSelectedAddress(SelectedAddress.PRIMARY)}
+          onChange={() => {
+            setSelectedAddress(SelectedAddress.PRIMARY);
+            if (primaryAddress?.zone) {
+              onUpdateField('zone', primaryAddress.zone);
+            }
+          }}
         />
         <AddressSearch
           disabled={
@@ -156,14 +174,7 @@ const PersonalInfo = ({
           }
           className={styles.addressSearch}
           address={primaryAddress}
-          onSelect={address => {
-            onUpdateField('primaryAddress', address);
-            getZoneByLocation({
-              variables: {
-                location: address.location,
-              },
-            });
-          }}
+          onSelect={address => onSelectAddress('primaryAddress', address)}
         />
         <RadioButton
           disabled={addressSecurityBan}
@@ -173,7 +184,12 @@ const PersonalInfo = ({
           label={t(`${T_PATH}.otherAddress`)}
           value={SelectedAddress.OTHER}
           checked={selectedAddress === SelectedAddress.OTHER}
-          onChange={() => setSelectedAddress(SelectedAddress.OTHER)}
+          onChange={() => {
+            setSelectedAddress(SelectedAddress.OTHER);
+            if (otherAddress?.zone) {
+              onUpdateField('zone', otherAddress.zone);
+            }
+          }}
         />
         <AddressSearch
           disabled={
@@ -181,14 +197,7 @@ const PersonalInfo = ({
           }
           className={styles.addressSearch}
           address={otherAddress}
-          onSelect={address => {
-            onUpdateField('otherAddress', address);
-            getZoneByLocation({
-              variables: {
-                location: address.location,
-              },
-            });
-          }}
+          onSelect={address => onSelectAddress('otherAddress', address)}
         />
         {data?.zones && (
           <Select
