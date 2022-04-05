@@ -105,12 +105,14 @@ const PersonalInfo = ({
           location: address.location,
         },
       })
-      .then(zoneByLocation => {
+      .then(response => {
+        const { zoneByLocation } = response.data;
         const newAddress = {
           ...address,
           zone: zoneByLocation,
         };
         onUpdateField(addressField, newAddress);
+        onUpdateField('zone', zoneByLocation);
       })
       .catch(error => setAddressSearchError(error.message));
   };
