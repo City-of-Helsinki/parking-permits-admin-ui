@@ -100,7 +100,7 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
 function isAddressInput(
   address: Address | AddressInput
 ): address is AddressInput {
-  return 'sourceSystem' in address && 'sourceId' in address;
+  return 'location' in address;
 }
 
 export function convertToCustomerInput(customer: Customer): CustomerInput {

@@ -2,8 +2,6 @@ import { OrderDirection, SearchItem } from './components/types';
 
 export type AnyObject = Record<string, unknown>;
 
-export type AddressSourceSystem = 'KMO' | 'HELSINKI_PROFILE';
-
 export interface Address {
   streetName: string;
   streetNumber: string;
@@ -157,8 +155,6 @@ export interface PermitDetailData {
 }
 
 export interface AddressInput extends Address {
-  sourceSystem: AddressSourceSystem;
-  sourceId: string;
   location: [number, number];
 }
 
