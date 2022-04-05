@@ -53,7 +53,6 @@ class AddressSearch {
    */
   private readonly fieldMapping: { [key: string]: keyof AddressWfsProperties } =
     {
-      sourceId: 'id',
       streetName: 'katunimi',
       streetNumber: 'osoitenumero_teksti',
       streetNameSv: 'gatan',
@@ -116,7 +115,6 @@ class AddressSearch {
         }
       );
       return {
-        sourceSystem: this.dataSource,
         location: coordinates,
         ...Object.fromEntries(entries),
       };
