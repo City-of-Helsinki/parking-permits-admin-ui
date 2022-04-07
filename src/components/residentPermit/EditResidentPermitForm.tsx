@@ -150,14 +150,10 @@ const EditResidentPermitForm = ({
       vehicle: newVehicle,
     });
   };
-  const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
-    const newCustomer = {
-      ...customer,
-      [field]: value,
-    };
+  const handleUpdatePerson = (person: Customer) => {
     onUpdatePermit({
       ...permit,
-      customer: newCustomer,
+      customer: person,
     });
   };
   const handleUpdatePermitField = (field: keyof PermitDetail, value: unknown) =>
@@ -174,7 +170,7 @@ const EditResidentPermitForm = ({
           person={customer}
           searchError={personSearchError}
           onSearchPerson={handleSearchPerson}
-          onUpdateField={handleUpdatePersonField}
+          onUpdatePerson={handleUpdatePerson}
         />
         <VehicleInfo
           className={styles.column}
