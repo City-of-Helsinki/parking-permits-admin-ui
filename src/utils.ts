@@ -2,7 +2,6 @@ import { addMonths } from 'date-fns';
 import { extractIBAN } from 'ibantools';
 import {
   Address,
-  AddressInput,
   Customer,
   CustomerInput,
   PermitDetail,
@@ -97,10 +96,31 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
   };
 }
 
-function isAddressInput(
-  address: Address | AddressInput
-): address is AddressInput {
-  return 'location' in address;
+export function convertAddressToAddressInput(
+  address: Address
+): Address | undefined {
+  if (!address?.location) {
+    return undefined;
+  }
+
+  const {
+    streetName,
+    streetNameSv,
+    streetNumber,
+    city,
+    citySv,
+    postalCode,
+    location,
+  } = address;
+  return {
+    streetName,
+    streetNameSv,
+    streetNumber,
+    city,
+    citySv,
+    postalCode,
+    location,
+  };
 }
 
 export function convertToCustomerInput(customer: Customer): CustomerInput {
@@ -116,12 +136,12 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     addressSecurityBan,
     driverLicenseChecked,
   } = customer;
-  const primaryAddressInput =
-    primaryAddress && isAddressInput(primaryAddress)
-      ? primaryAddress
-      : undefined;
-  const otherAddressInput =
-    otherAddress && isAddressInput(otherAddress) ? otherAddress : undefined;
+  const primaryAddressInput = primaryAddress
+    ? convertAddressToAddressInput(primaryAddress)
+    : undefined;
+  const otherAddressInput = otherAddress
+    ? convertAddressToAddressInput(otherAddress)
+    : undefined;
   return {
     firstName,
     lastName,

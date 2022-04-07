@@ -2,7 +2,7 @@ import { SearchInput, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import addressSearch from '../../services/addressSearch';
-import { Address, AddressInput } from '../../types';
+import { Address } from '../../types';
 import { formatAddress } from '../../utils';
 
 const T_PATH = 'components.common.addressSearch';
@@ -12,12 +12,12 @@ interface AddressSearchProps {
   disabled?: boolean;
   label?: string;
   address?: Address;
-  onSelect: (address: AddressInput) => void;
+  onSelect: (address: Address) => void;
 }
 
 interface AddressSuggestionItem {
   label: string;
-  address: AddressInput;
+  address: Address;
 }
 
 const AddressSearch = ({
