@@ -30,6 +30,7 @@ export function getBooleanEnv(key: string): boolean {
 }
 
 export function formatAddress(address: Address, lang: string): string {
+  if (!address) return '-';
   const { streetName, streetNameSv, streetNumber, postalCode, city, citySv } =
     address;
   if (lang === 'sv') {
@@ -40,8 +41,7 @@ export function formatAddress(address: Address, lang: string): string {
 
 export function formatAddresses(permits: Permit[], lang: string): string {
   const addresses: string[] = [];
-  // eslint-disable-next-line
-  permits.forEach(function (permit) {
+  permits.forEach(permit => {
     if (permit?.address) {
       addresses.push(formatAddress(permit.address, lang));
     }
@@ -50,13 +50,13 @@ export function formatAddresses(permits: Permit[], lang: string): string {
 }
 
 export function formatDateDisplay(datetime: string | Date): string {
-  if (!datetime) return '';
+  if (!datetime) return '-';
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
   return dt.toLocaleDateString('fi');
 }
 
 export function formatDateTimeDisplay(datetime: string | Date): string {
-  if (!datetime) return '';
+  if (!datetime) return '-';
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
   const dateStr = dt.toLocaleDateString('fi');
   const timeStr = dt.toLocaleTimeString([], {
@@ -80,13 +80,8 @@ export function formatRegistrationNumbers(permits: Permit[]): string {
   return registrationNumbers.join(', ');
 }
 
-export function formatParkingZones(permits: Permit[]): string {
-  const parkingZones: string[] = [];
-  // eslint-disable-next-line
-  permits.forEach(function (permit) {
-    parkingZones.push(permit.parkingZone.name);
-  });
-  return parkingZones.join(', ');
+export function formatParkingZone(permit: Permit): string {
+  return permit ? permit?.parkingZone.name : '-';
 }
 
 export function formatPermitType(
@@ -107,6 +102,11 @@ export function formatVehicleName(vehicle: Vehicle): string {
 export function formatMonthlyPrice(price: number): string {
   const formattedPrice = parseFloat(price.toFixed(2));
   return `${formattedPrice} €/kk`;
+}
+
+export function formatPrice(price: number): string {
+  const formattedPrice = price.toFixed(2);
+  return `${formattedPrice} €`;
 }
 
 export function getSavedStatus<T>(key: SavedStatus): T | null {

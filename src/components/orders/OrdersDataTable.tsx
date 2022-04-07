@@ -2,11 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Order, OrderBy, PageInfo } from '../../types';
 import {
-  formatAddresses,
+  formatAddress,
   formatCustomerName,
   formatDateTimeDisplay,
-  formatParkingZones,
+  formatParkingZone,
   formatPermitType,
+  formatPrice,
   formatRegistrationNumbers,
 } from '../../utils';
 import DataTable from '../common/DataTable';
@@ -50,14 +51,14 @@ const OrdersDataTable = ({
     {
       name: t(`${T_PATH}.zone`),
       field: 'parkingZone',
-      selector: ({ orderPermits }) => formatParkingZones(orderPermits),
+      selector: ({ orderPermits }) => formatParkingZone(orderPermits[0]),
       orderFields: ['permits__parking_zone__name'],
     },
     {
       name: t(`${T_PATH}.address`),
       field: 'address',
       selector: ({ orderPermits }) =>
-        formatAddresses(orderPermits, i18n.language),
+        formatAddress(orderPermits[0].address, i18n.language),
       orderFields: [
         'permits__address__street_name',
         'permits__address__street_number',
@@ -89,7 +90,7 @@ const OrdersDataTable = ({
     {
       name: t(`${T_PATH}.totalPrice`),
       field: 'totalPrice',
-      selector: ({ totalPrice }) => totalPrice,
+      selector: ({ totalPrice }) => formatPrice(totalPrice),
     },
   ];
 
