@@ -33,6 +33,7 @@
       "login": "Kirjaudu sisään",
       "logout": "Kirjaudu ulos",
       "messages": "Viestit",
+      "orders": "Tilaukset",
       "permits": "Tunnukset",
       "reports": "Raportointi",
       "returns": "Palautukset",
@@ -129,6 +130,20 @@
       "statusSelect": {
         "all": "All",
         "status": "Tila"
+      }
+    },
+    "orders": {
+      "ordersDataTable": {
+        "name": "Asiakas",
+        "registrationNumber": "Rekisterinro",
+        "zone": "Alue",
+        "address": "Osoite",
+        "permitType": "Tunnustyyppi",
+        "orderNumber": "Tilausnumero",
+        "paidTime": "Maksupäivä",
+        "totalPrice": "Summa",
+        "residentPermit": "Asukastunnus",
+        "companyPermit": "Yritystunnus"
       }
     },
     "refunds": {
@@ -296,6 +311,9 @@
     "permits": {
       "createNewPermit": "Luo uusi tunnus",
       "title": "Tunnukset"
+    },
+    "orders": {
+      "title": "Hae tilauksia"
     },
     "refundDetail": {
       "cancel": "Peruuta",

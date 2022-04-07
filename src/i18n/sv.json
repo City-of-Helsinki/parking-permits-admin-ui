@@ -33,6 +33,7 @@
       "login": "Logga in",
       "logout": "Logga ut",
       "messages": "Meddelanden",
+      "orders": "Beställningar",
       "permits": "Tillstånd",
       "reports": "Rapporter",
       "returns": "Returnerar",
@@ -128,6 +129,20 @@
       "statusSelect": {
         "all": "Alla",
         "status": "Status"
+      }
+    },
+    "orders": {
+      "ordersDataTable": {
+        "name": "Kund",
+        "registrationNumber": "Registreringsnummer",
+        "zone": "Zon",
+        "address": "Adress",
+        "permitType": "Typ av tillstånd",
+        "orderNumber": "Ordernummer",
+        "paidTime": "Betalt datum",
+        "totalPrice": "Totalpris",
+        "residentPermit": "Boendeparkering",
+        "companyPermit": "Företagsparkering"
       }
     },
     "refunds": {
@@ -295,6 +310,9 @@
     "permits": {
       "createNewPermit": "Skapa nytt tillstånd",
       "title": "Tillstånd"
+    },
+    "orders": {
+      "title": "Sök efter beställningar"
     },
     "refundDetail": {
       "cancel": "Avbryt",
