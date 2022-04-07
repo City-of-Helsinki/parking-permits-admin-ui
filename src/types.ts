@@ -108,10 +108,12 @@ export enum PermitType {
 
 export interface Permit {
   identifier: number;
+  type: string;
   customer: Customer;
   vehicle: Vehicle;
   parkingZone: ParkingZone;
   status: ParkingPermitStatus;
+  address: Address;
   startTime: string;
   endTime?: string;
 }
@@ -271,6 +273,23 @@ export enum PermitEndType {
   AFTER_CURRENT_PERIOD = 'AFTER_CURRENT_PERIOD',
 }
 
+export interface Order {
+  id: string;
+  orderNumber: number;
+  orderType: string;
+  totalPrice: number;
+  customer: Customer;
+  paidTime: string;
+  orderPermits: [Permit];
+}
+
+export interface PagedOrders {
+  objects: Order[];
+  pageInfo: PageInfo;
+}
+export interface OrdersQueryData {
+  orders: PagedOrders;
+}
 export interface Refund {
   id: string;
   refundNumber: number;
