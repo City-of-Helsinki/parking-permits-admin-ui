@@ -9,6 +9,7 @@ export interface Address {
   city: string;
   citySv: string;
   postalCode: string;
+  location?: [number, number];
   zone?: ParkingZone;
 }
 
@@ -16,8 +17,8 @@ export interface Customer {
   firstName: string;
   lastName: string;
   nationalIdNumber: string;
-  primaryAddress?: Address | AddressInput;
-  otherAddress?: Address | AddressInput;
+  primaryAddress?: Address;
+  otherAddress?: Address;
   email: string;
   phoneNumber: string;
   zone?: ParkingZone;
@@ -154,16 +155,12 @@ export interface PermitDetailData {
   permitDetail: PermitDetail;
 }
 
-export interface AddressInput extends Address {
-  location: [number, number];
-}
-
 export interface CustomerInput {
   firstName: string;
   lastName: string;
   nationalIdNumber: string;
-  primaryAddress?: AddressInput;
-  otherAddress?: AddressInput;
+  primaryAddress?: Address;
+  otherAddress?: Address;
   zone?: string;
   email: string;
   phoneNumber: string;
