@@ -191,14 +191,10 @@ const CreateResidentPermit = (): React.ReactElement => {
       variables: { nationalIdNumber },
     });
   };
-  const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
-    const newCustomer = {
-      ...permit.customer,
-      [field]: value,
-    };
+  const handleUpdatePerson = (person: Customer) => {
     setPermit({
       ...permit,
-      customer: newCustomer,
+      customer: person,
     });
   };
   const handleUpdatePermitField = (field: keyof PermitDetail, value: unknown) =>
@@ -234,7 +230,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           className={styles.personalInfo}
           searchError={personSearchError}
           onSearchPerson={handleSearchPerson}
-          onUpdateField={handleUpdatePersonField}
+          onUpdatePerson={handleUpdatePerson}
         />
         <VehicleInfo
           vehicle={vehicle}
