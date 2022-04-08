@@ -190,11 +190,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       customer: person,
     });
   };
-  const handleUpdatePermitField = (field: keyof PermitDetail, value: unknown) =>
-    setPermit({
-      ...permit,
-      [field]: value,
-    });
+  const handleUpdatePermit = (newPermit: PermitDetail) => setPermit(newPermit);
 
   let totalPrice: string | number = '-';
   if (permit.customer.zone?.residentProducts && permit) {
@@ -236,7 +232,7 @@ const CreateResidentPermit = (): React.ReactElement => {
         <PermitInfo
           permit={permit}
           className={styles.permitInfo}
-          onUpdateField={handleUpdatePermitField}
+          onUpdatePermit={handleUpdatePermit}
         />
       </div>
       <div className={styles.footer}>
