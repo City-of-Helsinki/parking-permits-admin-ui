@@ -2,7 +2,7 @@ import { addDays, addMonths, endOfDay } from 'date-fns';
 import { DateInput, NumberInput, TextArea, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Language, PermitDetail } from '../../types';
+import { Language, ParkingPermitStatus, PermitDetail } from '../../types';
 import { formatDateDisplay, formatDateTimeDisplay } from '../../utils';
 import Divider from '../common/Divider';
 import StatusSelect from '../permits/StatusSelect';
@@ -14,14 +14,14 @@ interface PermitInfoProps {
   className?: string;
   editMode?: boolean;
   permit: PermitDetail;
-  onUpdateField: (field: keyof PermitDetail, value: unknown) => void;
+  onUpdatePermit: (permit: PermitDetail) => void;
 }
 
 const PermitInfo = ({
   className,
   editMode = false,
   permit,
-  onUpdateField,
+  onUpdatePermit,
 }: PermitInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const expirationDate = endOfDay(
@@ -50,7 +50,10 @@ const PermitInfo = ({
           max={12}
           value={permit.monthCount}
           onChange={e =>
-            onUpdateField('monthCount', parseInt(e.target.value, 10))
+            onUpdatePermit({
+              ...permit,
+              monthCount: parseInt(e.target.value, 10),
+            })
           }
         />
         <DateInput
@@ -63,7 +66,7 @@ const PermitInfo = ({
           language={i18n.language as Language}
           value={formatDateDisplay(permit.startTime)}
           onChange={(value, date) =>
-            onUpdateField('startTime', date.toISOString())
+            onUpdatePermit({ ...permit, startTime: date.toISOString() })
           }
         />
         <TextInput
@@ -76,7 +79,9 @@ const PermitInfo = ({
         <StatusSelect
           className={styles.fieldItem}
           value={permit.status}
-          onChange={status => onUpdateField('status', status)}
+          onChange={status =>
+            onUpdatePermit({ ...permit, status: status as ParkingPermitStatus })
+          }
         />
         <TextInput
           readOnly
@@ -92,7 +97,9 @@ const PermitInfo = ({
           label={t(`${T_PATH}.additionalInfo`)}
           placeholder={t(`${T_PATH}.additionalInfoPlaceholder`)}
           value={permit.description}
-          onChange={e => onUpdateField('description', e.target.value)}
+          onChange={e =>
+            onUpdatePermit({ ...permit, description: e.target.value })
+          }
         />
       </div>
     </div>
