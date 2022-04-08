@@ -137,14 +137,7 @@ const EditResidentPermitForm = ({
     });
   };
 
-  const handleUpdateVehicleField = (field: keyof Vehicle, value: unknown) => {
-    const newVehicle = {
-      ...vehicle,
-      [field]: value,
-    };
-    if (field === 'isLowEmission' && value === false) {
-      newVehicle.consentLowEmissionAccepted = false;
-    }
+  const handleUpdateVehicle = (newVehicle: Vehicle) => {
     onUpdatePermit({
       ...permit,
       vehicle: newVehicle,
@@ -178,7 +171,7 @@ const EditResidentPermitForm = ({
           zone={customer.zone}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
-          onUpdateField={handleUpdateVehicleField}
+          onUpdateVehicle={handleUpdateVehicle}
         />
         <PermitInfo
           className={styles.column}

@@ -173,14 +173,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
   };
-  const handleUpdateVehicleField = (field: keyof Vehicle, value: unknown) => {
-    const newVehicle = {
-      ...vehicle,
-      [field]: value,
-    };
-    if (field === 'isLowEmission' && value === false) {
-      newVehicle.consentLowEmissionAccepted = false;
-    }
+  const handleUpdateVehicle = (newVehicle: Vehicle) => {
     setPermit({
       ...permit,
       vehicle: newVehicle,
@@ -238,7 +231,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           className={styles.vehicleInfo}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
-          onUpdateField={handleUpdateVehicleField}
+          onUpdateVehicle={handleUpdateVehicle}
         />
         <PermitInfo
           permit={permit}
