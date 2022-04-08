@@ -149,11 +149,8 @@ const EditResidentPermitForm = ({
       customer: person,
     });
   };
-  const handleUpdatePermitField = (field: keyof PermitDetail, value: unknown) =>
-    onUpdatePermit({
-      ...permit,
-      [field]: value,
-    });
+  const handleUpdatePermit = (newPermit: PermitDetail) =>
+    onUpdatePermit(newPermit);
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -177,7 +174,7 @@ const EditResidentPermitForm = ({
           className={styles.column}
           editMode
           permit={permit}
-          onUpdateField={handleUpdatePermitField}
+          onUpdatePermit={handleUpdatePermit}
         />
       </div>
       <div className={styles.actions}>
