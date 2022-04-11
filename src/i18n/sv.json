@@ -121,7 +121,8 @@
         "zone": "Zon"
       },
       "permitsSearch": {
-        "search": "Sök"
+        "search": "Sök",
+        "placeholder": "Sök"
       },
       "permitsSearchFilters": {
         "filterList": "Filterlista"
@@ -312,7 +313,7 @@
       "title": "Tillstånd"
     },
     "orders": {
-      "title": "Sök efter beställningar"
+      "title": "Beställningar"
     },
     "refundDetail": {
       "cancel": "Avbryt",

@@ -121,7 +121,8 @@
         "zone": "Zone"
       },
       "permitsSearch": {
-        "search": "Search"
+        "search": "Search",
+        "placeholder": "Search"
       },
       "permitsSearchFilters": {
         "filterList": "Filter list"
@@ -312,7 +313,7 @@
       "title": "Permits"
     },
     "orders": {
-      "title": "Search orders"
+      "title": "Orders"
     },
     "refundDetail": {
       "cancel": "Cancel",
