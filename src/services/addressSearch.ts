@@ -1,4 +1,4 @@
-import { AddressInput } from '../types';
+import { Address } from '../types';
 import { getEnv } from '../utils';
 
 interface AddressWfsGeometry {
@@ -99,7 +99,7 @@ class AddressSearch {
     return `${this.wfsUrl}?${params}`;
   }
 
-  private async doSearch(searchText: string): Promise<AddressInput[]> {
+  private async doSearch(searchText: string): Promise<Address[]> {
     const searchUrl = this.buildSearchUrl(searchText);
     const response = await fetch(searchUrl).catch(() => null);
     if (!response) {
@@ -121,7 +121,7 @@ class AddressSearch {
     });
   }
 
-  async search(searchText: string): Promise<AddressInput[]> {
+  async search(searchText: string): Promise<Address[]> {
     return new Promise(resolve => {
       if (this.searchTimer) {
         clearTimeout(this.searchTimer);

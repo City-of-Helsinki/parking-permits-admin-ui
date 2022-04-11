@@ -10,7 +10,7 @@ import {
 } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AddressInput, Customer, ParkingZone } from '../../types';
+import { Address, Customer, ParkingZone } from '../../types';
 import AddressSearch from '../common/AddressSearch';
 import Divider from '../common/Divider';
 import styles from './PersonalInfo.module.scss';
@@ -65,7 +65,7 @@ interface PersonalInfoProps {
   person: Customer;
   searchError?: string;
   onSearchPerson: (nationalIdNumber: string) => void;
-  onUpdateField: (field: keyof Customer, value: unknown) => void;
+  onUpdatePerson: (person: Customer) => void;
 }
 
 const PersonalInfo = ({
@@ -73,7 +73,7 @@ const PersonalInfo = ({
   person,
   searchError,
   onSearchPerson,
-  onUpdateField,
+  onUpdatePerson,
 }: PersonalInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const {
@@ -94,10 +94,7 @@ const PersonalInfo = ({
   );
   const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
   const client = useApolloClient();
-  const onSelectAddress = (
-    addressField: AddressField,
-    address: AddressInput
-  ) => {
+  const onSelectAddress = (addressField: AddressField, address: Address) => {
     client
       .query<{ zoneByLocation: ParkingZone }>({
         query: ZONE_BY_LOCATION_QUERY,
@@ -111,8 +108,11 @@ const PersonalInfo = ({
           ...address,
           zone: zoneByLocation,
         };
-        onUpdateField(addressField, newAddress);
-        onUpdateField('zone', zoneByLocation);
+        onUpdatePerson({
+          ...person,
+          [addressField]: newAddress,
+          zone: zoneByLocation,
+        });
       })
       .catch(error => setAddressSearchError(error.message));
   };
@@ -126,7 +126,9 @@ const PersonalInfo = ({
           id="personalId"
           label={t(`${T_PATH}.personalId`)}
           value={nationalIdNumber}
-          onChange={e => onUpdateField('nationalIdNumber', e.target.value)}>
+          onChange={e =>
+            onUpdatePerson({ ...person, nationalIdNumber: e.target.value })
+          }>
           <Button onClick={() => onSearchPerson(nationalIdNumber)}>
             {t(`${T_PATH}.search`)}
           </Button>
@@ -137,7 +139,9 @@ const PersonalInfo = ({
           id="addressSecurityBan"
           label={t(`${T_PATH}.addressSecurityBan`)}
           checked={addressSecurityBan}
-          onChange={e => onUpdateField('addressSecurityBan', e.target.checked)}
+          onChange={e =>
+            onUpdatePerson({ ...person, addressSecurityBan: e.target.checked })
+          }
         />
         <TextInput
           className={styles.fieldItem}
@@ -145,7 +149,9 @@ const PersonalInfo = ({
           disabled={addressSecurityBan}
           label={t(`${T_PATH}.firstName`)}
           value={firstName}
-          onChange={e => onUpdateField('firstName', e.target.value)}
+          onChange={e =>
+            onUpdatePerson({ ...person, firstName: e.target.value })
+          }
         />
         <TextInput
           className={styles.fieldItem}
@@ -153,7 +159,9 @@ const PersonalInfo = ({
           id="lastName"
           label={t(`${T_PATH}.lastName`)}
           value={lastName}
-          onChange={e => onUpdateField('lastName', e.target.value)}
+          onChange={e =>
+            onUpdatePerson({ ...person, lastName: e.target.value })
+          }
         />
         <RadioButton
           disabled={addressSecurityBan}
@@ -166,7 +174,7 @@ const PersonalInfo = ({
           onChange={() => {
             setSelectedAddress(SelectedAddress.PRIMARY);
             if (primaryAddress?.zone) {
-              onUpdateField('zone', primaryAddress.zone);
+              onUpdatePerson({ ...person, zone: primaryAddress.zone });
             }
           }}
         />
@@ -189,7 +197,7 @@ const PersonalInfo = ({
           onChange={() => {
             setSelectedAddress(SelectedAddress.OTHER);
             if (otherAddress?.zone) {
-              onUpdateField('zone', otherAddress.zone);
+              onUpdatePerson({ ...person, zone: otherAddress.zone });
             }
           }}
         />
@@ -210,7 +218,7 @@ const PersonalInfo = ({
             optionLabelField={i18n.language === 'sv' ? 'labelSv' : 'label'}
             value={zone || null}
             onChange={(selectedZone: ParkingZone) =>
-              onUpdateField('zone', selectedZone)
+              onUpdatePerson({ ...person, zone: selectedZone })
             }
             error={addressSearchError}
           />
@@ -221,14 +229,16 @@ const PersonalInfo = ({
           id="phoneNumber"
           label={t(`${T_PATH}.phoneNumber`)}
           value={phoneNumber}
-          onChange={e => onUpdateField('phoneNumber', e.target.value)}
+          onChange={e =>
+            onUpdatePerson({ ...person, phoneNumber: e.target.value })
+          }
         />
         <TextInput
           className={styles.fieldItem}
           id="email"
           label={t(`${T_PATH}.email`)}
           value={email}
-          onChange={e => onUpdateField('email', e.target.value)}
+          onChange={e => onUpdatePerson({ ...person, email: e.target.value })}
         />
         <Divider className={styles.fieldDivider} />
         <Checkbox
@@ -237,7 +247,10 @@ const PersonalInfo = ({
           label={t(`${T_PATH}.driverLicenseChecked`)}
           checked={driverLicenseChecked}
           onChange={e =>
-            onUpdateField('driverLicenseChecked', e.target.checked)
+            onUpdatePerson({
+              ...person,
+              driverLicenseChecked: e.target.checked,
+            })
           }
         />
       </div>

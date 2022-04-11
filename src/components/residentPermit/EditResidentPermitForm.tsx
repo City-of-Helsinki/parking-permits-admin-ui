@@ -137,34 +137,20 @@ const EditResidentPermitForm = ({
     });
   };
 
-  const handleUpdateVehicleField = (field: keyof Vehicle, value: unknown) => {
-    const newVehicle = {
-      ...vehicle,
-      [field]: value,
-    };
-    if (field === 'isLowEmission' && value === false) {
-      newVehicle.consentLowEmissionAccepted = false;
-    }
+  const handleUpdateVehicle = (newVehicle: Vehicle) => {
     onUpdatePermit({
       ...permit,
       vehicle: newVehicle,
     });
   };
-  const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
-    const newCustomer = {
-      ...customer,
-      [field]: value,
-    };
+  const handleUpdatePerson = (person: Customer) => {
     onUpdatePermit({
       ...permit,
-      customer: newCustomer,
+      customer: person,
     });
   };
-  const handleUpdatePermitField = (field: keyof PermitDetail, value: unknown) =>
-    onUpdatePermit({
-      ...permit,
-      [field]: value,
-    });
+  const handleUpdatePermit = (newPermit: PermitDetail) =>
+    onUpdatePermit(newPermit);
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -174,7 +160,7 @@ const EditResidentPermitForm = ({
           person={customer}
           searchError={personSearchError}
           onSearchPerson={handleSearchPerson}
-          onUpdateField={handleUpdatePersonField}
+          onUpdatePerson={handleUpdatePerson}
         />
         <VehicleInfo
           className={styles.column}
@@ -182,13 +168,13 @@ const EditResidentPermitForm = ({
           zone={customer.zone}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
-          onUpdateField={handleUpdateVehicleField}
+          onUpdateVehicle={handleUpdateVehicle}
         />
         <PermitInfo
           className={styles.column}
           editMode
           permit={permit}
-          onUpdateField={handleUpdatePermitField}
+          onUpdatePermit={handleUpdatePermit}
         />
       </div>
       <div className={styles.actions}>

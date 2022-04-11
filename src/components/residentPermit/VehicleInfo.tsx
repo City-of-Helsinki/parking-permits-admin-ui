@@ -14,7 +14,7 @@ interface VehicleInfoProps {
   zone?: ParkingZone;
   searchError?: string;
   onSearchRegistrationNumber: (regNumber: string) => void;
-  onUpdateField: (field: keyof Vehicle, value: unknown) => void;
+  onUpdateVehicle: (vehicle: Vehicle) => void;
 }
 
 const VehicleInfo = ({
@@ -23,7 +23,7 @@ const VehicleInfo = ({
   zone,
   searchError,
   onSearchRegistrationNumber,
-  onUpdateField,
+  onUpdateVehicle,
 }: VehicleInfoProps): React.ReactElement => {
   const { t } = useTranslation();
   const {
@@ -49,7 +49,9 @@ const VehicleInfo = ({
           id="registrationNumber"
           label={t(`${T_PATH}.registrationNumber`)}
           value={registrationNumber}
-          onChange={e => onUpdateField('registrationNumber', e.target.value)}>
+          onChange={e =>
+            onUpdateVehicle({ ...vehicle, registrationNumber: e.target.value })
+          }>
           <Button
             onClick={() =>
               registrationNumber &&
@@ -64,27 +66,31 @@ const VehicleInfo = ({
           id="manufacturer"
           label={t(`${T_PATH}.manufacturer`)}
           value={manufacturer}
-          onChange={e => onUpdateField('manufacturer', e.target.value)}
+          onChange={e =>
+            onUpdateVehicle({ ...vehicle, manufacturer: e.target.value })
+          }
         />
         <TextInput
           className={styles.fieldItem}
           id="model"
           label={t(`${T_PATH}.model`)}
           value={model}
-          onChange={e => onUpdateField('model', e.target.value)}
+          onChange={e => onUpdateVehicle({ ...vehicle, model: e.target.value })}
         />
         <VehicleCategorySelect
           className={styles.fieldItem}
           label={t(`${T_PATH}.category`)}
           value={category}
-          onChange={value => onUpdateField('category', value)}
+          onChange={value => onUpdateVehicle({ ...vehicle, category: value })}
         />
         <TextInput
           className={styles.fieldItem}
           id="serialNumber"
           label={t(`${T_PATH}.serialNumber`)}
           value={serialNumber}
-          onChange={e => onUpdateField('serialNumber', e.target.value)}
+          onChange={e =>
+            onUpdateVehicle({ ...vehicle, serialNumber: e.target.value })
+          }
         />
         <Checkbox
           className={styles.fieldItem}
@@ -92,7 +98,18 @@ const VehicleInfo = ({
           name="isLowEmission"
           label={t(`${T_PATH}.lowEmissionVehicle`)}
           checked={isLowEmission}
-          onChange={e => onUpdateField('isLowEmission', e.target.checked)}
+          onChange={e => {
+            const value = e.target.checked;
+            if (value) {
+              onUpdateVehicle({ ...vehicle, isLowEmission: value });
+            } else {
+              onUpdateVehicle({
+                ...vehicle,
+                isLowEmission: value,
+                consentLowEmissionAccepted: false,
+              });
+            }
+          }}
         />
         <Checkbox
           className={styles.fieldItem}
@@ -102,7 +119,10 @@ const VehicleInfo = ({
           label={t(`${T_PATH}.consentLowEmissionDiscountText`)}
           checked={consentLowEmissionAccepted}
           onChange={e =>
-            onUpdateField('consentLowEmissionAccepted', e.target.checked)
+            onUpdateVehicle({
+              ...vehicle,
+              consentLowEmissionAccepted: e.target.checked,
+            })
           }
         />
         <div className={styles.priceInfo}>

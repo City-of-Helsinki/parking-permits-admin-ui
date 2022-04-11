@@ -173,14 +173,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
   };
-  const handleUpdateVehicleField = (field: keyof Vehicle, value: unknown) => {
-    const newVehicle = {
-      ...vehicle,
-      [field]: value,
-    };
-    if (field === 'isLowEmission' && value === false) {
-      newVehicle.consentLowEmissionAccepted = false;
-    }
+  const handleUpdateVehicle = (newVehicle: Vehicle) => {
     setPermit({
       ...permit,
       vehicle: newVehicle,
@@ -191,21 +184,13 @@ const CreateResidentPermit = (): React.ReactElement => {
       variables: { nationalIdNumber },
     });
   };
-  const handleUpdatePersonField = (field: keyof Customer, value: unknown) => {
-    const newCustomer = {
-      ...permit.customer,
-      [field]: value,
-    };
+  const handleUpdatePerson = (person: Customer) => {
     setPermit({
       ...permit,
-      customer: newCustomer,
+      customer: person,
     });
   };
-  const handleUpdatePermitField = (field: keyof PermitDetail, value: unknown) =>
-    setPermit({
-      ...permit,
-      [field]: value,
-    });
+  const handleUpdatePermit = (newPermit: PermitDetail) => setPermit(newPermit);
 
   let totalPrice: string | number = '-';
   if (permit.customer.zone?.residentProducts && permit) {
@@ -234,7 +219,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           className={styles.personalInfo}
           searchError={personSearchError}
           onSearchPerson={handleSearchPerson}
-          onUpdateField={handleUpdatePersonField}
+          onUpdatePerson={handleUpdatePerson}
         />
         <VehicleInfo
           vehicle={vehicle}
@@ -242,12 +227,12 @@ const CreateResidentPermit = (): React.ReactElement => {
           className={styles.vehicleInfo}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
-          onUpdateField={handleUpdateVehicleField}
+          onUpdateVehicle={handleUpdateVehicle}
         />
         <PermitInfo
           permit={permit}
           className={styles.permitInfo}
-          onUpdateField={handleUpdatePermitField}
+          onUpdatePermit={handleUpdatePermit}
         />
       </div>
       <div className={styles.footer}>
