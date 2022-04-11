@@ -29,33 +29,35 @@ export function getBooleanEnv(key: string): boolean {
 }
 
 export function formatAddress(address: Address, lang: string): string {
-  if (!address) return '-';
-  const { streetName, streetNameSv, streetNumber, postalCode, city, citySv } =
-    address;
+  const { streetName, streetNameSv, streetNumber, city, citySv } = address;
   if (lang === 'sv') {
-    return `${streetNameSv} ${streetNumber}, ${postalCode} ${citySv}`;
+    return `${streetNameSv} ${streetNumber}, ${citySv}`;
   }
-  return `${streetName} ${streetNumber}, ${postalCode} ${city}`;
+  return `${streetName} ${streetNumber}, ${city}`;
 }
 
-export function formatAddresses(permits: Permit[], lang: string): string {
-  const addresses: string[] = [];
-  permits.forEach(permit => {
-    if (permit?.address) {
-      addresses.push(formatAddress(permit.address, lang));
-    }
-  });
-  return addresses.length > 0 ? addresses.join(', ') : '-';
+export function getPermitAddresses(permits: Permit[]): Address[] {
+  const addresses = permits.map(permit => permit.address);
+  return addresses.filter(address => address);
+}
+
+export function formatAddresses(addresses: Address[], lang: string): string {
+  return addresses.length > 0
+    ? addresses.map(address => formatAddress(address, lang)).join(', ')
+    : '-';
+}
+
+export function formatPermitAddresses(permits: Permit[], lang: string): string {
+  const addresses = getPermitAddresses(permits);
+  return formatAddresses(addresses, lang);
 }
 
 export function formatDateDisplay(datetime: string | Date): string {
-  if (!datetime) return '-';
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
   return dt.toLocaleDateString('fi');
 }
 
 export function formatDateTimeDisplay(datetime: string | Date): string {
-  if (!datetime) return '-';
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
   const dateStr = dt.toLocaleDateString('fi');
   const timeStr = dt.toLocaleTimeString([], {
@@ -71,26 +73,11 @@ export function formatCustomerName(customer: Customer): string {
 }
 
 export function formatRegistrationNumbers(permits: Permit[]): string {
-  const registrationNumbers: string[] = [];
-  // eslint-disable-next-line
-  permits.forEach(function (permit) {
-    registrationNumbers.push(permit.vehicle.registrationNumber);
-  });
-  return registrationNumbers.join(', ');
+  return permits.map(permit => permit.vehicle.registrationNumber).join(', ');
 }
 
 export function formatParkingZone(permit: Permit): string {
   return permit ? permit?.parkingZone.name : '-';
-}
-
-export function formatPermitType(
-  permit: Permit,
-  residentTypeTranslated: string,
-  companyTypeTranslated: string
-): string {
-  return permit?.type === 'RESIDENT'
-    ? residentTypeTranslated
-    : companyTypeTranslated;
 }
 
 export function formatVehicleName(vehicle: Vehicle): string {

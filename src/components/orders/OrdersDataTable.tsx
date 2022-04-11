@@ -2,11 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Order, OrderBy, PageInfo } from '../../types';
 import {
-  formatAddress,
   formatCustomerName,
   formatDateTimeDisplay,
   formatParkingZone,
-  formatPermitType,
+  formatPermitAddresses,
   formatPrice,
   formatRegistrationNumbers,
 } from '../../utils';
@@ -58,7 +57,7 @@ const OrdersDataTable = ({
       name: t(`${T_PATH}.address`),
       field: 'address',
       selector: ({ orderPermits }) =>
-        formatAddress(orderPermits[0].address, i18n.language),
+        formatPermitAddresses(orderPermits, i18n.language),
       orderFields: [
         'permits__address__street_name',
         'permits__address__street_number',
@@ -68,11 +67,9 @@ const OrdersDataTable = ({
       name: t(`${T_PATH}.permitType`),
       field: 'permitType',
       selector: ({ orderPermits }) =>
-        formatPermitType(
-          orderPermits[0],
-          t(`${T_PATH}.residentPermit`),
-          t(`${T_PATH}.companyPermit`)
-        ),
+        orderPermits[0]?.type === 'RESIDENT'
+          ? t(`${T_PATH}.residentPermit`)
+          : t(`${T_PATH}.companyPermit`),
       orderFields: ['permits__type'],
     },
     {
@@ -84,7 +81,8 @@ const OrdersDataTable = ({
     {
       name: t(`${T_PATH}.paidTime`),
       field: 'paidTime',
-      selector: ({ paidTime }) => formatDateTimeDisplay(paidTime),
+      selector: ({ paidTime }) =>
+        paidTime ? formatDateTimeDisplay(paidTime) : '-',
       orderFields: ['paid_time'],
     },
     {
