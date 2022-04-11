@@ -122,13 +122,13 @@
         "zone": "Alue"
       },
       "permitsSearch": {
-        "search": "Hae"
+        "placeholder": "Hae"
       },
       "permitsSearchFilters": {
         "filterList": "Suodata listaa"
       },
       "statusSelect": {
-        "all": "All",
+        "all": "Kaikki",
         "status": "Tila"
       }
     },
@@ -313,7 +313,7 @@
       "title": "Tunnukset"
     },
     "orders": {
-      "title": "Hae tilauksia"
+      "title": "Tilaukset"
     },
     "refundDetail": {
       "cancel": "Peruuta",
