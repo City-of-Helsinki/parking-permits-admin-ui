@@ -29,6 +29,10 @@ const Header = (): React.ReactElement => {
       label: t(`${T_PATH}.permits`),
     },
     {
+      path: '/orders',
+      label: t(`${T_PATH}.orders`),
+    },
+    {
       path: '/refunds',
       label: t(`${T_PATH}.returns`),
     },

@@ -4,6 +4,7 @@ import {
   Address,
   Customer,
   CustomerInput,
+  Permit,
   PermitDetail,
   PermitInput,
   PriceModifiers,
@@ -28,12 +29,27 @@ export function getBooleanEnv(key: string): boolean {
 }
 
 export function formatAddress(address: Address, lang: string): string {
-  const { streetName, streetNameSv, streetNumber, postalCode, city, citySv } =
-    address;
+  const { streetName, streetNameSv, streetNumber, city, citySv } = address;
   if (lang === 'sv') {
-    return `${streetNameSv} ${streetNumber}, ${postalCode} ${citySv}`;
+    return `${streetNameSv} ${streetNumber}, ${citySv}`;
   }
-  return `${streetName} ${streetNumber}, ${postalCode} ${city}`;
+  return `${streetName} ${streetNumber}, ${city}`;
+}
+
+export function getPermitAddresses(permits: Permit[]): Address[] {
+  const addresses = permits.map(permit => permit.address);
+  return addresses.filter(address => address);
+}
+
+export function formatAddresses(addresses: Address[], lang: string): string {
+  return addresses.length > 0
+    ? addresses.map(address => formatAddress(address, lang)).join(', ')
+    : '-';
+}
+
+export function formatPermitAddresses(permits: Permit[], lang: string): string {
+  const addresses = getPermitAddresses(permits);
+  return formatAddresses(addresses, lang);
 }
 
 export function formatDateDisplay(datetime: string | Date): string {
@@ -56,6 +72,14 @@ export function formatCustomerName(customer: Customer): string {
   return `${lastName}, ${firstName}`;
 }
 
+export function formatRegistrationNumbers(permits: Permit[]): string {
+  return permits.map(permit => permit.vehicle.registrationNumber).join(', ');
+}
+
+export function formatParkingZone(permit: Permit): string {
+  return permit ? permit?.parkingZone.name : '-';
+}
+
 export function formatVehicleName(vehicle: Vehicle): string {
   const { manufacturer, model, registrationNumber } = vehicle;
   return `${registrationNumber} ${manufacturer} ${model}`;
@@ -64,6 +88,11 @@ export function formatVehicleName(vehicle: Vehicle): string {
 export function formatMonthlyPrice(price: number): string {
   const formattedPrice = parseFloat(price.toFixed(2));
   return `${formattedPrice} €/kk`;
+}
+
+export function formatPrice(price: number): string {
+  const formattedPrice = price.toFixed(2);
+  return `${formattedPrice} €`;
 }
 
 export function getSavedStatus<T>(key: SavedStatus): T | null {

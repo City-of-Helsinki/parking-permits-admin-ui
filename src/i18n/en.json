@@ -33,6 +33,7 @@
       "login": "Login",
       "logout": "Log Out",
       "messages": "Messages",
+      "orders": "Orders",
       "permits": "Permits",
       "reports": "Reports",
       "returns": "Returns",
@@ -120,7 +121,8 @@
         "zone": "Zone"
       },
       "permitsSearch": {
-        "search": "Search"
+        "search": "Search",
+        "placeholder": "Search"
       },
       "permitsSearchFilters": {
         "filterList": "Filter list"
@@ -128,6 +130,20 @@
       "statusSelect": {
         "all": "All",
         "status": "Status"
+      }
+    },
+    "orders": {
+      "ordersDataTable": {
+        "name": "Customer",
+        "registrationNumber": "Registration number",
+        "zone": "Zone",
+        "address": "Address",
+        "permitType": "Permit type",
+        "orderNumber": "Order number",
+        "paidTime": "Paid date",
+        "totalPrice": "Price",
+        "residentPermit": "Resident permit",
+        "companyPermit": "Company permit"
       }
     },
     "refunds": {
@@ -295,6 +311,9 @@
     "permits": {
       "createNewPermit": "Create new permit",
       "title": "Permits"
+    },
+    "orders": {
+      "title": "Orders"
     },
     "refundDetail": {
       "cancel": "Cancel",

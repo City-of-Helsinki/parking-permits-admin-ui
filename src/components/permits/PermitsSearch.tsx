@@ -46,7 +46,8 @@ const PermitsSearch = ({
       />
       <SearchInput
         className={styles['search-input']}
-        label={t(`${T_PATH}.search`)}
+        label=""
+        placeholder={t(`${T_PATH}.placeholder`)}
         onSubmit={handleSearchTextChange}
       />
       <PermitsSearchFilters filter={filter} onChange={handleFilterChange} />
