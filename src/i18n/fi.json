@@ -18,6 +18,12 @@
       },
       "dataTable": {
         "results": "Tuloksia: {{count}}"
+      },
+      "powerTypeSelect": {
+        "bensin": "Bensin",
+        "bifuel": "Bifuel",
+        "diesel": "Diesel",
+        "electric": "Sähköinen"
       }
     },
     "createPermit": {
@@ -38,6 +44,20 @@
       "reports": "Raportointi",
       "returns": "Palautukset",
       "skipToContent": ""
+    },
+    "orders": {
+      "ordersDataTable": {
+        "address": "Osoite",
+        "companyPermit": "Yritystunnus",
+        "name": "Asiakas",
+        "orderNumber": "Tilausnumero",
+        "paidTime": "Maksupäivä",
+        "permitType": "Tunnustyyppi",
+        "registrationNumber": "Rekisterinro",
+        "residentPermit": "Asukastunnus",
+        "totalPrice": "Summa",
+        "zone": "Alue"
+      }
     },
     "permitDetail": {
       "customerInfo": {
@@ -132,20 +152,6 @@
         "status": "Tila"
       }
     },
-    "orders": {
-      "ordersDataTable": {
-        "name": "Asiakas",
-        "registrationNumber": "Rekisterinro",
-        "zone": "Alue",
-        "address": "Osoite",
-        "permitType": "Tunnustyyppi",
-        "orderNumber": "Tilausnumero",
-        "paidTime": "Maksupäivä",
-        "totalPrice": "Summa",
-        "residentPermit": "Asukastunnus",
-        "companyPermit": "Yritystunnus"
-      }
-    },
     "refunds": {
       "refundsDataTable": {
         "amount": "Määrä",
@@ -191,15 +197,19 @@
         "zone": "Alue"
       },
       "vehicleInfo": {
-        "category": "Kategoria",
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
+        "emission": "Hiilidioksidipäästöt (g/km)",
+        "emissionType": "Hiilidioksidin mittaustyyppi",
+        "euroClass": "Euro-luokka",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
         "manufacturer": "Valmistaja",
         "model": "Malli",
+        "powerType": "Käyttövoima",
         "price": "Hinta",
         "registrationNumber": "Rekisterinumero",
         "search": "Hae",
         "serialNumber": "Valmistenumero",
+        "vehicleClass": "Ajoneuvoluokka",
         "vehicleInfo": "Ajoneuvon tiedot"
       }
     },
@@ -299,6 +309,9 @@
     "login": {
       "login": "Kirjaudu sisään"
     },
+    "orders": {
+      "title": "Tilaukset"
+    },
     "permitDetail": {
       "changeHistory": "Käsittelyhistoria",
       "edit": "Muokkaa",
@@ -311,9 +324,6 @@
     "permits": {
       "createNewPermit": "Luo uusi tunnus",
       "title": "Tunnukset"
-    },
-    "orders": {
-      "title": "Tilaukset"
     },
     "refundDetail": {
       "cancel": "Peruuta",

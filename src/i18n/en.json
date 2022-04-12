@@ -18,6 +18,12 @@
       },
       "dataTable": {
         "results": "Results: {{count}}"
+      },
+      "powerTypeSelect": {
+        "bensin": "Bensin",
+        "bifuel": "Bifuel",
+        "diesel": "Diesel",
+        "electric": "Electric"
       }
     },
     "createPermit": {
@@ -39,14 +45,28 @@
       "returns": "Returns",
       "skipToContent": "Skip to content"
     },
+    "orders": {
+      "ordersDataTable": {
+        "address": "Address",
+        "companyPermit": "Company permit",
+        "name": "Customer",
+        "orderNumber": "Order number",
+        "paidTime": "Paid date",
+        "permitType": "Permit type",
+        "registrationNumber": "Registration number",
+        "residentPermit": "Resident permit",
+        "totalPrice": "Price",
+        "zone": "Zone"
+      }
+    },
     "permitDetail": {
       "customerInfo": {
-        "primaryAddress": "Permanent address",
-        "otherAddress": "Temporary address",
         "email": "Email",
+        "otherAddress": "Temporary address",
         "parkingZone": "Parking zone",
         "personalID": "Personal ID",
         "phoneNumber": "Phone number",
+        "primaryAddress": "Permanent address",
         "sendMessageToEmail": "Send message to customer email",
         "title": "Customer information"
       },
@@ -111,18 +131,18 @@
         "registrationNumber": "Registration number"
       },
       "permitsDataTable": {
-        "primaryAddress": "Permanent address",
-        "otherAddress": "Temporary address",
         "endTime": "End time",
         "name": "Name",
+        "otherAddress": "Temporary address",
+        "primaryAddress": "Permanent address",
         "registrationNumber": "Registration number",
         "startTime": "Start time",
         "status": "Status",
         "zone": "Zone"
       },
       "permitsSearch": {
-        "search": "Search",
-        "placeholder": "Search"
+        "placeholder": "Search",
+        "search": "Search"
       },
       "permitsSearchFilters": {
         "filterList": "Filter list"
@@ -130,20 +150,6 @@
       "statusSelect": {
         "all": "All",
         "status": "Status"
-      }
-    },
-    "orders": {
-      "ordersDataTable": {
-        "name": "Customer",
-        "registrationNumber": "Registration number",
-        "zone": "Zone",
-        "address": "Address",
-        "permitType": "Permit type",
-        "orderNumber": "Order number",
-        "paidTime": "Paid date",
-        "totalPrice": "Price",
-        "residentPermit": "Resident permit",
-        "companyPermit": "Company permit"
       }
     },
     "refunds": {
@@ -177,29 +183,33 @@
         "validPeriodInMonths": "Valid period in months"
       },
       "personalInfo": {
-        "primaryAddress": "Permanent address",
-        "otherAddress": "Temporary address",
         "addressSecurityBan": "Non-disclosure for personal safety",
         "driverLicenseChecked": "Driver's licese is checked",
         "email": "Email",
         "firstName": "First name",
         "lastName": "Last name",
+        "otherAddress": "Temporary address",
         "personalId": "Personal ID",
         "personalInfo": "Personal Information",
         "phoneNumber": "Phone number",
+        "primaryAddress": "Permanent address",
         "search": "Search",
         "zone": "Zone"
       },
       "vehicleInfo": {
-        "category": "Category",
         "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
+        "emission": "CO2 emission (g/km)",
+        "emissionType": "Emission type",
+        "euroClass": "Euro class",
         "lowEmissionVehicle": "Low emission vehicle",
         "manufacturer": "Manufacturer",
         "model": "Model",
+        "powerType": "Power type",
         "price": "Price",
         "registrationNumber": "Registration number",
         "search": "Search",
         "serialNumber": "Serial number",
+        "vehicleClass": "Vehicle class",
         "vehicleInfo": "Vehicle information"
       }
     },
@@ -299,6 +309,9 @@
     "login": {
       "login": "Login"
     },
+    "orders": {
+      "title": "Orders"
+    },
     "permitDetail": {
       "changeHistory": "Change history",
       "edit": "Edit",
@@ -311,9 +324,6 @@
     "permits": {
       "createNewPermit": "Create new permit",
       "title": "Permits"
-    },
-    "orders": {
-      "title": "Orders"
     },
     "refundDetail": {
       "cancel": "Cancel",
