@@ -1,11 +1,14 @@
 import { addDays, addMonths, endOfDay } from 'date-fns';
 import {
   Customer,
+  EmissionType,
   ParkingPermitStatus,
   ParkingZone,
   PermitContractType,
   PermitDetail,
+  PowerType,
   Vehicle,
+  VehicleClass,
 } from '../../types';
 
 export const initialPerson: Customer = {
@@ -25,7 +28,11 @@ export const initialVehicle: Vehicle = {
   isLowEmission: false,
   consentLowEmissionAccepted: false,
   serialNumber: '',
-  category: 'M1',
+  vehicleClass: VehicleClass.M1,
+  euroClass: 1,
+  emission: 0,
+  emissionType: EmissionType.WLTP,
+  powerType: PowerType.BENSIN,
 };
 
 export const initialParkingZone: ParkingZone = {
