@@ -66,7 +66,11 @@ const PERMIT_DETAIL_QUERY = gql`
         isLowEmission
         consentLowEmissionAccepted
         serialNumber
-        category
+        vehicleClass
+        euroClass
+        emission
+        emissionType
+        powerType
       }
       parkingZone {
         name
