@@ -31,6 +31,7 @@ const CUSTOMER_QUERY = gql`
       phoneNumber
       zone
       addressSecurityBan
+      driverLicenseChecked
       primaryAddress {
         city
         citySv
@@ -84,7 +85,11 @@ const VEHICLE_QUERY = gql`
       isLowEmission
       consentLowEmissionAccepted
       serialNumber
-      category
+      vehicleClass
+      euroClass
+      emission
+      emissionType
+      powerType
     }
   }
 `;
