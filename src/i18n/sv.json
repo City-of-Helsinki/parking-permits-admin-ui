@@ -39,6 +39,20 @@
       "returns": "Returnerar",
       "skipToContent": "Hoppa till innehållet"
     },
+    "orders": {
+      "ordersDataTable": {
+        "address": "Adress",
+        "companyPermit": "Företagsparkering",
+        "name": "Kund",
+        "orderNumber": "Ordernummer",
+        "paidTime": "Betalt datum",
+        "permitType": "Typ av tillstånd",
+        "registrationNumber": "Registreringsnummer",
+        "residentPermit": "Boendeparkering",
+        "totalPrice": "Totalpris",
+        "zone": "Zon"
+      }
+    },
     "permitDetail": {
       "customerInfo": {
         "email": "E-post",
@@ -121,8 +135,8 @@
         "zone": "Zon"
       },
       "permitsSearch": {
-        "search": "Sök",
-        "placeholder": "Sök"
+        "placeholder": "Sök",
+        "search": "Sök"
       },
       "permitsSearchFilters": {
         "filterList": "Filterlista"
@@ -130,20 +144,6 @@
       "statusSelect": {
         "all": "Alla",
         "status": "Status"
-      }
-    },
-    "orders": {
-      "ordersDataTable": {
-        "name": "Kund",
-        "registrationNumber": "Registreringsnummer",
-        "zone": "Zon",
-        "address": "Adress",
-        "permitType": "Typ av tillstånd",
-        "orderNumber": "Ordernummer",
-        "paidTime": "Betalt datum",
-        "totalPrice": "Totalpris",
-        "residentPermit": "Boendeparkering",
-        "companyPermit": "Företagsparkering"
       }
     },
     "refunds": {
@@ -191,15 +191,19 @@
         "zone": "Zon"
       },
       "vehicleInfo": {
-        "category": "Kategori",
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
+        "emission": "CO2-utsläpp (g/km)",
+        "emissionType": "Typ av koldioxidmätning",
+        "euroClass": "Euroklass",
         "lowEmissionVehicle": "Fordon med låga utsläpp",
         "manufacturer": "Tillverkare",
         "model": "Modell",
+        "powerType": "Ström",
         "price": "Pris",
         "registrationNumber": "Registreringsnummer",
         "search": "Sök",
         "serialNumber": "Serienummer",
+        "vehicleClass": "Fordonsklass",
         "vehicleInfo": "Fordonsinformation"
       }
     },
@@ -299,6 +303,9 @@
     "login": {
       "login": "Logga in"
     },
+    "orders": {
+      "title": "Beställningar"
+    },
     "permitDetail": {
       "changeHistory": "Ändringshistorik",
       "edit": "Redigera",
@@ -311,9 +318,6 @@
     "permits": {
       "createNewPermit": "Skapa nytt tillstånd",
       "title": "Tillstånd"
-    },
-    "orders": {
-      "title": "Beställningar"
     },
     "refundDetail": {
       "cancel": "Avbryt",
