@@ -26,6 +26,41 @@ export interface Customer {
   driverLicenseChecked: boolean;
 }
 
+export enum EmissionType {
+  NEDC = 'NEDC',
+  WLTP = 'WLTP',
+}
+
+export enum PowerType {
+  ELECTRIC = 'ELECTRIC',
+  BENSIN = 'BENSIN',
+  DIESEL = 'DIESEL',
+  BIFUEL = 'BIFUEL',
+}
+
+export enum VehicleClass {
+  M1 = 'M1',
+  M2 = 'M2',
+  N1 = 'N1',
+  N2 = 'N2',
+  L3eA1 = 'L3e-A1',
+  L3eA2 = 'L3e-A2',
+  L3eA3 = 'L3e-A3',
+  L3eA1E = 'L3e-A1E',
+  L3eA2E = 'L3e-A2E',
+  L3eA3E = 'L3e-A3E',
+  L3eA1T = 'L3e-A1T',
+  L3eA2T = 'L3e-A2T',
+  L3eA3T = 'L3e-A3T',
+  L4e = 'L4e',
+  L5eA = 'L5e-A',
+  L5eB = 'L5e-B',
+  L6eA = 'L6e-A',
+  L6eB = 'L6e-B',
+  L6eBP = 'L6e-BP',
+  L6eBU = 'L6e-BU',
+}
+
 export interface Vehicle {
   manufacturer: string;
   model: string;
@@ -33,8 +68,14 @@ export interface Vehicle {
   isLowEmission: boolean;
   consentLowEmissionAccepted: boolean;
   serialNumber: string;
-  category: string;
+  vehicleClass: VehicleClass;
+  euroClass: number;
+  emission: number;
+  emissionType: EmissionType;
+  powerType: PowerType;
 }
+
+export type VehicleInput = Omit<Vehicle, 'isLowEmission'>;
 
 export enum ProductType {
   COMPANY = 'COMPANY',
@@ -168,16 +209,6 @@ export interface CustomerInput {
   phoneNumber: string;
   addressSecurityBan: boolean;
   driverLicenseChecked: boolean;
-}
-
-export interface VehicleInput {
-  manufacturer: string;
-  model: string;
-  registrationNumber: string;
-  isLowEmission: boolean;
-  serialNumber: string;
-  consentLowEmissionAccepted: boolean;
-  category: string;
 }
 
 export interface PermitInput {

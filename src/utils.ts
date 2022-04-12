@@ -109,19 +109,25 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
     manufacturer,
     model,
     registrationNumber,
-    isLowEmission,
     consentLowEmissionAccepted,
     serialNumber,
-    category,
+    vehicleClass,
+    euroClass,
+    emission,
+    emissionType,
+    powerType,
   } = vehicle;
   return {
     manufacturer,
     model,
     registrationNumber,
-    isLowEmission,
     consentLowEmissionAccepted,
     serialNumber,
-    category,
+    vehicleClass,
+    euroClass,
+    emission,
+    emissionType,
+    powerType,
   };
 }
 
