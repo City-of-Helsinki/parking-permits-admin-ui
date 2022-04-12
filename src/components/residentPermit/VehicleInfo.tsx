@@ -1,10 +1,19 @@
-import { Button, Checkbox, Notification, TextInput } from 'hds-react';
+import {
+  Button,
+  Checkbox,
+  Notification,
+  NumberInput,
+  TextInput,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ParkingZone, PriceModifiers, Vehicle } from '../../types';
 import Divider from '../common/Divider';
+import EmissionTypeSelect from '../common/EmissionTypeSelect';
+import EuroClassSelect from '../common/EuroClassSelect';
+import PowerTypeSelect from '../common/PowerTypeSelect';
 import ProductPriceRow from '../common/ProductPriceRow';
-import VehicleCategorySelect from '../common/VehicleCategorySelect';
+import VehicleClassSelect from '../common/VehicleClassSelect';
 import styles from './VehicleInfo.module.scss';
 
 const T_PATH = 'components.residentPermit.vehicleInfo';
@@ -33,7 +42,11 @@ const VehicleInfo = ({
     isLowEmission,
     consentLowEmissionAccepted,
     serialNumber,
-    category,
+    vehicleClass,
+    euroClass,
+    emission,
+    emissionType,
+    powerType,
   } = vehicle;
   const priceModifiers: PriceModifiers = {
     isLowEmission,
@@ -77,11 +90,13 @@ const VehicleInfo = ({
           value={model}
           onChange={e => onUpdateVehicle({ ...vehicle, model: e.target.value })}
         />
-        <VehicleCategorySelect
+        <VehicleClassSelect
           className={styles.fieldItem}
-          label={t(`${T_PATH}.category`)}
-          value={category}
-          onChange={value => onUpdateVehicle({ ...vehicle, category: value })}
+          label={t(`${T_PATH}.vehicleClass`)}
+          value={vehicleClass}
+          onChange={value =>
+            onUpdateVehicle({ ...vehicle, vehicleClass: value })
+          }
         />
         <TextInput
           className={styles.fieldItem}
@@ -92,28 +107,43 @@ const VehicleInfo = ({
             onUpdateVehicle({ ...vehicle, serialNumber: e.target.value })
           }
         />
-        <Checkbox
+        <EuroClassSelect
           className={styles.fieldItem}
-          id="isLowEmission"
-          name="isLowEmission"
-          label={t(`${T_PATH}.lowEmissionVehicle`)}
-          checked={isLowEmission}
-          onChange={e => {
-            const value = e.target.checked;
-            if (value) {
-              onUpdateVehicle({ ...vehicle, isLowEmission: value });
-            } else {
-              onUpdateVehicle({
-                ...vehicle,
-                isLowEmission: value,
-                consentLowEmissionAccepted: false,
-              });
-            }
-          }}
+          label={t(`${T_PATH}.euroClass`)}
+          value={euroClass}
+          onChange={value => onUpdateVehicle({ ...vehicle, euroClass: value })}
         />
+        <PowerTypeSelect
+          className={styles.fieldItem}
+          label={t(`${T_PATH}.powerType`)}
+          value={powerType}
+          onChange={value => onUpdateVehicle({ ...vehicle, powerType: value })}
+        />
+        <EmissionTypeSelect
+          className={styles.fieldItem}
+          label={t(`${T_PATH}.emissionType`)}
+          value={emissionType}
+          onChange={value =>
+            onUpdateVehicle({ ...vehicle, emissionType: value })
+          }
+        />
+        <NumberInput
+          id="emission"
+          className={styles.fieldItem}
+          label={t(`${T_PATH}.emission`)}
+          value={emission}
+          min={0}
+          step={1}
+          onChange={e =>
+            onUpdateVehicle({
+              ...vehicle,
+              emission: parseInt(e.target.value, 10),
+            })
+          }
+        />
+        <Divider />
         <Checkbox
           className={styles.fieldItem}
-          disabled={!isLowEmission}
           id="consentLowEmissionDiscount"
           name="consentLowEmissionDiscount"
           label={t(`${T_PATH}.consentLowEmissionDiscountText`)}
