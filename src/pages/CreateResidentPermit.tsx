@@ -72,6 +72,10 @@ const CUSTOMER_QUERY = gql`
           }
         }
       }
+      activePermits {
+        identifier
+        primaryVehicle
+      }
     }
   }
 `;
@@ -243,6 +247,9 @@ const CreateResidentPermit = (): React.ReactElement => {
       <div className={styles.footer}>
         <div className={styles.actions}>
           <Button
+            disabled={
+              customer.activePermits && customer.activePermits.length >= 2
+            }
             className={styles.actionButton}
             iconLeft={<IconCheckCircleFill />}
             onClick={() => setIsConfirmDialogOpen(true)}>

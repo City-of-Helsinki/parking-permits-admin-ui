@@ -58,6 +58,10 @@ const PERMIT_DETAIL_QUERY = gql`
           citySv
           postalCode
         }
+        activePermits {
+          identifier
+          primaryVehicle
+        }
       }
       vehicle {
         manufacturer
