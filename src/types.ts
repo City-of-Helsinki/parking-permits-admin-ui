@@ -13,6 +13,11 @@ export interface Address {
   zone?: ParkingZone;
 }
 
+export type CustomerActivePermit = Pick<
+  Permit,
+  'identifier' | 'primaryVehicle'
+>;
+
 export interface Customer {
   firstName: string;
   lastName: string;
@@ -24,6 +29,7 @@ export interface Customer {
   zone?: ParkingZone;
   addressSecurityBan: boolean;
   driverLicenseChecked: boolean;
+  activePermits?: CustomerActivePermit[];
 }
 
 export enum EmissionType {
@@ -157,6 +163,7 @@ export interface Permit {
   status: ParkingPermitStatus;
   address: Address;
   startTime: string;
+  primaryVehicle: boolean;
   endTime?: string;
 }
 
