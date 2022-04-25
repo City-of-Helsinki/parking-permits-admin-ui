@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { makePrivate } from '../auth/utils';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
+import useExportData from '../export/useExportData';
+import { formatExportUrl } from '../export/utils';
 import { OrderBy, RefundsQueryData } from '../types';
 import styles from './Permits.module.scss';
 
@@ -42,6 +44,7 @@ const REFUNDS_QUERY = gql`
 const Refunds = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const exportData = useExportData();
   const [page, setPage] = useState(1);
   const [orderBy, setOrderBy] = useState<OrderBy | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
@@ -63,6 +66,11 @@ const Refunds = (): React.ReactElement => {
     return <div>No data</div>;
   }
 
+  const handleExport = () => {
+    const url = formatExportUrl('refunds', orderBy);
+    exportData(url);
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
@@ -75,6 +83,7 @@ const Refunds = (): React.ReactElement => {
           onPage={newPage => setPage(newPage)}
           onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
           onRowClick={refund => navigate(refund.refundNumber.toString())}
+          onExport={handleExport}
         />
       </div>
       {errorMessage && (
