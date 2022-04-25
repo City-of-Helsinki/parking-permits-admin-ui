@@ -15,6 +15,7 @@ export interface RefundsDataTableProps {
   onPage?: (page: number) => void;
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (refund: Refund) => void;
+  onExport?: () => void;
 }
 
 const RefundsDataTable = ({
@@ -25,6 +26,7 @@ const RefundsDataTable = ({
   onPage,
   onOrderBy,
   onRowClick,
+  onExport,
 }: RefundsDataTableProps): React.ReactElement => {
   const { t } = useTranslation();
   const columns: Column<Refund>[] = [
@@ -71,6 +73,7 @@ const RefundsDataTable = ({
       onPage={onPage}
       onOrderBy={onOrderBy}
       onRowClick={onRowClick}
+      onExport={onExport}
     />
   );
 };

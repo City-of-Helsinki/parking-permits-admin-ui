@@ -22,6 +22,7 @@ export interface OrdersDataTableProps {
   onPage?: (page: number) => void;
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (order: Order) => void;
+  onExport?: () => void;
 }
 
 const OrdersDataTable = ({
@@ -32,6 +33,7 @@ const OrdersDataTable = ({
   onPage,
   onOrderBy,
   onRowClick,
+  onExport,
 }: OrdersDataTableProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const columns: Column<Order>[] = [
@@ -103,6 +105,7 @@ const OrdersDataTable = ({
       onPage={onPage}
       onOrderBy={onOrderBy}
       onRowClick={onRowClick}
+      onExport={onExport}
     />
   );
 };

@@ -20,6 +20,7 @@ export interface PermitsDataTableProps {
   onPage?: (page: number) => void;
   onOrderBy: (orderBy: OrderBy) => void;
   onRowClick?: (permit: Permit) => void;
+  onExport?: () => void;
 }
 
 const PermitsDataTable = ({
@@ -30,6 +31,7 @@ const PermitsDataTable = ({
   onPage,
   onOrderBy,
   onRowClick,
+  onExport,
 }: PermitsDataTableProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const columns: Column<Permit>[] = [
@@ -112,6 +114,7 @@ const PermitsDataTable = ({
       onPage={onPage}
       onOrderBy={onOrderBy}
       onRowClick={onRowClick}
+      onExport={onExport}
     />
   );
 };

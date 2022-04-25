@@ -3,8 +3,13 @@
 .dataTable {
   margin: $spacing-m 0;
 
-  .totalInfo {
-    font-size: $fontsize-body-l;
-    font-weight: 600;
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .totalInfo {
+      font-size: $fontsize-body-l;
+      font-weight: 600;
+    }
   }
 }
