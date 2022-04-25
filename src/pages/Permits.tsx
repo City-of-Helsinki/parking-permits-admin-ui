@@ -10,6 +10,8 @@ import {
   DEFAULT_SEARCH_INFO,
   getSearchItems,
 } from '../components/permits/utils';
+import useExportData from '../export/useExportData';
+import { formatExportUrl } from '../export/utils';
 import {
   OrderBy,
   PermitsQueryData,
@@ -84,6 +86,7 @@ const PERMITS_QUERY = gql`
 const Permits = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const exportData = useExportData();
   const initialPage = getSavedStatus<number>(SavedStatus.PERMITS_PAGE) || 1;
   const initialOrderBy =
     getSavedStatus<OrderBy>(SavedStatus.PERMITS_ORDER_BY) || undefined;
@@ -118,6 +121,10 @@ const Permits = (): React.ReactElement => {
     setOrderBy(newOrderBy);
     saveStatus(SavedStatus.PERMITS_ORDER_BY, newOrderBy);
   };
+  const handleExport = () => {
+    const url = formatExportUrl('permits', orderBy, searchItems);
+    exportData(url);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -137,6 +144,7 @@ const Permits = (): React.ReactElement => {
         onPage={handlePage}
         onOrderBy={handleOrderBy}
         onRowClick={row => navigate(row.identifier.toString())}
+        onExport={handleExport}
       />
       {errorMessage && (
         <Notification
