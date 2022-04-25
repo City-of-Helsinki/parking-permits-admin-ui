@@ -1,4 +1,4 @@
-import { Button } from 'hds-react';
+import { Button, IconDownload } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { OrderBy, PageInfo } from '../../types';
@@ -44,8 +44,11 @@ const DataTable = <T,>({
           </div>
         )}
         {onExport && (
-          <Button theme="black" variant="secondary" onClick={() => onExport()}>
-            {t(`${T_PATH}.export`)}
+          <Button
+            variant="supplementary"
+            iconLeft={<IconDownload />}
+            onClick={() => onExport()}>
+            {t(`${T_PATH}.downloadCsv`)}
           </Button>
         )}
       </div>

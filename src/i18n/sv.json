@@ -17,7 +17,7 @@
         "event": "Event"
       },
       "dataTable": {
-        "export": "Exportera",
+        "downloadCsv": "Ladda ner resultaten som en csv-fil",
         "results": "Resultat: {{count}}"
       }
     },

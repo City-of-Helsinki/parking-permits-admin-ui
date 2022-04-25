@@ -17,7 +17,7 @@
         "event": "Tapahtuma"
       },
       "dataTable": {
-        "export": "Viedä",
+        "downloadCsv": "Lataa tulokset csv-tiedostona",
         "results": "Tuloksia: {{count}}"
       },
       "powerTypeSelect": {
