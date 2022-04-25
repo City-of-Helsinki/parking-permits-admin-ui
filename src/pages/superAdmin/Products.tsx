@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { makePrivate } from '../../auth/utils';
 import ProductsDataTable from '../../components/superAdmin/products/ProductsDataTable';
+import useExportData from '../../export/useExportData';
+import { formatExportUrl } from '../../export/utils';
 import { OrderBy, ProductsQueryData } from '../../types';
 import styles from './Products.module.scss';
 
@@ -43,6 +45,7 @@ const PRODUCTS_QUERY = gql`
 const Products = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const exportData = useExportData();
   const [page, setPage] = useState(1);
   const [orderBy, setOrderBy] = useState<OrderBy | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
@@ -55,6 +58,10 @@ const Products = (): React.ReactElement => {
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
+  const handleExport = () => {
+    const url = formatExportUrl('products', orderBy);
+    exportData(url);
+  };
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
@@ -67,6 +74,7 @@ const Products = (): React.ReactElement => {
           onPage={newPage => setPage(newPage)}
           onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
           onRowClick={product => navigate(product.id)}
+          onExport={handleExport}
         />
         <div className={styles.actions}>
           <Button onClick={() => navigate('create')}>
