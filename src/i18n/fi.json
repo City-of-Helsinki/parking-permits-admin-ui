@@ -17,6 +17,7 @@
         "event": "Tapahtuma"
       },
       "dataTable": {
+        "export": "Viedä",
         "results": "Tuloksia: {{count}}"
       },
       "powerTypeSelect": {

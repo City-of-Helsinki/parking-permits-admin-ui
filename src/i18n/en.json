@@ -17,6 +17,7 @@
         "event": "Event"
       },
       "dataTable": {
+        "export": "Export",
         "results": "Results: {{count}}"
       },
       "powerTypeSelect": {

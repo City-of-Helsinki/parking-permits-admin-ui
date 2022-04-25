@@ -17,6 +17,7 @@
         "event": "Event"
       },
       "dataTable": {
+        "export": "Exportera",
         "results": "Resultat: {{count}}"
       }
     },
