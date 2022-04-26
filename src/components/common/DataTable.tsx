@@ -1,3 +1,4 @@
+import { Button, IconDownload } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { OrderBy, PageInfo } from '../../types';
@@ -16,6 +17,7 @@ export interface DataTableProps<T> {
   onPage?: (page: number) => void;
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (row: T) => void;
+  onExport?: () => void;
 }
 
 const T_PATH = 'components.common.dataTable';
@@ -30,15 +32,26 @@ const DataTable = <T,>({
   onPage,
   onOrderBy,
   onRowClick,
+  onExport,
 }: DataTableProps<T>): React.ReactElement => {
   const { t } = useTranslation();
   return (
     <div className={styles.dataTable}>
-      {pageInfo && (
-        <div className={styles.totalInfo}>
-          {t(`${T_PATH}.results`, { count: pageInfo.count })}
-        </div>
-      )}
+      <div className={styles.header}>
+        {pageInfo && (
+          <div className={styles.totalInfo}>
+            {t(`${T_PATH}.results`, { count: pageInfo.count })}
+          </div>
+        )}
+        {onExport && (
+          <Button
+            variant="supplementary"
+            iconLeft={<IconDownload />}
+            onClick={() => onExport()}>
+            {t(`${T_PATH}.downloadCsv`)}
+          </Button>
+        )}
+      </div>
       <Table
         columns={columns}
         data={data}

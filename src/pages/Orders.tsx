@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makePrivate } from '../auth/utils';
 import OrdersDataTable from '../components/orders/OrdersDataTable';
+import useExportData from '../export/useExportData';
+import { formatExportUrl } from '../export/utils';
 import { OrderBy, OrdersQueryData } from '../types';
 import styles from './Permits.module.scss';
 
@@ -57,6 +59,7 @@ const ORDERS_QUERY = gql`
 
 const Orders = (): React.ReactElement => {
   const { t } = useTranslation();
+  const exportData = useExportData();
   const [page, setPage] = useState(1);
   const [orderBy, setOrderBy] = useState<OrderBy | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
@@ -78,6 +81,11 @@ const Orders = (): React.ReactElement => {
     return <div>No data</div>;
   }
 
+  const handleExport = () => {
+    const url = formatExportUrl('orders', orderBy);
+    exportData(url);
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
@@ -89,6 +97,7 @@ const Orders = (): React.ReactElement => {
           orderBy={orderBy}
           onPage={newPage => setPage(newPage)}
           onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
+          onExport={handleExport}
         />
       </div>
       {errorMessage && (

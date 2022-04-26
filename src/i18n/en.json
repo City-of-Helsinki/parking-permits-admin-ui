@@ -17,6 +17,7 @@
         "event": "Event"
       },
       "dataTable": {
+        "downloadCsv": "Download the results as a csv file",
         "results": "Results: {{count}}"
       },
       "powerTypeSelect": {
