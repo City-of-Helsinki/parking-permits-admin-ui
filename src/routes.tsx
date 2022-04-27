@@ -17,9 +17,9 @@ import Permits from './pages/Permits';
 import RefundDetail from './pages/RefundDetail';
 import Refunds from './pages/Refunds';
 import Reports from './pages/Reports';
-import CreateProduct from './pages/superAdmin/CreateProduct';
-import EditProduct from './pages/superAdmin/EditProduct';
-import Products from './pages/superAdmin/Products';
+import CreateProduct from './pages/superAdmin/products/CreateProduct';
+import EditProduct from './pages/superAdmin/products/EditProduct';
+import Products from './pages/superAdmin/products/Products';
 
 const routes = [
   {

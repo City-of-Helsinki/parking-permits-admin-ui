@@ -3,11 +3,11 @@ import { Button, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { makePrivate } from '../../auth/utils';
-import ProductsDataTable from '../../components/superAdmin/products/ProductsDataTable';
-import useExportData from '../../export/useExportData';
-import { formatExportUrl } from '../../export/utils';
-import { OrderBy, ProductsQueryData } from '../../types';
+import { makePrivate } from '../../../auth/utils';
+import ProductsDataTable from '../../../components/superAdmin/products/ProductsDataTable';
+import useExportData from '../../../export/useExportData';
+import { formatExportUrl } from '../../../export/utils';
+import { OrderBy, ProductsQueryData } from '../../../types';
 import styles from './Products.module.scss';
 
 const T_PATH = 'pages.superAdmin.products';
