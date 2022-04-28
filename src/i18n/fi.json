@@ -215,6 +215,17 @@
       }
     },
     "superAdmin": {
+      "addresses": {
+        "addressesDataTable": {
+          "city": "Kaupunki",
+          "citySv": "Kaupunki (sv)",
+          "postalCode": "Postinumero",
+          "streetName": "Kadun nimi",
+          "streetNameSv": "Kadun nimi (sv)",
+          "streetNumber": "Katunumero",
+          "zone": "Alue"
+        }
+      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "Ei alennusta"
@@ -250,6 +261,7 @@
         }
       },
       "sideNav": {
+        "addresses": "Osoitteet",
         "menu": "Valikko",
         "products": "Tuotteet",
         "users": "Käyttäjät"
@@ -337,6 +349,10 @@
       "title": "Palautukset"
     },
     "superAdmin": {
+      "addresses": {
+        "addNewAddress": "Lisää uusi osoite",
+        "title": "Osoitteet"
+      },
       "createProduct": {
         "title": "Luo uusi hinta"
       },

@@ -209,6 +209,17 @@
       }
     },
     "superAdmin": {
+      "addresses": {
+        "addressesDataTable": {
+          "city": "Stad",
+          "citySv": "Stad (sv)",
+          "postalCode": "Postnummer",
+          "streetName": "Gatunamn",
+          "streetNameSv": "Gatunamn (sv)",
+          "streetNumber": "Gatunummer",
+          "zone": "Område"
+        }
+      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "Ingen rabatt"
@@ -244,6 +255,7 @@
         }
       },
       "sideNav": {
+        "addresses": "Adresser",
         "menu": "Meny",
         "products": "Produkter",
         "users": "Användare"
@@ -331,6 +343,10 @@
       "title": "Returnerar"
     },
     "superAdmin": {
+      "addresses": {
+        "addNewAddress": "Lägg till ny adress",
+        "title": "Adresser"
+      },
       "createProduct": {
         "title": "Skapa ett nytt pris"
       },
