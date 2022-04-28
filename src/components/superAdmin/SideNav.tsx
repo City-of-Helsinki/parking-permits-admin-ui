@@ -1,6 +1,7 @@
 import { SideNavigation } from 'hds-react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router';
 
 const T_PATH = 'components.superAdmin.sideNav';
 
@@ -11,7 +12,8 @@ interface MenuItem {
 }
 
 const SideNav = (): React.ReactElement => {
-  const [active, setActive] = useState('products');
+  const location = useLocation();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const menuItems: MenuItem[] = [
     {
@@ -23,6 +25,11 @@ const SideNav = (): React.ReactElement => {
       id: 'products',
       href: '/admin/products',
       label: t(`${T_PATH}.products`),
+    },
+    {
+      id: 'addresses',
+      href: '/admin/addresses',
+      label: t(`${T_PATH}.addresses`),
     },
   ];
 
@@ -36,8 +43,8 @@ const SideNav = (): React.ReactElement => {
           id={menuItem.id}
           href={menuItem.href}
           label={menuItem.label}
-          active={active === menuItem.id}
-          onClick={() => setActive(menuItem.id)}
+          active={location.pathname === menuItem.href}
+          onClick={() => navigate(menuItem.href)}
         />
       ))}
     </SideNavigation>

@@ -215,6 +215,17 @@
       }
     },
     "superAdmin": {
+      "addresses": {
+        "addressesDataTable": {
+          "city": "City",
+          "citySv": "City (sv)",
+          "postalCode": "Postal code",
+          "streetName": "Street name",
+          "streetNameSv": "Street name (sv)",
+          "streetNumber": "Street number",
+          "zone": "Zone"
+        }
+      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "No discount"
@@ -250,6 +261,7 @@
         }
       },
       "sideNav": {
+        "addresses": "Addresses",
         "menu": "Menu",
         "products": "Products",
         "users": "Users"
@@ -337,6 +349,10 @@
       "title": "Returns"
     },
     "superAdmin": {
+      "addresses": {
+        "addNewAddress": "Add new address",
+        "title": "Addresses"
+      },
       "createProduct": {
         "title": "Add new price"
       },

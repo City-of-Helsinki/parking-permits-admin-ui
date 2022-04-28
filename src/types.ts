@@ -3,6 +3,7 @@ import { OrderDirection, SearchItem } from './components/types';
 export type AnyObject = Record<string, unknown>;
 
 export interface Address {
+  id?: string;
   streetName: string;
   streetNumber: string;
   streetNameSv: string;
@@ -256,6 +257,15 @@ export interface ProductsQueryData {
   products: PagedProducts;
 }
 
+export interface PagedAddresses {
+  objects: Address[];
+  pageInfo: PageInfo;
+}
+
+export interface AddressesQueryData {
+  addresses: PagedAddresses;
+}
+
 export interface VehicleUser {
   firstName: string;
   lastName: string;
@@ -361,4 +371,8 @@ export interface PermitPriceChange {
   startDate: string;
   endDate: string;
   monthCount: number;
+}
+
+export interface LowEmissionCriterion {
+  id: string;
 }
