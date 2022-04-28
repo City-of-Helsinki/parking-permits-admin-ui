@@ -24,6 +24,11 @@ const SideNav = (): React.ReactElement => {
       href: '/admin/products',
       label: t(`${T_PATH}.products`),
     },
+    {
+      id: 'addresses',
+      href: '/admin/addresses',
+      label: t(`${T_PATH}.addresses`),
+    },
   ];
 
   return (
