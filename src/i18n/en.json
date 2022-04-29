@@ -372,6 +372,9 @@
       "createProduct": {
         "title": "Add new price"
       },
+      "editAddress": {
+        "title": "Edit address"
+      },
       "editProduct": {
         "title": "Edit product price"
       },

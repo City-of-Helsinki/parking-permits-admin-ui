@@ -18,6 +18,7 @@ import RefundDetail from './pages/RefundDetail';
 import Refunds from './pages/Refunds';
 import Reports from './pages/Reports';
 import Addresses from './pages/superAdmin/addresses/Addresses';
+import EditAddress from './pages/superAdmin/addresses/EditAddress';
 import CreateProduct from './pages/superAdmin/products/CreateProduct';
 import EditProduct from './pages/superAdmin/products/EditProduct';
 import Products from './pages/superAdmin/products/Products';
@@ -31,6 +32,7 @@ const routes = [
       { path: 'products/create', element: <CreateProduct /> },
       { path: 'products/:id', element: <EditProduct /> },
       { path: 'addresses', element: <Addresses /> },
+      { path: 'addresses/:id', element: <EditAddress /> },
       { path: '', element: <Navigate to="products" /> },
     ],
   },

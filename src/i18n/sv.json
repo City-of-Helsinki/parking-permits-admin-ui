@@ -366,6 +366,9 @@
       "createProduct": {
         "title": "Skapa ett nytt pris"
       },
+      "editAddress": {
+        "title": "Redigera adress"
+      },
       "editProduct": {
         "title": "Redigera produktpris"
       },

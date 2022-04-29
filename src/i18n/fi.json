@@ -372,6 +372,9 @@
       "createProduct": {
         "title": "Luo uusi hinta"
       },
+      "editAddress": {
+        "title": "Muokkaa osoitetta"
+      },
       "editProduct": {
         "title": "Muokkaa tuotteen hintaa"
       },
