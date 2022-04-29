@@ -224,6 +224,22 @@
           "streetNameSv": "Street name (sv)",
           "streetNumber": "Street number",
           "zone": "Zone"
+        },
+        "addressForm": {
+          "city": "City",
+          "citySv": "City (sv)",
+          "delete": "Delete",
+          "enterPostalCode": "Please enter a postal code",
+          "enterStreetName": "Please enter a street name",
+          "enterStreetNumber": "Please enter a street number",
+          "enteryCity": "Please enter city name",
+          "location": "Location",
+          "postalCode": "Postal code",
+          "save": "Save",
+          "selectLocation": "Please select a location",
+          "streetName": "Street name",
+          "streetNameSv": "Street name (sv)",
+          "streetNumber": "Street number"
         }
       },
       "products": {
