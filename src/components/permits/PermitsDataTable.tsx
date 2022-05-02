@@ -110,7 +110,7 @@ const PermitsDataTable = ({
       pageInfo={pageInfo}
       columns={columns}
       orderBy={orderBy}
-      rowIdSelector={(row: Permit) => row.identifier}
+      rowIdSelector={(row: Permit) => row.id}
       onPage={onPage}
       onOrderBy={onOrderBy}
       onRowClick={onRowClick}

@@ -14,10 +14,7 @@ export interface Address {
   zone?: ParkingZone;
 }
 
-export type CustomerActivePermit = Pick<
-  Permit,
-  'identifier' | 'primaryVehicle'
->;
+export type CustomerActivePermit = Pick<Permit, 'id' | 'primaryVehicle'>;
 
 export interface Customer {
   firstName: string;
@@ -156,7 +153,7 @@ export enum PermitType {
 }
 
 export interface Permit {
-  identifier: number;
+  id: string;
   type: string;
   customer: Customer;
   vehicle: Vehicle;
@@ -174,7 +171,7 @@ export enum ChangeLogEvent {
 }
 
 export interface ChangeLog {
-  id: number;
+  id: string;
   event: ChangeLogEvent;
   description: string;
   createdAt: string;
@@ -182,7 +179,7 @@ export interface ChangeLog {
 }
 
 export interface PermitDetail {
-  identifier?: number;
+  id?: number;
   customer: Customer;
   vehicle: Vehicle;
   parkingZone: ParkingZone;
@@ -279,7 +276,7 @@ export interface MutationResponse {
 export interface CreatePermitResponse {
   createResidentPermit: {
     success: boolean;
-    permit: Pick<Permit, 'identifier'>;
+    permit: Pick<Permit, 'id'>;
   };
 }
 
@@ -320,7 +317,6 @@ export enum PermitEndType {
 
 export interface Order {
   id: string;
-  orderNumber: number;
   orderType: string;
   totalPrice: number;
   customer: Customer;

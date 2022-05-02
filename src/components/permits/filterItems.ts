@@ -22,8 +22,8 @@ const filterItems: FilterItem[] = [
   },
   {
     labelKey: `${T_PATH}.identifier`,
-    value: 'identifier',
-    searchFields: ['identifier'],
+    value: 'id',
+    searchFields: ['id'],
     matchType: MatchType.STARTSWITH,
   },
 ];

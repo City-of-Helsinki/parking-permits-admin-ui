@@ -73,7 +73,7 @@ const CUSTOMER_QUERY = gql`
         }
       }
       activePermits {
-        identifier
+        id
         primaryVehicle
       }
     }
@@ -103,7 +103,7 @@ const CREATE_RESIDENT_PERMIT_MUTATION = gql`
     createResidentPermit(permit: $permit) {
       success
       permit {
-        identifier
+        id
       }
     }
   }
@@ -165,7 +165,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       variables: { permit: convertToPermitInput(permit) },
     })
       .then(response => {
-        const permitId = response.data?.createResidentPermit.permit.identifier;
+        const permitId = response.data?.createResidentPermit.permit.id;
         if (permitId) {
           navigate(`/permits/${permitId}`);
         } else {
