@@ -10,6 +10,8 @@ import styles from './AddressForm.module.scss';
 
 const T_PATH = 'components.superAdmin.addresses.addressForm';
 
+// eslint-disable-next-line no-magic-numbers
+const HELSINKI_LOCATION = [24.9384, 60.1699];
 interface AddressFormProps {
   className?: string;
   address?: Address;
@@ -32,7 +34,7 @@ const AddressForm = ({
         postalCode: address.postalCode,
         city: address.city,
         citySv: address.citySv,
-        location: address.location as [number, number],
+        location: address.location || HELSINKI_LOCATION,
       }
     : {
         streetName: '',
@@ -41,13 +43,17 @@ const AddressForm = ({
         postalCode: '',
         city: '',
         citySv: '',
-        location: [1, 1],
+        location: HELSINKI_LOCATION,
       };
   const validationSchema = Yup.object().shape({
     streetName: Yup.string().required(t(`${T_PATH}.enterStreetName`)),
     streetNameSv: Yup.string(),
     streetNumber: Yup.number().required(t(`${T_PATH}.enterStreetNumber`)),
-    postalCode: Yup.string().required(t(`${T_PATH}.enterPostalCode`)),
+    postalCode: Yup.string()
+      .required(t(`${T_PATH}.enterPostalCode`))
+      .test('isPostalCode', t(`${T_PATH}.postalCode5Digits`), value =>
+        value ? /^\d{5}$/.test(value) : false
+      ),
     city: Yup.string().required(t(`${T_PATH}.enterCity`)),
     citySv: Yup.string(),
     location: Yup.array()
@@ -73,7 +79,8 @@ const AddressForm = ({
                   className={styles.field}
                   label={t(`${T_PATH}.streetName`)}
                   value={field.value}
-                  onChange={value => form.setFieldValue(field.name, value)}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                   errorText={
                     meta.touched && meta.error ? meta.error : undefined
                   }
@@ -87,7 +94,8 @@ const AddressForm = ({
                   className={styles.field}
                   label={t(`${T_PATH}.streetNameSv`)}
                   value={field.value}
-                  onChange={value => form.setFieldValue(field.name, value)}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                   errorText={
                     meta.touched && meta.error ? meta.error : undefined
                   }
@@ -101,7 +109,8 @@ const AddressForm = ({
                   className={styles.field}
                   label={t(`${T_PATH}.streetNumber`)}
                   value={field.value}
-                  onChange={value => form.setFieldValue(field.name, value)}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                   errorText={
                     meta.touched && meta.error ? meta.error : undefined
                   }
@@ -115,7 +124,8 @@ const AddressForm = ({
                   className={styles.field}
                   label={t(`${T_PATH}.postalCode`)}
                   value={field.value}
-                  onChange={value => form.setFieldValue(field.name, value)}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                   errorText={
                     meta.touched && meta.error ? meta.error : undefined
                   }
@@ -129,7 +139,8 @@ const AddressForm = ({
                   className={styles.field}
                   label={t(`${T_PATH}.city`)}
                   value={field.value}
-                  onChange={value => form.setFieldValue(field.name, value)}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                   errorText={
                     meta.touched && meta.error ? meta.error : undefined
                   }
@@ -143,7 +154,8 @@ const AddressForm = ({
                   className={styles.field}
                   label={t(`${T_PATH}.citySv`)}
                   value={field.value}
-                  onChange={value => form.setFieldValue(field.name, value)}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                   errorText={
                     meta.touched && meta.error ? meta.error : undefined
                   }

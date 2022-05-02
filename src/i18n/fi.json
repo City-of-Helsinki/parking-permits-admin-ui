@@ -235,6 +235,7 @@
           "enteryCity": "Anna kaupungin nimi",
           "location": "Sijainti",
           "postalCode": "Postinumero",
+          "postalCode5Digits": "Postinumerossa tulee olla 5 numeroa",
           "save": "Tallenna",
           "selectLocation": "Valitse sijainti",
           "streetName": "Kadun nimi",

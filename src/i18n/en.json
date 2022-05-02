@@ -235,6 +235,7 @@
           "enteryCity": "Please enter city name",
           "location": "Location",
           "postalCode": "Postal code",
+          "postalCode5Digits": "Postal code should have 5 digits",
           "save": "Save",
           "selectLocation": "Please select a location",
           "streetName": "Street name",

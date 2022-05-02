@@ -229,6 +229,7 @@
           "enteryCity": "Vänligen ange stadens namn",
           "location": "Plats",
           "postalCode": "Postnummer",
+          "postalCode5Digits": "Postnummer ska ha 5 siffror",
           "save": "Spara",
           "selectLocation": "Välj en plats",
           "streetName": "Gatunamn",
