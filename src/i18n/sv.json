@@ -218,6 +218,23 @@
           "streetNameSv": "Gatunamn (sv)",
           "streetNumber": "Gatunummer",
           "zone": "Område"
+        },
+        "addressForm": {
+          "city": "Stad",
+          "citySv": "Stad (sv)",
+          "delete": "Radera",
+          "enterPostalCode": "Ange ett postnummer",
+          "enterStreetName": "Ange ett gatunamn",
+          "enterStreetNumber": "Ange ett gatunummer",
+          "enteryCity": "Vänligen ange stadens namn",
+          "location": "Plats",
+          "postalCode": "Postnummer",
+          "postalCode5Digits": "Postnummer ska ha 5 siffror",
+          "save": "Spara",
+          "selectLocation": "Välj en plats",
+          "streetName": "Gatunamn",
+          "streetNameSv": "Gatunamn (sv)",
+          "streetNumber": "Gatunummer"
         }
       },
       "products": {
@@ -349,6 +366,9 @@
       },
       "createProduct": {
         "title": "Skapa ett nytt pris"
+      },
+      "editAddress": {
+        "title": "Redigera adress"
       },
       "editProduct": {
         "title": "Redigera produktpris"

@@ -224,6 +224,23 @@
           "streetNameSv": "Kadun nimi (sv)",
           "streetNumber": "Katunumero",
           "zone": "Alue"
+        },
+        "addressForm": {
+          "city": "Kaupunki",
+          "citySv": "Kaupunki (sv)",
+          "delete": "Poista",
+          "enterPostalCode": "Anna postinumero",
+          "enterStreetName": "Anna kadun nimi",
+          "enterStreetNumber": "Anna katunumero",
+          "enteryCity": "Anna kaupungin nimi",
+          "location": "Sijainti",
+          "postalCode": "Postinumero",
+          "postalCode5Digits": "Postinumerossa tulee olla 5 numeroa",
+          "save": "Tallenna",
+          "selectLocation": "Valitse sijainti",
+          "streetName": "Kadun nimi",
+          "streetNameSv": "Kadun nimi (sv)",
+          "streetNumber": "Katunumero"
         }
       },
       "products": {
@@ -355,6 +372,9 @@
       },
       "createProduct": {
         "title": "Luo uusi hinta"
+      },
+      "editAddress": {
+        "title": "Muokkaa osoitetta"
       },
       "editProduct": {
         "title": "Muokkaa tuotteen hintaa"

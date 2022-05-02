@@ -224,6 +224,23 @@
           "streetNameSv": "Street name (sv)",
           "streetNumber": "Street number",
           "zone": "Zone"
+        },
+        "addressForm": {
+          "city": "City",
+          "citySv": "City (sv)",
+          "delete": "Delete",
+          "enterPostalCode": "Please enter a postal code",
+          "enterStreetName": "Please enter a street name",
+          "enterStreetNumber": "Please enter a street number",
+          "enteryCity": "Please enter city name",
+          "location": "Location",
+          "postalCode": "Postal code",
+          "postalCode5Digits": "Postal code should have 5 digits",
+          "save": "Save",
+          "selectLocation": "Please select a location",
+          "streetName": "Street name",
+          "streetNameSv": "Street name (sv)",
+          "streetNumber": "Street number"
         }
       },
       "products": {
@@ -355,6 +372,9 @@
       },
       "createProduct": {
         "title": "Add new price"
+      },
+      "editAddress": {
+        "title": "Edit address"
       },
       "editProduct": {
         "title": "Edit product price"
