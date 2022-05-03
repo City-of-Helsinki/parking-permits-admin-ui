@@ -36,7 +36,7 @@ const PERMITS_QUERY = gql`
       searchItems: $searchItems
     ) {
       objects {
-        identifier
+        id
         startTime
         endTime
         status
@@ -143,7 +143,7 @@ const Permits = (): React.ReactElement => {
         orderBy={orderBy}
         onPage={handlePage}
         onOrderBy={handleOrderBy}
-        onRowClick={row => navigate(row.identifier.toString())}
+        onRowClick={row => navigate(row.id)}
         onExport={handleExport}
       />
       {errorMessage && (

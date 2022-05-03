@@ -76,8 +76,8 @@ const OrdersDataTable = ({
     },
     {
       name: t(`${T_PATH}.orderNumber`),
-      field: 'orderNumber',
-      selector: ({ orderNumber }) => orderNumber,
+      field: 'id',
+      selector: ({ id }) => id,
       orderFields: ['order_number'],
     },
     {
@@ -101,7 +101,7 @@ const OrdersDataTable = ({
       pageInfo={pageInfo}
       columns={columns}
       orderBy={orderBy}
-      rowIdSelector={(order: Order) => order.orderNumber}
+      rowIdSelector={(order: Order) => order.id}
       onPage={onPage}
       onOrderBy={onOrderBy}
       onRowClick={onRowClick}

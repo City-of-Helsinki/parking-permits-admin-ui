@@ -16,7 +16,6 @@ const ORDERS_QUERY = gql`
     orders(pageInput: $pageInput, orderBy: $orderBy) {
       objects {
         id
-        orderNumber
         orderType
         totalPrice
         paidTime

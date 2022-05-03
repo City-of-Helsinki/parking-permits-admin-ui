@@ -25,7 +25,7 @@ const T_PATH = 'pages.endPermit';
 const PERMIT_DETAIL_QUERY = gql`
   query GetPermitDetail($permitId: ID!) {
     permitDetail(permitId: $permitId) {
-      identifier
+      id
       startTime
       endTime
       currentPeriodEndTime
@@ -107,7 +107,7 @@ const EndPermit = (): React.ReactElement => {
     return <div>loading...</div>;
   }
   const { permitDetail } = data;
-  const { identifier, contractType } = permitDetail;
+  const { id: permitId, contractType } = permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -169,7 +169,7 @@ const EndPermit = (): React.ReactElement => {
           onClick={() => {
             endPermit({
               variables: {
-                permitId: identifier,
+                permitId,
                 endType: endType?.toUpperCase(),
                 iban:
                   contractType === PermitContractType.FIXED_PERIOD

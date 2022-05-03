@@ -22,7 +22,7 @@ const T_PATH = 'pages.permitDetail';
 const PERMIT_DETAIL_QUERY = gql`
   query GetPermitDetail($permitId: ID!) {
     permitDetail(permitId: $permitId) {
-      identifier
+      id
       startTime
       endTime
       currentPeriodEndTime
