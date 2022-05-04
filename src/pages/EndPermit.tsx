@@ -83,7 +83,7 @@ const PERMIT_DETAIL_QUERY = gql`
 `;
 
 const END_PERMIT_MUTATION = gql`
-  mutation endPermit($permitId: Int!, $endType: PermitEndType!, $iban: String) {
+  mutation endPermit($permitId: ID!, $endType: PermitEndType!, $iban: String) {
     endPermit(permitId: $permitId, endType: $endType, iban: $iban) {
       success
     }
