@@ -239,8 +239,18 @@
           "save": "Tallenna",
           "selectLocation": "Valitse sijainti",
           "streetName": "Kadun nimi",
-          "streetNameSv": "Kadun nimi (sv)",
+          "streetNameSv": "Kasdun nimi (sv)",
           "streetNumber": "Katunumero"
+        }
+      },
+      "lowEmissionCriteria": {
+        "lowEmissionCriteriaDataTable": {
+          "endDate": "Pvm asti",
+          "euroMinClassLimit": "EURO-minimiluokitus",
+          "nedcMaxEmissionLimit": "NEDC-maksimipäästöraja",
+          "powerType": "Käyttövoima",
+          "startDate": "Pvm alkaen",
+          "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja)"
         }
       },
       "products": {
@@ -279,6 +289,7 @@
       },
       "sideNav": {
         "addresses": "Osoitteet",
+        "lowEmissionCriteria": "Vähäpäästöiset kriteerit",
         "menu": "Valikko",
         "products": "Tuotteet",
         "users": "Käyttäjät"
@@ -378,6 +389,10 @@
       },
       "editProduct": {
         "title": "Muokkaa tuotteen hintaa"
+      },
+      "lowEmissionCriteria": {
+        "addNewCriterion": "Lisää uusi vähäpäästöinen kriteeri",
+        "title": "Vähäpäästöiset kriteerit"
       },
       "products": {
         "addNewPrice": "Luo uusi hinta",
