@@ -20,6 +20,7 @@ import Reports from './pages/Reports';
 import Addresses from './pages/superAdmin/addresses/Addresses';
 import CreateAddress from './pages/superAdmin/addresses/CreateAddress';
 import EditAddress from './pages/superAdmin/addresses/EditAddress';
+import LowEmissionCriteria from './pages/superAdmin/lowEmissionCriteria/LowEmissionCriteria';
 import CreateProduct from './pages/superAdmin/products/CreateProduct';
 import EditProduct from './pages/superAdmin/products/EditProduct';
 import Products from './pages/superAdmin/products/Products';
@@ -35,6 +36,7 @@ const routes = [
       { path: 'addresses', element: <Addresses /> },
       { path: 'addresses/create', element: <CreateAddress /> },
       { path: 'addresses/:id', element: <EditAddress /> },
+      { path: 'lowEmissionCriteria', element: <LowEmissionCriteria /> },
       { path: '', element: <Navigate to="products" /> },
     ],
   },

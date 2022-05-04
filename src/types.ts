@@ -369,5 +369,20 @@ export interface PermitPriceChange {
 }
 
 export interface LowEmissionCriterion {
-  id: string;
+  id?: string;
+  powerType: PowerType;
+  nedcMaxEmissionLimit: number;
+  wltpMaxEmissionLimit: number;
+  euroMinClassLimit: number;
+  startDate: string;
+  endDate: string;
+}
+
+export interface PagedLowEmissionCriteria {
+  objects: LowEmissionCriterion[];
+  pageInfo: PageInfo;
+}
+
+export interface LowEmissionCriteriaQueryData {
+  lowEmissionCriteria: PagedLowEmissionCriteria;
 }
