@@ -333,7 +333,6 @@ export interface OrdersQueryData {
 }
 export interface Refund {
   id: string;
-  refundNumber: number;
   name: string;
   amount: number;
   iban: string;

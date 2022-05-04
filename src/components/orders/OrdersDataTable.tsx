@@ -78,7 +78,7 @@ const OrdersDataTable = ({
       name: t(`${T_PATH}.orderNumber`),
       field: 'id',
       selector: ({ id }) => id,
-      orderFields: ['order_number'],
+      orderFields: ['id'],
     },
     {
       name: t(`${T_PATH}.paidTime`),

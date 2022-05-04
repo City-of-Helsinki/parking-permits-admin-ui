@@ -17,10 +17,9 @@ import styles from './RefundDetail.module.scss';
 const T_PATH = 'pages.refundDetail';
 
 const REFUND_DETAIL_QUERY = gql`
-  query GetRefundDetail($refundNumber: Int!) {
-    refund(refundNumber: $refundNumber) {
+  query GetRefundDetail($refundId: ID!) {
+    refund(refundId: $refundId) {
       id
-      refundNumber
       name
       amount
       iban
@@ -35,8 +34,8 @@ const REFUND_DETAIL_QUERY = gql`
 `;
 
 const UPDATE_REFUND_MUTATION = gql`
-  mutation UpdateRefund($refundNumber: Int!, $refund: RefundInput!) {
-    updateRefund(refundNumber: $refundNumber, refund: $refund) {
+  mutation UpdateRefund($refundId: ID!, $refund: RefundInput!) {
+    updateRefund(refundId: $refundId, refund: $refund) {
       success
     }
   }
@@ -45,10 +44,9 @@ const UPDATE_REFUND_MUTATION = gql`
 const RefundDetail = (): React.ReactElement => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const params = useParams();
+  const { id: refundId } = useParams();
   const [errorMessage, setErrorMessage] = useState('');
-  const refundNumber = parseInt(params.refundNumber as string, 10);
-  const variables = { refundNumber };
+  const variables = { refundId };
   const { loading, data } = useQuery<{ refund: Refund }>(REFUND_DETAIL_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
@@ -84,7 +82,7 @@ const RefundDetail = (): React.ReactElement => {
     <div className={styles.container}>
       <Breadcrumbs>
         <Link to="/refunds">{t(`${T_PATH}.refunds`)}</Link>
-        <span>{refundNumber}</span>
+        <span>{refundId}</span>
       </Breadcrumbs>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
       <div className={styles.content}>
@@ -96,7 +94,7 @@ const RefundDetail = (): React.ReactElement => {
           onSubmit={(refund: RefundInput) =>
             updateRefund({
               variables: {
-                refundNumber,
+                refundId,
                 refund,
               },
             })

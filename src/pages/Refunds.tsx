@@ -17,7 +17,6 @@ const REFUNDS_QUERY = gql`
     refunds(pageInput: $pageInput, orderBy: $orderBy) {
       objects {
         id
-        refundNumber
         name
         amount
         iban
@@ -82,7 +81,7 @@ const Refunds = (): React.ReactElement => {
           orderBy={orderBy}
           onPage={newPage => setPage(newPage)}
           onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
-          onRowClick={refund => navigate(refund.refundNumber.toString())}
+          onRowClick={refund => navigate(refund.id)}
           onExport={handleExport}
         />
       </div>

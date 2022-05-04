@@ -52,7 +52,7 @@ const routes = [
       { path: 'permits/create/company', element: <CreateCompanyPermit /> },
       { path: 'orders', element: <Orders /> },
       { path: 'refunds', element: <Refunds /> },
-      { path: 'refunds/:refundNumber', element: <RefundDetail /> },
+      { path: 'refunds/:id', element: <RefundDetail /> },
       { path: 'messages', element: <Messages /> },
       { path: 'reports', element: <Reports /> },
       { path: 'authError', element: <AuthError /> },
