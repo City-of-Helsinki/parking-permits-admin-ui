@@ -251,6 +251,19 @@
           "powerType": "Power type",
           "startDate": "Start date",
           "wltpMaxEmissionLimit": "WLTP maximum emission limit"
+        },
+        "lowEmissionCriterionForm": {
+          "delete": "Delete",
+          "endDate": "End date",
+          "enterNedcMaxEmissionLimit": "Please enter an NEDC maximum emission limit",
+          "enterStartDate": "Please enter a start date",
+          "enterWltpMaxEmissionLimit": "Please enter a WLTP maximum emission limit",
+          "euroMinClassLimit": "Euro minimum class limit",
+          "nedcMaxEmissionLimit": "NEDC maximum emission limit",
+          "powerType": "Power type",
+          "save": "Save",
+          "startDate": "Start date",
+          "wltpMaxEmissionLimit": "WLTP maximum emission limit"
         }
       },
       "products": {
@@ -386,6 +399,9 @@
       },
       "editAddress": {
         "title": "Edit address"
+      },
+      "editLowEmissionCriterion": {
+        "title": "Edit low emission criterion"
       },
       "editProduct": {
         "title": "Edit product price"

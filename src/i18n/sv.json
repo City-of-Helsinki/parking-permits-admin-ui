@@ -245,6 +245,19 @@
           "powerType": "Ström",
           "startDate": "Startdatum",
           "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
+        },
+        "lowEmissionCriterionForm": {
+          "delete": "Radera",
+          "endDate": "Slutdatum",
+          "enterNedcMaxEmissionLimit": "Ange en maximal NEDC-gräns för utsläpp",
+          "enterStartDate": "Ange ett startdatum",
+          "enterWltpMaxEmissionLimit": "Ange en maximal WLTP-gräns för utsläpp",
+          "euroMinClassLimit": "Minsta klassgräns för euro",
+          "nedcMaxEmissionLimit": "NEDC maximala utsläppsgräns",
+          "powerType": "Strömtyp",
+          "save": "Spara",
+          "startDate": "Startdatum",
+          "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
         }
       },
       "products": {
@@ -380,6 +393,9 @@
       },
       "editAddress": {
         "title": "Redigera adress"
+      },
+      "editLowEmissionCriterion": {
+        "title": "Redigera kriterium för låga utsläpp"
       },
       "editProduct": {
         "title": "Redigera produktpris"

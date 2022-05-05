@@ -1,0 +1,14 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.field {
+  margin: $spacing-s 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+
+  .submit {
+    margin-right: $spacing-s;
+  }
+}
