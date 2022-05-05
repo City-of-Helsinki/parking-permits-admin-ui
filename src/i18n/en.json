@@ -243,6 +243,16 @@
           "streetNumber": "Street number"
         }
       },
+      "lowEmissionCriteria": {
+        "lowEmissionCriteriaDataTable": {
+          "endDate": "End date",
+          "euroMinClassLimit": "Euro minimum class limit",
+          "nedcMaxEmissionLimit": "NEDC maximum emission limit",
+          "powerType": "Power type",
+          "startDate": "Start date",
+          "wltpMaxEmissionLimit": "WLTP maximum emission limit"
+        }
+      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "No discount"
@@ -279,6 +289,7 @@
       },
       "sideNav": {
         "addresses": "Addresses",
+        "lowEmissionCriteria": "Low-emission criteria",
         "menu": "Menu",
         "products": "Products",
         "users": "Users"
@@ -378,6 +389,10 @@
       },
       "editProduct": {
         "title": "Edit product price"
+      },
+      "lowEmissionCriteria": {
+        "addNewCriterion": "Add new low-emission criterion",
+        "title": "Low-emission criteria"
       },
       "products": {
         "addNewPrice": "Add new price",

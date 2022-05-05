@@ -237,6 +237,16 @@
           "streetNumber": "Gatunummer"
         }
       },
+      "lowEmissionCriteria": {
+        "lowEmissionCriteriaDataTable": {
+          "endDate": "Slutdatum",
+          "euroMinClassLimit": "Minsta klassgräns för euro",
+          "nedcMaxEmissionLimit": "NEDC maximala utsläppsgräns",
+          "powerType": "Ström",
+          "startDate": "Startdatum",
+          "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
+        }
+      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "Ingen rabatt"
@@ -273,6 +283,7 @@
       },
       "sideNav": {
         "addresses": "Adresser",
+        "lowEmissionCriteria": "Lågutsläppskriterier",
         "menu": "Meny",
         "products": "Produkter",
         "users": "Användare"
@@ -372,6 +383,10 @@
       },
       "editProduct": {
         "title": "Redigera produktpris"
+      },
+      "lowEmissionCriteria": {
+        "addNewCriterion": "Lägg till ett nytt kriterium för låga utsläpp",
+        "title": "Lågutsläppskriterier"
       },
       "products": {
         "addNewPrice": "Skapa ett nytt pris",
