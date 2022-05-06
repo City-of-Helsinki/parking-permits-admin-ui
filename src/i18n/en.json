@@ -394,6 +394,12 @@
         "addNewAddress": "Add new address",
         "title": "Addresses"
       },
+      "createAddress": {
+        "title": "Add new address"
+      },
+      "createLowEmissionCriterion": {
+        "title": "Add new low emission criterion"
+      },
       "createProduct": {
         "title": "Add new price"
       },

@@ -388,6 +388,12 @@
         "addNewAddress": "Lägg till ny adress",
         "title": "Adresser"
       },
+      "createAddress": {
+        "title": "Lägg till ny adress"
+      },
+      "createLowEmissionCriterion": {
+        "title": "Lägg till nytt kriterium för låga utsläpp"
+      },
       "createProduct": {
         "title": "Skapa ett nytt pris"
       },

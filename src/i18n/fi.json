@@ -394,6 +394,12 @@
         "addNewAddress": "Lisää uusi osoite",
         "title": "Osoitteet"
       },
+      "createAddress": {
+        "title": "Lisää uusi osoite"
+      },
+      "createLowEmissionCriterion": {
+        "title": "Lisää uusi vähäpäästöinen kriteeri"
+      },
       "createProduct": {
         "title": "Luo uusi hinta"
       },
