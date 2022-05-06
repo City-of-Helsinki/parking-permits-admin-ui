@@ -250,7 +250,20 @@
           "nedcMaxEmissionLimit": "NEDC-maksimipäästöraja",
           "powerType": "Käyttövoima",
           "startDate": "Pvm alkaen",
-          "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja)"
+          "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja"
+        },
+        "lowEmissionCriterionForm": {
+          "delete": "Poista",
+          "endDate": "Pvm asti",
+          "enterNedcMaxEmissionLimit": "Anna NEDC-maksimipäästöraja",
+          "enterStartDate": "Anna aloituspäivä",
+          "enterWltpMaxEmissionLimit": "Anna WLTP-maksimipäästöraja",
+          "euroMinClassLimit": "EURO-minimiluokitus",
+          "nedcMaxEmissionLimit": "NEDC-maksimipäästöraja",
+          "powerType": "Käyttövoima",
+          "save": "Tallenna",
+          "startDate": "Pvm alkaen",
+          "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja"
         }
       },
       "products": {
@@ -381,11 +394,20 @@
         "addNewAddress": "Lisää uusi osoite",
         "title": "Osoitteet"
       },
+      "createAddress": {
+        "title": "Lisää uusi osoite"
+      },
+      "createLowEmissionCriterion": {
+        "title": "Lisää uusi vähäpäästöinen kriteeri"
+      },
       "createProduct": {
         "title": "Luo uusi hinta"
       },
       "editAddress": {
         "title": "Muokkaa osoitetta"
+      },
+      "editLowEmissionCriterion": {
+        "title": "Muokkaa vähäpäästöistä kriteeriä"
       },
       "editProduct": {
         "title": "Muokkaa tuotteen hintaa"
