@@ -23,6 +23,8 @@ const ADDRESS_QUERY = gql`
       location
       zone {
         name
+        label
+        labelSv
       }
     }
   }
