@@ -240,7 +240,8 @@
           "selectLocation": "Please select a location",
           "streetName": "Street name",
           "streetNameSv": "Street name (sv)",
-          "streetNumber": "Street number"
+          "streetNumber": "Street number",
+          "zone": "Zone"
         }
       },
       "lowEmissionCriteria": {

@@ -240,7 +240,8 @@
           "selectLocation": "Valitse sijainti",
           "streetName": "Kadun nimi",
           "streetNameSv": "Kasdun nimi (sv)",
-          "streetNumber": "Katunumero"
+          "streetNumber": "Katunumero",
+          "zone": "Alue"
         }
       },
       "lowEmissionCriteria": {

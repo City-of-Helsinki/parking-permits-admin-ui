@@ -1,14 +1,25 @@
+import { gql, useLazyQuery } from '@apollo/client';
 import { Field, FieldProps, Formik } from 'formik';
 import { Button, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
-import { Address } from '../../../types';
+import { Address, ParkingZone } from '../../../types';
 import LocationPicker from '../../common/LocationPicker';
 import styles from './AddressForm.module.scss';
 
 const T_PATH = 'components.superAdmin.addresses.addressForm';
+
+const ZONE_BY_LOCATION_QUERY = gql`
+  query GetZoneByLocation($location: [Float]!) {
+    zoneByLocation(location: $location) {
+      name
+      label
+      labelSv
+    }
+  }
+`;
 
 // eslint-disable-next-line no-magic-numbers
 const HELSINKI_LOCATION = [24.9384, 60.1699];
@@ -25,7 +36,17 @@ const AddressForm = ({
   onSubmit,
   onDelete,
 }: AddressFormProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [
+    getZoneByLocation,
+    {
+      data: zoneByLocationData,
+      error: zoneByLocationError,
+      loading: zoneByLocationLoading,
+    },
+  ] = useLazyQuery<{
+    zoneByLocation: ParkingZone;
+  }>(ZONE_BY_LOCATION_QUERY);
   const initialValues = address
     ? {
         streetName: address.streetName,
@@ -62,6 +83,12 @@ const AddressForm = ({
       .required(t(`${T_PATH}.selectLocation`)),
   });
 
+  let zoneLabel = '';
+  const selectedZone = zoneByLocationData?.zoneByLocation || address?.zone;
+  if (!zoneByLocationLoading && selectedZone) {
+    zoneLabel =
+      i18n.language === 'sv' ? selectedZone.labelSv : selectedZone.label;
+  }
   return (
     <div className={className}>
       <Formik
@@ -162,13 +189,24 @@ const AddressForm = ({
                 />
               )}
             </Field>
+            <TextInput
+              readOnly
+              id="zone"
+              className={styles.field}
+              label={t(`${T_PATH}.zone`)}
+              value={zoneByLocationError ? '-' : zoneLabel}
+              errorText={zoneByLocationError?.message}
+            />
             <Field name="location">
               {({ field, form }: FieldProps) => (
                 <LocationPicker
                   className={styles.field}
                   label={t(`${T_PATH}.location`)}
                   location={field.value}
-                  onChange={value => form.setFieldValue(field.name, value)}
+                  onChange={value => {
+                    form.setFieldValue(field.name, value);
+                    getZoneByLocation({ variables: { location: value } });
+                  }}
                 />
               )}
             </Field>

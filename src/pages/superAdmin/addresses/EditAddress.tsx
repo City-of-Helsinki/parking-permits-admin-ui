@@ -8,7 +8,7 @@ import AddressForm from '../../../components/superAdmin/addresses/AddressForm';
 import { Address, MutationResponse } from '../../../types';
 import styles from './EditAddress.module.scss';
 
-const T_PATH = 'pages.superAdmin.addresses.editAddress';
+const T_PATH = 'pages.superAdmin.editAddress';
 
 const ADDRESS_QUERY = gql`
   query GetAddress($addressId: ID!) {
@@ -23,6 +23,8 @@ const ADDRESS_QUERY = gql`
       location
       zone {
         name
+        label
+        labelSv
       }
     }
   }

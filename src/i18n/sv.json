@@ -234,7 +234,8 @@
           "selectLocation": "Välj en plats",
           "streetName": "Gatunamn",
           "streetNameSv": "Gatunamn (sv)",
-          "streetNumber": "Gatunummer"
+          "streetNumber": "Gatunummer",
+          "zone": "Område"
         }
       },
       "lowEmissionCriteria": {
