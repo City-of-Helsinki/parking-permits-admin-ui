@@ -8,7 +8,7 @@ import AddressForm from '../../../components/superAdmin/addresses/AddressForm';
 import { MutationResponse } from '../../../types';
 import styles from './CreateAddress.module.scss';
 
-const T_PATH = 'pages.superAdmin.addresses.createAddress';
+const T_PATH = 'pages.superAdmin.createAddress';
 
 const CREATE_ADDRESS_MUTATION = gql`
   mutation CreateAddress($address: AddressInput!) {
