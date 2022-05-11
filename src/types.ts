@@ -195,7 +195,6 @@ export interface PermitDetail {
   contractType: PermitContractType;
   monthCount: number;
   monthsLeft: number;
-  monthlyPrice: number;
   changeLogs: ChangeLog[];
 }
 
