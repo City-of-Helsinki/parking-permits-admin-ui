@@ -23,14 +23,6 @@ const ZONES_QUERY = gql`
       name
       label
       labelSv
-      residentProducts {
-        unitPrice
-        startDate
-        endDate
-        vat
-        lowEmissionDiscount
-        secondaryVehicleIncreaseRate
-      }
     }
   }
 `;
@@ -41,14 +33,6 @@ const ZONE_BY_LOCATION_QUERY = gql`
       name
       label
       labelSv
-      residentProducts {
-        unitPrice
-        startDate
-        endDate
-        vat
-        lowEmissionDiscount
-        secondaryVehicleIncreaseRate
-      }
     }
   }
 `;

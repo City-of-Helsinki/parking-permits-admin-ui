@@ -42,14 +42,6 @@ const CUSTOMER_QUERY = gql`
           name
           label
           labelSv
-          residentProducts {
-            unitPrice
-            startDate
-            endDate
-            vat
-            lowEmissionDiscount
-            secondaryVehicleIncreaseRate
-          }
         }
       }
       otherAddress {
@@ -62,14 +54,6 @@ const CUSTOMER_QUERY = gql`
           name
           label
           labelSv
-          residentProducts {
-            unitPrice
-            startDate
-            endDate
-            vat
-            lowEmissionDiscount
-            secondaryVehicleIncreaseRate
-          }
         }
       }
       activePermits {

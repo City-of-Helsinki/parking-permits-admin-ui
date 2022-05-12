@@ -80,14 +80,6 @@ const PERMIT_DETAIL_QUERY = gql`
         name
         label
         labelSv
-        residentProducts {
-          unitPrice
-          startDate
-          endDate
-          vat
-          lowEmissionDiscount
-          secondaryVehicleIncreaseRate
-        }
       }
     }
   }
