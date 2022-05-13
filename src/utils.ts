@@ -214,6 +214,23 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
   };
 }
 
+export function isValidForPriceCheck(permit: PermitInput): boolean {
+  const { customer, vehicle } = permit;
+  const hasRequiredCustomerFields = !!customer.zone;
+  const hasRequiredPermitFields = !!(permit.startTime && permit.monthCount);
+  const hasRequiredVehicleFields = !!(
+    vehicle.powerType &&
+    vehicle.euroClass &&
+    vehicle.emissionType &&
+    vehicle.emission
+  );
+  return (
+    hasRequiredCustomerFields &&
+    hasRequiredPermitFields &&
+    hasRequiredVehicleFields
+  );
+}
+
 export function getProductsWithQuantities(
   products: Product[],
   startDate: Date,

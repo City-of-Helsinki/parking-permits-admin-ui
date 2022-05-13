@@ -7,12 +7,12 @@ import {
 } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ParkingZone, PriceModifiers, Vehicle } from '../../types';
+import { PermitPrice, Vehicle } from '../../types';
 import Divider from '../common/Divider';
 import EmissionTypeSelect from '../common/EmissionTypeSelect';
 import EuroClassSelect from '../common/EuroClassSelect';
+import PermitPriceRow from '../common/PermitPriceRow';
 import PowerTypeSelect from '../common/PowerTypeSelect';
-import ProductPriceRow from '../common/ProductPriceRow';
 import VehicleClassSelect from '../common/VehicleClassSelect';
 import styles from './VehicleInfo.module.scss';
 
@@ -20,8 +20,8 @@ const T_PATH = 'components.residentPermit.vehicleInfo';
 interface VehicleInfoProps {
   className?: string;
   vehicle: Vehicle;
-  zone?: ParkingZone;
   searchError?: string;
+  permitPrices: PermitPrice[];
   onSearchRegistrationNumber: (regNumber: string) => void;
   onUpdateVehicle: (vehicle: Vehicle) => void;
 }
@@ -29,8 +29,8 @@ interface VehicleInfoProps {
 const VehicleInfo = ({
   className,
   vehicle,
-  zone,
   searchError,
+  permitPrices,
   onSearchRegistrationNumber,
   onUpdateVehicle,
 }: VehicleInfoProps): React.ReactElement => {
@@ -39,7 +39,6 @@ const VehicleInfo = ({
     manufacturer,
     model,
     registrationNumber,
-    isLowEmission,
     consentLowEmissionAccepted,
     serialNumber,
     vehicleClass,
@@ -48,10 +47,6 @@ const VehicleInfo = ({
     emissionType,
     powerType,
   } = vehicle;
-  const priceModifiers: PriceModifiers = {
-    isLowEmission,
-    isSecondaryVehicle: false,
-  };
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.vehicleInfo`)}</div>
@@ -155,19 +150,20 @@ const VehicleInfo = ({
             })
           }
         />
-        <div className={styles.priceInfo}>
-          <div className={styles.priceTitle}>{t(`${T_PATH}.price`)}</div>
-          <div className={styles.priceList}>
-            {zone?.residentProducts?.map(product => (
-              <ProductPriceRow
-                key={product.startDate}
-                className={styles.productPriceRow}
-                product={product}
-                priceModifiers={priceModifiers}
-              />
-            ))}
+        {permitPrices.length > 0 && (
+          <div className={styles.priceInfo}>
+            <div className={styles.priceTitle}>{t(`${T_PATH}.price`)}</div>
+            <div className={styles.priceList}>
+              {permitPrices.map(permitPrice => (
+                <PermitPriceRow
+                  key={permitPrice.startDate}
+                  className={styles.productPriceRow}
+                  permitPrice={permitPrice}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
