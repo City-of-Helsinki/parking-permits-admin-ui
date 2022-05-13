@@ -2,7 +2,7 @@ import { gql, useLazyQuery } from '@apollo/client';
 import { Button, IconCheckCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Customer, PermitDetail, Vehicle } from '../../types';
+import { Customer, PermitDetail, PermitPrice, Vehicle } from '../../types';
 import styles from './EditResidentPermitForm.module.scss';
 import PermitInfo from './PermitInfo';
 import PersonalInfo from './PersonalInfo';
@@ -69,6 +69,7 @@ const VEHICLE_QUERY = gql`
 interface EditResidentPermitFormProps {
   className?: string;
   permit: PermitDetail;
+  permitPrices: PermitPrice[];
   onUpdatePermit: (permit: PermitDetail) => void;
   onCancel: () => void;
   onConfirm: () => void;
@@ -77,6 +78,7 @@ interface EditResidentPermitFormProps {
 const EditResidentPermitForm = ({
   className,
   permit,
+  permitPrices,
   onUpdatePermit,
   onCancel,
   onConfirm,
@@ -154,7 +156,7 @@ const EditResidentPermitForm = ({
         <VehicleInfo
           className={styles.column}
           vehicle={vehicle}
-          zone={customer.zone}
+          permitPrices={permitPrices}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
           onUpdateVehicle={handleUpdateVehicle}

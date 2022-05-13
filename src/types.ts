@@ -204,6 +204,7 @@ export interface PermitDetail {
   monthCount: number;
   monthsLeft: number;
   changeLogs: ChangeLog[];
+  permitPrices: PermitPrice[];
 }
 
 export interface PermitDetailData {

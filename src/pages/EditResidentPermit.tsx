@@ -13,9 +13,10 @@ import {
   MutationResponse,
   PermitDetail,
   PermitDetailData,
+  PermitPrice,
   PermitPriceChange,
 } from '../types';
-import { convertToPermitInput } from '../utils';
+import { convertToPermitInput, isValidForPriceCheck } from '../utils';
 import styles from './EditResidentPermit.module.scss';
 
 const T_PATH = 'pages.editResidentPermit';
@@ -26,6 +27,7 @@ const PERMIT_DETAIL_QUERY = gql`
       id
       startTime
       endTime
+      primaryVehicle
       currentPeriodEndTime
       canEndImmediately
       canEndAfterCurrentPeriod
@@ -34,6 +36,13 @@ const PERMIT_DETAIL_QUERY = gql`
       contractType
       monthCount
       description
+      permitPrices {
+        originalUnitPrice
+        unitPrice
+        startDate
+        endDate
+        quantity
+      }
       customer {
         firstName
         lastName
@@ -100,6 +109,18 @@ const PERMIT_PRICE_CHANGE_QUERY = gql`
   }
 `;
 
+const PERMIT_PRICES_QUERY = gql`
+  query GetPermitPrices($permit: ResidentPermitInput!, $isSecondary: Boolean!) {
+    permitPrices(permit: $permit, isSecondary: $isSecondary) {
+      originalUnitPrice
+      unitPrice
+      startDate
+      endDate
+      quantity
+    }
+  }
+`;
+
 const UPDATE_RESIDENT_PERMIT_MUTATION = gql`
   mutation UpdateResidentPermit(
     $permitId: ID!
@@ -124,6 +145,7 @@ const EditResidentPermit = (): React.ReactElement => {
 
   // states
   const [permit, setPermit] = useState<PermitDetail | null>(null);
+  const [permitPrices, setPermitPrices] = useState<PermitPrice[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [showEditPreview, setShowEditPreview] = useState(false);
   const [priceChangeList, setPriceChangeList] = useState<
@@ -146,6 +168,7 @@ const EditResidentPermit = (): React.ReactElement => {
         ...permitDetail,
         customer: newCustomer,
       });
+      setPermitPrices(permitDetail.permitPrices);
     },
     onError: error => setErrorMessage(error.message),
   });
@@ -158,6 +181,16 @@ const EditResidentPermit = (): React.ReactElement => {
     onError: error => setErrorMessage(error.message),
   });
 
+  const [getPermitPrices] = useLazyQuery<{ permitPrices: PermitPrice[] }>(
+    PERMIT_PRICES_QUERY,
+    {
+      onCompleted: data => {
+        setPermitPrices(data.permitPrices);
+      },
+      onError: error => setErrorMessage(error.message),
+    }
+  );
+
   const [updateResidentPermit] = useMutation<MutationResponse>(
     UPDATE_RESIDENT_PERMIT_MUTATION,
     {
@@ -165,6 +198,16 @@ const EditResidentPermit = (): React.ReactElement => {
       onError: error => setErrorMessage(error.message),
     }
   );
+
+  const updatePermitPrices = (
+    newPermit: PermitDetail,
+    isSecondary: boolean
+  ) => {
+    const permitInput = convertToPermitInput(newPermit);
+    if (isValidForPriceCheck(permitInput)) {
+      getPermitPrices({ variables: { permit: permitInput, isSecondary } });
+    }
+  };
 
   if (!permit) {
     return <div>{t(`${T_PATH}.loading`)}</div>;
@@ -197,7 +240,11 @@ const EditResidentPermit = (): React.ReactElement => {
       {!showEditPreview && (
         <EditResidentPermitForm
           permit={permit}
-          onUpdatePermit={updatedPermit => setPermit(updatedPermit)}
+          permitPrices={permitPrices}
+          onUpdatePermit={updatedPermit => {
+            setPermit(updatedPermit);
+            updatePermitPrices(updatedPermit, !updatedPermit.primaryVehicle);
+          }}
           onCancel={() => navigate('/permits')}
           onConfirm={() => {
             getPermitPriceChangeList({
