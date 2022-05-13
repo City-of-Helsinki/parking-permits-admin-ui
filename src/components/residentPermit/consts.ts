@@ -60,7 +60,6 @@ export function getEmptyPermit(): PermitDetail {
     contractType: PermitContractType.FIXED_PERIOD,
     monthCount: 1,
     monthsLeft: 0,
-    monthlyPrice: 0,
     changeLogs: [],
   };
 }

@@ -121,6 +121,14 @@ export interface Product {
 
 export type ProductWithQuantity = [Product, number];
 
+export interface PermitPrice {
+  originalUnitPrice: number;
+  unitPrice: number;
+  startDate: string;
+  endDate: string;
+  quantity: number;
+}
+
 export interface PriceModifiers {
   isLowEmission: boolean;
   isSecondaryVehicle: boolean;
@@ -130,7 +138,6 @@ export interface ParkingZone {
   name: string;
   label: string;
   labelSv: string;
-  residentProducts?: [Product];
 }
 
 export enum ParkingPermitStatus {
@@ -182,6 +189,7 @@ export interface PermitDetail {
   id?: number;
   customer: Customer;
   vehicle: Vehicle;
+  primaryVehicle: boolean;
   parkingZone: ParkingZone;
   status: ParkingPermitStatus;
   startTime: string;
@@ -195,8 +203,8 @@ export interface PermitDetail {
   contractType: PermitContractType;
   monthCount: number;
   monthsLeft: number;
-  monthlyPrice: number;
   changeLogs: ChangeLog[];
+  permitPrices: PermitPrice[];
 }
 
 export interface PermitDetailData {
