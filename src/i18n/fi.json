@@ -53,6 +53,7 @@
         "name": "Asiakas",
         "orderNumber": "Tilausnumero",
         "paidTime": "Maksupäivä",
+        "permits": "Tunnukset",
         "permitType": "Tunnustyyppi",
         "registrationNumber": "Rekisterinro",
         "residentPermit": "Asukastunnus",
