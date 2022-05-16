@@ -53,8 +53,8 @@
         "name": "Customer",
         "orderNumber": "Order number",
         "paidTime": "Paid date",
+        "permits": "Permits",
         "permitType": "Permit type",
-        "registrationNumber": "Registration number",
         "residentPermit": "Resident permit",
         "totalPrice": "Price",
         "zone": "Zone"

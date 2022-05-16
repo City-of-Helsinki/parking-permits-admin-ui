@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Order, OrderBy, PageInfo } from '../../types';
 import {
   formatCustomerName,
@@ -7,7 +8,6 @@ import {
   formatParkingZone,
   formatPermitAddresses,
   formatPrice,
-  formatRegistrationNumbers,
 } from '../../utils';
 import DataTable from '../common/DataTable';
 import { Column } from '../types';
@@ -44,10 +44,23 @@ const OrdersDataTable = ({
       orderFields: ['customer__first_name', 'customer__last_name'],
     },
     {
-      name: t(`${T_PATH}.registrationNumber`),
-      field: 'registrationNumber',
-      selector: ({ orderPermits }) => formatRegistrationNumbers(orderPermits),
-      orderFields: ['permits__vehicle__registration_number'],
+      name: t(`${T_PATH}.permits`),
+      field: 'permits',
+      selector: ({ orderPermits }) => (
+        <>
+          {orderPermits.map(permit => {
+            const { id, vehicle } = permit;
+            const { registrationNumber } = vehicle;
+            const label = `${id} (${registrationNumber})`;
+            return (
+              <Link style={{ marginRight: 10 }} key={id} to={`/permits/${id}`}>
+                {label}
+              </Link>
+            );
+          })}
+        </>
+      ),
+      orderFields: ['permits__id'],
     },
     {
       name: t(`${T_PATH}.zone`),

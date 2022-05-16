@@ -7,7 +7,7 @@ import OrdersDataTable from '../components/orders/OrdersDataTable';
 import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
 import { OrderBy, OrdersQueryData } from '../types';
-import styles from './Permits.module.scss';
+import styles from './Orders.module.scss';
 
 const T_PATH = 'pages.orders';
 
@@ -24,6 +24,7 @@ const ORDERS_QUERY = gql`
           lastName
         }
         orderPermits {
+          id
           type
           vehicle {
             manufacturer
