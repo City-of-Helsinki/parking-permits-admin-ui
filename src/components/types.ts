@@ -23,8 +23,18 @@ export interface FilterItem {
   matchType: MatchType;
 }
 
-export interface SearchItem {
+export enum ConnectorType {
+  OR = 'or',
+  AND = 'and',
+}
+
+export interface SearchField {
   matchType: MatchType;
-  fields: string[];
+  fieldName: string;
+}
+
+export interface SearchItem {
+  connector: ConnectorType;
+  fields: SearchField[];
   value: unknown;
 }
