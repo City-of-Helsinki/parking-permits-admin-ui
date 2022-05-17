@@ -1,19 +1,24 @@
 @import '~hds-design-tokens/lib/all.scss';
 
-.search-container {
+.container {
   margin: $spacing-m;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-end;
+  flex-direction: column;
 
-  .status-select {
-    margin-right: $spacing-s;
-    min-width: 200px;
-  }
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-bottom: $spacing-m;
 
-  .search-input {
-    max-width: 480px;
-    margin-right: $spacing-s;
+    .statusSelect {
+      margin-right: $spacing-s;
+      min-width: 200px;
+    }
+
+    .searchInput {
+      max-width: 480px;
+      margin-right: $spacing-s;
+    }
   }
 }

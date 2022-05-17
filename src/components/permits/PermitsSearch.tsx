@@ -17,40 +17,47 @@ const PermitsSearch = ({
   onSearch,
 }: PermitsSearchProps): React.ReactElement => {
   const { t } = useTranslation();
-  const { status, searchText, filter } = searchInfo;
+  const { status, searchText, filters } = searchInfo;
   const handleStatusChange = (newStatus: ParkingPermitStatusOrAll) =>
     onSearch({
       status: newStatus,
       searchText,
-      filter,
+      filters,
     });
   const handleSearchTextChange = (newSearchText: string) =>
     onSearch({
       status,
       searchText: newSearchText,
-      filter,
+      filters,
     });
-  const handleFilterChange = (newFilter: string) =>
+  const handleFiltersChange = (newFilters: string[]) =>
     onSearch({
       status,
       searchText,
-      filter: newFilter,
+      filters: newFilters,
     });
 
   return (
-    <div className={styles['search-container']}>
-      <StatusSelect
-        className={styles['status-select']}
-        value={status}
-        onChange={handleStatusChange}
-      />
-      <SearchInput
-        className={styles['search-input']}
-        label=""
-        placeholder={t(`${T_PATH}.placeholder`)}
-        onSubmit={handleSearchTextChange}
-      />
-      <PermitsSearchFilters filter={filter} onChange={handleFilterChange} />
+    <div className={styles.container}>
+      <div className={styles.row}>
+        <StatusSelect
+          className={styles.statusSelect}
+          value={status}
+          onChange={handleStatusChange}
+        />
+        <SearchInput
+          className={styles.SearchInput}
+          label=""
+          placeholder={t(`${T_PATH}.placeholder`)}
+          onSubmit={handleSearchTextChange}
+        />
+      </div>
+      <div className={styles.row}>
+        <PermitsSearchFilters
+          filters={filters}
+          onChange={handleFiltersChange}
+        />
+      </div>
     </div>
   );
 };

@@ -308,7 +308,7 @@ export interface PermitsQueryVariables {
 export interface PermitsSearchInfo {
   status: ParkingPermitStatusOrAll;
   searchText: string;
-  filter: string;
+  filters: string[];
 }
 
 export enum SavedStatus {
