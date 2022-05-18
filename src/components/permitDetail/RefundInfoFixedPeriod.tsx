@@ -2,7 +2,7 @@ import { TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail } from '../../types';
-import { formatMonthlyPrice, isValidIBAN } from '../../utils';
+import { isValidIBAN } from '../../utils';
 import styles from './RefundInfoFixedPeriod.module.scss';
 
 const T_PATH = 'components.permitDetail.refundInfoFixedPeriod';
@@ -20,12 +20,8 @@ const RefundInfoFixedPeriod = ({
   onChangeIban,
 }: RefundInfoFixedPeriodProps): React.ReactElement => {
   const { t } = useTranslation();
-  const { monthsLeft, monthlyPrice, canBeRefunded } = permit;
-  const refundAmount = `${(-monthsLeft * monthlyPrice).toFixed(2)} €`;
-  const amountLabel = t(`${T_PATH}.monthCount`, {
-    count: monthsLeft,
-  });
-  const refundDetail = `${amountLabel}, ${formatMonthlyPrice(monthlyPrice)}`;
+  const { totalRefundAmount, canBeRefunded } = permit;
+  const refundAmount = `${-totalRefundAmount.toFixed(2)} €`;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -36,7 +32,6 @@ const RefundInfoFixedPeriod = ({
           </div>
           <div className={styles.orderRemainingAmount}>{refundAmount}</div>
         </div>
-        <div className={styles.orderRemainingDetail}>{refundDetail}</div>
         <div className={styles.refundDescription}>
           * {t(`${T_PATH}.orderRemaingDescription`)}
         </div>

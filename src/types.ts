@@ -195,6 +195,7 @@ export interface PermitDetail {
   startTime: string;
   endTime?: string;
   description: string;
+  totalRefundAmount: number;
   currentPeriodEndTime: string;
   canEndImmediately: boolean;
   canEndAfterCurrentPeriod: boolean;
