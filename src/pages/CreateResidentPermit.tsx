@@ -124,6 +124,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
   }>(CUSTOMER_QUERY, {
+    fetchPolicy: 'no-cache',
     onCompleted: ({ customer: newCustomer }) => {
       setPersonSearchError('');
       const defaultZone =

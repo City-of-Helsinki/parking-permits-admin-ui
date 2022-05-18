@@ -54,6 +54,7 @@ const EditAddress = (): React.ReactElement => {
   const variables = { addressId };
   const { loading, data } = useQuery<{ address: Address }>(ADDRESS_QUERY, {
     variables,
+    fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
   const [updateAddress] = useMutation<MutationResponse>(

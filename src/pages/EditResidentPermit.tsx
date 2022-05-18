@@ -157,6 +157,7 @@ const EditResidentPermit = (): React.ReactElement => {
   // graphql queries and mutations
   useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
     variables: { permitId },
+    fetchPolicy: 'no-cache',
     onCompleted: ({ permitDetail }) => {
       // permit parking zone should override customer
       // zone as pre-selected vaule
@@ -176,7 +177,7 @@ const EditResidentPermit = (): React.ReactElement => {
   const [getPermitPriceChangeList] = useLazyQuery<{
     permitPriceChangeList: PermitPriceChange[];
   }>(PERMIT_PRICE_CHANGE_QUERY, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'no-cache',
     onCompleted: data => setPriceChangeList(data.permitPriceChangeList),
     onError: error => setErrorMessage(error.message),
   });

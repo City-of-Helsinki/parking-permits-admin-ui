@@ -88,6 +88,7 @@ const PermitDetail = (): React.ReactElement => {
   const variables = { permitId: id };
   const { loading, data } = useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
     variables,
+    fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
 
