@@ -35,7 +35,7 @@ const PERMIT_DETAIL_QUERY = gql`
       contractType
       monthCount
       monthsLeft
-      monthlyPrice
+      totalRefundAmount
       customer {
         firstName
         lastName
