@@ -54,6 +54,7 @@ const Products = (): React.ReactElement => {
   const variables = { productId };
   const { loading, data } = useQuery<{ product: Product }>(PRODUCT_QUERY, {
     variables,
+    fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
   const [updateProduct] = useMutation<MutationResponse>(

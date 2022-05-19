@@ -92,6 +92,7 @@ const EndPermit = (): React.ReactElement => {
   const [errorMessage, setErrorMessage] = useState('');
   const { loading, data } = useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
     variables,
+    fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
   const [endPermit] = useMutation<MutationResponse>(END_PERMIT_MUTATION);
