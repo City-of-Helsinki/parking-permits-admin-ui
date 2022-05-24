@@ -1,4 +1,3 @@
-import { TextInput } from 'hds-react';
 import L from 'leaflet';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -38,26 +37,20 @@ const MapComponent: React.FC<{
 
 export interface LocationPickerProps {
   className?: string;
-  label: string;
   location: [number, number];
   onChange: (location: [number, number]) => void;
+  errorText?: string;
 }
 
 const LocationPicker: React.FC<LocationPickerProps> = ({
   className,
-  label,
   location,
   onChange,
+  errorText,
 }) => {
   const { i18n } = useTranslation();
   return (
     <div className={className}>
-      <TextInput
-        id="location"
-        readOnly
-        label={label}
-        value={location.join(', ')}
-      />
       <MapContainer
         className={styles.mapContainer}
         center={flipLocation(location)}
@@ -73,6 +66,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
         )}
         <Marker position={flipLocation(location)} icon={icon} />
       </MapContainer>
+      <div className={styles.errorText}>{errorText}</div>
     </div>
   );
 };

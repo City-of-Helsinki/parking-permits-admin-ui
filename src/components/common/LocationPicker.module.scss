@@ -1,4 +1,14 @@
+@import '~hds-design-tokens/lib/all.scss';
+
 .mapContainer {
-  height: 600px;
+  height: 100%;
   width: 100%;
+}
+
+.errorText {
+  display: block;
+  line-height: $lineheight-l;
+  font-size: $fontsize-body-m;
+  margin-top: $spacing-3-xs;
+  color: $color-error;
 }

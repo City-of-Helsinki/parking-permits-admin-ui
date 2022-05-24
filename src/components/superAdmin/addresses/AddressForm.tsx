@@ -99,117 +99,108 @@ const AddressForm = ({
         onSubmit={values => onSubmit(values as Address)}>
         {props => (
           <form onSubmit={props.handleSubmit}>
-            <Field name="streetName">
-              {({ field, form, meta }: FieldProps) => (
+            <div className={styles.row}>
+              <div className={styles.column}>
+                <Field name="streetName">
+                  {({ field, form, meta }: FieldProps) => (
+                    <TextInput
+                      id={field.name}
+                      className={styles.field}
+                      label={t(`${T_PATH}.streetName`)}
+                      value={field.value}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      errorText={
+                        meta.touched && meta.error ? meta.error : undefined
+                      }
+                    />
+                  )}
+                </Field>
+                <Field name="streetNameSv">
+                  {({ field, form, meta }: FieldProps) => (
+                    <TextInput
+                      id={field.name}
+                      className={styles.field}
+                      label={t(`${T_PATH}.streetNameSv`)}
+                      value={field.value}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      errorText={
+                        meta.touched && meta.error ? meta.error : undefined
+                      }
+                    />
+                  )}
+                </Field>
+                <div className={styles.fieldRow}>
+                  <Field name="streetNumber">
+                    {({ field, form, meta }: FieldProps) => (
+                      <TextInput
+                        id={field.name}
+                        className={styles.field}
+                        label={t(`${T_PATH}.streetNumber`)}
+                        value={field.value}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                        errorText={
+                          meta.touched && meta.error ? meta.error : undefined
+                        }
+                      />
+                    )}
+                  </Field>
+                  <Field name="postalCode">
+                    {({ field, form, meta }: FieldProps) => (
+                      <TextInput
+                        id={field.name}
+                        className={styles.field}
+                        label={t(`${T_PATH}.postalCode`)}
+                        value={field.value}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                        errorText={
+                          meta.touched && meta.error ? meta.error : undefined
+                        }
+                      />
+                    )}
+                  </Field>
+                </div>
+                <Field name="city">
+                  {({ field }: FieldProps) => (
+                    <TextInput
+                      readOnly
+                      id={field.name}
+                      className={styles.field}
+                      label={t(`${T_PATH}.city`)}
+                      value="Helsinki"
+                    />
+                  )}
+                </Field>
                 <TextInput
-                  id={field.name}
+                  readOnly
+                  id="zone"
                   className={styles.field}
-                  label={t(`${T_PATH}.streetName`)}
-                  value={field.value}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  errorText={
-                    meta.touched && meta.error ? meta.error : undefined
-                  }
+                  label={t(`${T_PATH}.zone`)}
+                  value={zoneByLocationError ? '-' : zoneLabel}
+                  errorText={zoneByLocationError?.message}
                 />
-              )}
-            </Field>
-            <Field name="streetNameSv">
-              {({ field, form, meta }: FieldProps) => (
-                <TextInput
-                  id={field.name}
-                  className={styles.field}
-                  label={t(`${T_PATH}.streetNameSv`)}
-                  value={field.value}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  errorText={
-                    meta.touched && meta.error ? meta.error : undefined
-                  }
-                />
-              )}
-            </Field>
-            <Field name="streetNumber">
-              {({ field, form, meta }: FieldProps) => (
-                <TextInput
-                  id={field.name}
-                  className={styles.field}
-                  label={t(`${T_PATH}.streetNumber`)}
-                  value={field.value}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  errorText={
-                    meta.touched && meta.error ? meta.error : undefined
-                  }
-                />
-              )}
-            </Field>
-            <Field name="postalCode">
-              {({ field, form, meta }: FieldProps) => (
-                <TextInput
-                  id={field.name}
-                  className={styles.field}
-                  label={t(`${T_PATH}.postalCode`)}
-                  value={field.value}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  errorText={
-                    meta.touched && meta.error ? meta.error : undefined
-                  }
-                />
-              )}
-            </Field>
-            <Field name="city">
-              {({ field, form, meta }: FieldProps) => (
-                <TextInput
-                  id={field.name}
-                  className={styles.field}
-                  label={t(`${T_PATH}.city`)}
-                  value={field.value}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  errorText={
-                    meta.touched && meta.error ? meta.error : undefined
-                  }
-                />
-              )}
-            </Field>
-            <Field name="citySv">
-              {({ field, form, meta }: FieldProps) => (
-                <TextInput
-                  id={field.name}
-                  className={styles.field}
-                  label={t(`${T_PATH}.citySv`)}
-                  value={field.value}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  errorText={
-                    meta.touched && meta.error ? meta.error : undefined
-                  }
-                />
-              )}
-            </Field>
-            <TextInput
-              readOnly
-              id="zone"
-              className={styles.field}
-              label={t(`${T_PATH}.zone`)}
-              value={zoneByLocationError ? '-' : zoneLabel}
-              errorText={zoneByLocationError?.message}
-            />
-            <Field name="location">
-              {({ field, form }: FieldProps) => (
-                <LocationPicker
-                  className={styles.field}
-                  label={t(`${T_PATH}.location`)}
-                  location={field.value}
-                  onChange={value => {
-                    form.setFieldValue(field.name, value);
-                    getZoneByLocation({ variables: { location: value } });
-                  }}
-                />
-              )}
-            </Field>
+              </div>
+              <div className={styles.column}>
+                <Field name="location">
+                  {({ field, form, meta }: FieldProps) => (
+                    <LocationPicker
+                      className={styles.locationPicker}
+                      location={field.value}
+                      onChange={value => {
+                        form.setFieldValue(field.name, value);
+                        getZoneByLocation({ variables: { location: value } });
+                      }}
+                      errorText={
+                        meta.touched && meta.error ? meta.error : undefined
+                      }
+                    />
+                  )}
+                </Field>
+              </div>
+            </div>
             <div className={styles.actions}>
               <Button
                 className={styles.submit}
