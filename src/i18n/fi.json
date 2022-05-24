@@ -247,11 +247,10 @@
       },
       "lowEmissionCriteria": {
         "lowEmissionCriteriaDataTable": {
-          "endDate": "Pvm asti",
           "euroMinClassLimit": "EURO-minimiluokitus",
           "nedcMaxEmissionLimit": "NEDC-maksimipäästöraja",
           "powerType": "Käyttövoima",
-          "startDate": "Pvm alkaen",
+          "validPeriod": "Voimassaoloaika",
           "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja"
         },
         "lowEmissionCriterionForm": {

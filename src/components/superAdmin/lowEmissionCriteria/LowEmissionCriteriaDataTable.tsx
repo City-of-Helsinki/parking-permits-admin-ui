@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { LowEmissionCriterion, OrderBy, PageInfo } from '../../../types';
+import { formatDateDisplay } from '../../../utils';
 import DataTable from '../../common/DataTable';
 import { Column } from '../../types';
 
@@ -37,6 +38,12 @@ const LowEmissionCriteriaDataTable = ({
       orderFields: ['power_type'],
     },
     {
+      name: t(`${T_PATH}.euroMinClassLimit`),
+      field: 'euroMinClassLimit',
+      selector: criterion => criterion.euroMinClassLimit,
+      orderFields: ['euro_min_class_limit'],
+    },
+    {
       name: t(`${T_PATH}.nedcMaxEmissionLimit`),
       field: 'nedcMaxEmissionLimit',
       selector: criterion => criterion.nedcMaxEmissionLimit,
@@ -49,22 +56,11 @@ const LowEmissionCriteriaDataTable = ({
       orderFields: ['wltp_max_emission_limit'],
     },
     {
-      name: t(`${T_PATH}.euroMinClassLimit`),
-      field: 'euroMinClassLimit',
-      selector: criterion => criterion.euroMinClassLimit,
-      orderFields: ['euro_min_class_limit'],
-    },
-    {
-      name: t(`${T_PATH}.startDate`),
+      name: t(`${T_PATH}.validPeriod`),
       field: 'startDate',
-      selector: criterion => criterion.startDate,
+      selector: ({ startDate, endDate }) =>
+        `${formatDateDisplay(startDate)} - ${formatDateDisplay(endDate)}`,
       orderFields: ['start_date'],
-    },
-    {
-      name: t(`${T_PATH}.endDate`),
-      field: 'endDate',
-      selector: criterion => criterion.endDate,
-      orderFields: ['end_date'],
     },
   ];
 
