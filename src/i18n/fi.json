@@ -304,7 +304,7 @@
       },
       "sideNav": {
         "addresses": "Osoitteet",
-        "lowEmissionCriteria": "Vähäpäästöiset kriteerit",
+        "lowEmissionCriteria": "Vähäpäästöisyyskriteerit",
         "menu": "Valikko",
         "products": "Tuotteet",
         "users": "Käyttäjät"
@@ -409,14 +409,14 @@
         "title": "Muokkaa osoitetta"
       },
       "editLowEmissionCriterion": {
-        "title": "Muokkaa vähäpäästöistä kriteeriä"
+        "title": "Muokkaa Vähäpäästöisyyskriteeriä"
       },
       "editProduct": {
         "title": "Muokkaa tuotteen hintaa"
       },
       "lowEmissionCriteria": {
         "addNewCriterion": "Lisää uusi vähäpäästöinen kriteeri",
-        "title": "Vähäpäästöiset kriteerit"
+        "title": "Vähäpäästöisyyskriteerit"
       },
       "products": {
         "addNewPrice": "Luo uusi hinta",
