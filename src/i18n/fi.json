@@ -21,10 +21,10 @@
         "results": "Tuloksia: {{count}}"
       },
       "powerTypeSelect": {
-        "bensin": "Bensin",
-        "bifuel": "Bifuel",
+        "bensin": "Bensiini",
+        "bifuel": "Kaksoispolttoaine",
         "diesel": "Diesel",
-        "electric": "Sähköinen"
+        "electric": "Sähkö"
       }
     },
     "createPermit": {
@@ -264,6 +264,7 @@
           "powerType": "Käyttövoima",
           "save": "Tallenna",
           "startDate": "Pvm alkaen",
+          "validPeriod": "Voimassaoloaika",
           "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja"
         }
       },

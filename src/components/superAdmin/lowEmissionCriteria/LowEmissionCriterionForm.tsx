@@ -1,6 +1,6 @@
 import { formatISO } from 'date-fns';
 import { Field, FieldProps, Formik } from 'formik';
-import { Button, DateInput, NumberInput } from 'hds-react';
+import { Button, DateInput, Fieldset, NumberInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/no-namespace
@@ -91,6 +91,16 @@ const LowEmissionCriterionForm = ({
                 />
               )}
             </Field>
+            <Field name="euroMinClassLimit">
+              {({ field, form }: FieldProps) => (
+                <EuroClassSelect
+                  className={styles.field}
+                  label={t(`${T_PATH}.euroMinClassLimit`)}
+                  value={field.value}
+                  onChange={value => form.setFieldValue(field.name, value)}
+                />
+              )}
+            </Field>
             <Field name="nedcMaxEmissionLimit">
               {({ field, form, meta }: FieldProps) => (
                 <NumberInput
@@ -121,44 +131,39 @@ const LowEmissionCriterionForm = ({
                 />
               )}
             </Field>
-            <Field name="euroMinClassLimit">
-              {({ field, form }: FieldProps) => (
-                <EuroClassSelect
-                  className={styles.field}
-                  label={t(`${T_PATH}.euroMinClassLimit`)}
-                  value={field.value}
-                  onChange={value => form.setFieldValue(field.name, value)}
-                />
-              )}
-            </Field>
-            <Field name="startDate">
-              {({ field, form, meta }: FieldProps) => (
-                <DateInput
-                  id={field.name}
-                  className={styles.field}
-                  label={t(`${T_PATH}.startDate`)}
-                  value={field.value && formatDateDisplay(field.value)}
-                  onChange={(_, date) => form.setFieldValue(field.name, date)}
-                  errorText={
-                    meta.touched && meta.error ? meta.error : undefined
-                  }
-                />
-              )}
-            </Field>
-            <Field name="endDate">
-              {({ field, form, meta }: FieldProps) => (
-                <DateInput
-                  id={field.name}
-                  className={styles.field}
-                  label={t(`${T_PATH}.endDate`)}
-                  value={field.value && formatDateDisplay(field.value)}
-                  onChange={(_, date) => form.setFieldValue(field.name, date)}
-                  errorText={
-                    meta.touched && meta.error ? meta.error : undefined
-                  }
-                />
-              )}
-            </Field>
+            <Fieldset
+              className={styles.fieldSet}
+              heading={t(`${T_PATH}.validPeriod`)}>
+              <Field name="startDate">
+                {({ field, form, meta }: FieldProps) => (
+                  <DateInput
+                    id={field.name}
+                    className={styles.field}
+                    label={t(`${T_PATH}.startDate`)}
+                    value={field.value && formatDateDisplay(field.value)}
+                    onChange={(_, date) => form.setFieldValue(field.name, date)}
+                    errorText={
+                      meta.touched && meta.error ? meta.error : undefined
+                    }
+                  />
+                )}
+              </Field>
+              <div className={styles.dateSeperator} />
+              <Field name="endDate">
+                {({ field, form, meta }: FieldProps) => (
+                  <DateInput
+                    id={field.name}
+                    className={styles.field}
+                    label={t(`${T_PATH}.endDate`)}
+                    value={field.value && formatDateDisplay(field.value)}
+                    onChange={(_, date) => form.setFieldValue(field.name, date)}
+                    errorText={
+                      meta.touched && meta.error ? meta.error : undefined
+                    }
+                  />
+                )}
+              </Field>
+            </Fieldset>
             <div className={styles.actions}>
               <Button
                 className={styles.submit}

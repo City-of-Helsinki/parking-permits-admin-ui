@@ -263,6 +263,7 @@
           "powerType": "Power type",
           "save": "Save",
           "startDate": "Start date",
+          "validPeriod": "Valid period",
           "wltpMaxEmissionLimit": "WLTP maximum emission limit"
         }
       },

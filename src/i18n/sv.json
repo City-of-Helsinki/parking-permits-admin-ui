@@ -258,6 +258,7 @@
           "powerType": "Strömtyp",
           "save": "Spara",
           "startDate": "Startdatum",
+          "validPeriod": "Giltighetsperiod",
           "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
         }
       },
