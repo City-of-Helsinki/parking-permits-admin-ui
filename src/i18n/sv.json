@@ -241,11 +241,10 @@
       },
       "lowEmissionCriteria": {
         "lowEmissionCriteriaDataTable": {
-          "endDate": "Slutdatum",
           "euroMinClassLimit": "Minsta klassgräns för euro",
           "nedcMaxEmissionLimit": "NEDC maximala utsläppsgräns",
           "powerType": "Ström",
-          "startDate": "Startdatum",
+          "validPeriod": "Giltighetsperiod",
           "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
         },
         "lowEmissionCriterionForm": {
@@ -259,6 +258,7 @@
           "powerType": "Strömtyp",
           "save": "Spara",
           "startDate": "Startdatum",
+          "validPeriod": "Giltighetsperiod",
           "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
         }
       },

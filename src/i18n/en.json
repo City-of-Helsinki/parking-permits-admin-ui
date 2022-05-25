@@ -246,11 +246,10 @@
       },
       "lowEmissionCriteria": {
         "lowEmissionCriteriaDataTable": {
-          "endDate": "End date",
           "euroMinClassLimit": "Euro minimum class limit",
           "nedcMaxEmissionLimit": "NEDC maximum emission limit",
           "powerType": "Power type",
-          "startDate": "Start date",
+          "validPeriod": "Valid period",
           "wltpMaxEmissionLimit": "WLTP maximum emission limit"
         },
         "lowEmissionCriterionForm": {
@@ -264,6 +263,7 @@
           "powerType": "Power type",
           "save": "Save",
           "startDate": "Start date",
+          "validPeriod": "Valid period",
           "wltpMaxEmissionLimit": "WLTP maximum emission limit"
         }
       },

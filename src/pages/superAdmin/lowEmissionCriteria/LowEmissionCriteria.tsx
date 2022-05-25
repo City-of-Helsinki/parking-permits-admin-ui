@@ -64,7 +64,14 @@ const LowEmissionCriteria = (): React.ReactElement => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
+      <div className={styles.header}>
+        <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
+        <div className={styles.actions}>
+          <Button onClick={() => navigate('create')}>
+            {t(`${T_PATH}.addNewCriterion`)}
+          </Button>
+        </div>
+      </div>
       <div className={styles.content}>
         <LowEmissionCriteriaDataTable
           criteria={data.lowEmissionCriteria.objects || []}
@@ -75,11 +82,6 @@ const LowEmissionCriteria = (): React.ReactElement => {
           onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
           onRowClick={criterion => navigate(criterion.id as string)}
         />
-        <div className={styles.actions}>
-          <Button onClick={() => navigate('create')}>
-            {t(`${T_PATH}.addNewCriterion`)}
-          </Button>
-        </div>
       </div>
       {errorMessage && (
         <Notification
