@@ -222,7 +222,7 @@ export function isValidForPriceCheck(permit: PermitInput): boolean {
     vehicle.powerType &&
     vehicle.euroClass &&
     vehicle.emissionType &&
-    vehicle.emission
+    Number.isInteger(vehicle.emission)
   );
   return (
     hasRequiredCustomerFields &&
