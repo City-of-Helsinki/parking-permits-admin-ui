@@ -28,7 +28,7 @@ const EURO_CLASS_OPTIONS: EuroClassOption[] = [
   },
   {
     label: 'Euro 4',
-    value: 3,
+    value: 4,
   },
   {
     label: 'Euro 5',

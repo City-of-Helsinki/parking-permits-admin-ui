@@ -142,6 +142,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [getVehicle] = useLazyQuery<{
     vehicle: Vehicle;
   }>(VEHICLE_QUERY, {
+    fetchPolicy: 'no-cache',
     onCompleted: data => {
       setVehicleSearchError('');
       setPermit({
@@ -154,6 +155,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [getPermitPrices] = useLazyQuery<{ permitPrices: PermitPrice[] }>(
     PERMIT_PRICES_QUERY,
     {
+      fetchPolicy: 'no-cache',
       onCompleted: data => {
         setPermitPrices(data.permitPrices);
       },
