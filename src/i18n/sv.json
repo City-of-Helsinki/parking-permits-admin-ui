@@ -365,6 +365,7 @@
     "permitDetail": {
       "changeHistory": "Ändringshistorik",
       "edit": "Redigera",
+      "downloadPdf": "Ladda ner tillståndsinformation som PDF",
       "endPermit": "Sluttillstånd",
       "now": "Nu",
       "permitId": "Tillstånds-ID",

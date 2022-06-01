@@ -356,7 +356,7 @@
     },
     "endPermit": {
       "cancel": "Peruuta",
-      "endPermit": "Pääta tunnus",
+      "endPermit": "Päätä tunnus",
       "permitId": "Tunnus ID",
       "permits": "Tunnukset",
       "residentParkingPermit": "Asukaspysäköintitunnus",
@@ -371,7 +371,8 @@
     "permitDetail": {
       "changeHistory": "Käsittelyhistoria",
       "edit": "Muokkaa",
-      "endPermit": "Pääta tunnus",
+      "downloadPdf": "Lataa tunnuksen tiedot PDF:nä",
+      "endPermit": "Päätä tunnus",
       "now": "Nyt",
       "permitId": "Tunnus ID",
       "permits": "Tunnukset",
