@@ -370,6 +370,7 @@
     "permitDetail": {
       "changeHistory": "Change history",
       "edit": "Edit",
+      "downloadPdf": "Download permit details as PDF",
       "endPermit": "End permit",
       "now": "Now",
       "permitId": "Permit ID",

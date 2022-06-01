@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button, IconPenLine, Notification } from 'hds-react';
+import { Button, IconDownload, IconPenLine, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -13,6 +13,8 @@ import CustomerInfo from '../components/permitDetail/CustomerInfo';
 import EndPermitDialog from '../components/permitDetail/EndPermitDialog';
 import PermitInfo from '../components/permitDetail/PermitInfo';
 import VehicleInfo from '../components/permitDetail/VehicleInfo';
+import useExportData from '../export/useExportData';
+import { formatExportUrlPdf } from '../export/utils';
 import { PermitDetailData, PermitEndType } from '../types';
 import { formatCustomerName } from '../utils';
 import styles from './PermitDetail.module.scss';
@@ -80,6 +82,7 @@ const PERMIT_DETAIL_QUERY = gql`
 
 const PermitDetail = (): React.ReactElement => {
   const navigate = useNavigate();
+  const exportData = useExportData();
   const params = useParams();
   const { t } = useTranslation();
   const [openEndPermitDialog, setOpenEndPermitDialog] = useState(false);
@@ -91,6 +94,10 @@ const PermitDetail = (): React.ReactElement => {
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
+  const handleExport = () => {
+    const url = formatExportUrlPdf('permit', id || '');
+    exportData(url);
+  };
 
   let content = null;
   if (loading || !data) {
@@ -146,6 +153,14 @@ const PermitDetail = (): React.ReactElement => {
             iconLeft={<IconPenLine />}
             onClick={() => navigate('edit')}>
             {t(`${T_PATH}.edit`)}
+          </Button>
+          <div className={styles.spacer} />
+          <Button
+            className={styles.actionButton}
+            variant="secondary"
+            iconLeft={<IconDownload />}
+            onClick={handleExport}>
+            {t(`${T_PATH}.downloadPdf`)}
           </Button>
           <div className={styles.spacer} />
           <Button
