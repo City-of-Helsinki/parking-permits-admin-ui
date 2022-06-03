@@ -159,6 +159,9 @@
         "createdAt": "Created at",
         "name": "Name",
         "status": "Status"
+      },
+      "refundStatusSelect": {
+        "status": "Status"
       }
     },
     "residentPermit": {
@@ -437,5 +440,12 @@
   "productUnit": {
     "monthly": "p/m",
     "pieces": "pcs"
+  },
+  "refundStatus": {
+    "accepted": "Accepted",
+    "all": "All",
+    "open": "Open",
+    "rejected": "Rejected",
+    "requestForApproval": "Request for approval"
   }
 }

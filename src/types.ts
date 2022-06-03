@@ -340,12 +340,22 @@ export interface PagedOrders {
 export interface OrdersQueryData {
   orders: PagedOrders;
 }
+
+export enum RefundStatus {
+  OPEN = 'OPEN',
+  REQUEST_FOR_APPROVAL = 'REQUEST_FOR_APPROVAL',
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED',
+}
+
+export type RefundStatusOrAll = RefundStatus | 'ALL';
+
 export interface Refund {
   id: string;
   name: string;
   amount: number;
   iban: string;
-  status: string;
+  status: RefundStatus;
   description: string;
   createdAt: string;
   createdBy: string;
@@ -364,6 +374,19 @@ export interface RefundsQueryData {
 export interface RefundInput {
   name: string;
   iban: string;
+}
+
+export enum PaymentType {
+  ONLINE_PAYMENT = 'ONLINE_PAYMENT',
+  CASHIER_PAYMENT = 'CASHIER_PAYMENT',
+}
+
+export interface RefundSearchParams {
+  q: string;
+  startDate: string;
+  endDate: string;
+  status: RefundStatusOrAll;
+  paymentTypes: string;
 }
 
 export interface PermitPriceChange {
