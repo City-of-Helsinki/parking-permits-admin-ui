@@ -154,6 +154,9 @@
         "createdAt": "Skapade vid",
         "name": "Namn",
         "status": "Status"
+      },
+      "refundStatusSelect": {
+        "status": "Status"
       }
     },
     "residentPermit": {
@@ -431,5 +434,12 @@
   "productUnit": {
     "monthly": "kk",
     "pieces": "kpl"
+  },
+  "refundStatus": {
+    "accepted": "Accepterad",
+    "all": "Alla",
+    "open": "Öppna",
+    "rejected": "Avvisade",
+    "requestForApproval": "Begäran om godkännande"
   }
 }

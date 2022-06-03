@@ -160,6 +160,9 @@
         "createdAt": "Muutosaika",
         "name": "Nimi",
         "status": "Tila"
+      },
+      "refundStatusSelect": {
+        "status": "Tila"
       }
     },
     "residentPermit": {
@@ -437,5 +440,12 @@
   "productUnit": {
     "monthly": "kk",
     "pieces": "kpl"
+  },
+  "refundStatus": {
+    "accepted": "Hyväksytty",
+    "all": "Kaikki",
+    "open": "Avoin",
+    "rejected": "Hylätty",
+    "requestForApproval": "Odottaa hyväksyntää"
   }
 }
