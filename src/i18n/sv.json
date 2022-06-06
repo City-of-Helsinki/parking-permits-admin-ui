@@ -155,6 +155,11 @@
         "name": "Namn",
         "status": "Status"
       },
+      "refundsSearch": {
+        "cash": "Kontanter",
+        "searchPlaceholder": "Namn, registreringsnummer eller ordernummer",
+        "webshop": "Webbshop"
+      },
       "refundStatusSelect": {
         "status": "Status"
       }

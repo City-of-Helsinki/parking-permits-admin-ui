@@ -160,6 +160,11 @@
         "name": "Name",
         "status": "Status"
       },
+      "refundsSearch": {
+        "cash": "Cash",
+        "searchPlaceholder": "Name, registration number or order number",
+        "webshop": "Webshop"
+      },
       "refundStatusSelect": {
         "status": "Status"
       }

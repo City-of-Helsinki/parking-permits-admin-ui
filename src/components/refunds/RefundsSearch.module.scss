@@ -1,0 +1,35 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  .statusSelect {
+    margin-right: $spacing-m;
+    width: 250px;
+  }
+
+  .dateRange {
+    margin-right: $spacing-m;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .startDate,
+    .endDate {
+      width: 200px;
+    }
+
+    .dateSeprator {
+      margin: 0 5px;
+      width: 15px;
+      height: 2px;
+      background-color: black;
+    }
+  }
+
+  .searchInput {
+    width: 430px;
+  }
+}

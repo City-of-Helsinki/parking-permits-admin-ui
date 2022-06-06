@@ -161,6 +161,11 @@
         "name": "Nimi",
         "status": "Tila"
       },
+      "refundsSearch": {
+        "cash": "Kassa",
+        "searchPlaceholder": "Nimi, rekisterinro tai tilausnumero",
+        "webshop": "Verkkokauppa"
+      },
       "refundStatusSelect": {
         "status": "Tila"
       }
