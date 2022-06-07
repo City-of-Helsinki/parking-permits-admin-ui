@@ -18,7 +18,8 @@
       },
       "dataTable": {
         "downloadCsv": "Lataa tulokset csv-tiedostona",
-        "results": "Tuloksia: {{count}}"
+        "results": "Tuloksia: {{count}}",
+        "selectAll": "Valitse kaikki listalta"
       },
       "powerTypeSelect": {
         "bensin": "Bensiini",
