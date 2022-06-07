@@ -1,4 +1,4 @@
-import { Button, IconDownload } from 'hds-react';
+import { Button, Checkbox, IconDownload } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { OrderBy, PageInfo } from '../../types';
@@ -56,6 +56,19 @@ const DataTable = <T,>({
           </Button>
         )}
       </div>
+      {selection && (
+        <div className={styles.selectionActions}>
+          <Checkbox
+            id="checkbox-select-all"
+            indeterminate={
+              selection.length > 0 && selection.length < data.length
+            }
+            checked={selection.length === data.length}
+            label={t(`${T_PATH}.selectAll`)}
+            onChange={e => onSelectionChange(e.target.checked ? data : [])}
+          />
+        </div>
+      )}
       <Table
         selection={selection}
         columns={columns}

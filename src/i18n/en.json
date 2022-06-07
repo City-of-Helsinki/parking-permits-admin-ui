@@ -18,7 +18,8 @@
       },
       "dataTable": {
         "downloadCsv": "Download the results as a csv file",
-        "results": "Results: {{count}}"
+        "results": "Results: {{count}}",
+        "selectAll": "Select all from the list"
       },
       "powerTypeSelect": {
         "bensin": "Bensin",
@@ -377,8 +378,8 @@
     },
     "permitDetail": {
       "changeHistory": "Change history",
-      "edit": "Edit",
       "downloadPdf": "Download permit details as PDF",
+      "edit": "Edit",
       "endPermit": "End permit",
       "now": "Now",
       "permitId": "Permit ID",
