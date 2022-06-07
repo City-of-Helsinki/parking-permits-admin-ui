@@ -1,28 +1,53 @@
+import { Checkbox } from 'hds-react';
 import React from 'react';
 import { Column } from '../../types';
 import styles from './TableRow.module.scss';
 
 export interface TableRowProps<T> {
+  rowId: string;
+  selected?: boolean | null;
   columns: Column<T>[];
   row: T;
   onClick?: (row: T) => void;
+  onSelectionChange?: (checked: boolean) => void;
 }
 
 const TableRow = <T,>({
+  rowId,
+  selected = null,
   columns,
   row,
   onClick,
+  onSelectionChange,
 }: TableRowProps<T>): React.ReactElement => (
   <tr
-    className={styles['table-row']}
+    className={styles.tableRow}
     onClick={() => {
       if (onClick) {
         onClick(row);
       }
     }}>
-    {columns.map(({ field, selector }) => (
-      <td key={field}>{selector(row)}</td>
-    ))}
+    {columns.map(({ field, selector }, index) => {
+      if (index === 0 && selected !== null) {
+        return (
+          <td key={field}>
+            <Checkbox
+              className={styles.checkbox}
+              id={`checkbox-${rowId}`}
+              label={selector(row)}
+              checked={selected}
+              onClick={e => {
+                e.stopPropagation();
+                if (onSelectionChange) {
+                  onSelectionChange(!selected);
+                }
+              }}
+            />
+          </td>
+        );
+      }
+      return <td key={field}>{selector(row)}</td>;
+    })}
   </tr>
 );
 

@@ -11,6 +11,7 @@ import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
 import {
   OrderBy,
+  Refund,
   RefundSearchParams,
   RefundsQueryData,
   RefundStatusOrAll,
@@ -63,6 +64,7 @@ const Refunds = (): React.ReactElement => {
   const [page, setPage] = useState(1);
   const [orderBy, setOrderBy] = useState<OrderBy | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
+  const [selectedRefunds, setSelectedRefunds] = useState<Refund[]>([]);
 
   const refundSearchParams: RefundSearchParams = {
     q: searchParams.get('q') || '',
@@ -113,6 +115,7 @@ const Refunds = (): React.ReactElement => {
           }}
         />
         <RefundsDataTable
+          selection={selectedRefunds}
           refunds={data.refunds.objects}
           pageInfo={data.refunds.pageInfo}
           loading={loading}
@@ -121,6 +124,7 @@ const Refunds = (): React.ReactElement => {
           onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
           onRowClick={refund => navigate(refund.id)}
           onExport={handleExport}
+          onSelectionChange={selection => setSelectedRefunds(selection)}
         />
       </div>
       {errorMessage && (
