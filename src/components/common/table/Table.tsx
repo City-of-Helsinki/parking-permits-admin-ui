@@ -7,6 +7,7 @@ import styles from './Table.module.scss';
 import TableRow from './TableRow';
 
 export interface TableProps<T> {
+  selection?: T[] | null;
   columns: Column<T>[];
   data: T[] | undefined;
   loading: boolean;
@@ -14,9 +15,11 @@ export interface TableProps<T> {
   rowIdSelector: (row: T) => string | number;
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (row: T) => void;
+  onSelectionChange?: (rows: T[]) => void;
 }
 
 const Table = <T,>({
+  selection = null,
   columns,
   data,
   loading,
@@ -24,6 +27,7 @@ const Table = <T,>({
   rowIdSelector,
   onOrderBy,
   onRowClick,
+  onSelectionChange,
 }: TableProps<T>): React.ReactElement => {
   let tableBody;
   if (loading) {
@@ -31,14 +35,37 @@ const Table = <T,>({
   } else if (!data) {
     tableBody = <NoDataRow colSpan={columns.length} text="No data" />;
   } else {
-    tableBody = data.map(row => (
-      <TableRow
-        onClick={onRowClick}
-        key={rowIdSelector(row)}
-        columns={columns}
-        row={row}
-      />
-    ));
+    tableBody = data.map(row => {
+      const rowId = rowIdSelector(row);
+      return (
+        <TableRow
+          selected={
+            selection
+              ? selection.some(
+                  selectedRow => rowIdSelector(selectedRow) === rowId
+                )
+              : null
+          }
+          onClick={onRowClick}
+          key={rowId}
+          rowId={rowId.toString()}
+          columns={columns}
+          row={row}
+          onSelectionChange={checked => {
+            if (!onSelectionChange) {
+              return;
+            }
+            const currentSelection = selection || [];
+            const newSelection = checked
+              ? [...currentSelection, row]
+              : currentSelection.filter(
+                  selectedRow => rowIdSelector(selectedRow) !== rowId
+                );
+            onSelectionChange(newSelection);
+          }}
+        />
+      );
+    });
   }
   return (
     <table className={styles.table}>

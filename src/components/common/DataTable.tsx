@@ -8,6 +8,7 @@ import Paginator from './paginator/Paginator';
 import Table from './table/Table';
 
 export interface DataTableProps<T> {
+  selection?: T[] | null;
   columns: Column<T>[];
   data: T[];
   loading?: boolean;
@@ -18,11 +19,13 @@ export interface DataTableProps<T> {
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (row: T) => void;
   onExport?: () => void;
+  onSelectionChange: (rows: T[]) => void;
 }
 
 const T_PATH = 'components.common.dataTable';
 
 const DataTable = <T,>({
+  selection = null,
   columns,
   data,
   loading = false,
@@ -33,6 +36,7 @@ const DataTable = <T,>({
   onOrderBy,
   onRowClick,
   onExport,
+  onSelectionChange,
 }: DataTableProps<T>): React.ReactElement => {
   const { t } = useTranslation();
   return (
@@ -53,6 +57,7 @@ const DataTable = <T,>({
         )}
       </div>
       <Table
+        selection={selection}
         columns={columns}
         data={data}
         loading={loading}
@@ -60,6 +65,7 @@ const DataTable = <T,>({
         rowIdSelector={rowIdSelector}
         onOrderBy={onOrderBy}
         onRowClick={onRowClick}
+        onSelectionChange={onSelectionChange}
       />
       {pageInfo && onPage && <Paginator pageInfo={pageInfo} onPage={onPage} />}
     </div>

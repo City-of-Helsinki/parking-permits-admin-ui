@@ -8,6 +8,7 @@ import { Column } from '../types';
 const T_PATH = 'components.refunds.refundsDataTable';
 
 export interface RefundsDataTableProps {
+  selection?: Refund[] | null;
   refunds: Refund[];
   pageInfo?: PageInfo;
   loading?: boolean;
@@ -16,9 +17,11 @@ export interface RefundsDataTableProps {
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (refund: Refund) => void;
   onExport?: () => void;
+  onSelectionChange: (refunds: Refund[]) => void;
 }
 
 const RefundsDataTable = ({
+  selection = null,
   refunds,
   pageInfo,
   loading = false,
@@ -27,6 +30,7 @@ const RefundsDataTable = ({
   onOrderBy,
   onRowClick,
   onExport,
+  onSelectionChange,
 }: RefundsDataTableProps): React.ReactElement => {
   const { t } = useTranslation();
   const columns: Column<Refund>[] = [
@@ -64,6 +68,7 @@ const RefundsDataTable = ({
 
   return (
     <DataTable
+      selection={selection}
       data={refunds}
       loading={loading}
       pageInfo={pageInfo}
@@ -74,6 +79,7 @@ const RefundsDataTable = ({
       onOrderBy={onOrderBy}
       onRowClick={onRowClick}
       onExport={onExport}
+      onSelectionChange={onSelectionChange}
     />
   );
 };
