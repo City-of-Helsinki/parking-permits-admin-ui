@@ -22,6 +22,10 @@
     display: flex;
     flex-direction: row;
 
+    .downloadPdf {
+      margin-right: $spacing-m;
+    }
+
     .save {
       margin-right: $spacing-m;
     }

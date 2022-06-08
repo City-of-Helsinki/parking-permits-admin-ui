@@ -1,6 +1,6 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Formik } from 'formik';
-import { Button, Notification, TextInput } from 'hds-react';
+import { Button, IconDownload, Notification, TextInput } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -10,6 +10,8 @@ import * as Yup from 'yup';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
+import useExportData from '../export/useExportData';
+import { formatExportUrlPdf } from '../export/utils';
 import { MutationResponse, Refund, RefundInput } from '../types';
 import { isValidIBAN } from '../utils';
 import styles from './RefundDetail.module.scss';
@@ -43,6 +45,7 @@ const UPDATE_REFUND_MUTATION = gql`
 
 const RefundDetail = (): React.ReactElement => {
   const navigate = useNavigate();
+  const exportData = useExportData();
   const { t } = useTranslation();
   const { id: refundId } = useParams();
   const [errorMessage, setErrorMessage] = useState('');
@@ -56,6 +59,10 @@ const RefundDetail = (): React.ReactElement => {
     onCompleted: () => navigate('/refunds'),
     onError: e => setErrorMessage(e.message),
   });
+  const handleExport = () => {
+    const url = formatExportUrlPdf('refund', refundId || '');
+    exportData(url);
+  };
 
   if (loading) {
     return <div>Loading..</div>;
@@ -147,6 +154,13 @@ const RefundDetail = (): React.ReactElement => {
                   disabled={!(dirty && isValid)}
                   type="submit">
                   {t(`${T_PATH}.save`)}
+                </Button>
+                <Button
+                  className={styles.downloadPdf}
+                  variant="secondary"
+                  iconLeft={<IconDownload />}
+                  onClick={handleExport}>
+                  {t(`${T_PATH}.downloadPdf`)}
                 </Button>
                 <Button
                   variant="secondary"

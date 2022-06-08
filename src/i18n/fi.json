@@ -396,6 +396,7 @@
       "name": "Nimi",
       "refunds": "Palautukset",
       "save": "Tallenna",
+      "downloadPdf": "Lataa palautuksen tiedot PDF:nä",
       "title": "Muokkaa Palautusta"
     },
     "refunds": {

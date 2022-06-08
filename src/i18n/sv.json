@@ -390,6 +390,7 @@
       "name": "Namn",
       "refunds": "Returnerar",
       "save": "Spara",
+      "downloadPdf": "Ladda ner returnsinformation som PDF",
       "title": "Redigera Retur"
     },
     "refunds": {
