@@ -19,6 +19,7 @@ import {
   Refund,
   RefundSearchParams,
   RefundsQueryData,
+  RefundStatus,
   RefundStatusOrAll,
 } from '../types';
 import styles from './Refunds.module.scss';
@@ -104,7 +105,10 @@ const Refunds = (): React.ReactElement => {
   const [requestForApproval] = useMutation<{ requestForApproval: number }>(
     REQUEST_FOR_APPROVAL_MUTATION,
     {
-      onCompleted: () => refetch(),
+      onCompleted: () => {
+        refetch();
+        setSelectedRefunds([]);
+      },
       onError: error => setErrorMessage(error.message),
     }
   );
@@ -112,10 +116,22 @@ const Refunds = (): React.ReactElement => {
   const [acceptRefunds] = useMutation<{ acceptRefunds: number }>(
     ACCEPT_REFUNDS_MUTATION,
     {
-      onCompleted: () => refetch(),
+      onCompleted: () => {
+        refetch();
+        setSelectedRefunds([]);
+      },
       onError: error => setErrorMessage(error.message),
     }
   );
+
+  const canRequestForApproval =
+    selectedRefunds.length > 0 &&
+    selectedRefunds.every(refund => refund.status === RefundStatus.OPEN);
+  const canAcceptRefunds =
+    selectedRefunds.length > 0 &&
+    selectedRefunds.every(
+      refund => refund.status === RefundStatus.REQUEST_FOR_APPROVAL
+    );
 
   if (loading) {
     return <div>loading...</div>;
@@ -163,6 +179,7 @@ const Refunds = (): React.ReactElement => {
       <div className={styles.footer}>
         <div className={styles.actions}>
           <Button
+            disabled={!canRequestForApproval}
             className={styles.actionButton}
             theme="black"
             iconLeft={<IconArrowRight />}
@@ -174,6 +191,7 @@ const Refunds = (): React.ReactElement => {
             {t(`${T_PATH}.requestForApproval`)}
           </Button>
           <Button
+            disabled={!canAcceptRefunds}
             className={styles.actionButton}
             theme="black"
             iconLeft={<IconCheckCircle />}
