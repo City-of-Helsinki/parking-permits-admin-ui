@@ -4,6 +4,7 @@ import { OrderBy, PageInfo, Refund } from '../../types';
 import { formatDateTimeDisplay } from '../../utils';
 import DataTable from '../common/DataTable';
 import { Column } from '../types';
+import RefundStatusLabel from './RefundStatusLabel';
 
 const T_PATH = 'components.refunds.refundsDataTable';
 
@@ -55,7 +56,7 @@ const RefundsDataTable = ({
     {
       name: t(`${T_PATH}.status`),
       field: 'status',
-      selector: ({ status }) => status,
+      selector: ({ status }) => <RefundStatusLabel status={status} />,
       orderFields: ['status'],
     },
     {
