@@ -399,6 +399,8 @@
       "title": "Edit Refund"
     },
     "refunds": {
+      "acceptRefunds": "Accept refunds",
+      "requestForApproval": "Request for approval",
       "title": "Returns"
     },
     "superAdmin": {

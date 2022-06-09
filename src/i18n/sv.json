@@ -373,8 +373,8 @@
     },
     "permitDetail": {
       "changeHistory": "Ändringshistorik",
-      "edit": "Redigera",
       "downloadPdf": "Ladda ner tillståndsinformation som PDF",
+      "edit": "Redigera",
       "endPermit": "Sluttillstånd",
       "now": "Nu",
       "permitId": "Tillstånds-ID",
@@ -394,6 +394,8 @@
       "title": "Redigera Retur"
     },
     "refunds": {
+      "acceptRefunds": "Acceptera återbetalningar",
+      "requestForApproval": "Begäran om godkännande",
       "title": "Returnerar"
     },
     "superAdmin": {
