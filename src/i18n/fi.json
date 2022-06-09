@@ -379,8 +379,8 @@
     },
     "permitDetail": {
       "changeHistory": "Käsittelyhistoria",
-      "edit": "Muokkaa",
       "downloadPdf": "Lataa tunnuksen tiedot PDF:nä",
+      "edit": "Muokkaa",
       "endPermit": "Päätä tunnus",
       "now": "Nyt",
       "permitId": "Tunnus ID",
@@ -399,6 +399,8 @@
       "title": "Muokkaa Palautusta"
     },
     "refunds": {
+      "acceptRefunds": "Hyväksy palautukset",
+      "requestForApproval": "Lähetä hyväksyttäväksi",
       "title": "Palautukset"
     },
     "superAdmin": {

@@ -1,5 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
-import { Notification } from 'hds-react';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import {
+  Button,
+  IconArrowRight,
+  IconCheckCircle,
+  Notification,
+} from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -16,7 +21,7 @@ import {
   RefundsQueryData,
   RefundStatusOrAll,
 } from '../types';
-import styles from './Permits.module.scss';
+import styles from './Refunds.module.scss';
 
 const T_PATH = 'pages.refunds';
 
@@ -56,6 +61,18 @@ const REFUNDS_QUERY = gql`
   }
 `;
 
+const REQUEST_FOR_APPROVAL_MUTATION = gql`
+  mutation RequestForApproval($ids: [ID]!) {
+    requestForApproval(ids: $ids)
+  }
+`;
+
+const ACCEPT_REFUNDS_MUTATION = gql`
+  mutation AcceptRefunds($ids: [ID]!) {
+    acceptRefunds(ids: $ids)
+  }
+`;
+
 const Refunds = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -83,6 +100,22 @@ const Refunds = (): React.ReactElement => {
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
+
+  const [requestForApproval] = useMutation<{ requestForApproval: number }>(
+    REQUEST_FOR_APPROVAL_MUTATION,
+    {
+      onCompleted: () => refetch(),
+      onError: error => setErrorMessage(error.message),
+    }
+  );
+
+  const [acceptRefunds] = useMutation<{ acceptRefunds: number }>(
+    ACCEPT_REFUNDS_MUTATION,
+    {
+      onCompleted: () => refetch(),
+      onError: error => setErrorMessage(error.message),
+    }
+  );
 
   if (loading) {
     return <div>loading...</div>;
@@ -126,6 +159,32 @@ const Refunds = (): React.ReactElement => {
           onExport={handleExport}
           onSelectionChange={selection => setSelectedRefunds(selection)}
         />
+      </div>
+      <div className={styles.footer}>
+        <div className={styles.actions}>
+          <Button
+            className={styles.actionButton}
+            theme="black"
+            iconLeft={<IconArrowRight />}
+            onClick={() =>
+              requestForApproval({
+                variables: { ids: selectedRefunds.map(refund => refund.id) },
+              })
+            }>
+            {t(`${T_PATH}.requestForApproval`)}
+          </Button>
+          <Button
+            className={styles.actionButton}
+            theme="black"
+            iconLeft={<IconCheckCircle />}
+            onClick={() =>
+              acceptRefunds({
+                variables: { ids: selectedRefunds.map(refund => refund.id) },
+              })
+            }>
+            {t(`${T_PATH}.acceptRefunds`)}
+          </Button>
+        </div>
       </div>
       {errorMessage && (
         <Notification

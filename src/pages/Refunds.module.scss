@@ -2,4 +2,26 @@
 
 .container {
   margin: $spacing-m;
+
+  .footer {
+    padding: $spacing-m 0;
+    box-shadow: 0 -5px 5px -5px $color-black-30;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+      margin: 0 auto;
+      max-width: $breakpoint-xl;
+
+      .actionButton {
+        margin-left: $spacing-m;
+      }
+    }
+  }
 }
