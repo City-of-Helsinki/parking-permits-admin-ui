@@ -151,9 +151,14 @@
     },
     "refunds": {
       "refundsDataTable": {
+        "acceptedAt": "Godkänd",
+        "accountNumber": "Kontonummer",
         "amount": "Mängd",
         "createdAt": "Skapade vid",
         "name": "Namn",
+        "orderNumber": "Ordernummer",
+        "refundNumber": "Återbetalningsnummer",
+        "registrationNumber": "Registreringsnummer",
         "status": "Status"
       },
       "refundsSearch": {

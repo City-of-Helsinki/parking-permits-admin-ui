@@ -48,6 +48,16 @@ const REFUNDS_QUERY = gql`
         createdBy
         modifiedAt
         modifiedBy
+        acceptedAt
+        acceptedBy
+        order {
+          id
+          orderPermits {
+            vehicle {
+              registrationNumber
+            }
+          }
+        }
       }
       pageInfo {
         numPages

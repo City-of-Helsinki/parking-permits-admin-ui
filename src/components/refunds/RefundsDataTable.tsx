@@ -36,22 +36,50 @@ const RefundsDataTable = ({
   const { t } = useTranslation();
   const columns: Column<Refund>[] = [
     {
+      name: t(`${T_PATH}.refundNumber`),
+      field: 'id',
+      selector: ({ id }) => id,
+      orderFields: ['id'],
+    },
+    {
       name: t(`${T_PATH}.name`),
       field: 'name',
       selector: ({ name }) => name,
       orderFields: ['name'],
     },
     {
-      name: t(`${T_PATH}.amount`),
-      field: 'amount',
-      selector: ({ amount }) => `${amount} €`,
-      orderFields: ['amount'],
+      name: t(`${T_PATH}.orderNumber`),
+      field: 'orderId',
+      selector: ({ order }) => order.id,
+      orderFields: ['order_id'],
     },
     {
-      name: 'IBAN',
-      field: 'iban',
+      name: t(`${T_PATH}.registrationNumber`),
+      field: 'registrationNumber',
+      selector: ({ order }) =>
+        order.orderPermits
+          .map(permit => permit.vehicle.registrationNumber)
+          .join(', '),
+      orderFields: ['order__permits__vehicle__registration_number'],
+    },
+    {
+      name: t(`${T_PATH}.accountNumber`),
+      field: 'accountNumber',
       selector: ({ iban }) => iban,
       orderFields: ['iban'],
+    },
+    {
+      name: t(`${T_PATH}.createdAt`),
+      field: 'createdAt',
+      selector: ({ createdAt }) => formatDateTimeDisplay(createdAt),
+      orderFields: ['created_at'],
+    },
+    {
+      name: t(`${T_PATH}.acceptedAt`),
+      field: 'acceptedAt',
+      selector: ({ acceptedAt }) =>
+        acceptedAt ? formatDateTimeDisplay(acceptedAt) : '-',
+      orderFields: ['accepted_at'],
     },
     {
       name: t(`${T_PATH}.status`),
@@ -60,10 +88,10 @@ const RefundsDataTable = ({
       orderFields: ['status'],
     },
     {
-      name: t(`${T_PATH}.createdAt`),
-      field: 'createdAt',
-      selector: ({ createdAt }) => formatDateTimeDisplay(createdAt),
-      orderFields: ['createdAt'],
+      name: t(`${T_PATH}.amount`),
+      field: 'amount',
+      selector: ({ amount }) => `${amount} €`,
+      orderFields: ['amount'],
     },
   ];
 
