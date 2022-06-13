@@ -157,9 +157,14 @@
     },
     "refunds": {
       "refundsDataTable": {
+        "acceptedAt": "Hyväksytty",
+        "accountNumber": "Tilinumero",
         "amount": "Määrä",
         "createdAt": "Muutosaika",
         "name": "Nimi",
+        "orderNumber": "Tilausnumero",
+        "refundNumber": "Palautusnumero",
+        "registrationNumber": "Rekisterinumero",
         "status": "Tila"
       },
       "refundsSearch": {

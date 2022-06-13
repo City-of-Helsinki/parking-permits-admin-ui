@@ -156,9 +156,14 @@
     },
     "refunds": {
       "refundsDataTable": {
+        "acceptedAt": "Accepted at",
+        "accountNumber": "Account number",
         "amount": "Amount",
         "createdAt": "Created at",
         "name": "Name",
+        "orderNumber": "Order number",
+        "refundNumber": "Refund number",
+        "registrationNumber": "Registration number",
         "status": "Status"
       },
       "refundsSearch": {

@@ -361,6 +361,9 @@ export interface Refund {
   createdBy: string;
   modifiedAt: string;
   modifiedBy: string;
+  acceptedAt: string;
+  acceptedBy: string;
+  order: Order;
 }
 export interface PagedRefunds {
   objects: Refund[];
