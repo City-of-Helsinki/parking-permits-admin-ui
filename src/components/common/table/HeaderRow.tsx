@@ -15,7 +15,7 @@ function getNextOrderDirection(
   orderField: string,
   currentOrderBy?: OrderBy
 ): OrderDirection {
-  if (!currentOrderBy || orderField !== currentOrderBy?.field) {
+  if (!currentOrderBy || orderField !== currentOrderBy?.orderField) {
     return OrderDirection.ASC;
   }
   return currentOrderBy?.orderDirection === OrderDirection.ASC
@@ -35,14 +35,13 @@ const HeaderRow = <T,>({
         title={name}
         sortable={orderFields !== undefined}
         orderDirection={
-          orderBy?.field === field ? orderBy?.orderDirection : null
+          orderBy?.orderField === field ? orderBy?.orderDirection : null
         }
         onClick={
           orderFields && onOrderBy
             ? () =>
                 onOrderBy({
-                  field,
-                  orderFields,
+                  orderField: field,
                   orderDirection: getNextOrderDirection(field, orderBy),
                 })
             : undefined

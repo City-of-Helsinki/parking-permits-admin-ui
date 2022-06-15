@@ -3,23 +3,20 @@ import { Button, IconArrowRight, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
-import {
-  DEFAULT_SEARCH_INFO,
-  getSearchItems,
-} from '../components/permits/utils';
+import { OrderDirection } from '../components/types';
 import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
 import {
   OrderBy,
+  ParkingPermitStatusOrAll,
+  PermitSearchParams,
   PermitsQueryData,
   PermitsQueryVariables,
-  PermitsSearchInfo,
-  SavedStatus,
 } from '../types';
-import { getSavedStatus, saveStatus } from '../utils';
 import styles from './Permits.module.scss';
 
 const T_PATH = 'pages.permits';
@@ -28,12 +25,12 @@ const PERMITS_QUERY = gql`
   query GetPermits(
     $pageInput: PageInput!
     $orderBy: OrderByInput
-    $searchItems: [SearchItem]
+    $searchParams: PermitSearchParamsInput
   ) {
     permits(
       pageInput: $pageInput
       orderBy: $orderBy
-      searchItems: $searchItems
+      searchParams: $searchParams
     ) {
       objects {
         id
@@ -86,43 +83,86 @@ const PERMITS_QUERY = gql`
 const Permits = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const exportData = useExportData();
-  const initialPage = getSavedStatus<number>(SavedStatus.PERMITS_PAGE) || 1;
-  const initialOrderBy =
-    getSavedStatus<OrderBy>(SavedStatus.PERMITS_ORDER_BY) || undefined;
-  const initialSearchInfo =
-    getSavedStatus<PermitsSearchInfo>(SavedStatus.PERMITS_SEARCH_INFO) ||
-    DEFAULT_SEARCH_INFO;
-  const [page, setPage] = useState(initialPage);
-  const [orderBy, setOrderBy] = useState<OrderBy | undefined>(initialOrderBy);
-  const [searchInfo, setSearchInfo] =
-    useState<PermitsSearchInfo>(initialSearchInfo);
+  const pageParam = searchParams.get('page');
+  const orderFieldParam = searchParams.get('orderField');
+  const orderDirectionParam = searchParams.get('orderDirection');
+  const statusParam = searchParams.get('status');
+  const qParam = searchParams.get('q');
+
+  const page = pageParam ? parseInt(pageParam, 10) : 1;
+  const orderBy = {
+    orderField: orderFieldParam || '',
+    orderDirection:
+      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
+  };
+  const permitSearchParams = {
+    status: (statusParam as ParkingPermitStatusOrAll | null) || 'ALL',
+    q: qParam || '',
+  };
   const [errorMessage, setErrorMessage] = useState('');
-  const searchItems = getSearchItems(searchInfo);
   const variables: PermitsQueryVariables = {
     pageInput: { page },
     orderBy,
-    searchItems,
+    searchParams: permitSearchParams,
   };
-  const { loading, data } = useQuery<PermitsQueryData>(PERMITS_QUERY, {
+  const { loading, data, refetch } = useQuery<PermitsQueryData>(PERMITS_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
-  const handleSearch = (newSearchInfo: PermitsSearchInfo) => {
-    setSearchInfo(newSearchInfo);
-    saveStatus(SavedStatus.PERMITS_SEARCH_INFO, newSearchInfo);
+  const handleSearch = (newPermitSearchParams: PermitSearchParams) => {
+    const urlSearchParams = {
+      ...newPermitSearchParams,
+      ...orderBy,
+      page,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { page },
+      orderBy,
+      searchParams: newPermitSearchParams,
+    });
   };
   const handlePage = (newPage: number) => {
-    setPage(newPage);
-    saveStatus(SavedStatus.PERMITS_PAGE, newPage);
+    const urlSearchParams = {
+      ...permitSearchParams,
+      ...orderBy,
+      page: newPage,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { newPage },
+      orderBy,
+      searchParams: permitSearchParams,
+    });
   };
   const handleOrderBy = (newOrderBy: OrderBy) => {
-    setOrderBy(newOrderBy);
-    saveStatus(SavedStatus.PERMITS_ORDER_BY, newOrderBy);
+    const urlSearchParams = {
+      ...permitSearchParams,
+      ...newOrderBy,
+      page,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { page },
+      orderBy: newOrderBy,
+      searchParams: permitSearchParams,
+    });
   };
   const handleExport = () => {
-    const url = formatExportUrl('permits', orderBy, searchItems);
+    const url = formatExportUrl('permits', {
+      ...permitSearchParams,
+      ...orderBy,
+      page: page.toString(),
+    });
     exportData(url);
   };
   return (
@@ -135,7 +175,10 @@ const Permits = (): React.ReactElement => {
           {t(`${T_PATH}.createNewPermit`)}
         </Button>
       </div>
-      <PermitsSearch searchInfo={searchInfo} onSearch={handleSearch} />
+      <PermitsSearch
+        searchParams={permitSearchParams}
+        onSearch={handleSearch}
+      />
       <PermitsDataTable
         permits={data?.permits.objects || []}
         pageInfo={data?.permits.pageInfo}

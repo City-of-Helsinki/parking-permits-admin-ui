@@ -27,14 +27,3 @@ export enum ConnectorType {
   OR = 'or',
   AND = 'and',
 }
-
-export interface SearchField {
-  matchType: MatchType;
-  fieldName: string;
-}
-
-export interface SearchItem {
-  connector: ConnectorType;
-  fields: SearchField[];
-  value: unknown;
-}

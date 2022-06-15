@@ -152,7 +152,11 @@ const Refunds = (): React.ReactElement => {
   }
 
   const handleExport = () => {
-    const url = formatExportUrl('refunds', orderBy);
+    const url = formatExportUrl('refunds', {
+      ...refundSearchParams,
+      ...orderBy,
+      page: page.toString(),
+    });
     exportData(url);
   };
 

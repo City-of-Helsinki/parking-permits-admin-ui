@@ -1,4 +1,4 @@
-import { OrderDirection, SearchItem } from './components/types';
+import { OrderDirection } from './components/types';
 
 export type AnyObject = Record<string, unknown>;
 
@@ -290,8 +290,7 @@ export interface CreatePermitResponse {
 }
 
 export interface OrderBy {
-  field: string;
-  orderFields: string[];
+  orderField: string;
   orderDirection: OrderDirection;
 }
 
@@ -302,13 +301,19 @@ export interface PageInput {
 export interface PermitsQueryVariables {
   pageInput: PageInput;
   orderBy?: OrderBy;
-  searchItems?: SearchItem[];
+  searchParams?: PermitSearchParams;
 }
 
-export interface PermitsSearchInfo {
+export interface SearchBaseParams {
+  page?: number;
+  pageSize?: number;
+  orderBy?: string[];
+  orderDirection?: OrderDirection;
+}
+
+export interface PermitSearchParams {
   status: ParkingPermitStatusOrAll;
-  searchText: string;
-  filters: string[];
+  q: string;
 }
 
 export enum SavedStatus {
