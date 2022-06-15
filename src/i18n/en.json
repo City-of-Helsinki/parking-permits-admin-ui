@@ -423,16 +423,28 @@
         "title": "Add new price"
       },
       "editAddress": {
-        "title": "Edit address"
+        "title": "Edit address",
+        "confirmTitle": "Confirm delete",
+        "confirmMessage": "Address will be permanently deleted. Do you want to proceed?",
+        "confirm": "Delete",
+        "cancel": "Cancel"
       },
       "editLowEmissionCriterion": {
-        "title": "Edit low emission criterion"
+        "title": "Edit low emission criterion",
+        "confirmTitle": "Confirm delete",
+        "confirmMessage": "Low emission criterion will be permanently deleted. Do you want to proceed?",
+        "confirm": "Delete",
+        "cancel": "Cancel"
       },
       "editProduct": {
-        "title": "Edit product price"
+        "title": "Edit product price",
+        "confirmTitle": "Confirm delete",
+        "confirmMessage": "Product will be permanently deleted. Do you want to proceed?",
+        "confirm": "Delete",
+        "cancel": "Cancel"
       },
       "lowEmissionCriteria": {
-        "addNewCriterion": "Add new low-emission criterion",
+        "addNewCriterion": "Add new low emission criterion",
         "title": "Low-emission criteria"
       },
       "products": {

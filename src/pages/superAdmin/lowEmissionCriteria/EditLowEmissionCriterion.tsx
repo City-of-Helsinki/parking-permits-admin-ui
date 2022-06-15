@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { makePrivate } from '../../../auth/utils';
+import ConfirmDialog from '../../../components/common/ConfirmDialog';
 import LowEmissionCriterionForm from '../../../components/superAdmin/lowEmissionCriteria/LowEmissionCriterionForm';
 import { LowEmissionCriterion, MutationResponse } from '../../../types';
 import styles from './EditLowEmissionCriterion.module.scss';
@@ -50,6 +51,7 @@ const EditLowEmissionCriterion = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const { id: criterionId } = useParams();
   const variables = { criterionId };
   const { loading, data } = useQuery<{
@@ -73,6 +75,9 @@ const EditLowEmissionCriterion = (): React.ReactElement => {
       onError: e => setErrorMessage(e.message),
     }
   );
+  const handleDeleteCriterion = () => {
+    deleteCriterion({ variables: { criterionId } });
+  };
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -87,10 +92,22 @@ const EditLowEmissionCriterion = (): React.ReactElement => {
           onSubmit={criterion =>
             updateCriterion({ variables: { criterionId, criterion } })
           }
-          onDelete={() => deleteCriterion({ variables: { criterionId } })}
+          onDelete={() => setIsConfirmDialogOpen(true)}
           criterion={data.lowEmissionCriterion}
         />
       </div>
+      <ConfirmDialog
+        isOpen={isConfirmDialogOpen}
+        title={t(`${T_PATH}.confirmTitle`)}
+        message={t(`${T_PATH}.confirmMessage`)}
+        confirmLabel={t(`${T_PATH}.confirm`)}
+        cancelLabel={t(`${T_PATH}.cancel`)}
+        onConfirm={() => {
+          setIsConfirmDialogOpen(false);
+          handleDeleteCriterion();
+        }}
+        onCancel={() => setIsConfirmDialogOpen(false)}
+      />
       {errorMessage && (
         <Notification
           type="error"

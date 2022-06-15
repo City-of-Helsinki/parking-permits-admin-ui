@@ -298,7 +298,7 @@
           "price": "Hinta",
           "priceGroup": "Hintaryhmä",
           "productPrice": "Tuotteen hinta",
-          "productType": "Tuottetyyppi",
+          "productType": "Tuotetyyppi",
           "save": "Tallenna",
           "startDate": "Pvm alkaen",
           "unit": "Jakso",
@@ -418,27 +418,39 @@
         "title": "Lisää uusi osoite"
       },
       "createLowEmissionCriterion": {
-        "title": "Lisää uusi vähäpäästöinen kriteeri"
+        "title": "Lisää uusi vähäpäästöisyyskriteeri"
       },
       "createProduct": {
         "title": "Luo uusi hinta"
       },
       "editAddress": {
-        "title": "Muokkaa osoitetta"
+        "title": "Muokkaa osoitetta",
+        "confirmTitle": "Vahvista poisto",
+        "confirmMessage": "Osoite poistetaan pysyvästi. Haluatko jatkaa?",
+        "confirm": "Poista",
+        "cancel": "Peruuta"
       },
       "editLowEmissionCriterion": {
-        "title": "Muokkaa Vähäpäästöisyyskriteeriä"
+        "title": "Muokkaa vähäpäästöisyyskriteeriä",
+        "confirmTitle": "Vahvista poisto",
+        "confirmMessage": "Vähäpäästöisyyskriteeri poistetaan pysyvästi. Haluatko jatkaa?",
+        "confirm": "Poista",
+        "cancel": "Peruuta"
       },
       "editProduct": {
-        "title": "Muokkaa tuotteen hintaa"
+        "title": "Muokkaa tuotetta",
+        "confirmTitle": "Vahvista poisto",
+        "confirmMessage": "Tuote poistetaan pysyvästi. Haluatko jatkaa?",
+        "confirm": "Poista",
+        "cancel": "Peruuta"
       },
       "lowEmissionCriteria": {
-        "addNewCriterion": "Lisää uusi vähäpäästöinen kriteeri",
+        "addNewCriterion": "Lisää uusi vähäpäästöisyyskriteeri",
         "title": "Vähäpäästöisyyskriteerit"
       },
       "products": {
-        "addNewPrice": "Luo uusi hinta",
-        "title": "Tuotehinnasto"
+        "addNewPrice": "Luo uusi tuote",
+        "title": "Tuotteet"
       }
     }
   },
