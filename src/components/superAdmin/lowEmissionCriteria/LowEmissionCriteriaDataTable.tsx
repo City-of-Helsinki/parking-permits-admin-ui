@@ -57,7 +57,7 @@ const LowEmissionCriteriaDataTable = ({
     },
     {
       name: t(`${T_PATH}.validPeriod`),
-      field: 'startDate',
+      field: 'validPeriod',
       selector: ({ startDate, endDate }) =>
         `${formatDateDisplay(startDate)} - ${formatDateDisplay(endDate)}`,
       orderFields: ['start_date'],
