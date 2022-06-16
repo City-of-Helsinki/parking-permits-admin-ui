@@ -39,19 +39,19 @@ const PermitsDataTable = ({
       name: t(`${T_PATH}.name`),
       field: 'name',
       selector: ({ customer }) => formatCustomerName(customer),
-      orderFields: ['customer__first_name', 'customer__last_name'],
+      sortable: true,
     },
     {
       name: 'Hetu',
       field: 'nationalIdNumber',
       selector: ({ customer }) => customer.nationalIdNumber,
-      orderFields: ['customer__national_id_number'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.registrationNumber`),
       field: 'registrationNumber',
       selector: row => row.vehicle.registrationNumber,
-      orderFields: ['vehicle__registration_number'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.primaryAddress`),
@@ -60,10 +60,7 @@ const PermitsDataTable = ({
         customer?.primaryAddress
           ? formatAddress(customer.primaryAddress, i18n.language)
           : '-',
-      orderFields: [
-        'customer__primary_address__street_name',
-        'customer__primary_address__street_number',
-      ],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.otherAddress`),
@@ -72,34 +69,31 @@ const PermitsDataTable = ({
         customer?.otherAddress
           ? formatAddress(customer.otherAddress, i18n.language)
           : '-',
-      orderFields: [
-        'customer__other_address__street_name',
-        'customer__other_address__street_number',
-      ],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.zone`),
       field: 'parkingZone',
       selector: row => row.parkingZone.name,
-      orderFields: ['parking_zone__name'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.startTime`),
       field: 'startTime',
       selector: row => formatDateTimeDisplay(row.startTime),
-      orderFields: ['start_time'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.endTime`),
       field: 'endTime',
       selector: row => (row.endTime ? formatDateTimeDisplay(row.endTime) : '-'),
-      orderFields: ['end_time'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.status`),
       field: 'status',
       selector: row => <StatusLabel status={row.status} />,
-      orderFields: ['status'],
+      sortable: true,
     },
   ];
 

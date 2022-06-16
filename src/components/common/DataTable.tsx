@@ -19,7 +19,7 @@ export interface DataTableProps<T> {
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (row: T) => void;
   onExport?: () => void;
-  onSelectionChange: (rows: T[]) => void;
+  onSelectionChange?: (rows: T[]) => void;
 }
 
 const T_PATH = 'components.common.dataTable';
@@ -65,7 +65,10 @@ const DataTable = <T,>({
             }
             checked={selection.length === data.length}
             label={t(`${T_PATH}.selectAll`)}
-            onChange={e => onSelectionChange(e.target.checked ? data : [])}
+            onChange={e =>
+              onSelectionChange &&
+              onSelectionChange(e.target.checked ? data : [])
+            }
           />
         </div>
       )}

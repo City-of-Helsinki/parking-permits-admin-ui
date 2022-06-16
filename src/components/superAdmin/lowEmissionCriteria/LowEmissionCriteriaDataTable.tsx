@@ -35,32 +35,32 @@ const LowEmissionCriteriaDataTable = ({
       name: t(`${T_PATH}.powerType`),
       field: 'powerType',
       selector: criterion => criterion.powerType,
-      orderFields: ['power_type'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.euroMinClassLimit`),
       field: 'euroMinClassLimit',
       selector: criterion => criterion.euroMinClassLimit,
-      orderFields: ['euro_min_class_limit'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.nedcMaxEmissionLimit`),
       field: 'nedcMaxEmissionLimit',
       selector: criterion => criterion.nedcMaxEmissionLimit,
-      orderFields: ['nedc_max_emission_limit'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.wltpMaxEmissionLimit`),
       field: 'wltpMaxEmissionLimit',
       selector: criterion => criterion.wltpMaxEmissionLimit,
-      orderFields: ['wltp_max_emission_limit'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.validPeriod`),
-      field: 'startDate',
+      field: 'validPeriod',
       selector: ({ startDate, endDate }) =>
         `${formatDateDisplay(startDate)} - ${formatDateDisplay(endDate)}`,
-      orderFields: ['start_date'],
+      sortable: true,
     },
   ];
 

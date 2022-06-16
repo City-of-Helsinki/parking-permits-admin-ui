@@ -3,6 +3,7 @@ import {
   Button,
   IconArrowRight,
   IconCheckCircle,
+  LoadingSpinner,
   Notification,
 } from 'hds-react';
 import React, { useState } from 'react';
@@ -12,6 +13,7 @@ import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
 import RefundsSearch from '../components/refunds/RefundsSearch';
+import { OrderDirection } from '../components/types';
 import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
 import {
@@ -89,17 +91,30 @@ const Refunds = (): React.ReactElement => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const exportData = useExportData();
-  const [page, setPage] = useState(1);
-  const [orderBy, setOrderBy] = useState<OrderBy | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
   const [selectedRefunds, setSelectedRefunds] = useState<Refund[]>([]);
 
+  const pageParam = searchParams.get('page');
+  const orderFieldParam = searchParams.get('orderField');
+  const orderDirectionParam = searchParams.get('orderDirection');
+  const statusParam = searchParams.get('status');
+  const qParam = searchParams.get('q');
+  const startDateParam = searchParams.get('startDate');
+  const endDateParam = searchParams.get('endDate');
+  const paymentTypesParam = searchParams.get('paymentTypes');
+
+  const page = pageParam ? parseInt(pageParam, 10) : 1;
+  const orderBy: OrderBy = {
+    orderField: orderFieldParam || '',
+    orderDirection:
+      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
+  };
   const refundSearchParams: RefundSearchParams = {
-    q: searchParams.get('q') || '',
-    startDate: searchParams.get('startDate') || '',
-    endDate: searchParams.get('endDate') || '',
-    status: (searchParams.get('status') as RefundStatusOrAll) || 'ALL',
-    paymentTypes: searchParams.get('paymentTypes') || '',
+    q: qParam || '',
+    startDate: startDateParam || '',
+    endDate: endDateParam || '',
+    status: (statusParam as RefundStatusOrAll) || 'ALL',
+    paymentTypes: paymentTypesParam || '',
   };
   const variables = {
     pageInput: { page },
@@ -144,15 +159,67 @@ const Refunds = (): React.ReactElement => {
     );
 
   if (loading) {
-    return <div>loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (!data) {
     return <div>No data</div>;
   }
 
+  const handlePage = (newPage: number) => {
+    const urlSearchParams = {
+      ...refundSearchParams,
+      ...orderBy,
+      page: newPage,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { newPage },
+      orderBy,
+      searchParams: refundSearchParams,
+    });
+  };
+
+  const handleSearch = (newRefundSearchParams: RefundSearchParams) => {
+    const urlSearchParams = {
+      ...newRefundSearchParams,
+      ...orderBy,
+      page,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { page },
+      orderBy,
+      searchParams: newRefundSearchParams,
+    });
+  };
+
+  const handleOrderBy = (newOrderBy: OrderBy) => {
+    const urlSearchParams = {
+      ...refundSearchParams,
+      ...newOrderBy,
+      page,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { page },
+      orderBy: newOrderBy,
+      searchParams: refundSearchParams,
+    });
+  };
+
   const handleExport = () => {
-    const url = formatExportUrl('refunds', orderBy);
+    const url = formatExportUrl('refunds', {
+      ...refundSearchParams,
+      ...orderBy,
+      page: page.toString(),
+    });
     exportData(url);
   };
 
@@ -162,16 +229,7 @@ const Refunds = (): React.ReactElement => {
       <div className={styles.content}>
         <RefundsSearch
           searchParams={refundSearchParams}
-          onSearch={params => {
-            setSearchParams(params as unknown as Record<string, string>, {
-              replace: true,
-            });
-            refetch({
-              pageInput: { page },
-              orderBy,
-              searchParams: params,
-            });
-          }}
+          onSearch={handleSearch}
         />
         <RefundsDataTable
           selection={selectedRefunds}
@@ -179,8 +237,8 @@ const Refunds = (): React.ReactElement => {
           pageInfo={data.refunds.pageInfo}
           loading={loading}
           orderBy={orderBy}
-          onPage={newPage => setPage(newPage)}
-          onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
+          onPage={handlePage}
+          onOrderBy={handleOrderBy}
           onRowClick={refund => navigate(refund.id)}
           onExport={handleExport}
           onSelectionChange={selection => setSelectedRefunds(selection)}

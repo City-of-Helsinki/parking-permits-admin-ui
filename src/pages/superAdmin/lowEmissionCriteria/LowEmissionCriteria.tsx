@@ -3,8 +3,10 @@ import { Button, LoadingSpinner, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../../../auth/utils';
 import LowEmissionCriteriaDataTable from '../../../components/superAdmin/lowEmissionCriteria/LowEmissionCriteriaDataTable';
+import { OrderDirection } from '../../../components/types';
 import { LowEmissionCriteriaQueryData, OrderBy } from '../../../types';
 import styles from './LowEmissionCriteria.module.scss';
 
@@ -37,15 +39,26 @@ const LOW_EMISSION_CRITERIA_QUERY = gql`
 
 const LowEmissionCriteria = (): React.ReactElement => {
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [page, setPage] = useState(1);
-  const [orderBy, setOrderBy] = useState<OrderBy | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
+
+  const pageParam = searchParams.get('page');
+  const orderFieldParam = searchParams.get('orderField');
+  const orderDirectionParam = searchParams.get('orderDirection');
+
+  const page = pageParam ? parseInt(pageParam, 10) : 1;
+  const orderBy: OrderBy = {
+    orderField: orderFieldParam || '',
+    orderDirection:
+      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
+  };
   const variables = {
     pageInput: { page },
     orderBy,
   };
-  const { loading, data } = useQuery<LowEmissionCriteriaQueryData>(
+
+  const { loading, data, refetch } = useQuery<LowEmissionCriteriaQueryData>(
     LOW_EMISSION_CRITERIA_QUERY,
     {
       variables,
@@ -61,6 +74,33 @@ const LowEmissionCriteria = (): React.ReactElement => {
   if (!data) {
     return <div>No data</div>;
   }
+
+  const handlePage = (newPage: number) => {
+    const urlSearchParams = {
+      ...orderBy,
+      page: newPage,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { newPage },
+      orderBy,
+    });
+  };
+  const handleOrderBy = (newOrderBy: OrderBy) => {
+    const urlSearchParams = {
+      ...newOrderBy,
+      page,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { page },
+      orderBy: newOrderBy,
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -78,8 +118,8 @@ const LowEmissionCriteria = (): React.ReactElement => {
           pageInfo={data.lowEmissionCriteria.pageInfo}
           loading={loading}
           orderBy={orderBy}
-          onPage={newPage => setPage(newPage)}
-          onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
+          onPage={handlePage}
+          onOrderBy={handleOrderBy}
           onRowClick={criterion => navigate(criterion.id as string)}
         />
       </div>

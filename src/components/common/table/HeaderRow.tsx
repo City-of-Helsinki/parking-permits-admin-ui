@@ -15,7 +15,7 @@ function getNextOrderDirection(
   orderField: string,
   currentOrderBy?: OrderBy
 ): OrderDirection {
-  if (!currentOrderBy || orderField !== currentOrderBy?.field) {
+  if (!currentOrderBy || orderField !== currentOrderBy?.orderField) {
     return OrderDirection.ASC;
   }
   return currentOrderBy?.orderDirection === OrderDirection.ASC
@@ -29,20 +29,19 @@ const HeaderRow = <T,>({
   onOrderBy,
 }: HeaderRowProps<T>): React.ReactElement => (
   <tr className={styles['header-row']}>
-    {columns.map(({ name, field, orderFields }) => (
+    {columns.map(({ name, field, sortable }) => (
       <ColumnHeader
         key={field}
         title={name}
-        sortable={orderFields !== undefined}
+        sortable={sortable}
         orderDirection={
-          orderBy?.field === field ? orderBy?.orderDirection : null
+          orderBy?.orderField === field ? orderBy?.orderDirection : null
         }
         onClick={
-          orderFields && onOrderBy
+          sortable && onOrderBy
             ? () =>
                 onOrderBy({
-                  field,
-                  orderFields,
+                  orderField: field,
                   orderDirection: getNextOrderDirection(field, orderBy),
                 })
             : undefined

@@ -39,19 +39,19 @@ const RefundsDataTable = ({
       name: t(`${T_PATH}.refundNumber`),
       field: 'id',
       selector: ({ id }) => id,
-      orderFields: ['id'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.name`),
       field: 'name',
       selector: ({ name }) => name,
-      orderFields: ['name'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.orderNumber`),
       field: 'orderId',
       selector: ({ order }) => order.id,
-      orderFields: ['order_id'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.registrationNumber`),
@@ -60,38 +60,38 @@ const RefundsDataTable = ({
         order.orderPermits
           .map(permit => permit.vehicle.registrationNumber)
           .join(', '),
-      orderFields: ['order__permits__vehicle__registration_number'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.accountNumber`),
       field: 'accountNumber',
       selector: ({ iban }) => iban,
-      orderFields: ['iban'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.createdAt`),
       field: 'createdAt',
       selector: ({ createdAt }) => formatDateTimeDisplay(createdAt),
-      orderFields: ['created_at'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.acceptedAt`),
       field: 'acceptedAt',
       selector: ({ acceptedAt }) =>
         acceptedAt ? formatDateTimeDisplay(acceptedAt) : '-',
-      orderFields: ['accepted_at'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.status`),
       field: 'status',
       selector: ({ status }) => <RefundStatusLabel status={status} />,
-      orderFields: ['status'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.amount`),
       field: 'amount',
       selector: ({ amount }) => `${amount} €`,
-      orderFields: ['amount'],
+      sortable: true,
     },
   ];
 
