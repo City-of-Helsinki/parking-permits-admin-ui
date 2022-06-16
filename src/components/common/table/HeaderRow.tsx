@@ -29,16 +29,16 @@ const HeaderRow = <T,>({
   onOrderBy,
 }: HeaderRowProps<T>): React.ReactElement => (
   <tr className={styles['header-row']}>
-    {columns.map(({ name, field, orderFields }) => (
+    {columns.map(({ name, field, sortable }) => (
       <ColumnHeader
         key={field}
         title={name}
-        sortable={orderFields !== undefined}
+        sortable={sortable}
         orderDirection={
           orderBy?.orderField === field ? orderBy?.orderDirection : null
         }
         onClick={
-          orderFields && onOrderBy
+          sortable && onOrderBy
             ? () =>
                 onOrderBy({
                   orderField: field,

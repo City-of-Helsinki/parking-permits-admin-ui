@@ -41,7 +41,7 @@ const OrdersDataTable = ({
       name: t(`${T_PATH}.name`),
       field: 'name',
       selector: ({ customer }) => formatCustomerName(customer),
-      orderFields: ['customer__first_name', 'customer__last_name'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.permits`),
@@ -60,23 +60,20 @@ const OrdersDataTable = ({
           })}
         </>
       ),
-      orderFields: ['permits__id'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.zone`),
       field: 'parkingZone',
       selector: ({ orderPermits }) => formatParkingZone(orderPermits[0]),
-      orderFields: ['permits__parking_zone__name'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.address`),
       field: 'address',
       selector: ({ orderPermits }) =>
         formatPermitAddresses(orderPermits, i18n.language),
-      orderFields: [
-        'permits__address__street_name',
-        'permits__address__street_number',
-      ],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.permitType`),
@@ -85,25 +82,26 @@ const OrdersDataTable = ({
         orderPermits[0]?.type === 'RESIDENT'
           ? t(`${T_PATH}.residentPermit`)
           : t(`${T_PATH}.companyPermit`),
-      orderFields: ['permits__type'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.orderNumber`),
       field: 'id',
       selector: ({ id }) => id,
-      orderFields: ['id'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.paidTime`),
       field: 'paidTime',
       selector: ({ paidTime }) =>
         paidTime ? formatDateTimeDisplay(paidTime) : '-',
-      orderFields: ['paid_time'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.totalPrice`),
       field: 'totalPrice',
       selector: ({ totalPrice }) => formatPrice(totalPrice),
+      sortable: false,
     },
   ];
 

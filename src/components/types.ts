@@ -8,7 +8,7 @@ export interface Column<T> {
   name: string;
   field: string;
   selector: (row: T) => React.ReactNode;
-  orderFields?: string[];
+  sortable: boolean;
 }
 
 export enum MatchType {

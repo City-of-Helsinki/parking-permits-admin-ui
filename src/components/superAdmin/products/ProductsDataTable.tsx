@@ -38,25 +38,25 @@ const ProductsDataTable = ({
       name: t(`${T_PATH}.productType`),
       field: 'productType',
       selector: ({ type }) => t(`productType.${type.toLowerCase()}`),
-      orderFields: ['type'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.zone`),
       field: 'zone',
       selector: ({ zone }) => zone,
-      orderFields: ['zone__name'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.price`),
       field: 'price',
       selector: ({ unitPrice }) => formatMonthlyPrice(unitPrice),
-      orderFields: ['unit_price'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.vat`),
       field: 'vat',
       selector: ({ vatPercentage }) => `${vatPercentage}%`,
-      orderFields: ['vat'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.validPeriod`),
@@ -66,19 +66,19 @@ const ProductsDataTable = ({
         const formattedEndDate = formatDateDisplay(endDate);
         return `${formattedStartDate} - ${formattedEndDate}`;
       },
-      orderFields: ['start_date'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.modifiedAt`),
       field: 'modifiedAt',
       selector: ({ modifiedAt }) => formatDateTimeDisplay(modifiedAt),
-      orderFields: ['modified_at'],
+      sortable: true,
     },
     {
       name: t(`${T_PATH}.modifiedBy`),
       field: 'modifiedBy',
       selector: ({ modifiedBy }) => modifiedBy || '-',
-      orderFields: ['modified_by'],
+      sortable: true,
     },
   ];
 
