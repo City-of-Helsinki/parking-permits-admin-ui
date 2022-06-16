@@ -316,12 +316,6 @@ export interface PermitSearchParams {
   q: string;
 }
 
-export enum SavedStatus {
-  PERMITS_PAGE = 'permitsPage',
-  PERMITS_ORDER_BY = 'permitsOrderBy',
-  PERMITS_SEARCH_INFO = 'permitsSearchInfo',
-}
-
 export type Language = 'fi' | 'sv' | 'en';
 
 export enum PermitEndType {

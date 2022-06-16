@@ -10,7 +10,6 @@ import {
   PriceModifiers,
   Product,
   ProductWithQuantity,
-  SavedStatus,
   Vehicle,
   VehicleInput,
 } from './types';
@@ -93,15 +92,6 @@ export function formatMonthlyPrice(price: number): string {
 export function formatPrice(price: number): string {
   const formattedPrice = price.toFixed(2);
   return `${formattedPrice} €`;
-}
-
-export function getSavedStatus<T>(key: SavedStatus): T | null {
-  const value = sessionStorage.getItem(key);
-  return value ? (JSON.parse(value) as T) : null;
-}
-
-export function saveStatus(item: SavedStatus, value: unknown): void {
-  sessionStorage.setItem(item as string, JSON.stringify(value));
 }
 
 export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
