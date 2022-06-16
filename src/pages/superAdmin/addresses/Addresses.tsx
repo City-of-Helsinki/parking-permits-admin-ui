@@ -1,10 +1,12 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button, Notification } from 'hds-react';
+import { Button, LoadingSpinner, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../../../auth/utils';
 import AddressesDataTable from '../../../components/superAdmin/addresses/AddressesDataTable';
+import { OrderDirection } from '../../../components/types';
 import { AddressesQueryData, OrderBy } from '../../../types';
 import styles from './Addresses.module.scss';
 
@@ -40,19 +42,69 @@ const ADDRESSES_QUERY = gql`
 
 const Addresses = (): React.ReactElement => {
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [page, setPage] = useState(1);
-  const [orderBy, setOrderBy] = useState<OrderBy | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
+
+  const pageParam = searchParams.get('page');
+  const orderFieldParam = searchParams.get('orderField');
+  const orderDirectionParam = searchParams.get('orderDirection');
+
+  const page = pageParam ? parseInt(pageParam, 10) : 1;
+  const orderBy: OrderBy = {
+    orderField: orderFieldParam || '',
+    orderDirection:
+      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
+  };
   const variables = {
     pageInput: { page },
     orderBy,
   };
-  const { loading, data } = useQuery<AddressesQueryData>(ADDRESSES_QUERY, {
-    variables,
-    fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
-  });
+
+  const { loading, data, refetch } = useQuery<AddressesQueryData>(
+    ADDRESSES_QUERY,
+    {
+      variables,
+      fetchPolicy: 'no-cache',
+      onError: error => setErrorMessage(error.message),
+    }
+  );
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (!data) {
+    return <div>No data</div>;
+  }
+
+  const handlePage = (newPage: number) => {
+    const urlSearchParams = {
+      ...orderBy,
+      page: newPage,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { newPage },
+      orderBy,
+    });
+  };
+  const handleOrderBy = (newOrderBy: OrderBy) => {
+    const urlSearchParams = {
+      ...newOrderBy,
+      page,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { page },
+      orderBy: newOrderBy,
+    });
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
@@ -62,8 +114,8 @@ const Addresses = (): React.ReactElement => {
           pageInfo={data?.addresses.pageInfo}
           loading={loading}
           orderBy={orderBy}
-          onPage={newPage => setPage(newPage)}
-          onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
+          onPage={handlePage}
+          onOrderBy={handleOrderBy}
           onRowClick={address => navigate(address.id as string)}
         />
         <div className={styles.actions}>
