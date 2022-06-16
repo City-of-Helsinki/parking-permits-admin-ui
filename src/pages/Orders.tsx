@@ -1,9 +1,11 @@
 import { gql, useQuery } from '@apollo/client';
-import { Notification } from 'hds-react';
+import { LoadingSpinner, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import OrdersDataTable from '../components/orders/OrdersDataTable';
+import { OrderDirection } from '../components/types';
 import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
 import { OrderBy, OrdersQueryData } from '../types';
@@ -58,30 +60,69 @@ const ORDERS_QUERY = gql`
 
 const Orders = (): React.ReactElement => {
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const exportData = useExportData();
-  const [page, setPage] = useState(1);
-  const [orderBy, setOrderBy] = useState<OrderBy | undefined>();
   const [errorMessage, setErrorMessage] = useState('');
+
+  const pageParam = searchParams.get('page');
+  const orderFieldParam = searchParams.get('orderField');
+  const orderDirectionParam = searchParams.get('orderDirection');
+
+  const page = pageParam ? parseInt(pageParam, 10) : 1;
+  const orderBy: OrderBy = {
+    orderField: orderFieldParam || '',
+    orderDirection:
+      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
+  };
   const variables = {
     pageInput: { page },
     orderBy,
   };
-  const { loading, data } = useQuery<OrdersQueryData>(ORDERS_QUERY, {
+  const { loading, data, refetch } = useQuery<OrdersQueryData>(ORDERS_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (!data) {
     return <div>No data</div>;
   }
 
+  const handlePage = (newPage: number) => {
+    const urlSearchParams = {
+      ...orderBy,
+      page: newPage,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { newPage },
+      orderBy,
+    });
+  };
+  const handleOrderBy = (newOrderBy: OrderBy) => {
+    const urlSearchParams = {
+      ...newOrderBy,
+      page,
+    };
+    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+      replace: true,
+    });
+    refetch({
+      pageInput: { page },
+      orderBy: newOrderBy,
+    });
+  };
   const handleExport = () => {
-    const url = formatExportUrl('orders', orderBy);
+    const url = formatExportUrl('orders', {
+      ...orderBy,
+      page: page.toString(),
+    });
     exportData(url);
   };
 
@@ -94,8 +135,8 @@ const Orders = (): React.ReactElement => {
           pageInfo={data.orders.pageInfo}
           loading={loading}
           orderBy={orderBy}
-          onPage={newPage => setPage(newPage)}
-          onOrderBy={newOrderBy => setOrderBy(newOrderBy)}
+          onPage={handlePage}
+          onOrderBy={handleOrderBy}
           onExport={handleExport}
         />
       </div>
