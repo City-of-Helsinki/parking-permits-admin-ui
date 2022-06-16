@@ -415,24 +415,36 @@
         "title": "Lägg till nytt kriterium för låga utsläpp"
       },
       "createProduct": {
-        "title": "Skapa ett nytt pris"
+        "title": "Skapa ett nytt produkt"
       },
       "editAddress": {
-        "title": "Redigera adress"
+        "title": "Redigera adress",
+        "confirmTitle": "Bekräfta radering",
+        "confirmMessage": "Adressen kommer att raderas permanent. Vill du fortsätta?",
+        "confirm": "Radera",
+        "cancel": "Avbryt"
       },
       "editLowEmissionCriterion": {
-        "title": "Redigera kriterium för låga utsläpp"
+        "title": "Redigera kriterium för låga utsläpp",
+        "confirmTitle": "Bekräfta radering",
+        "confirmMessage": "Kriterium för låga utsläppen kommer att raderas permanent. Vill du fortsätta?",
+        "confirm": "Radera",
+        "cancel": "Avbryt"
       },
       "editProduct": {
-        "title": "Redigera produktpris"
+        "title": "Redigera produktpris",
+        "confirmTitle": "Bekräfta radering",
+        "confirmMessage": "Produkten kommer att raderas permanent. Vill du fortsätta?",
+        "confirm": "Radera",
+        "cancel": "Avbryt"
       },
       "lowEmissionCriteria": {
         "addNewCriterion": "Lägg till ett nytt kriterium för låga utsläpp",
         "title": "Lågutsläppskriterier"
       },
       "products": {
-        "addNewPrice": "Skapa ett nytt pris",
-        "title": "Produktprislista"
+        "addNewPrice": "Skapa ett nytt produkt",
+        "title": "Produktslista"
       }
     }
   },

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { makePrivate } from '../../../auth/utils';
+import ConfirmDialog from '../../../components/common/ConfirmDialog';
 import AddressForm from '../../../components/superAdmin/addresses/AddressForm';
 import { Address, MutationResponse } from '../../../types';
 import styles from './EditAddress.module.scss';
@@ -50,6 +51,7 @@ const EditAddress = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const { id: addressId } = useParams();
   const variables = { addressId };
   const { loading, data } = useQuery<{ address: Address }>(ADDRESS_QUERY, {
@@ -71,8 +73,11 @@ const EditAddress = (): React.ReactElement => {
       onError: e => setErrorMessage(e.message),
     }
   );
+  const handleDeleteAddress = () => {
+    deleteAddress({ variables: { addressId } });
+  };
   if (loading) {
-    return <div>loading...</div>;
+    return <div>Loading...</div>;
   }
   return (
     <div className={styles.container}>
@@ -83,12 +88,24 @@ const EditAddress = (): React.ReactElement => {
             onSubmit={address =>
               updateAddress({ variables: { addressId, address } })
             }
-            onDelete={() => deleteAddress({ variables: { addressId } })}
+            onDelete={() => setIsConfirmDialogOpen(true)}
             address={data.address}
             className={styles.addressForm}
           />
         )}
       </div>
+      <ConfirmDialog
+        isOpen={isConfirmDialogOpen}
+        title={t(`${T_PATH}.confirmTitle`)}
+        message={t(`${T_PATH}.confirmMessage`)}
+        confirmLabel={t(`${T_PATH}.confirm`)}
+        cancelLabel={t(`${T_PATH}.cancel`)}
+        onConfirm={() => {
+          setIsConfirmDialogOpen(false);
+          handleDeleteAddress();
+        }}
+        onCancel={() => setIsConfirmDialogOpen(false)}
+      />
       {errorMessage && (
         <Notification
           type="error"
