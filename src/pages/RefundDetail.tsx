@@ -31,6 +31,14 @@ const REFUND_DETAIL_QUERY = gql`
       createdBy
       modifiedAt
       modifiedBy
+      order {
+        id
+        orderPermits {
+          vehicle {
+            registrationNumber
+          }
+        }
+      }
     }
   }
 `;
