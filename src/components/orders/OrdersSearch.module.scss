@@ -1,0 +1,39 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  > div:not(:last-child) {
+    margin-right: $spacing-m;
+  }
+
+  .dateRange {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 0 0 auto;
+
+    .startDate,
+    .endDate {
+      width: 180px;
+    }
+
+    .dateSeparator {
+      margin: $fontsize-body-m 5px 0;
+      width: 16px;
+      height: 2px;
+      background-color: black;
+    }
+  }
+
+  .zone {
+    flex: 0 1 auto;
+    width: 204px;
+  }
+
+  .searchInput {
+    flex: 1 0 auto;
+  }
+}

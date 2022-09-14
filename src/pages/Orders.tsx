@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import OrdersDataTable from '../components/orders/OrdersDataTable';
+import OrdersSearch from '../components/orders/OrdersSearch';
 import { OrderDirection } from '../components/types';
 import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
@@ -129,6 +130,7 @@ const Orders = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
+      <OrdersSearch />
       <div className={styles.content}>
         <OrdersDataTable
           orders={data.orders.objects}

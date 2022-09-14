@@ -60,6 +60,12 @@
         "residentPermit": "Asukastunnus",
         "totalPrice": "Summa",
         "zone": "Alue"
+      },
+      "ordersSearch": {
+        "startDate": "Voimassaolo alkaen",
+        "endDate": "Voimassaolo päättyy",
+        "zone": "Alue",
+        "placeholder": "Kirjoita hakusana, esim. nimi, hetu tai rek.nro"
       }
     },
     "permitDetail": {
