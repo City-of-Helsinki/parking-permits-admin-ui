@@ -20,6 +20,9 @@
         "downloadCsv": "Ladda ner resultaten som en csv-fil",
         "results": "Resultat: {{count}}",
         "selectAll": "Välj alla från listan"
+      },
+      "zoneSelect": {
+        "zone": "Område"
       }
     },
     "createPermit": {

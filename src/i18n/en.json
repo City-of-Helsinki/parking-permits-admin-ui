@@ -26,6 +26,10 @@
         "bifuel": "Bifuel",
         "diesel": "Diesel",
         "electric": "Electric"
+      },
+      "zoneSelect": {
+        "zone": "Zone",
+        "placeholder": "Select..."
       }
     },
     "createPermit": {

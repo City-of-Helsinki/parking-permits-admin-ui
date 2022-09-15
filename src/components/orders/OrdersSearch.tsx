@@ -1,6 +1,7 @@
-import { DateInput, SearchInput, Select } from 'hds-react';
+import { DateInput, SearchInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import ZoneSelect from '../common/ZoneSelect';
 import styles from './OrdersSearch.module.scss';
 
 const T_PATH = 'components.orders.ordersSearch';
@@ -23,12 +24,7 @@ const OrdersSearch = (): React.ReactElement => {
             label={t(`${T_PATH}.endDate`)}
           />
         </div>
-        <Select
-          id="zone"
-          className={styles.zone}
-          label={t(`${T_PATH}.zone`)}
-          options={[]}
-        />
+        <ZoneSelect clearable optionLabelField="name" className={styles.zone} />
         <SearchInput
           className={styles.searchInput}
           label=""
