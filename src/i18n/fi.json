@@ -26,6 +26,10 @@
         "bifuel": "Kaksoispolttoaine",
         "diesel": "Diesel",
         "electric": "Sähkö"
+      },
+      "zoneSelect": {
+        "zone": "Alue",
+        "placeholder": "Valitse..."
       }
     },
     "createPermit": {

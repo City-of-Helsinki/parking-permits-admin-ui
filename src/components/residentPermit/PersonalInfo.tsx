@@ -1,11 +1,10 @@
-import { gql, useApolloClient, useQuery } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import {
   Button,
   Checkbox,
   Notification,
   PhoneInput,
   RadioButton,
-  Select,
   TextInput,
 } from 'hds-react';
 import React, { useState } from 'react';
@@ -13,19 +12,10 @@ import { useTranslation } from 'react-i18next';
 import { Address, Customer, ParkingZone } from '../../types';
 import AddressSearch from '../common/AddressSearch';
 import Divider from '../common/Divider';
+import ZoneSelect from '../common/ZoneSelect';
 import styles from './PersonalInfo.module.scss';
 
 const T_PATH = 'components.residentPermit.personalInfo';
-
-const ZONES_QUERY = gql`
-  query Query {
-    zones {
-      name
-      label
-      labelSv
-    }
-  }
-`;
 
 const ZONE_BY_LOCATION_QUERY = gql`
   query GetZoneByLocation($location: [Float]!) {
@@ -59,7 +49,7 @@ const PersonalInfo = ({
   onSearchPerson,
   onUpdatePerson,
 }: PersonalInfoProps): React.ReactElement => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const {
     zone,
     primaryAddress,
@@ -76,7 +66,6 @@ const PersonalInfo = ({
   const [selectedAddress, setSelectedAddress] = useState<SelectedAddress>(
     SelectedAddress.PRIMARY
   );
-  const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
   const client = useApolloClient();
   const onSelectAddress = (addressField: AddressField, address: Address) => {
     client
@@ -193,20 +182,15 @@ const PersonalInfo = ({
           address={otherAddress}
           onSelect={address => onSelectAddress('otherAddress', address)}
         />
-        {data?.zones && (
-          <Select
-            required
-            className={styles.fieldItem}
-            label={t(`${T_PATH}.zone`)}
-            options={data.zones}
-            optionLabelField={i18n.language === 'sv' ? 'labelSv' : 'label'}
-            value={zone || null}
-            onChange={(selectedZone: ParkingZone) =>
-              onUpdatePerson({ ...person, zone: selectedZone })
-            }
-            error={addressSearchError}
-          />
-        )}
+        <ZoneSelect
+          required
+          className={styles.fieldItem}
+          value={zone}
+          onChange={(selectedZone: ParkingZone) =>
+            onUpdatePerson({ ...person, zone: selectedZone })
+          }
+          error={addressSearchError}
+        />
         <Divider className={styles.fieldDivider} />
         <PhoneInput
           className={styles.fieldItem}
