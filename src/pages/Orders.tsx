@@ -9,7 +9,14 @@ import OrdersSearch from '../components/orders/OrdersSearch';
 import { OrderDirection } from '../components/types';
 import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
-import { OrderBy, OrdersQueryData } from '../types';
+import {
+  OrderBy,
+  OrderSearchParams,
+  OrdersQueryData,
+  PaymentType,
+  PermitContractType,
+  PriceDiscount,
+} from '../types';
 import styles from './Orders.module.scss';
 
 const T_PATH = 'pages.orders';
@@ -75,6 +82,14 @@ const Orders = (): React.ReactElement => {
     orderDirection:
       (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
   };
+  const ordersSearchParams: OrderSearchParams = {
+    q: searchParams.get('q') || '',
+    startDate: searchParams.get('startDate') || '',
+    endDate: searchParams.get('endDate') || '',
+    contractTypes: searchParams.get('contractTypes') as PermitContractType,
+    paymentTypes: searchParams.get('paymentTypes') as PaymentType,
+    priceDiscounts: searchParams.get('priceDiscounts') as PriceDiscount,
+  };
   const variables = {
     pageInput: { page },
     orderBy,
@@ -130,7 +145,7 @@ const Orders = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
-      <OrdersSearch />
+      <OrdersSearch searchParams={ordersSearchParams} />
       <div className={styles.content}>
         <OrdersDataTable
           orders={data.orders.objects}

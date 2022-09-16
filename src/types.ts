@@ -340,6 +340,15 @@ export interface OrdersQueryData {
   orders: PagedOrders;
 }
 
+export interface OrderSearchParams {
+  q: string;
+  startDate: string;
+  endDate: string;
+  contractTypes: PermitContractType;
+  paymentTypes: PaymentType;
+  priceDiscounts: PriceDiscount;
+}
+
 export enum RefundStatus {
   OPEN = 'OPEN',
   REQUEST_FOR_APPROVAL = 'REQUEST_FOR_APPROVAL',
@@ -419,4 +428,8 @@ export interface PagedLowEmissionCriteria {
 
 export interface LowEmissionCriteriaQueryData {
   lowEmissionCriteria: PagedLowEmissionCriteria;
+}
+
+export enum PriceDiscount {
+  LOW_EMISSION = 'LOW_EMISSION',
 }
