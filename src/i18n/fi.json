@@ -72,7 +72,9 @@
         "placeholder": "Kirjoita hakusana, esim. nimi, hetu tai rek.nro",
         "contractType": "Voimassaolo",
         "paymentType": "Maksu",
-        "priceDiscount": "Alennushinta"
+        "priceDiscount": "Alennushinta",
+        "textSearch": "Tekstihaku",
+        "searchButton": "Hae"
       }
     },
     "permitDetail": {

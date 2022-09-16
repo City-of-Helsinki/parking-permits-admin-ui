@@ -1,4 +1,4 @@
-import { DateInput, SearchInput } from 'hds-react';
+import { Button, DateInput, IconSearch, SearchInput } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -48,8 +48,9 @@ const OrdersSearch = ({
         </div>
         <ZoneSelect clearable optionLabelField="name" className={styles.zone} />
         <SearchInput
+          hideSearchButton
           className={styles.searchInput}
-          label=""
+          label={t(`${T_PATH}.textSearch`)}
           placeholder={t(`${T_PATH}.placeholder`)}
         />
       </div>
@@ -96,6 +97,9 @@ const OrdersSearch = ({
             },
           ]}
         />
+        <Button className={styles.searchButton} iconLeft={<IconSearch />}>
+          {t(`${T_PATH}.searchButton`)}
+        </Button>
       </div>
     </div>
   );
