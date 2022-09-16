@@ -5,7 +5,16 @@
   flex-direction: row;
   align-items: flex-end;
 
-  > div:not(:last-child) {
+  &.filters {
+    align-items: flex-start;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: $spacing-m;
+  }
+
+  > div:not(:last-child),
+  > fieldset:not(:last-child) {
     margin-right: $spacing-m;
   }
 

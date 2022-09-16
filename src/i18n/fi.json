@@ -69,7 +69,10 @@
         "startDate": "Voimassaolo alkaen",
         "endDate": "Voimassaolo päättyy",
         "zone": "Alue",
-        "placeholder": "Kirjoita hakusana, esim. nimi, hetu tai rek.nro"
+        "placeholder": "Kirjoita hakusana, esim. nimi, hetu tai rek.nro",
+        "contractType": "Voimassaolo",
+        "paymentType": "Maksu",
+        "priceDiscount": "Alennushinta"
       }
     },
     "permitDetail": {
@@ -333,6 +336,19 @@
         "products": "Tuotteet",
         "users": "Käyttäjät"
       }
+    }
+  },
+  "enums": {
+    "contractType": {
+      "fixedPeriod": "Määräaikainen",
+      "openEnded": "Jatkuvaveloitteinen"
+    },
+    "paymentType": {
+      "cashierPayment": "Kassamaksu",
+      "onlinePayment": "Verkkomaksu"
+    },
+    "priceDiscount": {
+      "lowEmission": "Vähäpäästöinen"
     }
   },
   "contractType": {
