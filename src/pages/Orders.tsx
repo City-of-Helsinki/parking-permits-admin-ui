@@ -1,5 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
-import { LoadingSpinner, Notification } from 'hds-react';
+import { gql, useLazyQuery } from '@apollo/client';
+import { Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -94,19 +94,14 @@ const Orders = (): React.ReactElement => {
     pageInput: { page },
     orderBy,
   };
-  const { loading, data, refetch } = useQuery<OrdersQueryData>(ORDERS_QUERY, {
-    variables,
-    fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
-  });
-
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
-  if (!data) {
-    return <div>No data</div>;
-  }
+  const [getOrders, { loading, data, refetch }] = useLazyQuery<OrdersQueryData>(
+    ORDERS_QUERY,
+    {
+      variables,
+      fetchPolicy: 'no-cache',
+      onError: error => setErrorMessage(error.message),
+    }
+  );
 
   const handlePage = (newPage: number) => {
     const urlSearchParams = {
@@ -145,17 +140,21 @@ const Orders = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
-      <OrdersSearch searchParams={ordersSearchParams} />
+      <OrdersSearch searchParams={ordersSearchParams} onSubmit={getOrders} />
       <div className={styles.content}>
-        <OrdersDataTable
-          orders={data.orders.objects}
-          pageInfo={data.orders.pageInfo}
-          loading={loading}
-          orderBy={orderBy}
-          onPage={handlePage}
-          onOrderBy={handleOrderBy}
-          onExport={handleExport}
-        />
+        {!data ? (
+          <div>No data.</div>
+        ) : (
+          <OrdersDataTable
+            orders={data.orders.objects}
+            pageInfo={data.orders.pageInfo}
+            loading={loading}
+            orderBy={orderBy}
+            onPage={handlePage}
+            onOrderBy={handleOrderBy}
+            onExport={handleExport}
+          />
+        )}
       </div>
       {errorMessage && (
         <Notification

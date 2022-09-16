@@ -14,10 +14,12 @@ import styles from './OrdersSearch.module.scss';
 const T_PATH = 'components.orders.ordersSearch';
 export interface OrdersSearchProps {
   searchParams: OrderSearchParams;
+  onSubmit: () => void;
 }
 
 const OrdersSearch = ({
   searchParams,
+  onSubmit,
 }: OrdersSearchProps): React.ReactElement => {
   const { t } = useTranslation();
   const [contractTypes, setContractTypes] = useState(
@@ -29,6 +31,10 @@ const OrdersSearch = ({
   const [priceDiscounts, setPriceDiscounts] = useState(
     new Set(searchParams.priceDiscounts?.split(','))
   );
+
+  function handleSubmit() {
+    onSubmit();
+  }
 
   return (
     <div className={styles.container}>
@@ -52,6 +58,7 @@ const OrdersSearch = ({
           className={styles.searchInput}
           label={t(`${T_PATH}.textSearch`)}
           placeholder={t(`${T_PATH}.placeholder`)}
+          onSubmit={() => handleSubmit()}
         />
       </div>
 
@@ -97,7 +104,10 @@ const OrdersSearch = ({
             },
           ]}
         />
-        <Button className={styles.searchButton} iconLeft={<IconSearch />}>
+        <Button
+          className={styles.searchButton}
+          iconLeft={<IconSearch />}
+          onClick={() => handleSubmit()}>
           {t(`${T_PATH}.searchButton`)}
         </Button>
       </div>
