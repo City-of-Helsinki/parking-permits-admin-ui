@@ -70,5 +70,8 @@
     "transformIgnorePatterns": [
       "node_modules/(?!react-leaflet)/"
     ]
+  },
+  "devDependencies": {
+    "resize-observer-polyfill": "^1.5.1"
   }
 }
