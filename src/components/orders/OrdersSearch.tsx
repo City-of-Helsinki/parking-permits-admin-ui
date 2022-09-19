@@ -1,3 +1,4 @@
+import { formatISO } from 'date-fns';
 import { Button, DateInput, IconSearch, SearchInput } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,14 +8,16 @@ import {
   PermitContractType,
   PriceDiscount,
 } from '../../types';
+import { joinSet } from '../../utils';
 import ZoneSelect from '../common/ZoneSelect';
 import FilterOptions from './FilterOptions';
 import styles from './OrdersSearch.module.scss';
 
 const T_PATH = 'components.orders.ordersSearch';
+
 export interface OrdersSearchProps {
   searchParams: OrderSearchParams;
-  onSubmit: () => void;
+  onSubmit: (variables: unknown) => void;
 }
 
 const OrdersSearch = ({
@@ -22,6 +25,11 @@ const OrdersSearch = ({
   onSubmit,
 }: OrdersSearchProps): React.ReactElement => {
   const { t } = useTranslation();
+
+  const [query, setQuery] = useState(searchParams.q);
+  const [startDate, setStartDate] = useState(searchParams.startDate);
+  const [endDate, setEndDate] = useState(searchParams.endDate);
+  const [parkingZone, setParkingZone] = useState(searchParams.parkingZone);
   const [contractTypes, setContractTypes] = useState(
     new Set(searchParams.contractTypes?.split(','))
   );
@@ -32,9 +40,20 @@ const OrdersSearch = ({
     new Set(searchParams.priceDiscounts?.split(','))
   );
 
-  function handleSubmit() {
-    onSubmit();
-  }
+  const formatDate = (date: Date) =>
+    formatISO(date, { representation: 'date' });
+
+  const handleSubmit = () => {
+    onSubmit({
+      q: query,
+      startDate,
+      endDate,
+      parkingZone,
+      contractTypes: joinSet(contractTypes),
+      paymentTypes: joinSet(paymentTypes),
+      priceDiscounts: joinSet(priceDiscounts),
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -44,20 +63,28 @@ const OrdersSearch = ({
             id="startDate"
             className={styles.startDate}
             label={t(`${T_PATH}.startDate`)}
+            onChange={(_, date) => setStartDate(formatDate(date))}
           />
           <div className={styles.dateSeparator} />
           <DateInput
             id="endDate"
             className={styles.endDate}
             label={t(`${T_PATH}.endDate`)}
+            onChange={(_, date) => setEndDate(formatDate(date))}
           />
         </div>
-        <ZoneSelect clearable optionLabelField="name" className={styles.zone} />
+        <ZoneSelect
+          clearable
+          optionLabelField="name"
+          className={styles.zone}
+          onChange={selectedZone => setParkingZone(selectedZone.name)}
+        />
         <SearchInput
           hideSearchButton
           className={styles.searchInput}
           label={t(`${T_PATH}.textSearch`)}
           placeholder={t(`${T_PATH}.placeholder`)}
+          onChange={setQuery}
           onSubmit={() => handleSubmit()}
         />
       </div>
