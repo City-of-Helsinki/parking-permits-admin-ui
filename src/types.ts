@@ -344,6 +344,7 @@ export interface OrderSearchParams {
   q: string;
   startDate: string;
   endDate: string;
+  parkingZone: string;
   contractTypes: PermitContractType;
   paymentTypes: PaymentType;
   priceDiscounts: PriceDiscount;

@@ -22,8 +22,16 @@ import styles from './Orders.module.scss';
 const T_PATH = 'pages.orders';
 
 const ORDERS_QUERY = gql`
-  query GetOrders($pageInput: PageInput!, $orderBy: OrderByInput) {
-    orders(pageInput: $pageInput, orderBy: $orderBy) {
+  query GetOrders(
+    $pageInput: PageInput!
+    $orderBy: OrderByInput
+    $searchParams: OrderSearchParamsInput
+  ) {
+    orders(
+      pageInput: $pageInput
+      orderBy: $orderBy
+      searchParams: $searchParams
+    ) {
       objects {
         id
         totalPrice
@@ -89,6 +97,7 @@ const Orders = (): React.ReactElement => {
     contractTypes: searchParams.get('contractTypes') as PermitContractType,
     paymentTypes: searchParams.get('paymentTypes') as PaymentType,
     priceDiscounts: searchParams.get('priceDiscounts') as PriceDiscount,
+    parkingZone: searchParams.get('parkingZone') || '',
   };
   const variables = {
     pageInput: { page },
@@ -140,7 +149,14 @@ const Orders = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
-      <OrdersSearch searchParams={ordersSearchParams} onSubmit={getOrders} />
+      <OrdersSearch
+        searchParams={ordersSearchParams}
+        onSubmit={params => {
+          getOrders({
+            variables: { searchParams: params },
+          });
+        }}
+      />
       <div className={styles.content}>
         {!data ? (
           <div>No data.</div>

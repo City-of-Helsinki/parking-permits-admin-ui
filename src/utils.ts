@@ -290,3 +290,9 @@ export function isValidIBAN(value: string): boolean {
   const iban = extractIBAN(value);
   return iban.valid && iban.countryCode === 'FI';
 }
+
+export function joinSet<T>(set: Set<T>, separator?: string): string {
+  return Array.from(set)
+    .filter(val => val)
+    .join(separator);
+}
