@@ -8,7 +8,7 @@ import {
   PermitContractType,
   PriceDiscount,
 } from '../../types';
-import { joinSet } from '../../utils';
+import { formatDateDisplay, joinSet } from '../../utils';
 import ZoneSelect from '../common/ZoneSelect';
 import FilterOptions from './FilterOptions';
 import styles from './OrdersSearch.module.scss';
@@ -17,7 +17,7 @@ const T_PATH = 'components.orders.ordersSearch';
 
 export interface OrdersSearchProps {
   searchParams: OrderSearchParams;
-  onSubmit: (variables: unknown) => void;
+  onSubmit: (newSearchParams: OrderSearchParams) => void;
 }
 
 const OrdersSearch = ({
@@ -63,6 +63,7 @@ const OrdersSearch = ({
             id="startDate"
             className={styles.startDate}
             label={t(`${T_PATH}.startDate`)}
+            value={startDate && formatDateDisplay(startDate)}
             onChange={(_, date) => setStartDate(formatDate(date))}
           />
           <div className={styles.dateSeparator} />
@@ -70,6 +71,7 @@ const OrdersSearch = ({
             id="endDate"
             className={styles.endDate}
             label={t(`${T_PATH}.endDate`)}
+            value={endDate && formatDateDisplay(endDate)}
             onChange={(_, date) => setEndDate(formatDate(date))}
           />
         </div>
@@ -77,7 +79,8 @@ const OrdersSearch = ({
           clearable
           optionLabelField="name"
           className={styles.zone}
-          onChange={selectedZone => setParkingZone(selectedZone.name)}
+          value={parkingZone}
+          onChange={selectedZone => setParkingZone(selectedZone?.name || '')}
         />
         <SearchInput
           hideSearchButton
