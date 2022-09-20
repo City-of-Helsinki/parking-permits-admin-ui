@@ -99,6 +99,7 @@ const Orders = (): React.ReactElement => {
     priceDiscounts: searchParams.get('priceDiscounts') as PriceDiscount,
     parkingZone: searchParams.get('parkingZone') || '',
   };
+
   const variables = {
     pageInput: { page },
     orderBy,
@@ -112,32 +113,43 @@ const Orders = (): React.ReactElement => {
     }
   );
 
-  const handlePage = (newPage: number) => {
-    const urlSearchParams = {
-      ...orderBy,
-      page: newPage,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
-    refetch({
-      pageInput: { newPage },
-      orderBy,
+  const handleSearch = (newSearchParams: OrderSearchParams) => {
+    setSearchParams(
+      new URLSearchParams({
+        ...newSearchParams,
+        ...orderBy,
+        page: '1',
+      }),
+      { replace: true }
+    );
+
+    getOrders({
+      variables: {
+        searchParams: newSearchParams,
+        pageInput: { page: 1 },
+        orderBy,
+      },
     });
   };
-  const handleOrderBy = (newOrderBy: OrderBy) => {
-    const urlSearchParams = {
-      ...newOrderBy,
-      page,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
+
+  const handlePage = (newPage: number) => {
+    searchParams.set('page', newPage.toString());
+    setSearchParams(searchParams, { replace: true });
+
     refetch({
-      pageInput: { page },
+      pageInput: { page: newPage },
+    });
+  };
+
+  const handleOrderBy = (newOrderBy: OrderBy) => {
+    Object.entries(newOrderBy).forEach(([k, v]) => searchParams.set(k, v));
+    setSearchParams(searchParams, { replace: true });
+
+    refetch({
       orderBy: newOrderBy,
     });
   };
+
   const handleExport = () => {
     const url = formatExportUrl('orders', {
       ...orderBy,
@@ -149,14 +161,7 @@ const Orders = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
-      <OrdersSearch
-        searchParams={ordersSearchParams}
-        onSubmit={params => {
-          getOrders({
-            variables: { searchParams: params },
-          });
-        }}
-      />
+      <OrdersSearch searchParams={ordersSearchParams} onSubmit={handleSearch} />
       <div className={styles.content}>
         {!data ? (
           <div>No data.</div>

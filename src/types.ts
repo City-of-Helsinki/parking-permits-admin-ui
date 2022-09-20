@@ -345,9 +345,9 @@ export interface OrderSearchParams {
   startDate: string;
   endDate: string;
   parkingZone: string;
-  contractTypes: PermitContractType;
-  paymentTypes: PaymentType;
-  priceDiscounts: PriceDiscount;
+  contractTypes: string;
+  paymentTypes: string;
+  priceDiscounts: string;
 }
 
 export enum RefundStatus {
