@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/react';
-import { Integrations } from '@sentry/tracing';
+import { BrowserTracing } from '@sentry/tracing';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -13,12 +13,19 @@ import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import { getEnv } from './utils';
 
-Sentry.init({
-  dsn: getEnv('REACT_APP_SENTRY_DSN'),
-  environment: getEnv('REACT_APP_SENTRY_ENVIRONMENT'),
-  integrations: [new Integrations.BrowserTracing()],
-  tracesSampleRate: 1.0,
-});
+const ENVS_WITH_SENTRY = ['test', 'stage', 'prod'];
+
+if (
+  process.env.REACT_APP_SENTRY_ENVIRONMENT &&
+  ENVS_WITH_SENTRY.includes(process.env.REACT_APP_SENTRY_ENVIRONMENT)
+) {
+  Sentry.init({
+    dsn: getEnv('REACT_APP_SENTRY_DSN'),
+    environment: getEnv('REACT_APP_SENTRY_ENVIRONMENT'),
+    integrations: [new BrowserTracing()],
+    tracesSampleRate: 1.0,
+  });
+}
 
 ReactDOM.render(
   <React.StrictMode>
