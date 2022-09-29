@@ -1,5 +1,11 @@
 import { formatISO } from 'date-fns';
-import { Button, DateInput, IconSearch, SearchInput } from 'hds-react';
+import {
+  Button,
+  DateInput,
+  IconCross,
+  IconSearch,
+  SearchInput,
+} from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -39,6 +45,19 @@ const OrdersSearch = ({
   const [priceDiscounts, setPriceDiscounts] = useState(
     new Set(searchParams.priceDiscounts?.split(','))
   );
+
+  const reset = () => {
+    // NOTE: At the time of writing, HDS' SearchInput component doesn't support
+    // neither ref nor value, so there's no way of clearing it without resorting
+    // to dirty hacks. Due to this, the query state reset is omitted as well.
+    // setQuery('');
+    setStartDate('');
+    setEndDate('');
+    setParkingZone('');
+    setContractTypes(new Set());
+    setPaymentTypes(new Set());
+    setPriceDiscounts(new Set());
+  };
 
   const formatDate = (date: Date) =>
     formatISO(date, { representation: 'date' });
@@ -139,6 +158,16 @@ const OrdersSearch = ({
           iconLeft={<IconSearch />}
           onClick={() => handleSubmit()}>
           {t(`${T_PATH}.searchButton`)}
+        </Button>
+      </div>
+
+      <div className={styles.row}>
+        <Button
+          className={styles.clearButton}
+          variant="supplementary"
+          iconLeft={<IconCross />}
+          onClick={() => reset()}>
+          {t(`${T_PATH}.clearButton`)}
         </Button>
       </div>
     </div>

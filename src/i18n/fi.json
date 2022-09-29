@@ -74,7 +74,8 @@
         "paymentType": "Maksu",
         "priceDiscount": "Alennushinta",
         "textSearch": "Tekstihaku",
-        "searchButton": "Hae"
+        "searchButton": "Hae",
+        "clearButton": "Tyhjennä hakuehdot"
       }
     },
     "permitDetail": {
