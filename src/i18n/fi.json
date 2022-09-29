@@ -17,8 +17,8 @@
         "event": "Tapahtuma"
       },
       "dataTable": {
-        "downloadCsv": "Lataa tulokset csv-tiedostona",
-        "results": "Tuloksia: {{count}}",
+        "downloadCsv": "Lataa listan tiedot (.csv)",
+        "results": "Tuloksia {{count}} kpl",
         "selectAll": "Valitse kaikki listalta"
       },
       "powerTypeSelect": {
@@ -58,6 +58,7 @@
         "name": "Asiakas",
         "orderNumber": "Tilausnumero",
         "paidTime": "Maksupäivä",
+        "paidTimeFormat": "d.M.Y 'klo' H:mm",
         "permits": "Tunnukset",
         "permitType": "Tunnustyyppi",
         "registrationNumber": "Rekisterinro",

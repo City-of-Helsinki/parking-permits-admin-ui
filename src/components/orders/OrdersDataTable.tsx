@@ -1,12 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Order, OrderBy, PageInfo } from '../../types';
+import { Address, Order, OrderBy, PageInfo } from '../../types';
 import {
   formatCustomerName,
   formatDateTimeDisplay,
   formatParkingZone,
-  formatPermitAddresses,
   formatPrice,
 } from '../../utils';
 import DataTable from '../common/DataTable';
@@ -38,28 +36,30 @@ const OrdersDataTable = ({
   const { t, i18n } = useTranslation();
   const columns: Column<Order>[] = [
     {
-      name: t(`${T_PATH}.name`),
-      field: 'name',
-      selector: ({ customer }) => formatCustomerName(customer),
-      sortable: true,
-    },
-    {
       name: t(`${T_PATH}.permits`),
       field: 'permits',
       selector: ({ orderPermits }) => (
-        <>
-          {orderPermits.map(permit => {
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {orderPermits.map((permit, index) => {
+            const isLastItem = orderPermits.length === index + 1;
             const { id, vehicle } = permit;
             const { registrationNumber } = vehicle;
             const label = `${id} (${registrationNumber})`;
             return (
-              <Link style={{ marginRight: 10 }} key={id} to={`/permits/${id}`}>
+              <div key={id}>
                 {label}
-              </Link>
+                {!isLastItem && ','}
+              </div>
             );
           })}
-        </>
+        </div>
       ),
+      sortable: true,
+    },
+    {
+      name: t(`${T_PATH}.name`),
+      field: 'name',
+      selector: ({ customer }) => formatCustomerName(customer),
       sortable: true,
     },
     {
@@ -71,8 +71,37 @@ const OrdersDataTable = ({
     {
       name: t(`${T_PATH}.address`),
       field: 'address',
-      selector: ({ orderPermits }) =>
-        formatPermitAddresses(orderPermits, i18n.language),
+      selector: ({ orderPermits }) => {
+        const formatAddress = (address: Address) => {
+          if (i18n.language === 'sv') {
+            return `${address.streetNameSv} ${address.streetNumber}`;
+          }
+          return `${address.streetName} ${address.streetNumber}`;
+        };
+
+        // Get all unique addresses from permits.
+        const addresses = orderPermits
+          .map(permit => permit.address)
+          .filter(
+            (address, index, self) =>
+              self.findIndex(item => item.id === address.id) === index
+          );
+
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {addresses.map((address, index) => {
+              const isLastItem = addresses.length === index + 1;
+
+              return (
+                <div key={address.id}>
+                  {formatAddress(address)}
+                  {!isLastItem && ','}
+                </div>
+              );
+            })}
+          </div>
+        );
+      },
       sortable: true,
     },
     {
@@ -94,13 +123,19 @@ const OrdersDataTable = ({
       name: t(`${T_PATH}.paidTime`),
       field: 'paidTime',
       selector: ({ paidTime }) =>
-        paidTime ? formatDateTimeDisplay(paidTime) : '-',
+        paidTime
+          ? formatDateTimeDisplay(paidTime, t(`${T_PATH}.paidTimeFormat`))
+          : '-',
       sortable: true,
     },
     {
       name: t(`${T_PATH}.totalPrice`),
       field: 'totalPrice',
-      selector: ({ totalPrice }) => formatPrice(totalPrice),
+      selector: ({ totalPrice }) => (
+        <div style={{ textAlign: 'right' }}>
+          {formatPrice(totalPrice, false)}
+        </div>
+      ),
       sortable: false,
     },
   ];

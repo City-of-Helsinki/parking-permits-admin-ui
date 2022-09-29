@@ -1,4 +1,4 @@
-import { addMonths } from 'date-fns';
+import { addMonths, format } from 'date-fns';
 import { extractIBAN } from 'ibantools';
 import {
   Address,
@@ -56,14 +56,12 @@ export function formatDateDisplay(datetime: string | Date): string {
   return dt.toLocaleDateString('fi');
 }
 
-export function formatDateTimeDisplay(datetime: string | Date): string {
+export function formatDateTimeDisplay(
+  datetime: string | Date,
+  dtFormat = 'd.M.Y, HH:mm'
+): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
-  const dateStr = dt.toLocaleDateString('fi');
-  const timeStr = dt.toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-  return `${dateStr}, ${timeStr}`;
+  return format(dt, dtFormat);
 }
 
 export function formatCustomerName(customer: Customer): string {
@@ -89,9 +87,16 @@ export function formatMonthlyPrice(price: number): string {
   return `${formattedPrice} €/kk`;
 }
 
-export function formatPrice(price: number): string {
-  const formattedPrice = price.toFixed(2);
-  return `${formattedPrice} €`;
+export function formatPrice(price: number, withCurrencySymbol = true): string {
+  const options: Intl.NumberFormatOptions = {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  };
+  if (withCurrencySymbol) {
+    options.style = 'currency';
+    options.currency = 'EUR';
+  }
+  return price.toLocaleString('fi-FI', options);
 }
 
 export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
