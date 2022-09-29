@@ -53,6 +53,7 @@ const ORDERS_QUERY = gql`
             name
           }
           address {
+            id
             streetName
             streetNameSv
             streetNumber
