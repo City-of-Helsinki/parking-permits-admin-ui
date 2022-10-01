@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.4.15",
+    "@apollo/client": "^3.6.9",
     "@sentry/react": "^7.13.0",
     "@sentry/tracing": "^7.13.0",
     "@testing-library/jest-dom": "^5.11.4",
