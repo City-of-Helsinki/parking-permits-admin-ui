@@ -21,7 +21,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-sonarjs": "^0.10.0",
+    "eslint-plugin-sonarjs": "^0.15.0",
     "formik": "^2.2.9",
     "graphql": "^15.6.0",
     "hds-design-tokens": "^1.9.0",
