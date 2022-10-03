@@ -13,7 +13,7 @@ import { Column } from '../types';
 const T_PATH = 'components.orders.ordersDataTable';
 
 export interface OrdersDataTableProps {
-  orders: Order[];
+  orders?: Order[];
   pageInfo?: PageInfo;
   loading?: boolean;
   orderBy?: OrderBy;

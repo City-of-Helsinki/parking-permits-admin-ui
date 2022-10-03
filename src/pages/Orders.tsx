@@ -164,19 +164,15 @@ const Orders = (): React.ReactElement => {
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
       <OrdersSearch searchParams={ordersSearchParams} onSubmit={handleSearch} />
       <div className={styles.content}>
-        {!data ? (
-          <div>No data.</div>
-        ) : (
-          <OrdersDataTable
-            orders={data.orders.objects}
-            pageInfo={data.orders.pageInfo}
-            loading={loading}
-            orderBy={orderBy}
-            onPage={handlePage}
-            onOrderBy={handleOrderBy}
-            onExport={handleExport}
-          />
-        )}
+        <OrdersDataTable
+          orders={data?.orders.objects}
+          pageInfo={data?.orders.pageInfo}
+          loading={loading}
+          orderBy={orderBy}
+          onPage={handlePage}
+          onOrderBy={handleOrderBy}
+          onExport={handleExport}
+        />
       </div>
       {errorMessage && (
         <Notification
