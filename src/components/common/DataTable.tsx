@@ -48,12 +48,15 @@ const DataTable = <T,>({
           </div>
         )}
         {onExport && (
-          <Button
-            variant="supplementary"
-            iconLeft={<IconDownload />}
-            onClick={() => onExport()}>
-            {t(`${T_PATH}.downloadCsv`)}
-          </Button>
+          <div>
+            <Button
+              variant="supplementary"
+              size="small"
+              iconRight={<IconDownload />}
+              onClick={() => onExport()}>
+              {t(`${T_PATH}.downloadCsv`)}
+            </Button>
+          </div>
         )}
       </div>
       {selection && (

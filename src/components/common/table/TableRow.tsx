@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Checkbox } from 'hds-react';
 import React from 'react';
 import { Column } from '../../types';
@@ -21,7 +22,7 @@ const TableRow = <T,>({
   onSelectionChange,
 }: TableRowProps<T>): React.ReactElement => (
   <tr
-    className={styles.tableRow}
+    className={classNames(styles.tableRow, { [styles.clickable]: onClick })}
     onClick={() => {
       if (onClick) {
         onClick(row);
@@ -31,22 +32,28 @@ const TableRow = <T,>({
       if (index === 0 && selected !== null) {
         return (
           <td key={field}>
-            <Checkbox
-              className={styles.checkbox}
-              id={`checkbox-${rowId}`}
-              label={selector(row)}
-              checked={selected}
-              onClick={e => {
-                e.stopPropagation();
-                if (onSelectionChange) {
-                  onSelectionChange(!selected);
-                }
-              }}
-            />
+            <div className={styles.tableCell}>
+              <Checkbox
+                className={styles.checkbox}
+                id={`checkbox-${rowId}`}
+                label={selector(row)}
+                checked={selected}
+                onClick={e => {
+                  e.stopPropagation();
+                  if (onSelectionChange) {
+                    onSelectionChange(!selected);
+                  }
+                }}
+              />
+            </div>
           </td>
         );
       }
-      return <td key={field}>{selector(row)}</td>;
+      return (
+        <td key={field}>
+          <div className={styles.tableCell}>{selector(row)}</div>
+        </td>
+      );
     })}
   </tr>
 );

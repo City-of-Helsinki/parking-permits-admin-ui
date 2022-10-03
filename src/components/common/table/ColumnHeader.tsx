@@ -1,4 +1,5 @@
-import { IconAngleDown, IconAngleUp } from 'hds-react';
+import classNames from 'classnames';
+import { IconSort, IconSortAscending, IconSortDescending } from 'hds-react';
 import React from 'react';
 import { OrderDirection } from '../../types';
 import styles from './ColumnHeader.module.scss';
@@ -16,15 +17,25 @@ const ColumnHeader = ({
   orderDirection,
   onClick,
 }: ColumnHeaderProps): React.ReactElement => (
-  <th style={{ cursor: sortable ? 'pointer' : 'default' }} onClick={onClick}>
-    <div className={styles['column-header']}>
-      <span>{title}</span>
+  <th
+    className={classNames(styles.columnHeader, {
+      [styles.selected]: orderDirection !== null,
+    })}>
+    <button
+      className={classNames(styles.sortButton)}
+      type="button"
+      onClick={onClick}>
+      <span className={styles.title}>{title}</span>
       {sortable && orderDirection === null && (
-        <IconAngleUp className={styles['hover-icon']} />
+        <IconSort className={styles.sortIcon} />
       )}
-      {sortable && orderDirection === OrderDirection.DESC && <IconAngleDown />}
-      {sortable && orderDirection === OrderDirection.ASC && <IconAngleUp />}
-    </div>
+      {sortable && orderDirection === OrderDirection.DESC && (
+        <IconSortDescending className={styles.sortIcon} />
+      )}
+      {sortable && orderDirection === OrderDirection.ASC && (
+        <IconSortAscending className={styles.sortIcon} />
+      )}
+    </button>
   </th>
 );
 
