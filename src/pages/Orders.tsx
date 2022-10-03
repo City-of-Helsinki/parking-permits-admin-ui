@@ -1,4 +1,5 @@
 import { gql, useLazyQuery } from '@apollo/client';
+import { format, parse } from 'date-fns';
 import { Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -91,10 +92,18 @@ const Orders = (): React.ReactElement => {
     orderDirection:
       (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
   };
+
+  const reformatISODate = (dateString: string) =>
+    format(parse(dateString, 'yyyy-MM-dd', new Date()), 'd.M.yyyy');
+
   const ordersSearchParams: OrderSearchParams = {
     q: searchParams.get('q') || '',
-    startDate: searchParams.get('startDate') || '',
-    endDate: searchParams.get('endDate') || '',
+    startDate: searchParams.get('startDate')
+      ? reformatISODate(searchParams.get('startDate') as string)
+      : '',
+    endDate: searchParams.get('endDate')
+      ? reformatISODate(searchParams.get('endDate') as string)
+      : '',
     contractTypes: searchParams.get('contractTypes') as PermitContractType,
     paymentTypes: searchParams.get('paymentTypes') as PaymentType,
     priceDiscounts: searchParams.get('priceDiscounts') as PriceDiscount,

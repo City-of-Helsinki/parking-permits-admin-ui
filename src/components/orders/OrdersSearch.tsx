@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { formatISO } from 'date-fns';
+import { formatISO, parse } from 'date-fns';
 import {
   Button,
   DateInput,
@@ -15,7 +15,7 @@ import {
   PermitContractType,
   PriceDiscount,
 } from '../../types';
-import { formatDateDisplay, joinSet } from '../../utils';
+import { joinSet } from '../../utils';
 import ZoneSelect from '../common/ZoneSelect';
 import FilterOptions from './FilterOptions';
 import styles from './OrdersSearch.module.scss';
@@ -68,14 +68,16 @@ const OrdersSearch = ({
     setPriceDiscounts(new Set());
   };
 
-  const formatDate = (date: Date) =>
-    formatISO(date, { representation: 'date' });
+  const formatDate = (date: string) => {
+    const parsedDate = parse(date, 'd.M.yyyy', new Date());
+    return formatISO(parsedDate, { representation: 'date' });
+  };
 
   const handleSubmit = () => {
     onSubmit({
       q: query,
-      startDate,
-      endDate,
+      startDate: startDate ? formatDate(startDate) : '',
+      endDate: endDate ? formatDate(endDate) : '',
       parkingZone,
       contractTypes: joinSet(contractTypes),
       paymentTypes: joinSet(paymentTypes),
@@ -91,16 +93,16 @@ const OrdersSearch = ({
             id="startDate"
             className={styles.startDate}
             label={t(`${T_PATH}.startDate`)}
-            value={startDate && formatDateDisplay(startDate)}
-            onChange={(_, date) => setStartDate(formatDate(date))}
+            value={startDate}
+            onChange={setStartDate}
           />
           <div className={styles.dateSeparator} />
           <DateInput
             id="endDate"
             className={styles.endDate}
             label={t(`${T_PATH}.endDate`)}
-            value={endDate && formatDateDisplay(endDate)}
-            onChange={(_, date) => setEndDate(formatDate(date))}
+            value={endDate}
+            onChange={setEndDate}
           />
         </div>
         <ZoneSelect
@@ -170,15 +172,15 @@ const OrdersSearch = ({
         </Button>
       </div>
       {canReset() ? (
-      <div className={styles.row}>
-        <Button
-          className={styles.clearButton}
-          variant="supplementary"
-          iconLeft={<IconCross />}
-          onClick={() => reset()}>
-          {t(`${T_PATH}.clearButton`)}
-        </Button>
-      </div>
+        <div className={styles.row}>
+          <Button
+            className={styles.clearButton}
+            variant="supplementary"
+            iconLeft={<IconCross />}
+            onClick={() => reset()}>
+            {t(`${T_PATH}.clearButton`)}
+          </Button>
+        </div>
       ) : null}
     </div>
   );
