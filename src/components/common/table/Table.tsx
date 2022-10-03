@@ -1,4 +1,6 @@
+import { LoadingSpinner } from 'hds-react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { OrderBy } from '../../../types';
 import { Column } from '../../types';
 import HeaderRow from './HeaderRow';
@@ -18,6 +20,8 @@ export interface TableProps<T> {
   onSelectionChange?: (rows: T[]) => void;
 }
 
+const T_PATH = 'components.common.table';
+
 const Table = <T,>({
   selection = null,
   columns,
@@ -29,11 +33,21 @@ const Table = <T,>({
   onRowClick,
   onSelectionChange,
 }: TableProps<T>): React.ReactElement => {
+  const { t } = useTranslation();
+
   let tableBody;
   if (loading) {
-    tableBody = <NoDataRow colSpan={columns.length} text="Loading..." />;
+    tableBody = (
+      <NoDataRow colSpan={columns.length} text={<LoadingSpinner />} />
+    );
   } else if (!data) {
-    tableBody = <NoDataRow colSpan={columns.length} text="No data" />;
+    tableBody = (
+      <NoDataRow colSpan={columns.length} text={t(`${T_PATH}.initialText`)} />
+    );
+  } else if (data.length === 0) {
+    tableBody = (
+      <NoDataRow colSpan={columns.length} text={t(`${T_PATH}.noResults`)} />
+    );
   } else {
     tableBody = data.map(row => {
       const rowId = rowIdSelector(row);

@@ -10,7 +10,7 @@ import Table from './table/Table';
 export interface DataTableProps<T> {
   selection?: T[] | null;
   columns: Column<T>[];
-  data: T[];
+  data?: T[];
   loading?: boolean;
   pageInfo?: PageInfo;
   orderBy?: OrderBy;
@@ -19,7 +19,7 @@ export interface DataTableProps<T> {
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (row: T) => void;
   onExport?: () => void;
-  onSelectionChange?: (rows: T[]) => void;
+  onSelectionChange?: (rows: T[] | undefined) => void;
 }
 
 const T_PATH = 'components.common.dataTable';
@@ -59,7 +59,7 @@ const DataTable = <T,>({
           </div>
         )}
       </div>
-      {selection && (
+      {selection && data && (
         <div className={styles.selectionActions}>
           <Checkbox
             id="checkbox-select-all"

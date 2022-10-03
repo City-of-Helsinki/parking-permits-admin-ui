@@ -27,6 +27,10 @@
         "diesel": "Diesel",
         "electric": "Sähkö"
       },
+      "table": {
+        "initialText": "Syötä hakuehto",
+        "noResults": "Ei tuloksia."
+      },
       "zoneSelect": {
         "zone": "Alue",
         "placeholder": "Valitse..."

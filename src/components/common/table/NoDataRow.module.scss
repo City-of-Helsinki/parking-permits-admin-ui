@@ -1,7 +1,14 @@
 @import '~hds-design-tokens/lib/all.scss';
 
-.no-data-row {
-  text-align: center;
+.noDataRow {
   height: $spacing-2-xl;
   border-bottom: 1px solid $color-black-30;
+}
+
+.noDataContent {
+  color: $color-black-60;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: $spacing-4-xl auto;
 }
