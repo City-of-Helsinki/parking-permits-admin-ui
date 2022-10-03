@@ -38,14 +38,22 @@ const OrdersSearch = ({
   const [endDate, setEndDate] = useState(searchParams.endDate);
   const [parkingZone, setParkingZone] = useState(searchParams.parkingZone);
   const [contractTypes, setContractTypes] = useState(
-    new Set(searchParams.contractTypes?.split(','))
+    new Set(searchParams.contractTypes?.split(',').filter(val => val))
   );
   const [paymentTypes, setPaymentTypes] = useState(
-    new Set(searchParams.paymentTypes?.split(','))
+    new Set(searchParams.paymentTypes?.split(',').filter(val => val))
   );
   const [priceDiscounts, setPriceDiscounts] = useState(
-    new Set(searchParams.priceDiscounts?.split(','))
+    new Set(searchParams.priceDiscounts?.split(',').filter(val => val))
   );
+
+  const canReset = () =>
+    startDate ||
+    endDate ||
+    parkingZone ||
+    contractTypes.size ||
+    paymentTypes.size ||
+    priceDiscounts.size;
 
   const reset = () => {
     // NOTE: At the time of writing, HDS' SearchInput component doesn't support
@@ -161,7 +169,7 @@ const OrdersSearch = ({
           {t(`${T_PATH}.searchButton`)}
         </Button>
       </div>
-
+      {canReset() ? (
       <div className={styles.row}>
         <Button
           className={styles.clearButton}
@@ -171,6 +179,7 @@ const OrdersSearch = ({
           {t(`${T_PATH}.clearButton`)}
         </Button>
       </div>
+      ) : null}
     </div>
   );
 };
