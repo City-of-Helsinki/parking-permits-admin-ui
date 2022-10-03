@@ -6,11 +6,14 @@
   .header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     .totalInfo {
-      font-size: $fontsize-body-l;
-      font-weight: 600;
+      font-size: $fontsize-body-xl;
+      font-weight: normal;
+    }
+
+    > div:not(:last-child) {
+      margin-right: $spacing-m;
     }
   }
 

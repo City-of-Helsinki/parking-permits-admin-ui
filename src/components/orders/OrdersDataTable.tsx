@@ -136,7 +136,7 @@ const OrdersDataTable = ({
           {formatPrice(totalPrice, false)}
         </div>
       ),
-      sortable: false,
+      sortable: true,
     },
   ];
 

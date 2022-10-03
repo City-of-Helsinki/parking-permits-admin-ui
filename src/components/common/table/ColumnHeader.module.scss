@@ -1,13 +1,65 @@
-.column-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+@import '~hds-design-tokens/lib/all.scss';
 
-  .hover-icon {
-    opacity: 0;
+.columnHeader {
+  &.selected {
+    border-bottom: solid 2px;
+
+    .sortButton {
+      font-weight: 500;
+
+      .sortIcon {
+        opacity: 1;
+      }
+    }
   }
 
-  &:hover .hover-icon {
-    opacity: 0.6;
+  .sortButton {
+    font-size: $fontsize-body-s;
+    font-weight: normal;
+    margin-left: $spacing-xs;
+    margin-right: $spacing-xs;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    appearance: none;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+
+    > span {
+      margin-right: $spacing-xs;
+    }
+
+    .sortIcon {
+      opacity: 0.6;
+    }
+
+    &:hover .sortIcon {
+      opacity: 1;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: normal;
+    font-size: $fontsize-body-s;
+    font-weight: normal;
+    margin-left: $spacing-xs;
+    margin-right: $spacing-xs;
+
+    .title {
+      margin-right: $spacing-xs;
+    }
+
+    .sortIcon {
+      opacity: 0.6;
+    }
+
+    &:hover .sortIcon {
+      opacity: 1;
+    }
   }
 }

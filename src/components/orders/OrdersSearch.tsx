@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { formatISO } from 'date-fns';
 import {
   Button,
@@ -111,7 +112,7 @@ const OrdersSearch = ({
         />
       </div>
 
-      <div className={[styles.row, styles.filters].join(' ')}>
+      <div className={classNames(styles.row, styles.filters)}>
         <FilterOptions
           label={t(`${T_PATH}.contractType`)}
           state={contractTypes}
