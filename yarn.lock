@@ -3755,6 +3755,11 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
+  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
+
 clean-css@^4.2.3:
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.4.tgz#733bf46eba4e607c6891ea57c24a989356831178"
@@ -6267,10 +6272,11 @@ hds-core@2.3.0:
   resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-2.3.0.tgz#aec746d4714fca987cc9546cf2e225429e3e70e6"
   integrity sha512-8rIXvVbbuIK4qsQ5ZkOxnpfwj8FX9BpROxSGIDAs4qNJjtg86iVpXrpLdxmWoDPcHowRY/ZErA4PX+AmLDeESA==
 
-hds-design-tokens@^1.15.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-1.15.0.tgz#48ba0eab88822e27a642085619b5a7bdef8ec858"
-  integrity sha512-5RaU7mf/HSqtulYMiPJn0XOOuU0SNG2sGjaz1ARHJ4448gRXyOQ3yNk2Ofirae6FIpxEVmNRAW9/cS287m7wog==
+
+hds-design-tokens@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-2.3.0.tgz#0500a03b1564d9f0d53893d8cea491ffcc006f40"
+  integrity sha512-8mJIjx38520KOpqexQ7BMJTulT6vtLXBAnzWr5qy2TkrusLrVE88LYXHTxly905RI3+sy78G9rJV6pLNxDjxzA==
 
 hds-react@2.3.0:
   version "2.3.0"
