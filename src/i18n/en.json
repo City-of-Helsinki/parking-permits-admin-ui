@@ -18,7 +18,8 @@
       },
       "dataTable": {
         "downloadCsv": "Download the results as a csv file",
-        "results": "Results: {{count}}",
+        "results_other": "Found {{count}} results",
+        "results_one": "Found {{count}} result",
         "selectAll": "Select all from the list"
       },
       "powerTypeSelect": {
@@ -26,6 +27,10 @@
         "bifuel": "Bifuel",
         "diesel": "Diesel",
         "electric": "Electric"
+      },
+      "table": {
+        "initialText": "Enter the search criteria",
+        "noResults": "No results."
       },
       "zoneSelect": {
         "zone": "Zone",
@@ -58,11 +63,24 @@
         "name": "Customer",
         "orderNumber": "Order number",
         "paidTime": "Paid date",
+        "paidTimeFormat": "d.M.Y, H:mm",
         "permits": "Permits",
         "permitType": "Permit type",
         "residentPermit": "Resident permit",
         "totalPrice": "Price",
         "zone": "Zone"
+      },
+      "ordersSearch": {
+        "startDate": "Permit valid from",
+        "endDate": "Permit valid until",
+        "zone": "Parking zone",
+        "placeholder": "Type the query, e.g. name, identity number or a registration number",
+        "contractType": "Contract type",
+        "paymentType": "Payment type",
+        "priceDiscount": "Price discount",
+        "textSearch": "Text search",
+        "searchButton": "Search",
+        "clearButton": "Clear the search criteria"
       }
     },
     "permitDetail": {
@@ -326,6 +344,19 @@
         "products": "Products",
         "users": "Users"
       }
+    }
+  },
+  "enums": {
+    "contractType": {
+      "fixedPeriod": "Fixed period",
+      "openEnded": "Open ended"
+    },
+    "paymentType": {
+      "cashierPayment": "Cashier payment",
+      "onlinePayment": "Online payment"
+    },
+    "priceDiscount": {
+      "lowEmission": "Low emission"
     }
   },
   "contractType": {
