@@ -121,6 +121,19 @@ export interface Product {
 
 export type ProductWithQuantity = [Product, number];
 
+export interface Announcement {
+  id: string;
+  parkingZones: ParkingZone[];
+  subjectFi: string;
+  contentFi: string;
+  subjectSv: string;
+  contentSv: string;
+  subjectEn: string;
+  contentEn: string;
+  createdAt: string;
+  createdBy: string;
+}
+
 export interface PermitPrice {
   originalUnitPrice: number;
   unitPrice: number;
@@ -259,8 +272,17 @@ export interface PagedProducts {
   pageInfo: PageInfo;
 }
 
+export interface PagedAnnouncements {
+  objects: Announcement[];
+  pageInfo: PageInfo;
+}
+
 export interface ProductsQueryData {
   products: PagedProducts;
+}
+
+export interface AnnouncementsQueryData {
+  announcements: PagedAnnouncements;
 }
 
 export interface PagedAddresses {

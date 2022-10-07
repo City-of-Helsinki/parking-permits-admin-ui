@@ -491,7 +491,7 @@
         "title": "Ilmoitukset",
         "createNewAnnouncement": "Luo uusi ilmoitus",
         "subject": "Otsikko",
-        "zone": "Pysäköintialue",
+        "zones": "Pysäköintialueet",
         "sender": "Lähettäjä",
         "sentAt": "Lähetetty"
       }
