@@ -339,6 +339,7 @@
       },
       "sideNav": {
         "addresses": "Osoitteet",
+        "announcements": "Ilmoitukset",
         "lowEmissionCriteria": "Vähäpäästöisyyskriteerit",
         "menu": "Valikko",
         "products": "Tuotteet",
@@ -485,6 +486,14 @@
       "products": {
         "addNewPrice": "Luo uusi tuote",
         "title": "Tuotteet"
+      },
+      "announcements": {
+        "title": "Ilmoitukset",
+        "createNewAnnouncement": "Luo uusi ilmoitus",
+        "subject": "Otsikko",
+        "zone": "Pysäköintialue",
+        "sender": "Lähettäjä",
+        "sentAt": "Lähetetty"
       }
     }
   },
