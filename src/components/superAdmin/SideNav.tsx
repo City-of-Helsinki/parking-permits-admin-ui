@@ -36,6 +36,11 @@ const SideNav = (): React.ReactElement => {
       href: '/admin/lowEmissionCriteria',
       label: t(`${T_PATH}.lowEmissionCriteria`),
     },
+    {
+      id: 'announcements',
+      href: '/admin/announcements',
+      label: t(`${T_PATH}.announcements`),
+    },
   ];
 
   return (
