@@ -62,14 +62,14 @@ const AddressForm = ({
         streetNameSv: '',
         streetNumber: '',
         postalCode: '',
-        city: '',
-        citySv: '',
+        city: 'Helsinki',
+        citySv: 'Helsingfors',
         location: HELSINKI_LOCATION,
       };
   const validationSchema = Yup.object().shape({
     streetName: Yup.string().required(t(`${T_PATH}.enterStreetName`)),
     streetNameSv: Yup.string(),
-    streetNumber: Yup.number().required(t(`${T_PATH}.enterStreetNumber`)),
+    streetNumber: Yup.string().required(t(`${T_PATH}.enterStreetNumber`)),
     postalCode: Yup.string()
       .required(t(`${T_PATH}.enterPostalCode`))
       .test('isPostalCode', t(`${T_PATH}.postalCode5Digits`), value =>
@@ -204,7 +204,7 @@ const AddressForm = ({
             <div className={styles.actions}>
               <Button
                 className={styles.submit}
-                disabled={!(props.dirty && props.isValid)}
+                disabled={!props.dirty || (props.dirty && !props.isValid)}
                 type="submit">
                 {t(`${T_PATH}.save`)}
               </Button>
