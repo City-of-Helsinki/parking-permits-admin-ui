@@ -494,6 +494,15 @@
         "zones": "Pysäköintialueet",
         "sender": "Lähettäjä",
         "sentAt": "Lähetetty"
+      },
+      "announcement": {
+        "announcementInFinnish": "Ilmoitus suomeksi",
+        "announcementInSwedish": "Ilmoitus ruotsiksi",
+        "announcementInEnglish": "Ilmoitus englanniksi",
+        "returnToList": "Palaa listanäkymään",
+        "zone": "Alue",
+        "sender": "Lähettäjä",
+        "sentAt": "Lähetetty"
       }
     }
   },
