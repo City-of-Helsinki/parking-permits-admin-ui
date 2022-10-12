@@ -21,6 +21,7 @@ import Addresses from './pages/superAdmin/addresses/Addresses';
 import CreateAddress from './pages/superAdmin/addresses/CreateAddress';
 import EditAddress from './pages/superAdmin/addresses/EditAddress';
 import Announcements from './pages/superAdmin/announcements/Announcements';
+import ViewAnnouncement from './pages/superAdmin/announcements/ViewAnnouncement';
 import CreateLowEmissionCriterion from './pages/superAdmin/lowEmissionCriteria/CreateLowEmissionCriterion';
 import EditLowEmissionCriterion from './pages/superAdmin/lowEmissionCriteria/EditLowEmissionCriterion';
 import LowEmissionCriteria from './pages/superAdmin/lowEmissionCriteria/LowEmissionCriteria';
@@ -34,6 +35,7 @@ const routes = [
     element: <SuperAdminLayout />,
     children: [
       { path: 'announcements', element: <Announcements /> },
+      { path: 'announcements/:id', element: <ViewAnnouncement /> },
       { path: 'products', element: <Products /> },
       { path: 'products/create', element: <CreateProduct /> },
       { path: 'products/:id', element: <EditProduct /> },

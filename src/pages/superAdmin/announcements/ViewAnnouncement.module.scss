@@ -1,0 +1,13 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.container {
+  .row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    > .col {
+      flex: 1;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { makePrivate } from '../../../auth/utils';
 import DataTable from '../../../components/common/DataTable';
 import { Column } from '../../../components/types';
@@ -40,6 +41,7 @@ const ANNOUNCEMENTS_QUERY = gql`
 
 const Announcements = (): React.ReactElement => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   const { pageParam, setPageParam } = usePageParam();
   const { orderByParam, setOrderBy } = useOrderByParam();
@@ -117,7 +119,7 @@ const Announcements = (): React.ReactElement => {
   return (
     <div>
       <div className={styles.toolbar}>
-        <h1 className="heading-l">{t(`${T_PATH}.title`)}</h1>
+        <h2 className="heading-l">{t(`${T_PATH}.title`)}</h2>
         <Button style={{ marginLeft: 'auto' }}>
           {t(`${T_PATH}.createNewAnnouncement`)}
         </Button>
@@ -130,6 +132,7 @@ const Announcements = (): React.ReactElement => {
         rowIdSelector={announcement => announcement.id}
         onOrderBy={handleOrderBy}
         onPage={handlePage}
+        onRowClick={announcement => navigate(announcement.id)}
         pageInfo={data?.announcements.pageInfo}
       />
     </div>
