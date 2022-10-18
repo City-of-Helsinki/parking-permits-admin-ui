@@ -34,6 +34,9 @@
       "zoneSelect": {
         "zone": "Alue",
         "placeholder": "Valitse..."
+      },
+      "checkboxGroup": {
+        "selectAll": "Valitse kaikki"
       }
     },
     "createPermit": {
