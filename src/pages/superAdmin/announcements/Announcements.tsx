@@ -120,7 +120,9 @@ const Announcements = (): React.ReactElement => {
     <div>
       <div className={styles.toolbar}>
         <h2 className="heading-l">{t(`${T_PATH}.title`)}</h2>
-        <Button style={{ marginLeft: 'auto' }}>
+        <Button
+          style={{ marginLeft: 'auto' }}
+          onClick={() => navigate('/admin/announcements/create')}>
           {t(`${T_PATH}.createNewAnnouncement`)}
         </Button>
       </div>
