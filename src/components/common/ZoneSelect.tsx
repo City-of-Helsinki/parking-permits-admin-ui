@@ -7,7 +7,7 @@ import { ParkingZone } from '../../types';
 const T_PATH = 'components.common.zoneSelect';
 
 const ZONES_QUERY = gql`
-  query Query {
+  query GetZones {
     zones {
       name
       label
