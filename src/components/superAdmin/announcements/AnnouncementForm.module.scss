@@ -1,0 +1,17 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  margin-top: $spacing-m;
+
+  > button:not(:last-child) {
+    margin-right: $spacing-m;
+  }
+}
+
+.checkboxGrid {
+  display: grid;
+  grid-template-columns: repeat(8, 80px);
+  grid-template-rows: auto;
+}

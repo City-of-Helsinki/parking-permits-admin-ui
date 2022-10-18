@@ -347,6 +347,25 @@
         "menu": "Valikko",
         "products": "Tuotteet",
         "users": "Käyttäjät"
+      },
+      "announcements": {
+        "announcementForm": {
+          "announcementInFinnish": "Ilmoitus suomeksi",
+          "announcementInEnglish": "Ilmoitus englanniksi",
+          "announcementInSwedish": "Ilmoitus ruotsiksi",
+          "subjectEn": "Ilmoituksen otsikko (en)",
+          "subjectFi": "Ilmoituksen otsikko (fi)",
+          "subjectSv": "Ilmoituksen otsikko (sv)",
+          "contentEn": "Ilmoitus (en)",
+          "contentFi": "Ilmoitus (fi)",
+          "contentSv": "Ilmoitus (sv)",
+          "submit": "Lähetä ilmoitus",
+          "cancel": "Peruuta",
+          "enterSubject": "Syötä otsikko",
+          "enterContent": "Syötä ilmoituksen sisältö",
+          "selectZone": "Valitse alue",
+          "recipientZones": "Vastaanottajien alue tai alueet"
+        }
       }
     }
   },
@@ -506,6 +525,9 @@
         "zone": "Alue",
         "sender": "Lähettäjä",
         "sentAt": "Lähetetty"
+      },
+      "createAnnouncement": {
+        "title": "Luo uusi ilmoitus"
       }
     }
   },
