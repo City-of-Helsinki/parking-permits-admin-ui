@@ -9,7 +9,9 @@ const MainLayout = (): React.ReactElement => (
     <Header />
     <Divider />
     <div className={styles['content-container']}>
-      <Outlet />
+      <div className={styles.gutter}>
+        <Outlet />
+      </div>
     </div>
   </div>
 );
