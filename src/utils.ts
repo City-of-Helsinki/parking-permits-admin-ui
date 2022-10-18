@@ -301,3 +301,11 @@ export function joinSet<T>(set: Set<T>, separator?: string): string {
     .filter(val => val)
     .join(separator);
 }
+
+export function mapValues<V>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  obj: Record<string, any>,
+  val: V
+): Record<string | number | symbol, V> {
+  return Object.keys(obj).reduce((acc, key) => ({ ...acc, [key]: val }), {});
+}
