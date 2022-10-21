@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import {
   Button,
   IconArrowRight,
@@ -114,11 +114,13 @@ const Refunds = (): React.ReactElement => {
     orderBy,
     searchParams: refundSearchParams,
   };
-  const { loading, data, refetch } = useQuery<RefundsQueryData>(REFUNDS_QUERY, {
-    variables,
-    fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
-  });
+
+  const [getRefunds, { loading, data, refetch }] =
+    useLazyQuery<RefundsQueryData>(REFUNDS_QUERY, {
+      variables,
+      fetchPolicy: 'no-cache',
+      onError: error => setErrorMessage(error.message),
+    });
 
   const [requestForApproval] = useMutation<{ requestForApproval: number }>(
     REQUEST_FOR_APPROVAL_MUTATION,
@@ -161,19 +163,22 @@ const Refunds = (): React.ReactElement => {
     });
   };
 
-  const handleSearch = (newRefundSearchParams: RefundSearchParams) => {
-    const urlSearchParams = {
-      ...newRefundSearchParams,
-      ...orderBy,
-      page,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
-    refetch({
-      pageInput: { page },
-      orderBy,
-      searchParams: newRefundSearchParams,
+  const handleSearch = (newSearchParams: RefundSearchParams) => {
+    setSearchParams(
+      new URLSearchParams({
+        ...newSearchParams,
+        ...orderBy,
+        page: '1',
+      }),
+      { replace: true }
+    );
+
+    getRefunds({
+      variables: {
+        searchParams: newSearchParams,
+        pageInput: { page: 1 },
+        orderBy,
+      },
     });
   };
 
