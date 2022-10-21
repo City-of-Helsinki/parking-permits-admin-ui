@@ -3,7 +3,6 @@ import {
   Button,
   IconArrowRight,
   IconCheckCircle,
-  LoadingSpinner,
   Notification,
 } from 'hds-react';
 import React, { useState } from 'react';
@@ -144,21 +143,15 @@ const Refunds = (): React.ReactElement => {
   );
 
   const canRequestForApproval =
+    selectedRefunds &&
     selectedRefunds.length > 0 &&
     selectedRefunds.every(refund => refund.status === RefundStatus.OPEN);
   const canAcceptRefunds =
+    selectedRefunds &&
     selectedRefunds.length > 0 &&
     selectedRefunds.every(
       refund => refund.status === RefundStatus.REQUEST_FOR_APPROVAL
     );
-
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
-  if (!data) {
-    return <div>No data</div>;
-  }
 
   const handlePage = (newPage: number) => {
     setPageParam(newPage);
@@ -211,15 +204,15 @@ const Refunds = (): React.ReactElement => {
         />
         <RefundsDataTable
           selection={selectedRefunds}
-          refunds={data.refunds.objects}
-          pageInfo={data.refunds.pageInfo}
+          refunds={data?.refunds.objects}
+          pageInfo={data?.refunds.pageInfo}
           loading={loading}
           orderBy={orderBy}
           onPage={handlePage}
           onOrderBy={handleOrderBy}
           onRowClick={refund => navigate(refund.id)}
           onExport={handleExport}
-          onSelectionChange={selection => setSelectedRefunds(selection)}
+          onSelectionChange={selection => setSelectedRefunds(selection || [])}
         />
       </div>
       <div className={styles.footer}>

@@ -10,7 +10,7 @@ const T_PATH = 'components.refunds.refundsDataTable';
 
 export interface RefundsDataTableProps {
   selection?: Refund[] | null;
-  refunds: Refund[];
+  refunds: Refund[] | undefined;
   pageInfo?: PageInfo;
   loading?: boolean;
   orderBy?: OrderBy;
@@ -18,7 +18,7 @@ export interface RefundsDataTableProps {
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (refund: Refund) => void;
   onExport?: () => void;
-  onSelectionChange: (refunds: Refund[]) => void;
+  onSelectionChange: (refunds: Refund[] | undefined) => void;
 }
 
 const RefundsDataTable = ({
