@@ -168,7 +168,7 @@ const Permits = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
+        <h2>{t(`${T_PATH}.title`)}</h2>
         <Button
           iconLeft={<IconArrowRight />}
           onClick={() => navigate('create')}>
