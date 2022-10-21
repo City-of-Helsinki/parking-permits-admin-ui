@@ -1,7 +1,8 @@
 @import '~hds-design-tokens/lib/all.scss';
 
 .container {
-  margin: $spacing-m;
+  display: flex;
+  flex-direction: column;
 
   .footer {
     padding: $spacing-m 0;

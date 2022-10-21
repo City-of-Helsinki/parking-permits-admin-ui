@@ -170,7 +170,7 @@ const Orders = (): React.ReactElement => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
+      <h2>{t(`${T_PATH}.title`)}</h2>
       <OrdersSearch searchParams={ordersSearchParams} onSubmit={handleSearch} />
       <div className={styles.content}>
         <OrdersDataTable
