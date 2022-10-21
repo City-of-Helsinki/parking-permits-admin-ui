@@ -13,9 +13,9 @@ import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
 import RefundsSearch from '../components/refunds/RefundsSearch';
-import { OrderDirection } from '../components/types';
 import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
+import { useOrderByParam, usePageParam } from '../hooks/searchParam';
 import {
   OrderBy,
   Refund,
@@ -94,21 +94,15 @@ const Refunds = (): React.ReactElement => {
   const [errorMessage, setErrorMessage] = useState('');
   const [selectedRefunds, setSelectedRefunds] = useState<Refund[]>([]);
 
-  const pageParam = searchParams.get('page');
-  const orderFieldParam = searchParams.get('orderField');
-  const orderDirectionParam = searchParams.get('orderDirection');
+  const { pageParam: page, setPageParam } = usePageParam();
+  const { orderByParam: orderBy, setOrderBy } = useOrderByParam();
+
   const statusParam = searchParams.get('status');
   const qParam = searchParams.get('q');
   const startDateParam = searchParams.get('startDate');
   const endDateParam = searchParams.get('endDate');
   const paymentTypesParam = searchParams.get('paymentTypes');
 
-  const page = pageParam ? parseInt(pageParam, 10) : 1;
-  const orderBy: OrderBy = {
-    orderField: orderFieldParam || '',
-    orderDirection:
-      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
-  };
   const refundSearchParams: RefundSearchParams = {
     q: qParam || '',
     startDate: startDateParam || '',
@@ -167,18 +161,10 @@ const Refunds = (): React.ReactElement => {
   }
 
   const handlePage = (newPage: number) => {
-    const urlSearchParams = {
-      ...refundSearchParams,
-      ...orderBy,
-      page: newPage,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
+    setPageParam(newPage);
+
     refetch({
-      pageInput: { newPage },
-      orderBy,
-      searchParams: refundSearchParams,
+      pageInput: { page: newPage },
     });
   };
 
@@ -199,18 +185,10 @@ const Refunds = (): React.ReactElement => {
   };
 
   const handleOrderBy = (newOrderBy: OrderBy) => {
-    const urlSearchParams = {
-      ...refundSearchParams,
-      ...newOrderBy,
-      page,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
+    setOrderBy(newOrderBy);
+
     refetch({
-      pageInput: { page },
       orderBy: newOrderBy,
-      searchParams: refundSearchParams,
     });
   };
 

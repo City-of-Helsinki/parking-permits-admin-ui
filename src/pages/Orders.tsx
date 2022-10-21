@@ -7,9 +7,9 @@ import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import OrdersDataTable from '../components/orders/OrdersDataTable';
 import OrdersSearch from '../components/orders/OrdersSearch';
-import { OrderDirection } from '../components/types';
 import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
+import { useOrderByParam, usePageParam } from '../hooks/searchParam';
 import {
   OrderBy,
   OrderSearchParams,
@@ -82,16 +82,8 @@ const Orders = (): React.ReactElement => {
   const exportData = useExportData();
   const [errorMessage, setErrorMessage] = useState('');
 
-  const pageParam = searchParams.get('page');
-  const orderFieldParam = searchParams.get('orderField');
-  const orderDirectionParam = searchParams.get('orderDirection');
-
-  const page = pageParam ? parseInt(pageParam, 10) : 1;
-  const orderBy: OrderBy = {
-    orderField: orderFieldParam || '',
-    orderDirection:
-      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
-  };
+  const { pageParam: page, setPageParam } = usePageParam();
+  const { orderByParam: orderBy, setOrderBy } = useOrderByParam();
 
   const reformatISODate = (dateString: string) =>
     format(parse(dateString, 'yyyy-MM-dd', new Date()), 'd.M.yyyy');
@@ -143,8 +135,7 @@ const Orders = (): React.ReactElement => {
   };
 
   const handlePage = (newPage: number) => {
-    searchParams.set('page', newPage.toString());
-    setSearchParams(searchParams, { replace: true });
+    setPageParam(newPage);
 
     refetch({
       pageInput: { page: newPage },
@@ -152,8 +143,7 @@ const Orders = (): React.ReactElement => {
   };
 
   const handleOrderBy = (newOrderBy: OrderBy) => {
-    Object.entries(newOrderBy).forEach(([k, v]) => searchParams.set(k, v));
-    setSearchParams(searchParams, { replace: true });
+    setOrderBy(newOrderBy);
 
     refetch({
       orderBy: newOrderBy,

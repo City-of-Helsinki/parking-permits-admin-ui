@@ -7,9 +7,9 @@ import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
-import { OrderDirection } from '../components/types';
 import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
+import { useOrderByParam, usePageParam } from '../hooks/searchParam';
 import {
   OrderBy,
   ParkingPermitStatusOrAll,
@@ -85,18 +85,12 @@ const Permits = (): React.ReactElement => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const exportData = useExportData();
-  const pageParam = searchParams.get('page');
-  const orderFieldParam = searchParams.get('orderField');
-  const orderDirectionParam = searchParams.get('orderDirection');
   const statusParam = searchParams.get('status');
   const qParam = searchParams.get('q');
 
-  const page = pageParam ? parseInt(pageParam, 10) : 1;
-  const orderBy = {
-    orderField: orderFieldParam || '',
-    orderDirection:
-      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
-  };
+  const { pageParam: page, setPageParam } = usePageParam();
+  const { orderByParam: orderBy, setOrderBy } = useOrderByParam();
+
   const permitSearchParams = {
     status: (statusParam as ParkingPermitStatusOrAll | null) || 'ALL',
     q: qParam || '',
@@ -127,36 +121,23 @@ const Permits = (): React.ReactElement => {
       searchParams: newPermitSearchParams,
     });
   };
+
   const handlePage = (newPage: number) => {
-    const urlSearchParams = {
-      ...permitSearchParams,
-      ...orderBy,
-      page: newPage,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
+    setPageParam(newPage);
+
     refetch({
-      pageInput: { newPage },
-      orderBy,
-      searchParams: permitSearchParams,
+      pageInput: { page: newPage },
     });
   };
+
   const handleOrderBy = (newOrderBy: OrderBy) => {
-    const urlSearchParams = {
-      ...permitSearchParams,
-      ...newOrderBy,
-      page,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
+    setOrderBy(newOrderBy);
+
     refetch({
-      pageInput: { page },
       orderBy: newOrderBy,
-      searchParams: permitSearchParams,
     });
   };
+
   const handleExport = () => {
     const url = formatExportUrl('permits', {
       ...permitSearchParams,
