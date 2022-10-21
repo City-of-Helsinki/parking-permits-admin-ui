@@ -167,7 +167,7 @@ const Permits = (): React.ReactElement => {
         onSearch={handleSearch}
       />
       <PermitsDataTable
-        permits={data?.permits.objects || []}
+        permits={data?.permits.objects}
         pageInfo={data?.permits.pageInfo}
         loading={loading}
         orderBy={orderBy}

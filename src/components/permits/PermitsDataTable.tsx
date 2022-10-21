@@ -13,7 +13,7 @@ import { Column } from '../types';
 const T_PATH = 'components.permits.permitsDataTable';
 
 export interface PermitsDataTableProps {
-  permits: Permit[];
+  permits?: Permit[];
   pageInfo?: PageInfo;
   loading: boolean;
   orderBy?: OrderBy;
