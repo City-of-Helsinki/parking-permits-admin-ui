@@ -195,7 +195,9 @@
       "refundsSearch": {
         "cash": "Kassa",
         "searchPlaceholder": "Nimi, rekisterinro tai tilausnumero",
-        "webshop": "Verkkokauppa"
+        "webshop": "Verkkokauppa",
+        "searchButton": "Hae",
+        "paymentType": "Maksu"
       },
       "refundStatusSelect": {
         "status": "Tila"
