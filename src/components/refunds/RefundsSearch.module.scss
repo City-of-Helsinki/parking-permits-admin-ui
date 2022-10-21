@@ -21,7 +21,7 @@
       width: 200px;
     }
 
-    .dateSeprator {
+    .dateSeparator {
       margin: 0 5px;
       width: 15px;
       height: 2px;
@@ -30,6 +30,12 @@
   }
 
   .searchInput {
-    width: 430px;
+    flex: 1 0 auto;
+  }
+
+  .searchButton {
+    margin-top: auto;
+    margin-left: auto;
+    width: 180px;
   }
 }
