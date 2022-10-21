@@ -169,7 +169,8 @@
         "zone": "Alue"
       },
       "permitsSearch": {
-        "placeholder": "Hae"
+        "placeholder": "Hae",
+        "searchButton": "Hae"
       },
       "permitsSearchFilters": {
         "filterList": "Suodata listaa"
