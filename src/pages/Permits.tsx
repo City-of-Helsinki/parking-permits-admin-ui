@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import { Button, IconArrowRight, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -101,24 +101,30 @@ const Permits = (): React.ReactElement => {
     orderBy,
     searchParams: permitSearchParams,
   };
-  const { loading, data, refetch } = useQuery<PermitsQueryData>(PERMITS_QUERY, {
-    variables,
-    fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
-  });
-  const handleSearch = (newPermitSearchParams: PermitSearchParams) => {
-    const urlSearchParams = {
-      ...newPermitSearchParams,
-      ...orderBy,
-      page,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
+
+  const [getPermits, { loading, data, refetch }] =
+    useLazyQuery<PermitsQueryData>(PERMITS_QUERY, {
+      variables,
+      fetchPolicy: 'no-cache',
+      onError: error => setErrorMessage(error.message),
     });
-    refetch({
-      pageInput: { page },
-      orderBy,
-      searchParams: newPermitSearchParams,
+
+  const handleSearch = (newSearchParams: PermitSearchParams) => {
+    setSearchParams(
+      new URLSearchParams({
+        ...newSearchParams,
+        ...orderBy,
+        page: '1',
+      }),
+      { replace: true }
+    );
+
+    getPermits({
+      variables: {
+        searchParams: newSearchParams,
+        pageInput: { page: 1 },
+        orderBy,
+      },
     });
   };
 
