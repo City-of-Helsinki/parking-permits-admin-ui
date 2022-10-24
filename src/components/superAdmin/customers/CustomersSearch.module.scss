@@ -1,0 +1,36 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-bottom: $spacing-m;
+
+    &:not(:last-child) {
+      margin-bottom: $spacing-m;
+    }
+
+    > div:not(:last-child),
+    > fieldset:not(:last-child) {
+      margin-right: $spacing-m;
+    }
+
+    .ninInput {
+      min-width: 130px;
+    }
+
+    .nameInput {
+      max-width: 260px;
+    }
+  }
+}
+
+.searchButton {
+  margin-top: auto;
+  margin-left: auto;
+  width: 180px;
+}

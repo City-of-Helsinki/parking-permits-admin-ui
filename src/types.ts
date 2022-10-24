@@ -466,3 +466,8 @@ export interface LowEmissionCriteriaQueryData {
 export enum PriceDiscount {
   LOW_EMISSION = 'LOW_EMISSION',
 }
+
+export interface CustomerSearchParams {
+  name: string;
+  nationalIdNumber: string;
+}
