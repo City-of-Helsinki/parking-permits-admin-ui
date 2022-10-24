@@ -17,6 +17,7 @@ export interface Address {
 export type CustomerActivePermit = Pick<Permit, 'id' | 'primaryVehicle'>;
 
 export interface Customer {
+  id: string;
   firstName: string;
   lastName: string;
   nationalIdNumber: string;
@@ -277,12 +278,21 @@ export interface PagedAnnouncements {
   pageInfo: PageInfo;
 }
 
+export interface PagedCustomers {
+  objects: Customer[];
+  pageInfo: PageInfo;
+}
+
 export interface ProductsQueryData {
   products: PagedProducts;
 }
 
 export interface AnnouncementsQueryData {
   announcements: PagedAnnouncements;
+}
+
+export interface CustomersQueryData {
+  customers: PagedCustomers;
 }
 
 export interface PagedAddresses {
