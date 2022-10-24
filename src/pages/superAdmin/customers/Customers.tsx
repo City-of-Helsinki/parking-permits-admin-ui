@@ -1,17 +1,33 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../../../auth/utils';
 import DataTable from '../../../components/common/DataTable';
+import Divider from '../../../components/common/Divider';
+import CustomersSearch from '../../../components/superAdmin/customers/CustomersSearch';
 import { Column } from '../../../components/types';
 import { useOrderByParam, usePageParam } from '../../../hooks/searchParam';
-import { Customer, CustomersQueryData, OrderBy } from '../../../types';
+import {
+  Customer,
+  CustomerSearchParams,
+  CustomersQueryData,
+  OrderBy,
+} from '../../../types';
 
 const T_PATH = 'pages.superAdmin.customers';
 
 const CUSTOMERS_QUERY = gql`
-  query GetCustomers($pageInput: PageInput!, $orderBy: OrderByInput) {
-    customers(pageInput: $pageInput, orderBy: $orderBy) {
+  query GetCustomers(
+    $pageInput: PageInput!
+    $orderBy: OrderByInput
+    $searchParams: CustomerSearchParamsInput
+  ) {
+    customers(
+      pageInput: $pageInput
+      orderBy: $orderBy
+      searchParams: $searchParams
+    ) {
       objects {
         id
         firstName
@@ -36,20 +52,44 @@ const CUSTOMERS_QUERY = gql`
 const Customers = (): React.ReactElement => {
   const { t } = useTranslation();
 
-  const { pageParam, setPageParam } = usePageParam();
-  const { orderByParam, setOrderBy } = useOrderByParam();
-  const variables = {
-    pageInput: { page: pageParam },
-    orderBy: orderByParam,
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialSearchParams = {
+    name: searchParams.get('name') || '',
+    nationalIdNumber: searchParams.get('nationalIdNumber') || '',
   };
 
-  const { loading, data, refetch } = useQuery<CustomersQueryData>(
-    CUSTOMERS_QUERY,
-    {
+  const { pageParam, setPageParam } = usePageParam();
+  const { orderByParam: orderBy, setOrderBy } = useOrderByParam();
+  const variables = {
+    searchParams: initialSearchParams,
+    pageInput: { page: pageParam },
+    orderBy,
+  };
+
+  const [getCustomers, { loading, data, refetch }] =
+    useLazyQuery<CustomersQueryData>(CUSTOMERS_QUERY, {
       variables,
       fetchPolicy: 'no-cache',
-    }
-  );
+    });
+
+  const handleSearch = (newSearchParams: CustomerSearchParams) => {
+    setSearchParams(
+      new URLSearchParams({
+        ...newSearchParams,
+        ...orderBy,
+        page: '1',
+      }),
+      { replace: true }
+    );
+
+    getCustomers({
+      variables: {
+        searchParams: newSearchParams,
+        pageInput: { page: 1 },
+        orderBy,
+      },
+    });
+  };
 
   const handlePage = (newPage: number) => {
     setPageParam(newPage);
@@ -97,10 +137,15 @@ const Customers = (): React.ReactElement => {
   return (
     <div>
       <h2 className="heading-l">{t(`${T_PATH}.title`)}</h2>
+      <CustomersSearch
+        onSearch={handleSearch}
+        searchParams={initialSearchParams}
+      />
+      <Divider />
       <DataTable
         columns={columns}
         loading={loading}
-        orderBy={orderByParam}
+        orderBy={orderBy}
         data={data?.customers.objects}
         onOrderBy={handleOrderBy}
         onPage={handlePage}

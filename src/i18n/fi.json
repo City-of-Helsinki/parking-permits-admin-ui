@@ -370,6 +370,13 @@
           "selectZone": "Valitse alue",
           "recipientZones": "Vastaanottajien alue tai alueet"
         }
+      },
+      "customers": {
+        "customersSearch": {
+          "name": "Nimi",
+          "nationalIdNumber": "Hetu",
+          "searchButton": "Hae"
+        }
       }
     }
   },
