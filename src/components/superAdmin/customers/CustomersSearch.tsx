@@ -1,4 +1,4 @@
-import { Button, IconSearch, TextInput } from 'hds-react';
+import { Button, IconCross, IconSearch, TextInput } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CustomerSearchParams } from '../../../types';
@@ -24,6 +24,13 @@ const CustomersSearch = ({
 
   const handleSubmit = () => onSearch({ nationalIdNumber, name });
 
+  const canClear = () => nationalIdNumber || name;
+
+  const clear = () => {
+    setNationalIdNumber('');
+    setName('');
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.row}>
@@ -48,6 +55,17 @@ const CustomersSearch = ({
           {t(`${T_PATH}.searchButton`)}
         </Button>
       </div>
+      {canClear() ? (
+        <div className={styles.row}>
+          <Button
+            className={styles.clearButton}
+            variant="supplementary"
+            iconLeft={<IconCross />}
+            onClick={() => clear()}>
+            {t(`${T_PATH}.clearButton`)}
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 };

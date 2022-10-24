@@ -375,7 +375,8 @@
         "customersSearch": {
           "name": "Nimi",
           "nationalIdNumber": "Hetu",
-          "searchButton": "Hae"
+          "searchButton": "Hae",
+          "clearButton": "Tyhjennä hakuehdot"
         }
       }
     }
