@@ -349,7 +349,8 @@
         "lowEmissionCriteria": "Vähäpäästöisyyskriteerit",
         "menu": "Valikko",
         "products": "Tuotteet",
-        "users": "Käyttäjät"
+        "users": "Käyttäjät",
+        "customers": "Asiakkaat"
       },
       "announcements": {
         "announcementForm": {
@@ -531,6 +532,13 @@
       },
       "createAnnouncement": {
         "title": "Luo uusi ilmoitus"
+      },
+      "customers": {
+        "title": "Asiakkaat",
+        "name": "Nimi",
+        "email": "Sähköpostiosoite",
+        "phoneNumber": "Puhelinnumero",
+        "nationalIdNumber": "Hetu"
       }
     }
   },
