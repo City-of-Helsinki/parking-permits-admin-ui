@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import useApiToken from '../api/useApiToken';
 
-const useExportData = (): ((url: string) => void) => {
+const useExportData = (): ((url: string | URL) => void) => {
   const { i18n } = useTranslation();
   const token = useApiToken();
-  return (url: string) => {
+  return (url: string | URL) => {
     fetch(url, {
       headers: {
         authorization: token ? `Bearer ${token}` : '',
