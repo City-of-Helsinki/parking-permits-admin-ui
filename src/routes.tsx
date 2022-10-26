@@ -24,6 +24,7 @@ import Announcements from './pages/superAdmin/announcements/Announcements';
 import CreateAnnouncement from './pages/superAdmin/announcements/CreateAnnouncement';
 import ViewAnnouncement from './pages/superAdmin/announcements/ViewAnnouncement';
 import Customers from './pages/superAdmin/customers/Customers';
+import ViewCustomer from './pages/superAdmin/customers/ViewCustomer';
 import CreateLowEmissionCriterion from './pages/superAdmin/lowEmissionCriteria/CreateLowEmissionCriterion';
 import EditLowEmissionCriterion from './pages/superAdmin/lowEmissionCriteria/EditLowEmissionCriterion';
 import LowEmissionCriteria from './pages/superAdmin/lowEmissionCriteria/LowEmissionCriteria';
@@ -40,6 +41,7 @@ const routes = [
       { path: 'announcements/:id', element: <ViewAnnouncement /> },
       { path: 'announcements/create', element: <CreateAnnouncement /> },
       { path: 'customers', element: <Customers /> },
+      { path: 'customers/:id', element: <ViewCustomer /> },
       { path: 'products', element: <Products /> },
       { path: 'products/create', element: <CreateProduct /> },
       { path: 'products/:id', element: <EditProduct /> },

@@ -377,6 +377,21 @@
           "nationalIdNumber": "Hetu",
           "searchButton": "Hae",
           "clearButton": "Tyhjennä hakuehdot"
+        },
+        "customerCard": {
+          "firstName": "Etunimi",
+          "lastName": "Sukunimi",
+          "phoneNumber": "Puhelinnumero",
+          "nationalIdNumber": "Henkilötunnus",
+          "email": "Sähköpostiosoite",
+          "address": "Osoite",
+          "otherAddress": "Muu osoite",
+          "language": "Kieli",
+          "languages": {
+            "fi": "Suomi",
+            "en": "Englanti",
+            "sv": "Ruotsi"
+          }
         }
       }
     }
@@ -547,6 +562,10 @@
         "email": "Sähköpostiosoite",
         "phoneNumber": "Puhelinnumero",
         "nationalIdNumber": "Hetu"
+      },
+      "viewCustomer": {
+        "personalInfo": "Henkilötiedot",
+        "returnToList": "Palaa listanäkymään"
       }
     }
   },

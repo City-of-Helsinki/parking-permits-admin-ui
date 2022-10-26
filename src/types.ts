@@ -29,6 +29,7 @@ export interface Customer {
   addressSecurityBan: boolean;
   driverLicenseChecked: boolean;
   activePermits?: CustomerActivePermit[];
+  language?: Language;
 }
 
 export enum EmissionType {

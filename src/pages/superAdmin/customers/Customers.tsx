@@ -1,6 +1,7 @@
 import { gql, useLazyQuery } from '@apollo/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../../../auth/utils';
 import DataTable from '../../../components/common/DataTable';
@@ -50,7 +51,8 @@ const CUSTOMERS_QUERY = gql`
 `;
 
 const Customers = (): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('', { keyPrefix: T_PATH });
+  const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const initialSearchParams = {
@@ -109,25 +111,25 @@ const Customers = (): React.ReactElement => {
 
   const columns: Column<Customer>[] = [
     {
-      name: t(`${T_PATH}.name`),
+      name: t('name'),
       field: 'name',
       selector: ({ firstName, lastName }) => `${lastName}, ${firstName}`,
       sortable: true,
     },
     {
-      name: t(`${T_PATH}.email`),
+      name: t('email'),
       field: 'email',
       selector: ({ email }) => email,
       sortable: true,
     },
     {
-      name: t(`${T_PATH}.phoneNumber`),
+      name: t('phoneNumber'),
       field: 'phoneNumber',
       selector: ({ phoneNumber }) => phoneNumber,
       sortable: true,
     },
     {
-      name: t(`${T_PATH}.nationalIdNumber`),
+      name: t('nationalIdNumber'),
       field: 'nationalIdNumber',
       selector: ({ nationalIdNumber }) => nationalIdNumber,
       sortable: true,
@@ -136,7 +138,7 @@ const Customers = (): React.ReactElement => {
 
   return (
     <div>
-      <h2 className="heading-l">{t(`${T_PATH}.title`)}</h2>
+      <h2 className="heading-l">{t('title')}</h2>
       <CustomersSearch
         onSearch={handleSearch}
         searchParams={initialSearchParams}
@@ -151,6 +153,7 @@ const Customers = (): React.ReactElement => {
         onPage={handlePage}
         pageInfo={data?.customers.pageInfo}
         rowIdSelector={customer => customer.id}
+        onRowClick={customer => navigate(customer.id)}
       />
     </div>
   );

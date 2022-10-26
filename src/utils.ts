@@ -27,12 +27,24 @@ export function getBooleanEnv(key: string): boolean {
   return ['true', '1'].includes(val);
 }
 
-export function formatAddress(address: Address, lang: string): string {
-  const { streetName, streetNameSv, streetNumber, city, citySv } = address;
-  if (lang === 'sv') {
-    return `${streetNameSv} ${streetNumber}, ${citySv}`;
+export function formatAddress(
+  address: Address | undefined,
+  lang: string,
+  options?: { withPostalCode?: boolean }
+): string {
+  if (!address) {
+    return '-';
   }
-  return `${streetName} ${streetNumber}, ${city}`;
+
+  const { streetName, streetNameSv, streetNumber, city, citySv } = address;
+  let postalCode = '';
+  if (options?.withPostalCode) {
+    postalCode = `${address.postalCode} `;
+  }
+  if (lang === 'sv') {
+    return `${streetNameSv} ${streetNumber}, ${postalCode}${citySv}`;
+  }
+  return `${streetName} ${streetNumber}, ${postalCode}${city}`;
 }
 
 export function getPermitAddresses(permits: Permit[]): Address[] {
