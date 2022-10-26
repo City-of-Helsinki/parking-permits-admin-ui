@@ -222,36 +222,40 @@ const Refunds = (): React.ReactElement => {
           onSelectionChange={selection => setSelectedRefunds(selection || [])}
         />
       </div>
-      <div className={styles.footer}>
-        <div className={styles.actions}>
-          <Button
-            disabled={!canRequestForApproval}
-            className={styles.actionButton}
-            theme="black"
-            iconLeft={<IconArrowRight />}
-            onClick={() =>
-              requestForApproval({
-                variables: { ids: selectedRefunds.map(refund => refund.id) },
-              })
-            }>
-            {t(`${T_PATH}.requestForApproval`)}
-          </Button>
-          {userRole >= UserRole.SANCTIONS_AND_RETURNS && (
+      {userRole >= UserRole.SANCTIONS && (
+        <div className={styles.footer}>
+          <div className={styles.actions}>
             <Button
-              disabled={!canAcceptRefunds}
+              disabled={!canRequestForApproval}
               className={styles.actionButton}
               theme="black"
-              iconLeft={<IconCheckCircle />}
+              iconLeft={<IconArrowRight />}
               onClick={() =>
-                acceptRefunds({
+                requestForApproval({
                   variables: { ids: selectedRefunds.map(refund => refund.id) },
                 })
               }>
-              {t(`${T_PATH}.acceptRefunds`)}
+              {t(`${T_PATH}.requestForApproval`)}
             </Button>
-          )}
+            {userRole >= UserRole.SANCTIONS_AND_RETURNS && (
+              <Button
+                disabled={!canAcceptRefunds}
+                className={styles.actionButton}
+                theme="black"
+                iconLeft={<IconCheckCircle />}
+                onClick={() =>
+                  acceptRefunds({
+                    variables: {
+                      ids: selectedRefunds.map(refund => refund.id),
+                    },
+                  })
+                }>
+                {t(`${T_PATH}.acceptRefunds`)}
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
       {errorMessage && (
         <Notification
           type="error"
