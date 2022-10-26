@@ -18,6 +18,7 @@ export type CustomerActivePermit = Pick<Permit, 'id' | 'primaryVehicle'>;
 
 export interface Customer {
   id: string;
+  sourceId: string;
   firstName: string;
   lastName: string;
   nationalIdNumber: string;

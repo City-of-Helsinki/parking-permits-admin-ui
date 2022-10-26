@@ -565,7 +565,8 @@
       },
       "viewCustomer": {
         "personalInfo": "Henkilötiedot",
-        "returnToList": "Palaa listanäkymään"
+        "returnToList": "Palaa listanäkymään",
+        "downloadCustomerData": "Lataa asiakkaan tiedot"
       }
     }
   },
