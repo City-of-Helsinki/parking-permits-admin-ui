@@ -1,0 +1,11 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.row {
+  &:not(:last-child) {
+    margin-bottom: $spacing-m;
+  }
+
+  > *:not(:last-child) {
+    margin-right: $spacing-m;
+  }
+}
