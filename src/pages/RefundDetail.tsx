@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
+import useUserRole, { UserRole } from '../api/useUserRole';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
@@ -54,6 +55,7 @@ const UPDATE_REFUND_MUTATION = gql`
 const RefundDetail = (): React.ReactElement => {
   const navigate = useNavigate();
   const exportData = useExportData();
+  const userRole = useUserRole();
   const { t } = useTranslation();
   const { id: refundId } = useParams();
   const [errorMessage, setErrorMessage] = useState('');
@@ -135,6 +137,7 @@ const RefundDetail = (): React.ReactElement => {
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  disabled={userRole <= UserRole.PREPARATORS}
                   errorText={
                     touched.name && errors.name ? errors.name : undefined
                   }
@@ -142,6 +145,7 @@ const RefundDetail = (): React.ReactElement => {
                 <TextInput
                   required
                   className={styles.ibanInput}
+                  disabled={userRole <= UserRole.PREPARATORS}
                   id="iban"
                   name="iban"
                   label="IBAN"
@@ -157,12 +161,14 @@ const RefundDetail = (): React.ReactElement => {
                 <RefundsDataTable refunds={[data.refund]} />
               </div>
               <div className={styles.actions}>
-                <Button
-                  className={styles.save}
-                  disabled={!(dirty && isValid)}
-                  type="submit">
-                  {t(`${T_PATH}.save`)}
-                </Button>
+                {userRole > UserRole.PREPARATORS && (
+                  <Button
+                    className={styles.save}
+                    disabled={!(dirty && isValid)}
+                    type="submit">
+                    {t(`${T_PATH}.save`)}
+                  </Button>
+                )}
                 <Button
                   className={styles.downloadPdf}
                   variant="secondary"
@@ -170,12 +176,14 @@ const RefundDetail = (): React.ReactElement => {
                   onClick={handleExport}>
                   {t(`${T_PATH}.downloadPdf`)}
                 </Button>
-                <Button
-                  variant="secondary"
-                  className={styles.cancel}
-                  onClick={() => navigate('/refunds')}>
-                  {t(`${T_PATH}.cancel`)}
-                </Button>
+                {userRole > UserRole.PREPARATORS && (
+                  <Button
+                    variant="secondary"
+                    className={styles.cancel}
+                    onClick={() => navigate('/refunds')}>
+                    {t(`${T_PATH}.cancel`)}
+                  </Button>
+                )}
               </div>
             </form>
           )}
