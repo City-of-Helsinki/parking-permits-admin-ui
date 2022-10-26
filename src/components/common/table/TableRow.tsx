@@ -10,6 +10,7 @@ export interface TableRowProps<T> {
   columns: Column<T>[];
   row: T;
   onClick?: (row: T) => void;
+  showCheckbox?: boolean;
   onSelectionChange?: (checked: boolean) => void;
 }
 
@@ -20,6 +21,7 @@ const TableRow = <T,>({
   row,
   onClick,
   onSelectionChange,
+  showCheckbox = true,
 }: TableRowProps<T>): React.ReactElement => (
   <tr
     className={classNames(styles.tableRow, { [styles.clickable]: onClick })}
@@ -33,18 +35,21 @@ const TableRow = <T,>({
         return (
           <td key={field}>
             <div className={styles.tableCell}>
-              <Checkbox
-                className={styles.checkbox}
-                id={`checkbox-${rowId}`}
-                label={selector(row)}
-                checked={selected}
-                onClick={e => {
-                  e.stopPropagation();
-                  if (onSelectionChange) {
-                    onSelectionChange(!selected);
-                  }
-                }}
-              />
+              {showCheckbox && (
+                <Checkbox
+                  className={styles.checkbox}
+                  id={`checkbox-${rowId}`}
+                  label={selector(row)}
+                  checked={selected}
+                  onClick={e => {
+                    e.stopPropagation();
+                    if (onSelectionChange) {
+                      onSelectionChange(!selected);
+                    }
+                  }}
+                />
+              )}
+              {!showCheckbox && selector(row)}
             </div>
           </td>
         );

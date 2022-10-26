@@ -13,6 +13,7 @@ export interface TableProps<T> {
   columns: Column<T>[];
   data: T[] | undefined;
   loading: boolean;
+  showCheckbox?: boolean;
   orderBy?: OrderBy;
   rowIdSelector: (row: T) => string | number;
   onOrderBy?: (orderBy: OrderBy) => void;
@@ -32,6 +33,7 @@ const Table = <T,>({
   onOrderBy,
   onRowClick,
   onSelectionChange,
+  showCheckbox = true,
 }: TableProps<T>): React.ReactElement => {
   const { t } = useTranslation();
 
@@ -60,6 +62,7 @@ const Table = <T,>({
                 )
               : null
           }
+          showCheckbox={showCheckbox}
           onClick={onRowClick}
           key={rowId}
           rowId={rowId.toString()}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useUserRole, { UserRole } from '../../api/useUserRole';
 import { OrderBy, PageInfo, Refund } from '../../types';
 import { formatDateTimeDisplay } from '../../utils';
 import DataTable from '../common/DataTable';
@@ -34,6 +35,7 @@ const RefundsDataTable = ({
   onSelectionChange,
 }: RefundsDataTableProps): React.ReactElement => {
   const { t } = useTranslation();
+  const userRole = useUserRole();
   const columns: Column<Refund>[] = [
     {
       name: t(`${T_PATH}.refundNumber`),
@@ -109,6 +111,8 @@ const RefundsDataTable = ({
       onRowClick={onRowClick}
       onExport={onExport}
       onSelectionChange={onSelectionChange}
+      showAllSelection={userRole >= UserRole.SANCTIONS}
+      showCheckbox={userRole >= UserRole.SANCTIONS}
     />
   );
 };

@@ -20,6 +20,8 @@ export interface DataTableProps<T> {
   onRowClick?: (row: T) => void;
   onExport?: () => void;
   onSelectionChange?: (rows: T[] | undefined) => void;
+  showAllSelection?: boolean;
+  showCheckbox?: boolean;
 }
 
 const T_PATH = 'components.common.dataTable';
@@ -37,6 +39,8 @@ const DataTable = <T,>({
   onRowClick,
   onExport,
   onSelectionChange,
+  showAllSelection = true,
+  showCheckbox = true,
 }: DataTableProps<T>): React.ReactElement => {
   const { t } = useTranslation();
   return (
@@ -59,7 +63,7 @@ const DataTable = <T,>({
           </div>
         )}
       </div>
-      {selection && data && (
+      {showAllSelection && selection && data && (
         <div className={styles.selectionActions}>
           <Checkbox
             id="checkbox-select-all"
@@ -85,6 +89,7 @@ const DataTable = <T,>({
         onOrderBy={onOrderBy}
         onRowClick={onRowClick}
         onSelectionChange={onSelectionChange}
+        showCheckbox={showCheckbox}
       />
       {pageInfo && onPage && <Paginator pageInfo={pageInfo} onPage={onPage} />}
     </div>
