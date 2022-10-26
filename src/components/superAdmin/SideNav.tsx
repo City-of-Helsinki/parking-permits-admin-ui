@@ -59,7 +59,10 @@ const SideNav = (): React.ReactElement => {
           href={menuItem.href}
           label={menuItem.label}
           active={location.pathname === menuItem.href}
-          onClick={() => navigate(menuItem.href)}
+          onClick={e => {
+            e.preventDefault();
+            navigate(menuItem.href);
+          }}
         />
       ))}
     </SideNavigation>
