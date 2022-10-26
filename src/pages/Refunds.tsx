@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
+import useUserRole, { UserRole } from '../api/useUserRole';
 import { makePrivate } from '../auth/utils';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
 import RefundsSearch from '../components/refunds/RefundsSearch';
@@ -89,6 +90,7 @@ const ACCEPT_REFUNDS_MUTATION = gql`
 const Refunds = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const userRole = useUserRole();
   const [searchParams, setSearchParams] = useSearchParams();
   const exportData = useExportData();
   const [errorMessage, setErrorMessage] = useState('');
@@ -258,18 +260,20 @@ const Refunds = (): React.ReactElement => {
             }>
             {t(`${T_PATH}.requestForApproval`)}
           </Button>
-          <Button
-            disabled={!canAcceptRefunds}
-            className={styles.actionButton}
-            theme="black"
-            iconLeft={<IconCheckCircle />}
-            onClick={() =>
-              acceptRefunds({
-                variables: { ids: selectedRefunds.map(refund => refund.id) },
-              })
-            }>
-            {t(`${T_PATH}.acceptRefunds`)}
-          </Button>
+          {userRole >= UserRole.SANCTIONS_AND_RETURNS && (
+            <Button
+              disabled={!canAcceptRefunds}
+              className={styles.actionButton}
+              theme="black"
+              iconLeft={<IconCheckCircle />}
+              onClick={() =>
+                acceptRefunds({
+                  variables: { ids: selectedRefunds.map(refund => refund.id) },
+                })
+              }>
+              {t(`${T_PATH}.acceptRefunds`)}
+            </Button>
+          )}
         </div>
       </div>
       {errorMessage && (
