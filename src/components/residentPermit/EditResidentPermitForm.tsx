@@ -11,8 +11,8 @@ import VehicleInfo from './VehicleInfo';
 const T_PATH = 'components.residentPermit.editResidentPermitForm';
 
 const CUSTOMER_QUERY = gql`
-  query GetCustomer($nationalIdNumber: String!) {
-    customer(nationalIdNumber: $nationalIdNumber) {
+  query GetCustomer($query: CustomerRetrieveInput!) {
+    customer(query: $query) {
       firstName
       lastName
       nationalIdNumber
@@ -124,7 +124,7 @@ const EditResidentPermitForm = ({
 
   const handleSearchPerson = (nationalIdNumber: string) => {
     getCustomer({
-      variables: { nationalIdNumber },
+      variables: { query: { nationalIdNumber } },
     });
   };
 

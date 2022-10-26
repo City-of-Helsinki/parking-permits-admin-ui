@@ -23,8 +23,8 @@ import styles from './CreateResidentPermit.module.scss';
 const T_PATH = 'pages.createResidentPermit';
 
 const CUSTOMER_QUERY = gql`
-  query GetCustomer($nationalIdNumber: String!) {
-    customer(nationalIdNumber: $nationalIdNumber) {
+  query GetCustomer($query: CustomerRetrieveInput!) {
+    customer(query: $query) {
       firstName
       lastName
       nationalIdNumber
@@ -210,7 +210,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   };
   const handleSearchPerson = (nationalIdNumber: string) => {
     getCustomer({
-      variables: { nationalIdNumber },
+      variables: { query: { nationalIdNumber } },
     });
   };
   const handleUpdatePerson = (person: Customer) => {
