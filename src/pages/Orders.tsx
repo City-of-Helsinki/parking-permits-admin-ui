@@ -3,7 +3,8 @@ import { format, parse } from 'date-fns';
 import { Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
+import useUserRole, { UserRole } from '../api/useUserRole';
 import { makePrivate } from '../auth/utils';
 import OrdersDataTable from '../components/orders/OrdersDataTable';
 import OrdersSearch from '../components/orders/OrdersSearch';
@@ -81,6 +82,7 @@ const Orders = (): React.ReactElement => {
   const [searchParams, setSearchParams] = useSearchParams();
   const exportData = useExportData();
   const [errorMessage, setErrorMessage] = useState('');
+  const userRole = useUserRole();
 
   const { pageParam: page, setPageParam } = usePageParam();
   const { orderByParam: orderBy, setOrderBy } = useOrderByParam();
@@ -114,6 +116,10 @@ const Orders = (): React.ReactElement => {
       onError: error => setErrorMessage(error.message),
     }
   );
+
+  if (userRole < UserRole.PREPARATORS) {
+    return <Navigate to="/permits" />;
+  }
 
   const handleSearch = (newSearchParams: OrderSearchParams) => {
     setSearchParams(

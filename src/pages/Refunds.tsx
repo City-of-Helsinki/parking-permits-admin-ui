@@ -8,7 +8,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import { makePrivate } from '../auth/utils';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
@@ -145,6 +145,10 @@ const Refunds = (): React.ReactElement => {
       onError: error => setErrorMessage(error.message),
     }
   );
+
+  if (userRole < UserRole.PREPARATORS) {
+    return <Navigate to="/permits" />;
+  }
 
   const canRequestForApproval =
     selectedRefunds &&
