@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useUserRole, { UserRole } from '../../api/useUserRole';
 import { OrderBy, PageInfo, Permit } from '../../types';
 import {
   formatAddress,
@@ -33,44 +34,53 @@ const PermitsDataTable = ({
   onRowClick,
   onExport,
 }: PermitsDataTableProps): React.ReactElement => {
+  const userRole = useUserRole();
   const { t, i18n } = useTranslation();
   const columns: Column<Permit>[] = [
-    {
-      name: t(`${T_PATH}.name`),
-      field: 'name',
-      selector: ({ customer }) => formatCustomerName(customer),
-      sortable: true,
-    },
-    {
-      name: 'Hetu',
-      field: 'nationalIdNumber',
-      selector: ({ customer }) => customer.nationalIdNumber,
-      sortable: true,
-    },
+    ...(userRole > UserRole.INSPECTORS
+      ? [
+          {
+            name: t(`${T_PATH}.name`),
+            field: 'name',
+            selector: ({ customer }) => formatCustomerName(customer),
+            sortable: true,
+          },
+          {
+            name: 'Hetu',
+            field: 'nationalIdNumber',
+            selector: ({ customer }) => customer.nationalIdNumber,
+            sortable: true,
+          },
+        ]
+      : []),
     {
       name: t(`${T_PATH}.registrationNumber`),
       field: 'registrationNumber',
       selector: row => row.vehicle.registrationNumber,
       sortable: true,
     },
-    {
-      name: t(`${T_PATH}.primaryAddress`),
-      field: 'primaryAddress',
-      selector: ({ customer }) =>
-        customer?.primaryAddress
-          ? formatAddress(customer.primaryAddress, i18n.language)
-          : '-',
-      sortable: true,
-    },
-    {
-      name: t(`${T_PATH}.otherAddress`),
-      field: 'otherAddress',
-      selector: ({ customer }) =>
-        customer?.otherAddress
-          ? formatAddress(customer.otherAddress, i18n.language)
-          : '-',
-      sortable: true,
-    },
+    ...(userRole > UserRole.INSPECTORS
+      ? [
+          {
+            name: t(`${T_PATH}.primaryAddress`),
+            field: 'primaryAddress',
+            selector: ({ customer }) =>
+              customer?.primaryAddress
+                ? formatAddress(customer.primaryAddress, i18n.language)
+                : '-',
+            sortable: true,
+          },
+          {
+            name: t(`${T_PATH}.otherAddress`),
+            field: 'otherAddress',
+            selector: ({ customer }) =>
+              customer?.otherAddress
+                ? formatAddress(customer.otherAddress, i18n.language)
+                : '-',
+            sortable: true,
+          },
+        ]
+      : []),
     {
       name: t(`${T_PATH}.zone`),
       field: 'parkingZone',
