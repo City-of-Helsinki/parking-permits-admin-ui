@@ -241,7 +241,7 @@ const Refunds = (): React.ReactElement => {
               }>
               {t(`${T_PATH}.requestForApproval`)}
             </Button>
-            {userRole >= UserRole.SANCTIONS_AND_RETURNS && (
+            {userRole >= UserRole.SANCTIONS_AND_REFUNDS && (
               <Button
                 disabled={!canAcceptRefunds}
                 className={styles.actionButton}
