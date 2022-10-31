@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import classNames from 'classnames';
 import { Button, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -119,9 +120,11 @@ const Addresses = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className="{styles.title} heading-l">{t(`${T_PATH}.title`)}</h2>
+        <h2 className={classNames(styles.title, 'heading-l')}>
+          {t(`${T_PATH}.title`)}
+        </h2>
         <div className={styles.actions}>
-          <Button onClick={() => navigate('create')}>
+          <Button onClick={() => navigate('create')} variant="secondary">
             {t(`${T_PATH}.addNewAddress`)}
           </Button>
         </div>
