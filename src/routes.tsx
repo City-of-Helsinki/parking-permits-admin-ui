@@ -15,7 +15,6 @@ import PermitDetail from './pages/PermitDetail';
 import Permits from './pages/Permits';
 import RefundDetail from './pages/RefundDetail';
 import Refunds from './pages/Refunds';
-import Reports from './pages/Reports';
 import Addresses from './pages/superAdmin/addresses/Addresses';
 import CreateAddress from './pages/superAdmin/addresses/CreateAddress';
 import EditAddress from './pages/superAdmin/addresses/EditAddress';
@@ -74,7 +73,6 @@ const routes = [
       { path: 'orders', element: <Orders /> },
       { path: 'refunds', element: <Refunds /> },
       { path: 'refunds/:id', element: <RefundDetail /> },
-      { path: 'reports', element: <Reports /> },
       { path: 'authError', element: <AuthError /> },
       { path: '404', element: <NotFound /> },
       { path: '/', element: <Navigate to="/permits" /> },
