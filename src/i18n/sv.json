@@ -37,11 +37,10 @@
       "appTitle": "Hantering av parkeringstillstånd",
       "login": "Logga in",
       "logout": "Logga ut",
-      "messages": "Meddelanden",
       "orders": "Beställningar",
       "permits": "Tillstånd",
       "reports": "Rapporter",
-      "returns": "Returnerar",
+      "refunds": "Återbetalningar",
       "skipToContent": "Hoppa till innehållet"
     },
     "orders": {
@@ -317,9 +316,21 @@
         "addresses": "Adresser",
         "lowEmissionCriteria": "Lågutsläppskriterier",
         "menu": "Meny",
-        "products": "Produkter",
-        "users": "Användare"
+        "products": "Produkter"
       }
+    }
+  },
+  "enums": {
+    "contractType": {
+      "fixedPeriod": "Tillfällig",
+      "openEnded": "Kontinuerlig laddning"
+    },
+    "paymentType": {
+      "cashierPayment": "Kassabetalning",
+      "onlinePayment": "Online betalning"
+    },
+    "priceDiscount": {
+      "lowEmission": "Lågtutsläpp"
     }
   },
   "contractType": {
@@ -404,7 +415,7 @@
     "refunds": {
       "acceptRefunds": "Acceptera återbetalningar",
       "requestForApproval": "Begäran om godkännande",
-      "title": "Returnerar"
+      "title": "Återbetalningar"
     },
     "superAdmin": {
       "addresses": {
