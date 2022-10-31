@@ -81,6 +81,44 @@ const PERMITS_QUERY = gql`
   }
 `;
 
+const LIMITED_PERMITS_QUERY = gql`
+  query GetPermits(
+    $pageInput: PageInput!
+    $orderBy: OrderByInput
+    $searchParams: PermitSearchParamsInput
+  ) {
+    limitedPermits(
+      pageInput: $pageInput
+      orderBy: $orderBy
+      searchParams: $searchParams
+    ) {
+      objects {
+        id
+        startTime
+        endTime
+        status
+        vehicle {
+          manufacturer
+          model
+          registrationNumber
+        }
+        parkingZone {
+          name
+        }
+      }
+      pageInfo {
+        numPages
+        page
+        next
+        prev
+        startIndex
+        endIndex
+        count
+      }
+    }
+  }
+`;
+
 const Permits = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -105,11 +143,14 @@ const Permits = (): React.ReactElement => {
   };
 
   const [getPermits, { loading, data, refetch }] =
-    useLazyQuery<PermitsQueryData>(PERMITS_QUERY, {
-      variables,
-      fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(error.message),
-    });
+    useLazyQuery<PermitsQueryData>(
+      userRole > UserRole.INSPECTORS ? PERMITS_QUERY : LIMITED_PERMITS_QUERY,
+      {
+        variables,
+        fetchPolicy: 'no-cache',
+        onError: error => setErrorMessage(error.message),
+      }
+    );
 
   const handleSearch = (newSearchParams: PermitSearchParams) => {
     setSearchParams(
