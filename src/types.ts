@@ -157,7 +157,6 @@ export interface ParkingZone {
 }
 
 export enum ParkingPermitStatus {
-  DRAFT = 'DRAFT',
   VALID = 'VALID',
   PAYMENT_IN_PROGRESS = 'PAYMENT_IN_PROGRESS',
   CLOSED = 'CLOSED',
