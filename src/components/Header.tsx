@@ -36,18 +36,10 @@ const Header = (): React.ReactElement => {
     },
     {
       path: '/refunds',
-      label: t(`${T_PATH}.returns`),
+      label: t(`${T_PATH}.refunds`),
     },
     ...(userRole === UserRole.SUPER_ADMIN
       ? [
-          {
-            path: '/messages',
-            label: t(`${T_PATH}.messages`),
-          },
-          {
-            path: '/reports',
-            label: t(`${T_PATH}.reports`),
-          },
           {
             path: '/admin',
             label: t(`${T_PATH}.admin`),
