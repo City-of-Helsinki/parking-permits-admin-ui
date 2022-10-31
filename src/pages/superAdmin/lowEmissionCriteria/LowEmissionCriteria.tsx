@@ -105,7 +105,7 @@ const LowEmissionCriteria = (): React.ReactElement => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
+        <h2 className="{styles.title} heading-l">{t(`${T_PATH}.title`)}</h2>
         <div className={styles.actions}>
           <Button onClick={() => navigate('create')}>
             {t(`${T_PATH}.addNewCriterion`)}

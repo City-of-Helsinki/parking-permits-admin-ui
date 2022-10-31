@@ -119,7 +119,14 @@ const Products = (): React.ReactElement => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
+      <div className={styles.header}>
+        <h2 className="{styles.title} heading-l">{t(`${T_PATH}.title`)}</h2>
+        <div className={styles.actions}>
+          <Button onClick={() => navigate('create')}>
+            {t(`${T_PATH}.addNewPrice`)}
+          </Button>
+        </div>
+      </div>
       <div className={styles.content}>
         <ProductsDataTable
           products={data?.products.objects || []}
@@ -131,11 +138,6 @@ const Products = (): React.ReactElement => {
           onRowClick={product => navigate(product.id)}
           onExport={handleExport}
         />
-        <div className={styles.actions}>
-          <Button onClick={() => navigate('create')}>
-            {t(`${T_PATH}.addNewPrice`)}
-          </Button>
-        </div>
       </div>
       {errorMessage && (
         <Notification
