@@ -473,3 +473,10 @@ export interface CustomerSearchParams {
   name: string;
   nationalIdNumber: string;
 }
+
+export interface AddressSearchParams {
+  streetName: string;
+  streetNumber: string;
+  postalCode: string;
+  parkingZone: string;
+}

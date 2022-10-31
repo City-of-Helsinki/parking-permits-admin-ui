@@ -276,6 +276,14 @@
           "streetNameSv": "Street name (sv)",
           "streetNumber": "Street number",
           "zone": "Zone"
+        },
+        "addressesSearch": {
+          "postalCode": "Postal code",
+          "streetName": "Street name",
+          "streetNumber": "Street number",
+          "zone": "Parking zone",
+          "searchButton": "Search",
+          "clearButton": "Clear the search criteria"
         }
       },
       "lowEmissionCriteria": {

@@ -279,9 +279,17 @@
           "save": "Tallenna",
           "selectLocation": "Valitse sijainti",
           "streetName": "Kadun nimi",
-          "streetNameSv": "Kasdun nimi (sv)",
+          "streetNameSv": "Kadun nimi (sv)",
           "streetNumber": "Katunumero",
           "zone": "Alue"
+        },
+        "addressesSearch": {
+          "postalCode": "Postinumero",
+          "streetName": "Kadun nimi",
+          "streetNumber": "Katunumero",
+          "zone": "Alue",
+          "searchButton": "Hae",
+          "clearButton": "Tyhjennä hakuehdot"
         }
       },
       "lowEmissionCriteria": {

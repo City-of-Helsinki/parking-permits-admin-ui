@@ -252,6 +252,14 @@
           "streetNameSv": "Gatunamn (sv)",
           "streetNumber": "Gatunummer",
           "zone": "Område"
+        },
+        "addressesSearch": {
+          "postalCode": "Postnummer",
+          "streetName": "Gatunamn",
+          "streetNumber": "Gatunummer",
+          "zone": "Område",
+          "searchButton": "Sök",
+          "clearButton": "Rensa sökkriterierna"
         }
       },
       "lowEmissionCriteria": {
