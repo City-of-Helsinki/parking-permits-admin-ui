@@ -10,7 +10,6 @@ export interface StatusTagProps {
 const StatusTag = ({ status }: StatusTagProps): React.ReactElement => {
   const { t } = useTranslation();
   const statusLabelMapping: { [key in ParkingPermitStatus]: string } = {
-    [ParkingPermitStatus.DRAFT]: t('permitStatus.draft'),
     [ParkingPermitStatus.PAYMENT_IN_PROGRESS]: t(
       'permitStatus.paymentInProgress'
     ),
@@ -18,7 +17,6 @@ const StatusTag = ({ status }: StatusTagProps): React.ReactElement => {
     [ParkingPermitStatus.CLOSED]: t('permitStatus.closed'),
   };
   const statusStyleMapping = {
-    [ParkingPermitStatus.DRAFT]: styles.draft,
     [ParkingPermitStatus.PAYMENT_IN_PROGRESS]: styles.paymentInProgress,
     [ParkingPermitStatus.VALID]: styles.valid,
     [ParkingPermitStatus.CLOSED]: styles.closed,
