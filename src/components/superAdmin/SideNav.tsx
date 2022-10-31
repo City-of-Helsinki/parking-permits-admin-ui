@@ -17,11 +17,6 @@ const SideNav = (): React.ReactElement => {
   const { t } = useTranslation();
   const menuItems: MenuItem[] = [
     {
-      id: 'users',
-      href: '/admin/users',
-      label: t(`${T_PATH}.users`),
-    },
-    {
       id: 'products',
       href: '/admin/products',
       label: t(`${T_PATH}.products`),
