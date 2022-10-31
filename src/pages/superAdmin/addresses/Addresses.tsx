@@ -1,20 +1,33 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button, LoadingSpinner, Notification } from 'hds-react';
+import { Button, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { makePrivate } from '../../../auth/utils';
 import AddressesDataTable from '../../../components/superAdmin/addresses/AddressesDataTable';
-import { OrderDirection } from '../../../components/types';
-import { AddressesQueryData, OrderBy } from '../../../types';
+import AddressesSearch from '../../../components/superAdmin/addresses/AddressesSearch';
+import { useOrderByParam, usePageParam } from '../../../hooks/searchParam';
+import {
+  AddressesQueryData,
+  AddressSearchParams,
+  OrderBy,
+} from '../../../types';
 import styles from './Addresses.module.scss';
 
 const T_PATH = 'pages.superAdmin.addresses';
 
 const ADDRESSES_QUERY = gql`
-  query GetAddresses($pageInput: PageInput!, $orderBy: OrderByInput) {
-    addresses(pageInput: $pageInput, orderBy: $orderBy) {
+  query GetAddresses(
+    $pageInput: PageInput!
+    $orderBy: OrderByInput
+    $searchParams: AddressSearchParamsInput
+  ) {
+    addresses(
+      pageInput: $pageInput
+      orderBy: $orderBy
+      searchParams: $searchParams
+    ) {
       objects {
         id
         streetName
@@ -46,18 +59,18 @@ const Addresses = (): React.ReactElement => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
 
-  const pageParam = searchParams.get('page');
-  const orderFieldParam = searchParams.get('orderField');
-  const orderDirectionParam = searchParams.get('orderDirection');
+  const { pageParam, setPageParam } = usePageParam();
+  const { orderByParam: orderBy, setOrderBy } = useOrderByParam();
 
-  const page = pageParam ? parseInt(pageParam, 10) : 1;
-  const orderBy: OrderBy = {
-    orderField: orderFieldParam || '',
-    orderDirection:
-      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
+  const initialSearchParams = {
+    streetName: searchParams.get('streetName') || '',
+    streetNumber: searchParams.get('streetNumber') || '',
+    postalCode: searchParams.get('postalCode') || '',
+    parkingZone: searchParams.get('parkingZone') || '',
   };
+
   const variables = {
-    pageInput: { page },
+    pageInput: { page: pageParam },
     orderBy,
   };
 
@@ -70,37 +83,35 @@ const Addresses = (): React.ReactElement => {
     }
   );
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  const handleSearch = (newSearchParams: AddressSearchParams) => {
+    setSearchParams(
+      new URLSearchParams({
+        ...newSearchParams,
+        ...orderBy,
+        page: '1',
+      }),
+      { replace: true }
+    );
 
-  if (!data) {
-    return <div>No data</div>;
-  }
-
-  const handlePage = (newPage: number) => {
-    const urlSearchParams = {
-      ...orderBy,
-      page: newPage,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
     refetch({
-      pageInput: { newPage },
+      searchParams: newSearchParams,
+      pageInput: { page: 1 },
       orderBy,
     });
   };
-  const handleOrderBy = (newOrderBy: OrderBy) => {
-    const urlSearchParams = {
-      ...newOrderBy,
-      page,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
+
+  const handlePage = (newPage: number) => {
+    setPageParam(newPage);
+
     refetch({
-      pageInput: { page },
+      pageInput: { page: newPage },
+    });
+  };
+
+  const handleOrderBy = (newOrderBy: OrderBy) => {
+    setOrderBy(newOrderBy);
+
+    refetch({
       orderBy: newOrderBy,
     });
   };
@@ -116,6 +127,10 @@ const Addresses = (): React.ReactElement => {
         </div>
       </div>
       <div className={styles.content}>
+        <AddressesSearch
+          onSearch={handleSearch}
+          searchParams={initialSearchParams}
+        />
         <AddressesDataTable
           addresses={data?.addresses.objects || []}
           pageInfo={data?.addresses.pageInfo}
