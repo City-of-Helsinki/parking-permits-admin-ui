@@ -9,7 +9,6 @@ import CreateResidentPermit from './pages/CreateResidentPermit';
 import EditResidentPermit from './pages/EditResidentPermit';
 import EndPermit from './pages/EndPermit';
 import Login from './pages/Login';
-import Messages from './pages/Messages';
 import NotFound from './pages/NotFound';
 import Orders from './pages/Orders';
 import PermitDetail from './pages/PermitDetail';
@@ -75,7 +74,6 @@ const routes = [
       { path: 'orders', element: <Orders /> },
       { path: 'refunds', element: <Refunds /> },
       { path: 'refunds/:id', element: <RefundDetail /> },
-      { path: 'messages', element: <Messages /> },
       { path: 'reports', element: <Reports /> },
       { path: 'authError', element: <AuthError /> },
       { path: '404', element: <NotFound /> },
