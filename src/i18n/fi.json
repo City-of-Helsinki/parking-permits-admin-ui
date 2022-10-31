@@ -51,12 +51,11 @@
       "appTitle": "Pysäköintitunnusten Hallintapalvelu",
       "login": "Kirjaudu sisään",
       "logout": "Kirjaudu ulos",
-      "messages": "Viestit",
       "orders": "Tilaukset",
       "permits": "Tunnukset",
       "reports": "Raportointi",
-      "returns": "Palautukset",
-      "skipToContent": ""
+      "refunds": "Palautukset",
+      "skipToContent": "Siirry sisältöön"
     },
     "orders": {
       "ordersDataTable": {
@@ -349,7 +348,6 @@
         "lowEmissionCriteria": "Vähäpäästöisyyskriteerit",
         "menu": "Valikko",
         "products": "Tuotteet",
-        "users": "Käyttäjät",
         "customers": "Asiakkaat"
       },
       "announcements": {

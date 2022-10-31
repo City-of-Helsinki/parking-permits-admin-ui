@@ -49,11 +49,10 @@
       "appTitle": "Parking Permits Management",
       "login": "Login",
       "logout": "Log Out",
-      "messages": "Messages",
       "orders": "Orders",
       "permits": "Permits",
       "reports": "Reports",
-      "returns": "Returns",
+      "refunds": "Refunds",
       "skipToContent": "Skip to content"
     },
     "orders": {
@@ -341,8 +340,7 @@
         "addresses": "Addresses",
         "lowEmissionCriteria": "Low-emission criteria",
         "menu": "Menu",
-        "products": "Products",
-        "users": "Users"
+        "products": "Products"
       }
     }
   },
@@ -441,7 +439,7 @@
     "refunds": {
       "acceptRefunds": "Accept refunds",
       "requestForApproval": "Request for approval",
-      "title": "Returns"
+      "title": "Refunds"
     },
     "superAdmin": {
       "addresses": {
