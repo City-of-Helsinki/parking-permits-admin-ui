@@ -151,10 +151,7 @@ const Orders = (): React.ReactElement => {
   };
 
   const handleExport = () => {
-    const url = formatExportUrl('orders', {
-      ...orderBy,
-      page: page.toString(),
-    });
+    const url = formatExportUrl('orders', searchParams);
     exportData(url);
   };
 
