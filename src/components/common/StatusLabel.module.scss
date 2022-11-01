@@ -17,6 +17,11 @@
       background-color: $color-closed-fill;
     }
 
+    &.draft {
+      border: 1px solid $color-draft-border;
+      background-color: $color-draft-fill;
+    }
+
     &.valid {
       border: 1px solid $color-valid-border;
       background-color: $color-valid-fill;

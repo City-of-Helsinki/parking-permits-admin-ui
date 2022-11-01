@@ -487,6 +487,7 @@
   },
   "permitStatus": {
     "closed": "Closed",
+    "draft": "Draft",
     "paymentInProgress": "Payment in progress",
     "valid": "Valid"
   },

@@ -29,6 +29,10 @@ const StatusSelect = ({
       value: 'ALL',
     },
     {
+      label: <StatusLabel status={ParkingPermitStatus.DRAFT} />,
+      value: ParkingPermitStatus.DRAFT,
+    },
+    {
       label: <StatusLabel status={ParkingPermitStatus.VALID} />,
       value: ParkingPermitStatus.VALID,
     },

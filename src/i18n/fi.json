@@ -569,6 +569,7 @@
   },
   "permitStatus": {
     "closed": "Suljettu",
+    "draft": "Luonnos",
     "paymentInProgress": "Maksussa",
     "valid": "Voimassa"
   },

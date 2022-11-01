@@ -463,6 +463,7 @@
   },
   "permitStatus": {
     "closed": "Stängt",
+    "draft": "Utkast",
     "paymentInProgress": "Betalning pågår",
     "valid": "Giltigt"
   },
