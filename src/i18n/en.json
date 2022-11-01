@@ -266,7 +266,7 @@
           "enterPostalCode": "Please enter a postal code",
           "enterStreetName": "Please enter a street name",
           "enterStreetNumber": "Please enter a street number",
-          "enteryCity": "Please enter city name",
+          "enterCity": "Please enter city name",
           "location": "Location",
           "postalCode": "Postal code",
           "postalCode5Digits": "Postal code should have 5 digits",
