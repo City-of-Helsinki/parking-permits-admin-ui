@@ -2,7 +2,7 @@ import { getEnv } from '../utils';
 
 export function formatExportUrl(
   dataType: string,
-  searchParams: Record<string, string>
+  searchParams: Record<string, string> | URLSearchParams
 ): string {
   const baseUrl = getEnv('REACT_APP_PARKING_PERMITS_EXPORT_URL');
   const queryParams = new URLSearchParams(searchParams);
