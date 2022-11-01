@@ -1,6 +1,7 @@
 import { Button, IconEnvelope } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useUserRole, { UserRole } from '../../api/useUserRole';
 import { PermitDetail } from '../../types';
 import { formatAddress } from '../../utils';
 import styles from './CustomerInfo.module.scss';
@@ -17,9 +18,10 @@ const CustomerInfo = ({
   className,
   permit,
 }: CustomerInfoProps): React.ReactElement => {
+  const userRole = useUserRole();
   const { t, i18n } = useTranslation();
   const { customer, parkingZone } = permit;
-  const fields = [
+  let fields = [
     {
       label: t(`${T_PATH}.personalID`),
       value: customer.nationalIdNumber || '-',
@@ -49,6 +51,14 @@ const CustomerInfo = ({
       value: customer.email || '-',
     },
   ];
+  if (userRole <= UserRole.INSPECTORS) {
+    fields = [
+      {
+        label: t(`${T_PATH}.parkingZone`),
+        value: i18n.language === 'sv' ? parkingZone.labelSv : parkingZone.label,
+      },
+    ];
+  }
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -61,7 +71,7 @@ const CustomerInfo = ({
             value={value}
           />
         ))}
-        {customer.email && (
+        {customer.email && userRole > UserRole.PREPARATORS && (
           <Button
             variant="supplementary"
             iconLeft={<IconEnvelope />}

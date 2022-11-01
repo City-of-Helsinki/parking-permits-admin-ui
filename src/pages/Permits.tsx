@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
+import useUserRole, { UserRole } from '../api/useUserRole';
 import { makePrivate } from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
@@ -80,9 +81,48 @@ const PERMITS_QUERY = gql`
   }
 `;
 
+const LIMITED_PERMITS_QUERY = gql`
+  query GetPermits(
+    $pageInput: PageInput!
+    $orderBy: OrderByInput
+    $searchParams: PermitSearchParamsInput
+  ) {
+    limitedPermits(
+      pageInput: $pageInput
+      orderBy: $orderBy
+      searchParams: $searchParams
+    ) {
+      objects {
+        id
+        startTime
+        endTime
+        status
+        vehicle {
+          manufacturer
+          model
+          registrationNumber
+        }
+        parkingZone {
+          name
+        }
+      }
+      pageInfo {
+        numPages
+        page
+        next
+        prev
+        startIndex
+        endIndex
+        count
+      }
+    }
+  }
+`;
+
 const Permits = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const userRole = useUserRole();
   const [searchParams, setSearchParams] = useSearchParams();
   const exportData = useExportData();
   const statusParam = searchParams.get('status');
@@ -103,11 +143,14 @@ const Permits = (): React.ReactElement => {
   };
 
   const [getPermits, { loading, data, refetch }] =
-    useLazyQuery<PermitsQueryData>(PERMITS_QUERY, {
-      variables,
-      fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(error.message),
-    });
+    useLazyQuery<PermitsQueryData>(
+      userRole > UserRole.INSPECTORS ? PERMITS_QUERY : LIMITED_PERMITS_QUERY,
+      {
+        variables,
+        fetchPolicy: 'no-cache',
+        onError: error => setErrorMessage(error.message),
+      }
+    );
 
   const handleSearch = (newSearchParams: PermitSearchParams) => {
     setSearchParams(
@@ -156,11 +199,13 @@ const Permits = (): React.ReactElement => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h2>{t(`${T_PATH}.title`)}</h2>
-        <Button
-          iconLeft={<IconArrowRight />}
-          onClick={() => navigate('create')}>
-          {t(`${T_PATH}.createNewPermit`)}
-        </Button>
+        {userRole > UserRole.INSPECTORS && (
+          <Button
+            iconLeft={<IconArrowRight />}
+            onClick={() => navigate('create')}>
+            {t(`${T_PATH}.createNewPermit`)}
+          </Button>
+        )}
       </div>
       <PermitsSearch
         searchParams={permitSearchParams}

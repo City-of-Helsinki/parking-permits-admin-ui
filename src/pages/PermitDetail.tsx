@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import useUserRole, { UserRole } from '../api/useUserRole';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import ChangeLogs from '../components/common/ChangeLogs';
@@ -84,6 +85,7 @@ const PermitDetail = (): React.ReactElement => {
   const navigate = useNavigate();
   const exportData = useExportData();
   const params = useParams();
+  const userRole = useUserRole();
   const { t } = useTranslation();
   const [openEndPermitDialog, setOpenEndPermitDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -141,36 +143,44 @@ const PermitDetail = (): React.ReactElement => {
           <CustomerInfo className={styles.customerInfo} permit={permitDetail} />
           <PermitInfo className={styles.permitInfo} permit={permitDetail} />
         </div>
-        <div className={styles.changeLogs}>
-          <div className={styles.changeLogsTitle}>
-            {t(`${T_PATH}.changeHistory`)}
+        {userRole > UserRole.INSPECTORS && (
+          <div className={styles.changeLogs}>
+            <div className={styles.changeLogsTitle}>
+              {t(`${T_PATH}.changeHistory`)}
+            </div>
+            <ChangeLogs changeLogs={changeLogs} />
           </div>
-          <ChangeLogs changeLogs={changeLogs} />
-        </div>
-        <div className={styles.footer}>
-          <Button
-            className={styles.actionButton}
-            iconLeft={<IconPenLine />}
-            onClick={() => navigate('edit')}>
-            {t(`${T_PATH}.edit`)}
-          </Button>
-          <div className={styles.spacer} />
-          <Button
-            className={styles.actionButton}
-            variant="secondary"
-            iconLeft={<IconDownload />}
-            onClick={handleExport}>
-            {t(`${T_PATH}.downloadPdf`)}
-          </Button>
-          <div className={styles.spacer} />
-          <Button
-            className={styles.cancelButton}
-            variant="secondary"
-            disabled={!canEndImmediately}
-            onClick={() => setOpenEndPermitDialog(true)}>
-            {t(`${T_PATH}.endPermit`)}
-          </Button>
-        </div>
+        )}
+        {userRole > UserRole.INSPECTORS && (
+          <div className={styles.footer}>
+            {userRole > UserRole.PREPARATORS && (
+              <Button
+                className={styles.actionButton}
+                iconLeft={<IconPenLine />}
+                onClick={() => navigate('edit')}>
+                {t(`${T_PATH}.edit`)}
+              </Button>
+            )}
+            <div className={styles.spacer} />
+            <Button
+              className={styles.actionButton}
+              variant="secondary"
+              iconLeft={<IconDownload />}
+              onClick={handleExport}>
+              {t(`${T_PATH}.downloadPdf`)}
+            </Button>
+            <div className={styles.spacer} />
+            {userRole > UserRole.PREPARATORS && (
+              <Button
+                className={styles.cancelButton}
+                variant="secondary"
+                disabled={!canEndImmediately}
+                onClick={() => setOpenEndPermitDialog(true)}>
+                {t(`${T_PATH}.endPermit`)}
+              </Button>
+            )}
+          </div>
+        )}
         <EndPermitDialog
           isOpen={openEndPermitDialog}
           currentPeriodEndTime={currentPeriodEndTime}
