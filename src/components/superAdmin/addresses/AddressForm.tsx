@@ -163,17 +163,30 @@ const AddressForm = ({
                     )}
                   </Field>
                 </div>
-                <Field name="city">
-                  {({ field }: FieldProps) => (
-                    <TextInput
-                      readOnly
-                      id={field.name}
-                      className={styles.field}
-                      label={t(`${T_PATH}.city`)}
-                      value="Helsinki"
-                    />
-                  )}
-                </Field>
+                <div className={styles.fieldRow}>
+                  <Field name="city">
+                    {({ field }: FieldProps) => (
+                      <TextInput
+                        readOnly
+                        id={field.name}
+                        className={styles.field}
+                        label={t(`${T_PATH}.city`)}
+                        value="Helsinki"
+                      />
+                    )}
+                  </Field>
+                  <Field name="citySv">
+                    {({ field }: FieldProps) => (
+                      <TextInput
+                        readOnly
+                        id={field.name}
+                        className={styles.field}
+                        label={t(`${T_PATH}.citySv`)}
+                        value="Helsingfors"
+                      />
+                    )}
+                  </Field>
+                </div>
                 <TextInput
                   readOnly
                   id="zone"
