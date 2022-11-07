@@ -5,10 +5,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
-import { LowEmissionCriterion, PowerType } from '../../../types';
+import { LowEmissionCriterion } from '../../../types';
 import { formatDateDisplay } from '../../../utils';
 import EuroClassSelect from '../../common/EuroClassSelect';
-import PowerTypeSelect from '../../common/PowerTypeSelect';
 import styles from './LowEmissionCriterionForm.module.scss';
 
 const T_PATH =
@@ -30,7 +29,6 @@ const LowEmissionCriterionForm = ({
   const { t } = useTranslation();
   const initialValues = criterion
     ? {
-        powerType: criterion.powerType,
         nedcMaxEmissionLimit: criterion.nedcMaxEmissionLimit,
         wltpMaxEmissionLimit: criterion.wltpMaxEmissionLimit,
         euroMinClassLimit: criterion.euroMinClassLimit,
@@ -38,7 +36,6 @@ const LowEmissionCriterionForm = ({
         endDate: criterion.endDate ? new Date(criterion.endDate) : null,
       }
     : {
-        powerType: PowerType.BENSIN,
         nedcMaxEmissionLimit: 0,
         wltpMaxEmissionLimit: 0,
         euroMinClassLimit: 1,
@@ -46,7 +43,6 @@ const LowEmissionCriterionForm = ({
         endDate: null,
       };
   const validationSchema = Yup.object().shape({
-    powerType: Yup.string().required(),
     nedcMaxEmissionLimit: Yup.number().required(
       t(`${T_PATH}.enterNedcMaxEmissionLimit`)
     ),
@@ -67,7 +63,6 @@ const LowEmissionCriterionForm = ({
         validationSchema={validationSchema}
         onSubmit={values =>
           onSubmit({
-            powerType: values.powerType,
             nedcMaxEmissionLimit: values.nedcMaxEmissionLimit,
             wltpMaxEmissionLimit: values.wltpMaxEmissionLimit,
             euroMinClassLimit: values.euroMinClassLimit,
@@ -81,16 +76,6 @@ const LowEmissionCriterionForm = ({
         }>
         {props => (
           <form onSubmit={props.handleSubmit}>
-            <Field name="powerType">
-              {({ field, form }: FieldProps) => (
-                <PowerTypeSelect
-                  className={styles.field}
-                  label={t(`${T_PATH}.powerType`)}
-                  value={field.value}
-                  onChange={value => form.setFieldValue(field.name, value)}
-                />
-              )}
-            </Field>
             <Field name="euroMinClassLimit">
               {({ field, form }: FieldProps) => (
                 <EuroClassSelect

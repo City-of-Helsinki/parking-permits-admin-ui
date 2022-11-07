@@ -38,13 +38,6 @@ export enum EmissionType {
   WLTP = 'WLTP',
 }
 
-export enum PowerType {
-  ELECTRIC = 'ELECTRIC',
-  BENSIN = 'BENSIN',
-  DIESEL = 'DIESEL',
-  BIFUEL = 'BIFUEL',
-}
-
 export enum VehicleClass {
   M1 = 'M1',
   M2 = 'M2',
@@ -448,7 +441,6 @@ export interface PermitPriceChange {
 
 export interface LowEmissionCriterion {
   id?: string;
-  powerType: PowerType;
   nedcMaxEmissionLimit: number;
   wltpMaxEmissionLimit: number;
   euroMinClassLimit: number;

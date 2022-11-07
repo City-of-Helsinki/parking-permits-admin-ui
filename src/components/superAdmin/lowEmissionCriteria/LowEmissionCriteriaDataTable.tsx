@@ -32,12 +32,6 @@ const LowEmissionCriteriaDataTable = ({
   const { t } = useTranslation();
   const columns: Column<LowEmissionCriterion>[] = [
     {
-      name: t(`${T_PATH}.powerType`),
-      field: 'powerType',
-      selector: criterion => criterion.powerType,
-      sortable: true,
-    },
-    {
       name: t(`${T_PATH}.euroMinClassLimit`),
       field: 'euroMinClassLimit',
       selector: criterion => criterion.euroMinClassLimit,
