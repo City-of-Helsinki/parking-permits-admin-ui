@@ -61,6 +61,11 @@ export enum VehicleClass {
   L6eBU = 'L6e-BU',
 }
 
+export interface PowerType {
+  name: string;
+  identifier: string;
+}
+
 export interface Vehicle {
   manufacturer: string;
   model: string;
