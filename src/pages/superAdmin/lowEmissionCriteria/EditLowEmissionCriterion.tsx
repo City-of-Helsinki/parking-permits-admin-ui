@@ -15,7 +15,6 @@ const LOW_EMISSION_CRITERION_QUERY = gql`
   query GetLowEmissionCriterion($criterionId: ID!) {
     lowEmissionCriterion(criterionId: $criterionId) {
       id
-      powerType
       nedcMaxEmissionLimit
       wltpMaxEmissionLimit
       euroMinClassLimit

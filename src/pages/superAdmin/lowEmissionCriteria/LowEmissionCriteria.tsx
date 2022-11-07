@@ -17,7 +17,6 @@ const LOW_EMISSION_CRITERIA_QUERY = gql`
     lowEmissionCriteria(pageInput: $pageInput, orderBy: $orderBy) {
       objects {
         id
-        powerType
         nedcMaxEmissionLimit
         wltpMaxEmissionLimit
         euroMinClassLimit

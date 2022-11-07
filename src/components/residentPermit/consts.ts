@@ -6,7 +6,6 @@ import {
   ParkingZone,
   PermitContractType,
   PermitDetail,
-  PowerType,
   Vehicle,
   VehicleClass,
 } from '../../types';
@@ -32,7 +31,10 @@ export const initialVehicle: Vehicle = {
   euroClass: 1,
   emission: 0,
   emissionType: EmissionType.WLTP,
-  powerType: PowerType.BENSIN,
+  powerType: {
+    name: 'Bensin',
+    identifier: '01',
+  },
 };
 
 export const initialParkingZone: ParkingZone = {

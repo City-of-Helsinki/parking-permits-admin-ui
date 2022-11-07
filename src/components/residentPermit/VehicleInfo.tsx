@@ -111,8 +111,8 @@ const VehicleInfo = ({
         <PowerTypeSelect
           className={styles.fieldItem}
           label={t(`${T_PATH}.powerType`)}
-          value={powerType}
-          onChange={value => onUpdateVehicle({ ...vehicle, powerType: value })}
+          powerType={powerType}
+          onChange={pType => onUpdateVehicle({ ...vehicle, powerType: pType })}
         />
         <EmissionTypeSelect
           className={styles.fieldItem}

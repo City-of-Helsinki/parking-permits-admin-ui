@@ -7,19 +7,20 @@ const T_PATH = 'components.common.powerTypeSelect';
 
 interface PowerTypeOption {
   label: string;
-  value: PowerType;
+  value: string;
+  name: string;
 }
 
 interface PowerTypeSelectProps {
   className?: string;
   label: string;
-  value: PowerType;
-  onChange: (value: PowerType) => void;
+  powerType: PowerType;
+  onChange: (powerType: PowerType) => void;
 }
 
 const PowerTypeSelect = ({
   label,
-  value,
+  powerType,
   className,
   onChange,
 }: PowerTypeSelectProps): React.ReactElement => {
@@ -27,19 +28,23 @@ const PowerTypeSelect = ({
   const options = [
     {
       label: t(`${T_PATH}.electric`),
-      value: PowerType.ELECTRIC,
+      name: 'Electric',
+      value: '04',
     },
     {
       label: t(`${T_PATH}.bensin`),
-      value: PowerType.BENSIN,
+      name: 'Bensin',
+      value: '01',
     },
     {
       label: t(`${T_PATH}.diesel`),
-      value: PowerType.DIESEL,
+      name: 'Diesel',
+      value: '02',
     },
     {
       label: t(`${T_PATH}.bifuel`),
-      value: PowerType.BIFUEL,
+      name: 'Bifuel',
+      value: '03',
     },
   ];
   return (
@@ -47,8 +52,17 @@ const PowerTypeSelect = ({
       className={className}
       label={label}
       options={options}
-      value={{ label: t(`${T_PATH}.${value.toLocaleLowerCase()}`), value }}
-      onChange={(option: PowerTypeOption) => onChange(option.value)}
+      value={{
+        label: t(`${T_PATH}.${powerType.name.toLowerCase()}`),
+        name: powerType.name,
+        value: powerType.identifier,
+      }}
+      onChange={(option: PowerTypeOption) =>
+        onChange({
+          name: option.name,
+          identifier: option.value,
+        })
+      }
     />
   );
 };
