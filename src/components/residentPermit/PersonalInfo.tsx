@@ -121,7 +121,7 @@ const PersonalInfo = ({
           id="firstName"
           disabled={addressSecurityBan}
           label={t(`${T_PATH}.firstName`)}
-          value={firstName}
+          value={addressSecurityBan ? '' : firstName}
           onChange={e =>
             onUpdatePerson({ ...person, firstName: e.target.value })
           }
@@ -131,7 +131,7 @@ const PersonalInfo = ({
           disabled={addressSecurityBan}
           id="lastName"
           label={t(`${T_PATH}.lastName`)}
-          value={lastName}
+          value={addressSecurityBan ? '' : lastName}
           onChange={e =>
             onUpdatePerson({ ...person, lastName: e.target.value })
           }
@@ -142,7 +142,7 @@ const PersonalInfo = ({
           id="usePrimaryAddress"
           name="selectedAddress"
           label={t(`${T_PATH}.primaryAddress`)}
-          value={SelectedAddress.PRIMARY}
+          value={addressSecurityBan ? '' : SelectedAddress.PRIMARY}
           checked={selectedAddress === SelectedAddress.PRIMARY}
           onChange={() => {
             setSelectedAddress(SelectedAddress.PRIMARY);
@@ -156,7 +156,7 @@ const PersonalInfo = ({
             addressSecurityBan || selectedAddress !== SelectedAddress.PRIMARY
           }
           className={styles.addressSearch}
-          address={primaryAddress}
+          address={addressSecurityBan ? undefined : primaryAddress}
           onSelect={address => onSelectAddress('primaryAddress', address)}
         />
         <RadioButton
@@ -164,8 +164,8 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="useOtherAddress"
           name="selectedAddress"
-          label={t(`${T_PATH}.otherAddress`)}
-          value={SelectedAddress.OTHER}
+          label={addressSecurityBan ? '' : t(`${T_PATH}.otherAddress`)}
+          value={addressSecurityBan ? '' : SelectedAddress.OTHER}
           checked={selectedAddress === SelectedAddress.OTHER}
           onChange={() => {
             setSelectedAddress(SelectedAddress.OTHER);
@@ -179,7 +179,7 @@ const PersonalInfo = ({
             addressSecurityBan || selectedAddress !== SelectedAddress.OTHER
           }
           className={styles.addressSearch}
-          address={otherAddress}
+          address={addressSecurityBan ? undefined : otherAddress}
           onSelect={address => onSelectAddress('otherAddress', address)}
         />
         <ZoneSelect
