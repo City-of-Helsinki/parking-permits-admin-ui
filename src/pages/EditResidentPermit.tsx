@@ -83,7 +83,10 @@ const PERMIT_DETAIL_QUERY = gql`
         euroClass
         emission
         emissionType
-        powerType
+        powerType {
+          name
+          identifier
+        }
       }
       parkingZone {
         name

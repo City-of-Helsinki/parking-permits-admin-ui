@@ -61,7 +61,10 @@ const VEHICLE_QUERY = gql`
       euroClass
       emission
       emissionType
-      powerType
+      powerType {
+        name
+        identifier
+      }
     }
   }
 `;
