@@ -268,6 +268,10 @@ export interface PermitsQueryData {
   permits: PagedPermits;
 }
 
+export interface LimitedPermitsQueryData {
+  limitedPermits: PagedPermits;
+}
+
 export interface PagedProducts {
   objects: Product[];
   pageInfo: PageInfo;

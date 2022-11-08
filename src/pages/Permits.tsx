@@ -12,6 +12,7 @@ import useExportData from '../export/useExportData';
 import { formatExportUrl } from '../export/utils';
 import { useOrderByParam, usePageParam } from '../hooks/searchParam';
 import {
+  LimitedPermitsQueryData,
   OrderBy,
   ParkingPermitStatusOrAll,
   PermitSearchParams,
@@ -142,15 +143,13 @@ const Permits = (): React.ReactElement => {
     searchParams: permitSearchParams,
   };
 
-  const [getPermits, { loading, data, refetch }] =
-    useLazyQuery<PermitsQueryData>(
-      userRole > UserRole.INSPECTORS ? PERMITS_QUERY : LIMITED_PERMITS_QUERY,
-      {
-        variables,
-        fetchPolicy: 'no-cache',
-        onError: error => setErrorMessage(error.message),
-      }
-    );
+  const [getPermits, { loading, data, refetch }] = useLazyQuery<
+    PermitsQueryData | LimitedPermitsQueryData
+  >(userRole > UserRole.INSPECTORS ? PERMITS_QUERY : LIMITED_PERMITS_QUERY, {
+    variables,
+    fetchPolicy: 'no-cache',
+    onError: error => setErrorMessage(error.message),
+  });
 
   const handleSearch = (newSearchParams: PermitSearchParams) => {
     setSearchParams(
@@ -195,6 +194,16 @@ const Permits = (): React.ReactElement => {
     });
     exportData(url);
   };
+
+  const extractDataFromPermitQuery = (
+    queryData: LimitedPermitsQueryData | PermitsQueryData | undefined
+  ) => {
+    if (userRole > UserRole.INSPECTORS) {
+      return (queryData as PermitsQueryData)?.permits;
+    }
+    return (queryData as LimitedPermitsQueryData)?.limitedPermits;
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -212,8 +221,8 @@ const Permits = (): React.ReactElement => {
         onSearch={handleSearch}
       />
       <PermitsDataTable
-        permits={data?.permits.objects}
-        pageInfo={data?.permits.pageInfo}
+        permits={extractDataFromPermitQuery(data)?.objects}
+        pageInfo={extractDataFromPermitQuery(data)?.pageInfo}
         loading={loading}
         orderBy={orderBy}
         onPage={handlePage}
