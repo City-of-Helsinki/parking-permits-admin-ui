@@ -208,7 +208,7 @@ const Permits = (): React.ReactElement => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h2>{t(`${T_PATH}.title`)}</h2>
-        {userRole > UserRole.INSPECTORS && (
+        {userRole > UserRole.PREPARATORS && (
           <Button
             iconLeft={<IconArrowRight />}
             onClick={() => navigate('create')}>
