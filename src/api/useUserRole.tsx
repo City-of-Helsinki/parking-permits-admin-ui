@@ -17,6 +17,7 @@ export enum UserRole {
   CUSTOMER_SERVICE = 70,
   PREPARATORS = 60,
   INSPECTORS = 50,
+  NON_AD_GROUPS = 10,
   UNKNOWN = 0,
 }
 
@@ -48,6 +49,7 @@ const useUserRole = (): UserRole => {
     if (adGroups.includes(Groups.INSPECTORS)) {
       return UserRole.INSPECTORS;
     }
+    return UserRole.NON_AD_GROUPS;
   }
   return UserRole.UNKNOWN;
 };
