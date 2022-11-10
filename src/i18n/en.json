@@ -373,7 +373,8 @@
   },
   "message": {
     "close": "Close",
-    "error": "Error"
+    "error": "Error",
+    "unauthorized": "You are not authorized to view this page"
   },
   "pages": {
     "createPermit": {

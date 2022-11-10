@@ -349,7 +349,8 @@
   },
   "message": {
     "close": "Stänga",
-    "error": "Fel"
+    "error": "Fel",
+    "unauthorized": "Du är inte behörig att se den här sidan"
   },
   "pages": {
     "createPermit": {
