@@ -134,7 +134,10 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
     euroClass,
     emission,
     emissionType,
-    powerType,
+    powerType: {
+      identifier: powerType.identifier,
+      name: powerType.name,
+    },
   };
 }
 
