@@ -82,7 +82,7 @@ const Header = (): React.ReactElement => {
           />
         </Navigation.User>
       </Navigation.Actions>
-      {client.isAuthenticated() && (
+      {client.isAuthenticated() && userRole > UserRole.NON_AD_GROUPS && (
         <Navigation.Row>
           {navLinks.map(({ path, label }) => (
             <Navigation.Item

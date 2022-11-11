@@ -19,7 +19,7 @@
     "no-unused-vars": 0,
     "no-magic-numbers": [
       "error",
-      { "ignoreArrayIndexes": true, "ignore": [1000, -1, 0, 1, 2, 3, 4, 5, 100, 90, 80, 70, 60, 50] }
+      { "ignoreArrayIndexes": true, "ignore": [1000, -1, 0, 1, 2, 3, 4, 5, 100, 90, 80, 70, 60, 50, 10] }
     ],
     "arrow-body-style": ["error", "as-needed"],
     "line-comment-position": ["error", { "position": "above" }],

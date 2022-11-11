@@ -423,7 +423,8 @@
   },
   "message": {
     "close": "Sulje",
-    "error": "Virhe"
+    "error": "Virhe",
+    "unauthorized": "Sinulla ei ole lupaa tarkastella tätä sivua"
   },
   "pages": {
     "createPermit": {
