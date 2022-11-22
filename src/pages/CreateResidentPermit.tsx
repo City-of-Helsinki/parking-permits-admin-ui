@@ -189,8 +189,11 @@ const CreateResidentPermit = (): React.ReactElement => {
         const permitId = response.data?.createResidentPermit.permit.id;
         if (permitId) {
           navigate(`/permits/${permitId}`);
+        }
+        if (response.errors && response.errors.message) {
+          setErrorMessage(response.errors.message);
         } else {
-          setErrorMessage('Create permit error');
+          setErrorMessage(t(`${T_PATH}.createPermitError`));
         }
       })
       .catch(error => setErrorMessage(error.message));

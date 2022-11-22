@@ -395,7 +395,8 @@
       "permits": "Permits",
       "residentPermit": "Resident parking permit",
       "save": "Save",
-      "totalPrice": "Total price"
+      "totalPrice": "Total price",
+      "createPermitError": "Permit creation failed"
     },
     "editResidentPermit": {
       "cancelPayment": "Cancel payment",

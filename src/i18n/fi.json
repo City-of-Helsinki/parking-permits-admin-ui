@@ -445,7 +445,8 @@
       "permits": "Tunnukset",
       "residentPermit": "Asukaspysäköintitunnus",
       "save": "Tallenna",
-      "totalPrice": "Tunnuksen yhteissumma"
+      "totalPrice": "Tunnuksen yhteissumma",
+      "createPermitError": "Tunnuksen luonti epäonnistui"
     },
     "editResidentPermit": {
       "cancelPayment": "Peruuta maksu",
