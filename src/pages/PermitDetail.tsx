@@ -16,7 +16,7 @@ import PermitInfo from '../components/permitDetail/PermitInfo';
 import VehicleInfo from '../components/permitDetail/VehicleInfo';
 import useExportData from '../export/useExportData';
 import { formatExportUrlPdf } from '../export/utils';
-import { PermitDetailData, PermitEndType } from '../types';
+import { ParkingPermitStatus, PermitDetailData, PermitEndType } from '../types';
 import { formatCustomerName } from '../utils';
 import styles from './PermitDetail.module.scss';
 
@@ -157,6 +157,7 @@ const PermitDetail = (): React.ReactElement => {
               <Button
                 className={styles.actionButton}
                 iconLeft={<IconPenLine />}
+                disabled={status === ParkingPermitStatus.CLOSED}
                 onClick={() => navigate('edit')}>
                 {t(`${T_PATH}.edit`)}
               </Button>
