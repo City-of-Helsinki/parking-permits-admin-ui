@@ -1,0 +1,27 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.title {
+  font-size: $fontsize-body-xl;
+  margin-bottom: $spacing-s;
+}
+
+.formBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: $spacing-m;
+  padding: $spacing-s;
+  background-color: $color-silver-light;
+
+  .forms {
+    display: flex;
+    flex-direction: column;
+    row-gap: $spacing-s;
+  }
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: row;
+  column-gap: $spacing-s;
+  margin-top: $spacing-m;
+}
