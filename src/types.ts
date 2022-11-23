@@ -199,10 +199,19 @@ export interface ChangeLog {
   createdBy: string;
 }
 
+export interface TemporaryVehicle {
+  id: string;
+  vehicle: Vehicle;
+  startTime: Date | string;
+  endTime: Date | string | null;
+  isActive: boolean;
+}
+
 export interface PermitDetail {
   id?: number;
   customer: Customer;
   vehicle: Vehicle;
+  activeTemporaryVehicle: TemporaryVehicle;
   primaryVehicle: boolean;
   parkingZone: ParkingZone;
   status: ParkingPermitStatus;
