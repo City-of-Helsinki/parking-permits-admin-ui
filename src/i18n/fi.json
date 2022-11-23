@@ -142,10 +142,29 @@
         "refund": "Palautus",
         "title": "Hinta"
       },
+      "temporaryVehicle": {
+        "actionBtn": {
+          "cancel": "Peruuta",
+          "continue": "Jatka"
+        },
+        "endDate": "Tilapäisyyden päättymispäivä",
+        "endTime": "Päättymisaika",
+        "infoMessage": "Valitun päättymispäivän jälkeen alkuperäisen ajoneuvon tiedot palautuvat tunnuksen tietoihin automaattisesti.",
+        "registration": {
+          "helpText": "Tilapäisyys voi olla voimassa enintään 14 vuorokautta.",
+          "label": "Tilapäisen ajoneuvon rekisterinumero"
+        },
+        "startDate": "Tilapäisyyden alkamispäivä",
+        "startTime": "Alkamisaika",
+        "title": "Tilapäisen ajoneuvon tiedot"
+      },
       "vehicleInfo": {
+        "addTemporaryVehicle": "Lisää tilapäinen ajoneuvo",
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
         "highEmissionVehicle": "Korkeapäästöinen ajoneuvo",
+        "invalid": "Ei voimassa",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
+        "removeTemporaryVehicle": "Poista tilapäinen ajoneuvo",
         "title": "Ajoneuvon tiedot"
       }
     },
