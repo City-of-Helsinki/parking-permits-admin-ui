@@ -146,7 +146,7 @@
         "endDate": "Temporary vehicle end date",
         "endTime": "End Time",
         "infoMessage": "After the selected end date, the information of the original vehicle will be restored to the information of the permit automatically.",
-        "registration": {
+        "registrationNumber": {
           "helpText": "Temporary vehicle can be valid for a maximum of 14 days.",
           "label": "Temporary vehicle registration number"
         },

@@ -150,7 +150,7 @@
         "endDate": "Tilapäisyyden päättymispäivä",
         "endTime": "Päättymisaika",
         "infoMessage": "Valitun päättymispäivän jälkeen alkuperäisen ajoneuvon tiedot palautuvat tunnuksen tietoihin automaattisesti.",
-        "registration": {
+        "registrationNumber": {
           "helpText": "Tilapäisyys voi olla voimassa enintään 14 vuorokautta.",
           "label": "Tilapäisen ajoneuvon rekisterinumero"
         },

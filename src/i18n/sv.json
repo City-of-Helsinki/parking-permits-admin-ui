@@ -122,7 +122,7 @@
         "endDate": "Tillfälligt slutdatum",
         "endTime": "Sluttid",
         "infoMessage": "Efter det valda slutdatumet kommer informationen för det ursprungliga fordonet att återställas till informationen för ID automatiskt.",
-        "registration": {
+        "registrationNumber": {
           "helpText": "Tillfälligt kan vara giltigt i maximalt 14 dagar.",
           "label": "Tillfälligt fordonsregistreringsnummer"
         },

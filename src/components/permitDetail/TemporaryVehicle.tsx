@@ -21,7 +21,7 @@ const T_PATH = 'components.permitDetail.temporaryVehicle';
 
 export interface FormProps {
   permitId?: string;
-  registration: string;
+  registrationNumber: string;
   startDate?: string | Date;
   startTime: string;
   endDate?: string | Date;
@@ -51,7 +51,7 @@ const TemporaryVehicle = ({
   const { t, i18n } = useTranslation();
   const [errorMessage, setErrorMessage] = useState('');
   const initialValues: FormProps = {
-    registration: '',
+    registrationNumber: '',
     startDate: new Date(),
     startTime: `${new Date().getHours() + 1}:${new Date().getMinutes()}`,
     endDate: addWeeks(new Date(), 2),
@@ -59,7 +59,7 @@ const TemporaryVehicle = ({
   };
 
   const validationSchema = Yup.object().shape({
-    registration: Yup.string(),
+    registrationNumber: Yup.string(),
     startDate: Yup.string().required(),
     startTime: Yup.string().required(),
     endDate: Yup.string().required(),
@@ -70,7 +70,7 @@ const TemporaryVehicle = ({
     addTemporaryVehicle({
       variables: {
         permitId: `${permit.id}`,
-        registration: values.registration,
+        registrationNumber: values.registrationNumber,
         startTime: combineDateAndTime(
           new Date(values.startDate as string),
           values.startTime
@@ -96,16 +96,16 @@ const TemporaryVehicle = ({
           <>
             <Card className={styles.formBox}>
               <form className={styles.forms} onSubmit={handleSubmit}>
-                <Field name="registration">
+                <Field name="registrationNumber">
                   {({ field }: FieldProps) => (
                     <TextInput
-                      id="registration"
+                      id="registrationNumber"
                       maxLength={7}
                       value={field.value?.toUpperCase()}
-                      label={t(`${T_PATH}.registration.label`)}
+                      label={t(`${T_PATH}.registrationNumber.label`)}
                       onChange={handleChange}
                       className="registration-input"
-                      helperText={t(`${T_PATH}.registration.helpText`)}
+                      helperText={t(`${T_PATH}.registrationNumber.helpText`)}
                     />
                   )}
                 </Field>

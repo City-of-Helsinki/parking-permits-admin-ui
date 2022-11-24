@@ -33,7 +33,7 @@ const VehicleInfo = ({
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
       <div className={styles.infoBox}>
-        <div className={styles.vechile}>
+        <div className={styles.vehicle}>
           {formatVehicleName(activeTemporaryVehicle?.vehicle || vehicle)}
         </div>
         <div className={styles.emissionInfo}>
@@ -91,7 +91,7 @@ const VehicleInfo = ({
           <div className={styles.invalidVehicle}>
             <div className={styles.title}>{t(`${T_PATH}.invalid`)}</div>
             <div className={styles.infoBox}>
-              <div className={styles.vechile}>{formatVehicleName(vehicle)}</div>
+              <div className={styles.vehicle}>{formatVehicleName(vehicle)}</div>
             </div>
           </div>
         </>

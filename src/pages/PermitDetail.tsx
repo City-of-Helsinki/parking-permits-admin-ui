@@ -101,13 +101,13 @@ const PERMIT_DETAIL_QUERY = gql`
 const ADD_TEMP_VEHICLE_MUTATION = gql`
   mutation addTemporaryVehicle(
     $permitId: ID!
-    $registration: String!
+    $registrationNumber: String!
     $startTime: String!
     $endTime: String!
   ) {
     addTemporaryVehicle(
       permitId: $permitId
-      registration: $registration
+      registrationNumber: $registrationNumber
       startTime: $startTime
       endTime: $endTime
     ) {
