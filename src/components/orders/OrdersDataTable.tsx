@@ -129,11 +129,11 @@ const OrdersDataTable = ({
       sortable: true,
     },
     {
-      name: t(`${T_PATH}.totalPrice`),
-      field: 'totalPrice',
-      selector: ({ totalPrice }) => (
+      name: t(`${T_PATH}.totalPaymentPrice`),
+      field: 'totalPaymentPrice',
+      selector: ({ totalPaymentPrice }) => (
         <div style={{ textAlign: 'right' }}>
-          {formatPrice(totalPrice, false)}
+          {formatPrice(totalPaymentPrice, false)}
         </div>
       ),
       sortable: true,

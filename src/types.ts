@@ -372,6 +372,7 @@ export interface Order {
   id: string;
   orderType: string;
   totalPrice: number;
+  totalPaymentPrice: number;
   customer: Customer;
   paidTime: string;
   orderPermits: [Permit];
