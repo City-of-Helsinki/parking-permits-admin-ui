@@ -14,6 +14,7 @@ import { useOrderByParam, usePageParam } from '../hooks/searchParam';
 import {
   LimitedPermitsQueryData,
   OrderBy,
+  ParkingPermitStatus,
   ParkingPermitStatusOrAll,
   PermitSearchParams,
   PermitsQueryData,
@@ -133,7 +134,9 @@ const Permits = (): React.ReactElement => {
   const { orderByParam: orderBy, setOrderBy } = useOrderByParam();
 
   const permitSearchParams = {
-    status: (statusParam as ParkingPermitStatusOrAll | null) || 'ALL',
+    status:
+      (statusParam as ParkingPermitStatusOrAll | null) ||
+      ParkingPermitStatus.VALID,
     q: qParam || '',
   };
   const [errorMessage, setErrorMessage] = useState('');
