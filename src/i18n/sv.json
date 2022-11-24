@@ -114,10 +114,29 @@
         "refund": "Återbetalning",
         "title": "Pris"
       },
+      "temporaryVehicle": {
+        "actionBtn": {
+          "cancel": "Avbryt",
+          "continue": "Fortsätt"
+        },
+        "endDate": "Tillfälligt slutdatum",
+        "endTime": "Sluttid",
+        "infoMessage": "Efter det valda slutdatumet kommer informationen för det ursprungliga fordonet att återställas till informationen för ID automatiskt.",
+        "registrationNumber": {
+          "helpText": "Tillfälligt kan vara giltigt i maximalt 14 dagar.",
+          "label": "Tillfälligt fordonsregistreringsnummer"
+        },
+        "startDate": "Tillfälligt startdatum",
+        "startTime": "Starttid",
+        "title": "Tillfälliga fordonsdetaljer"
+      },
       "vehicleInfo": {
+        "addTemporaryVehicle": "Lägg till ett tillfälligt fordon",
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
         "highEmissionVehicle": "Fordon med höga utsläpp",
+        "invalid": "Inte giltig",
         "lowEmissionVehicle": "Fordon med låga utsläpp",
+        "removeTemporaryVehicle": "Ta bort det tillfälliga fordonet",
         "title": "Fordonsinformation"
       }
     },

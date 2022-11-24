@@ -138,10 +138,29 @@
         "refund": "Refund",
         "title": "Price"
       },
+      "temporaryVehicle": {
+        "actionBtn": {
+          "cancel": "Cancel",
+          "continue": "Continue"
+        },
+        "endDate": "Temporary vehicle end date",
+        "endTime": "End Time",
+        "infoMessage": "After the selected end date, the information of the original vehicle will be restored to the information of the permit automatically.",
+        "registrationNumber": {
+          "helpText": "Temporary vehicle can be valid for a maximum of 14 days.",
+          "label": "Temporary vehicle registration number"
+        },
+        "startDate": "Temporary vehicle start date",
+        "startTime": "Start Time",
+        "title": "Temporary Vehicle Details"
+      },
       "vehicleInfo": {
+        "addTemporaryVehicle": "Add a temporary vehicle",
         "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
         "highEmissionVehcile": "High emission vehicle",
+        "invalid": "Not valid",
         "lowEmissionVehicle": "Low emission vehicle",
+        "removeTemporaryVehicle": "Remove temporary vehicle",
         "title": "Vehicle information"
       }
     },
