@@ -100,7 +100,12 @@ const EndPermit = (): React.ReactElement => {
     return <div>loading...</div>;
   }
   const { permitDetail } = data;
-  const { id: permitId, contractType } = permitDetail;
+  const {
+    id: permitId,
+    contractType,
+    canBeRefunded,
+    totalRefundAmount,
+  } = permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -157,6 +162,8 @@ const EndPermit = (): React.ReactElement => {
           className={styles.actionButton}
           disabled={
             contractType === PermitContractType.FIXED_PERIOD &&
+            canBeRefunded &&
+            totalRefundAmount > 0 &&
             !(iban && isValidIBAN(iban))
           }
           onClick={() => {

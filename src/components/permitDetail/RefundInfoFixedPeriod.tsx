@@ -39,7 +39,7 @@ const RefundInfoFixedPeriod = ({
           <div className={styles.refundLabel}>{t(`${T_PATH}.refund`)}</div>
           <div className={styles.refundAmount}>{refundAmount}</div>
         </div>
-        {canBeRefunded ? (
+        {canBeRefunded && totalRefundAmount > 0 && (
           <TextInput
             className={styles.iban}
             required
@@ -49,8 +49,6 @@ const RefundInfoFixedPeriod = ({
             onChange={e => onChangeIban(e.target.value)}
             errorText={isValidIBAN(iban) ? undefined : t('errors.invalidIBAN')}
           />
-        ) : (
-          <div className={styles.refunded}>{t(`${T_PATH}.refunded`)}</div>
         )}
       </div>
     </div>
