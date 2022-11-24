@@ -191,12 +191,29 @@ export enum ChangeLogEvent {
   CHANGED = 'changed',
 }
 
+export interface ContentType {
+  model: string;
+  appLabel: string;
+}
+
+export interface ChangeLogContext {
+  changes: Record<string, Array<string>>;
+}
+
+export interface ChangeLogRelatedObject extends Refund, Order {
+  __typename: string;
+}
+
 export interface ChangeLog {
   id: string;
   event: ChangeLogEvent;
-  description: string;
+  key: string;
   createdAt: string;
   createdBy: string;
+  validityPeriod: Array<string>;
+  context: ChangeLogContext;
+  contentType: ContentType;
+  relatedObject: ChangeLogRelatedObject;
 }
 
 export interface TemporaryVehicle {
@@ -375,6 +392,7 @@ export interface Order {
   customer: Customer;
   paidTime: string;
   orderPermits: [Permit];
+  paymentType: string;
 }
 
 export interface PagedOrders {

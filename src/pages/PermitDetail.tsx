@@ -44,10 +44,27 @@ const PERMIT_DETAIL_QUERY = gql`
       description
       changeLogs {
         id
-        event
-        description
+        key
+        validityPeriod
         createdAt
         createdBy
+        context
+        contentType {
+          model
+        }
+        relatedObject {
+          __typename
+          ... on RefundNode {
+            id
+            amount
+          }
+          ... on OrderNode {
+            id
+            paidTime
+            paymentType
+            totalPrice
+          }
+        }
       }
       customer {
         firstName

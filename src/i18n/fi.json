@@ -14,7 +14,43 @@
         "createdAt": "Muutosaika",
         "createdBy": "Muokkaaja",
         "description": "Selite",
-        "event": "Tapahtuma"
+        "event": "Tapahtuma",
+        "validityPeriod": "Tilauksen aikaväli",
+        "sum": "Summa, €",
+        "paymentType": "Maksutapa",
+        "paymentTypes": {
+          "CASHIER_PAYMENT": "Kassamaksu",
+          "ONLINE_PAYMENT": "Verkkomaksu",
+          "REFUND": "Palautus"
+        },
+        "paidAt": "Maksupäivä",
+        "fieldNames": {
+          "status": "Tila",
+          "customer__email": "Sähköpostiosoite",
+          "customer__first_name": "Etunimi",
+          "customer__last_name": "Sukunimi",
+          "customer__phone_number": "Puhelinnumero",
+          "customer__primary_address": "Osoite",
+          "customer__other_address": "Tilapäinen osoite",
+          "customer__zone": "Pysäköintialue",
+          "vehicle__registration_number": "Rekisterinumero"
+        },
+        "events": {
+          "update_permit": "Muokkaus",
+          "create_permit": "Tunnus luotu",
+          "end_permit": "Tunnus päätetty",
+          "renew_order": "Tunnus uusittu",
+          "create_order": "Tilaus luotu",
+          "create_refund": "Palautus luotu"
+        },
+        "descriptions": {
+          "update_permit": "Tunnuksen tietoja muokattu",
+          "create_permit": "Tunnus luotu",
+          "end_permit": "Tunnus päätetty",
+          "renew_order": "Tunnus uusittu",
+          "create_order": "Tilaus #{{relatedObjectId}} luotu tunnukselle",
+          "create_refund": "Palautus #{{relatedObjectId}} luotu tunnukselle"
+        }
       },
       "dataTable": {
         "downloadCsv": "Lataa listan tiedot (.csv)",
