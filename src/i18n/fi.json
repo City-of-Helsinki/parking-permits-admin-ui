@@ -68,7 +68,7 @@
         "permitType": "Tunnustyyppi",
         "registrationNumber": "Rekisterinro",
         "residentPermit": "Asukastunnus",
-        "totalPrice": "Summa",
+        "totalPaymentPrice": "Summa",
         "zone": "Alue"
       },
       "ordersSearch": {

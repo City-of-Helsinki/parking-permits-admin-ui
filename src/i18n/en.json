@@ -65,7 +65,7 @@
         "permits": "Permits",
         "permitType": "Permit type",
         "residentPermit": "Resident permit",
-        "totalPrice": "Price",
+        "totalPaymentPrice": "Price",
         "zone": "Zone"
       },
       "ordersSearch": {

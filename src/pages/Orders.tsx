@@ -37,6 +37,7 @@ const ORDERS_QUERY = gql`
       objects {
         id
         totalPrice
+        totalPaymentPrice
         paidTime
         paymentType
         customer {

@@ -53,7 +53,7 @@
         "permitType": "Typ av tillstånd",
         "registrationNumber": "Registreringsnummer",
         "residentPermit": "Boendeparkering",
-        "totalPrice": "Totalpris",
+        "totalPaymentPrice": "Totalpris",
         "zone": "Zon"
       }
     },
