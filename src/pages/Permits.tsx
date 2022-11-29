@@ -16,6 +16,7 @@ import {
   OrderBy,
   ParkingPermitStatus,
   ParkingPermitStatusOrAll,
+  Permit,
   PermitSearchParams,
   PermitsQueryData,
   PermitsQueryVariables,
@@ -198,6 +199,12 @@ const Permits = (): React.ReactElement => {
     exportData(url);
   };
 
+  const handleRowClick = (row: Permit) => {
+    if (userRole > UserRole.INSPECTORS) {
+      navigate(row.id);
+    }
+  };
+
   const extractDataFromPermitQuery = (
     queryData: LimitedPermitsQueryData | PermitsQueryData | undefined
   ) => {
@@ -230,8 +237,8 @@ const Permits = (): React.ReactElement => {
         orderBy={orderBy}
         onPage={handlePage}
         onOrderBy={handleOrderBy}
-        onRowClick={row => navigate(row.id)}
-        onExport={handleExport}
+        onRowClick={handleRowClick}
+        onExport={userRole > UserRole.INSPECTORS && handleExport}
       />
       {errorMessage && (
         <Notification
