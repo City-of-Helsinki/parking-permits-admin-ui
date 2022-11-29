@@ -64,6 +64,12 @@ const PERMIT_DETAIL_QUERY = gql`
             paymentType
             totalPrice
           }
+          ... on TemporaryVehicleNode {
+            id
+            vehicle {
+              registrationNumber
+            }
+          }
         }
       }
       customer {
