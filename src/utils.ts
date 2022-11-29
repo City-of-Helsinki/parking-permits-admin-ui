@@ -73,7 +73,7 @@ export function formatDateTimeDisplay(
   dtFormat = 'd.M.Y, HH:mm'
 ): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
-  return format(dt, dtFormat);
+  return dt ? format(dt, dtFormat) : '';
 }
 
 export function formatCustomerName(customer: Customer): string {

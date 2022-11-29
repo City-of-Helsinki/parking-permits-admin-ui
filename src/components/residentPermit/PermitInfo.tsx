@@ -78,7 +78,7 @@ const PermitInfo = ({
           className={styles.fieldItem}
           id="effectiveFrom"
           label={t(`${T_PATH}.effectiveFrom`)}
-          value={t(`${T_PATH}.momentWhenPermitIsSaved`)}
+          value={formatDateTimeDisplay(permit.startTime)}
         />
         <StatusSelect
           className={styles.fieldItem}
