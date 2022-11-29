@@ -27,6 +27,10 @@ const PermitInfo = ({
   const expirationDate = endOfDay(
     addDays(addMonths(new Date(permit.startTime), permit.monthCount), -1)
   );
+  const contractTypeLabelMapping = {
+    FIXED_PERIOD: t('contractType.fixedPeriod'),
+    OPEN_ENDED: t('contractType.openEnded'),
+  };
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.permitInfo`)}</div>
@@ -37,7 +41,7 @@ const PermitInfo = ({
           className={styles.fieldItem}
           id="contractType"
           label={t(`${T_PATH}.contractType`)}
-          value={t('contractType.fixedPeriod')}
+          value={contractTypeLabelMapping[permit.contractType] || '-'}
         />
         <NumberInput
           required
