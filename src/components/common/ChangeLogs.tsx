@@ -23,7 +23,9 @@ const ChangeLogs = ({ changeLogs }: ChangeLogsProps): React.ReactElement => {
     const changes = context?.changes;
     return (
       <>
-        {t(`descriptions.${key}`, { relatedObjectId: relatedObject?.id })}
+        {t(`descriptions.${key}`, {
+          relatedObject,
+        })}
         {changes &&
           Object.entries(changes).map(([fieldName, [oldValue, newValue]]) => {
             const label = t(`fieldNames.${fieldName}`);

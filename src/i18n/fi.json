@@ -41,15 +41,19 @@
           "end_permit": "Tunnus päätetty",
           "renew_order": "Tunnus uusittu",
           "create_order": "Tilaus luotu",
-          "create_refund": "Palautus luotu"
+          "create_refund": "Palautus luotu",
+          "add_temporary_vehicle": "Muokkaus",
+          "remove_temporary_vehicle": "Muokkaus"
         },
         "descriptions": {
           "update_permit": "Tunnuksen tietoja muokattu",
           "create_permit": "Tunnus luotu",
           "end_permit": "Tunnus päätetty",
           "renew_order": "Tunnus uusittu",
-          "create_order": "Tilaus #{{relatedObjectId}} luotu tunnukselle",
-          "create_refund": "Palautus #{{relatedObjectId}} luotu tunnukselle"
+          "create_order": "Tilaus #{{relatedObject.id}} luotu tunnukselle",
+          "create_refund": "Palautus #{{relatedObject.id}} luotu tunnukselle",
+          "add_temporary_vehicle": "Tilapäinen ajoneuvo {{relatedObject.vehicle.registrationNumber}} lisätty tunnukseen",
+          "remove_temporary_vehicle": "Tilapäinen ajoneuvo {{relatedObject.vehicle.registrationNumber}} poistettu tunnuksesta"
         }
       },
       "dataTable": {
