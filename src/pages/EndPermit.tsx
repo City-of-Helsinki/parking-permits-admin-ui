@@ -8,8 +8,7 @@ import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import CustomerInfo from '../components/permitDetail/CustomerInfo';
 import PermitInfo from '../components/permitDetail/PermitInfo';
-import RefundInfoFixedPeriod from '../components/permitDetail/RefundInfoFixedPeriod';
-import RefundInfoOpenEnded from '../components/permitDetail/RefundInfoOpenEnded';
+import RefundInfo from '../components/permitDetail/RefundInfo';
 import VehicleInfo from '../components/permitDetail/VehicleInfo';
 import {
   MutationResponse,
@@ -134,20 +133,12 @@ const EndPermit = (): React.ReactElement => {
           }
           permit={permitDetail}
         />
-        {contractType === PermitContractType.FIXED_PERIOD && (
-          <RefundInfoFixedPeriod
-            className={styles.column}
-            iban={iban}
-            permit={permitDetail}
-            onChangeIban={newIban => setIban(newIban)}
-          />
-        )}
-        {contractType === PermitContractType.OPEN_ENDED && (
-          <RefundInfoOpenEnded
-            className={styles.column}
-            permit={permitDetail}
-          />
-        )}
+        <RefundInfo
+          className={styles.column}
+          iban={iban}
+          permit={permitDetail}
+          onChangeIban={newIban => setIban(newIban)}
+        />
       </div>
       <div className={styles.actions}>
         <Button
@@ -171,10 +162,7 @@ const EndPermit = (): React.ReactElement => {
               variables: {
                 permitId,
                 endType: endType?.toUpperCase(),
-                iban:
-                  contractType === PermitContractType.FIXED_PERIOD
-                    ? iban
-                    : undefined,
+                iban,
               },
             })
               .then(() => navigate(`/permits/${id}`))

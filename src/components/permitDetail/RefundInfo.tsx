@@ -3,25 +3,25 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail } from '../../types';
 import { isValidIBAN } from '../../utils';
-import styles from './RefundInfoFixedPeriod.module.scss';
+import styles from './RefundInfo.module.scss';
 
-const T_PATH = 'components.permitDetail.refundInfoFixedPeriod';
-export interface RefundInfoFixedPeriodProps {
+const T_PATH = 'components.permitDetail.refundInfo';
+export interface RefundInfoProps {
   className?: string;
   iban: string;
   permit: PermitDetail;
   onChangeIban: (iban: string) => void;
 }
 
-const RefundInfoFixedPeriod = ({
+const RefundInfo = ({
   className,
   iban,
   permit,
   onChangeIban,
-}: RefundInfoFixedPeriodProps): React.ReactElement => {
+}: RefundInfoProps): React.ReactElement => {
   const { t } = useTranslation();
   const { totalRefundAmount, canBeRefunded } = permit;
-  const refundAmount = `${-totalRefundAmount.toFixed(2)} €`;
+  const refundAmount = `${totalRefundAmount.toFixed(2)} €`;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -54,4 +54,4 @@ const RefundInfoFixedPeriod = ({
     </div>
   );
 };
-export default RefundInfoFixedPeriod;
+export default RefundInfo;
