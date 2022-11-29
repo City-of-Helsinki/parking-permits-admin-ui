@@ -100,18 +100,13 @@
         "refundTotalVat": "Inkl. moms (24%)",
         "title": "Ny prenumeration"
       },
-      "refundInfoFixedPeriod": {
+      "refundInfo": {
         "monthCount_one": "{{count}} månad",
         "monthCount_other": "{{count}} månader",
         "orderRemaingDescription": "Priset tar hänsyn till de återstående hela månaderna av beställningen.",
         "orderRemaining": "Betald order återstår",
         "refund": "Återbetalning",
         "refunded": "Återbetalas",
-        "title": "Pris"
-      },
-      "refundInfoOpenEnded": {
-        "monthlyPrice": "Månadspris",
-        "refund": "Återbetalning",
         "title": "Pris"
       },
       "temporaryVehicle": {
@@ -207,7 +202,6 @@
         "contractType": "Kontraktstyp",
         "effectiveFrom": "Gäller från",
         "expirationDate": "Utgångsdatum",
-        "momentWhenPermitIsSaved": "Tiden parkeringstillståndet sparades",
         "permitInfo": "Tillståndsinformation",
         "startDate": "Startdatum",
         "validPeriodInMonths": "Giltig period i månader"

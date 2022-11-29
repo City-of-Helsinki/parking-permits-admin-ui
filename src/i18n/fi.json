@@ -168,18 +168,13 @@
         "refundTotalVat": "Sis. alv (24%)",
         "title": "Uusi tilaus"
       },
-      "refundInfoFixedPeriod": {
+      "refundInfo": {
         "monthCount_one": "{{count}} kuukausi",
         "monthCount_other": "{{count}} kuukautta",
         "orderRemaingDescription": "Hinnassa huomioidaan tilauksen jäljellä olevat täydet kuukaudet.",
         "orderRemaining": "Maksettua tilausta jäljellä",
         "refund": "Palautus",
         "refunded": "Palautetaan",
-        "title": "Hinta"
-      },
-      "refundInfoOpenEnded": {
-        "monthlyPrice": "Kuukausihinta",
-        "refund": "Palautus",
         "title": "Hinta"
       },
       "temporaryVehicle": {
@@ -277,7 +272,6 @@
         "contractType": "Tunnuksen tyyppi",
         "effectiveFrom": "Voimassa alkaen",
         "expirationDate": "Viimeinen voimassaoloaika",
-        "momentWhenPermitIsSaved": "Tunnuksen tallennushetkestä",
         "permitInfo": "Tunnuksen tiedot",
         "startDate": "Alkamispäivämäärä",
         "validPeriodInMonths": "Voimassaoloaika, kuukautta"

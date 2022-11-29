@@ -125,7 +125,7 @@
         "refundTotalVat": "Incl. VAT (24%)",
         "title": "New Order"
       },
-      "refundInfoFixedPeriod": {
+      "refundInfo": {
         "monthCount_one": "{{count}} month",
         "monthCount_other": "{{count}} months",
         "orderRemaingDescription": "The price only accounts for remaining full months of the order",
@@ -231,7 +231,6 @@
         "contractType": "Contract type",
         "effectiveFrom": "Effective from",
         "expirationDate": "Expiration date",
-        "momentWhenPermitIsSaved": "The time when the parking permit is saved",
         "permitInfo": "Permit information",
         "startDate": "Start date",
         "validPeriodInMonths": "Valid period in months"
