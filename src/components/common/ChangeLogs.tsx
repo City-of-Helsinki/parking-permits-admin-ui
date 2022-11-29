@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ChangeLog, ChangeLogEvent, Order, Refund } from '../../types';
+import { ChangeLog, Order, Refund } from '../../types';
 import { formatDateTimeDisplay } from '../../utils';
 import { Column } from '../types';
 import DataTable from './DataTable';
@@ -14,10 +14,6 @@ export interface ChangeLogsProps {
 
 const ChangeLogs = ({ changeLogs }: ChangeLogsProps): React.ReactElement => {
   const { t } = useTranslation('', { keyPrefix: T_PATH });
-  const eventLabels = {
-    [ChangeLogEvent.CREATED]: t('changelogEvent.CREATED'),
-    [ChangeLogEvent.CHANGED]: t('changelogEvent.CHANGED'),
-  };
 
   const generateDescription = ({ key, context, relatedObject }: ChangeLog) => {
     const changes = context?.changes;
@@ -50,7 +46,7 @@ const ChangeLogs = ({ changeLogs }: ChangeLogsProps): React.ReactElement => {
     {
       name: t('event'),
       field: 'event',
-      selector: ({ event }) => (event ? eventLabels[event] : '-'),
+      selector: ({ key }) => t(`events.${key}`),
       sortable: false,
     },
     {
