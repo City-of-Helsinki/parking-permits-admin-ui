@@ -2,7 +2,7 @@ import { Button, Checkbox, IconPlus, IconTrash } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useUserRole, { UserRole } from '../../api/useUserRole';
-import { PermitDetail, PermitPrice } from '../../types';
+import { ParkingPermitStatus, PermitDetail, PermitPrice } from '../../types';
 import { formatVehicleName } from '../../utils';
 import PermitPriceRow from '../common/PermitPriceRow';
 import styles from './VehicleInfo.module.scss';
@@ -63,15 +63,17 @@ const VehicleInfo = ({
         />
       </div>
 
-      {!activeTemporaryVehicle && userRole >= UserRole.CUSTOMER_SERVICE && (
-        <Button
-          className={styles.addTemporaryVehicle}
-          variant="supplementary"
-          onClick={() => openAddTempVehicle?.(true)}
-          iconLeft={<IconPlus />}>
-          {t(`${T_PATH}.addTemporaryVehicle`)}
-        </Button>
-      )}
+      {!activeTemporaryVehicle &&
+        userRole >= UserRole.CUSTOMER_SERVICE &&
+        permit.status === ParkingPermitStatus.VALID && (
+          <Button
+            className={styles.addTemporaryVehicle}
+            variant="supplementary"
+            onClick={() => openAddTempVehicle?.(true)}
+            iconLeft={<IconPlus />}>
+            {t(`${T_PATH}.addTemporaryVehicle`)}
+          </Button>
+        )}
 
       {activeTemporaryVehicle && (
         <>
