@@ -230,7 +230,7 @@
         "additionalInfoPlaceholder": "Additional information, e.g. information about moped",
         "contractType": "Contract type",
         "effectiveFrom": "Effective from",
-        "expirationDate": "Expiration date",
+        "expirationDate": "Expiration date (other permit will be taken into account automatically upon saving)",
         "permitInfo": "Permit information",
         "startDate": "Start date",
         "validPeriodInMonths": "Valid period in months"

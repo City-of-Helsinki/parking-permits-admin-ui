@@ -201,7 +201,7 @@
         "additionalInfoPlaceholder": "För ytterligare information, t.ex. information om mopeden",
         "contractType": "Kontraktstyp",
         "effectiveFrom": "Gäller från",
-        "expirationDate": "Utgångsdatum",
+        "expirationDate": "Utgångsdatum (annat tillstånd kommer att beaktas automatiskt vid lagring)",
         "permitInfo": "Tillståndsinformation",
         "startDate": "Startdatum",
         "validPeriodInMonths": "Giltig period i månader"

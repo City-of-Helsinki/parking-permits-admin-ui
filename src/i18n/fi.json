@@ -271,7 +271,7 @@
         "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
         "contractType": "Tunnuksen tyyppi",
         "effectiveFrom": "Voimassa alkaen",
-        "expirationDate": "Viimeinen voimassaoloaika",
+        "expirationDate": "Viimeinen voimassaoloaika (toinen tunnus otetaan tallennuksen yhteydessä automaattisesti huomioon)",
         "permitInfo": "Tunnuksen tiedot",
         "startDate": "Alkamispäivämäärä",
         "validPeriodInMonths": "Voimassaoloaika, kuukautta"
