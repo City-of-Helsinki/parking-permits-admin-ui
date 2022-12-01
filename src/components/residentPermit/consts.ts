@@ -1,4 +1,3 @@
-import { addDays, addMonths, endOfDay } from 'date-fns';
 import {
   Customer,
   EmissionType,
@@ -45,14 +44,12 @@ export const initialParkingZone: ParkingZone = {
 
 export function getEmptyPermit(): PermitDetail {
   const startTime = new Date();
-  const endTime = endOfDay(addDays(addMonths(new Date(startTime), 1), -1));
   return {
     customer: initialPerson,
     vehicle: initialVehicle,
     parkingZone: initialParkingZone,
     status: ParkingPermitStatus.VALID,
     startTime: startTime.toISOString(),
-    endTime: endTime.toISOString(),
     description: '',
     currentPeriodEndTime: '',
     canEndImmediately: false,
