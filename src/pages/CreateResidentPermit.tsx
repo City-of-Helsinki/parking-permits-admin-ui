@@ -17,7 +17,11 @@ import {
   PermitPrice,
   Vehicle,
 } from '../types';
-import { convertToPermitInput, isValidForPriceCheck } from '../utils';
+import {
+  convertToPermitInput,
+  formatPrice,
+  isValidForPriceCheck,
+} from '../utils';
 import styles from './CreateResidentPermit.module.scss';
 
 const T_PATH = 'pages.createResidentPermit';
@@ -232,10 +236,12 @@ const CreateResidentPermit = (): React.ReactElement => {
     updatePermitPrices(newPermit);
   };
 
-  const totalPrice = permitPrices.reduce(
-    (price, permitPrice) =>
-      price + permitPrice.unitPrice * permitPrice.quantity,
-    0
+  const totalPrice = formatPrice(
+    permitPrices.reduce(
+      (price, permitPrice) =>
+        price + permitPrice.unitPrice * permitPrice.quantity,
+      0
+    )
   );
   return (
     <div className={styles.container}>

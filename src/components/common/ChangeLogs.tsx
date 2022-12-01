@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ChangeLog, Order, Refund } from '../../types';
-import { formatDateTimeDisplay } from '../../utils';
+import { formatDateTimeDisplay, formatPrice } from '../../utils';
 import { Column } from '../types';
 import DataTable from './DataTable';
 
@@ -72,9 +72,9 @@ const ChangeLogs = ({ changeLogs }: ChangeLogsProps): React.ReactElement => {
       selector: ({ relatedObject }) => {
         switch (relatedObject?.__typename) {
           case 'OrderNode':
-            return (relatedObject as Order).totalPrice;
+            return formatPrice((relatedObject as Order).totalPrice);
           case 'RefundNode':
-            return (relatedObject as Refund).amount;
+            return formatPrice((relatedObject as Refund).amount);
           default:
             return '';
         }

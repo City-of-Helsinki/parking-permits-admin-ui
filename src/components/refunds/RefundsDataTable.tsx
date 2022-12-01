@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useUserRole, { UserRole } from '../../api/useUserRole';
 import { OrderBy, PageInfo, Refund } from '../../types';
-import { formatDateTimeDisplay } from '../../utils';
+import { formatDateTimeDisplay, formatPrice } from '../../utils';
 import DataTable from '../common/DataTable';
 import { Column } from '../types';
 import RefundStatusLabel from './RefundStatusLabel';
@@ -92,7 +92,9 @@ const RefundsDataTable = ({
     {
       name: t(`${T_PATH}.amount`),
       field: 'amount',
-      selector: ({ amount }) => `${amount} €`,
+      selector: ({ amount }) => (
+        <div style={{ textAlign: 'right' }}>{formatPrice(amount)} €</div>
+      ),
       sortable: true,
     },
   ];
