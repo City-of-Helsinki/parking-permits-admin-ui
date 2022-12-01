@@ -24,9 +24,11 @@ const PermitInfo = ({
   onUpdatePermit,
 }: PermitInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const expirationDate = endOfDay(
-    addDays(addMonths(new Date(permit.startTime), permit.monthCount), -1)
-  );
+  const expirationDate =
+    permit.endTime ||
+    endOfDay(
+      addDays(addMonths(new Date(permit.startTime), permit.monthCount), -1)
+    );
   const contractTypeLabelMapping = {
     FIXED_PERIOD: t('contractType.fixedPeriod'),
     OPEN_ENDED: t('contractType.openEnded'),
