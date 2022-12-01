@@ -94,21 +94,12 @@ export function formatVehicleName(vehicle: Vehicle): string {
   return `${registrationNumber} ${manufacturer} ${model}`;
 }
 
-export function formatMonthlyPrice(price: number): string {
-  const formattedPrice = parseFloat(price.toFixed(2));
-  return `${formattedPrice} €/kk`;
+export function formatPrice(price: number): string {
+  return parseFloat(price.toString()).toFixed(2);
 }
 
-export function formatPrice(price: number, withCurrencySymbol = true): string {
-  const options: Intl.NumberFormatOptions = {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  };
-  if (withCurrencySymbol) {
-    options.style = 'currency';
-    options.currency = 'EUR';
-  }
-  return price.toLocaleString('fi-FI', options);
+export function formatMonthlyPrice(price: number): string {
+  return `${formatPrice(price)} €/kk`;
 }
 
 export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
