@@ -1,4 +1,3 @@
-import { Button, IconEnvelope } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useUserRole, { UserRole } from '../../api/useUserRole';
@@ -71,14 +70,6 @@ const CustomerInfo = ({
             value={value}
           />
         ))}
-        {customer.email && userRole > UserRole.PREPARATORS && (
-          <Button
-            variant="supplementary"
-            iconLeft={<IconEnvelope />}
-            onClick={() => window.open(`mailto:${customer.email}`)}>
-            {t(`${T_PATH}.sendMessageToEmail`)}
-          </Button>
-        )}
       </div>
     </div>
   );
