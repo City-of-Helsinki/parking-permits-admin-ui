@@ -20,6 +20,7 @@ import { formatExportUrlPdf } from '../export/utils';
 import {
   MutationResponse,
   ParkingPermitStatus,
+  PermitContractType,
   PermitDetailData,
   PermitEndType,
 } from '../types';
@@ -204,7 +205,12 @@ const PermitDetail = (): React.ReactElement => {
       currentPeriodEndTime,
       canEndImmediately,
       canEndAfterCurrentPeriod,
+      startTime,
+      contractType,
     } = permitDetail;
+    const isOpenEndedPermitAndStarted =
+      contractType === PermitContractType.OPEN_ENDED &&
+      new Date(startTime) > new Date();
     content = (
       <>
         <Breadcrumbs>
@@ -265,7 +271,10 @@ const PermitDetail = (): React.ReactElement => {
                   <Button
                     className={styles.actionButton}
                     iconLeft={<IconPenLine />}
-                    disabled={status === ParkingPermitStatus.CLOSED}
+                    disabled={
+                      status === ParkingPermitStatus.CLOSED ||
+                      !!isOpenEndedPermitAndStarted
+                    }
                     onClick={() => navigate('edit')}>
                     {t(`${T_PATH}.edit`)}
                   </Button>
