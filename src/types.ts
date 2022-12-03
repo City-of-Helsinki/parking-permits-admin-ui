@@ -16,6 +16,12 @@ export interface Address {
 
 export type CustomerActivePermit = Pick<Permit, 'id' | 'primaryVehicle'>;
 
+export enum SelectedAddress {
+  PRIMARY = 'primaryAddress',
+  OTHER = 'otherAddress',
+  NONE = 'none',
+}
+
 export interface Customer {
   id: string;
   sourceId: string;
@@ -226,6 +232,7 @@ export interface TemporaryVehicle {
 
 export interface PermitDetail {
   id?: number;
+  address: Address;
   customer: Customer;
   vehicle: Vehicle;
   activeTemporaryVehicle: TemporaryVehicle;
@@ -273,6 +280,8 @@ export interface PermitInput {
   startTime: string;
   monthCount: number;
   description: string;
+  zone: string | undefined;
+  address: Address | undefined;
 }
 
 export interface PageInfo {

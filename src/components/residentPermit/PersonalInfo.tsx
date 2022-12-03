@@ -1,4 +1,3 @@
-import { gql, useApolloClient } from '@apollo/client';
 import {
   Button,
   Checkbox,
@@ -9,7 +8,14 @@ import {
 } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Address, Customer, ParkingZone } from '../../types';
+import {
+  Address,
+  Customer,
+  ParkingZone,
+  PermitDetail,
+  SelectedAddress,
+} from '../../types';
+import { formatAddress } from '../../utils';
 import AddressSearch from '../common/AddressSearch';
 import Divider from '../common/Divider';
 import ZoneSelect from '../common/ZoneSelect';
@@ -17,29 +23,15 @@ import styles from './PersonalInfo.module.scss';
 
 const T_PATH = 'components.residentPermit.personalInfo';
 
-const ZONE_BY_LOCATION_QUERY = gql`
-  query GetZoneByLocation($location: [Float]!) {
-    zoneByLocation(location: $location) {
-      name
-      label
-      labelSv
-    }
-  }
-`;
-
-enum SelectedAddress {
-  PRIMARY = 'primary',
-  OTHER = 'other',
-}
-
-type AddressField = 'primaryAddress' | 'otherAddress';
-
 interface PersonalInfoProps {
   className?: string;
   person: Customer;
+  permitAddress: Address;
+  parkingZone: ParkingZone;
   searchError?: string;
+  disableCustomerChange?: boolean;
   onSearchPerson: (nationalIdNumber: string) => void;
-  onUpdatePerson: (person: Customer) => void;
+  onUpdatePermit: (permit: Partial<PermitDetail>) => void;
 }
 
 const PersonalInfo = ({
@@ -47,11 +39,13 @@ const PersonalInfo = ({
   person,
   searchError,
   onSearchPerson,
-  onUpdatePerson,
+  onUpdatePermit,
+  permitAddress,
+  parkingZone,
+  disableCustomerChange,
 }: PersonalInfoProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const {
-    zone,
     primaryAddress,
     otherAddress,
     nationalIdNumber,
@@ -62,32 +56,41 @@ const PersonalInfo = ({
     email,
     driverLicenseChecked,
   } = person;
-  const [addressSearchError, setAddressSearchError] = useState('');
+
+  const getSelectedAddress = (): SelectedAddress => {
+    if (otherAddress && otherAddress?.id === permitAddress?.id) {
+      return SelectedAddress.OTHER;
+    }
+    if (primaryAddress && primaryAddress?.id === permitAddress?.id) {
+      return SelectedAddress.PRIMARY;
+    }
+    return SelectedAddress.NONE;
+  };
+
   const [selectedAddress, setSelectedAddress] = useState<SelectedAddress>(
-    SelectedAddress.PRIMARY
+    getSelectedAddress()
   );
-  const client = useApolloClient();
-  const onSelectAddress = (addressField: AddressField, address: Address) => {
-    client
-      .query<{ zoneByLocation: ParkingZone }>({
-        query: ZONE_BY_LOCATION_QUERY,
-        variables: {
-          location: address.location,
-        },
-      })
-      .then(response => {
-        const { zoneByLocation } = response.data;
-        const newAddress = {
-          ...address,
-          zone: zoneByLocation,
-        };
-        onUpdatePerson({
-          ...person,
-          [addressField]: newAddress,
-          zone: zoneByLocation,
-        });
-      })
-      .catch(error => setAddressSearchError(error.message));
+  const onSelectAddress = (addressField: SelectedAddress, address: Address) => {
+    if (!address || !address.zone) {
+      return;
+    }
+    onUpdatePermit({
+      address,
+      parkingZone: address.zone,
+      customer: {
+        ...person,
+        [addressField]: address,
+      },
+    });
+  };
+
+  const updateCustomer = (customer: Partial<Customer>) => {
+    onUpdatePermit({
+      customer: {
+        ...person,
+        ...customer,
+      },
+    });
   };
   return (
     <div className={className}>
@@ -99,10 +102,13 @@ const PersonalInfo = ({
           id="personalId"
           label={t(`${T_PATH}.personalId`)}
           value={nationalIdNumber}
+          disabled={disableCustomerChange}
           onChange={e =>
-            onUpdatePerson({ ...person, nationalIdNumber: e.target.value })
+            updateCustomer({ ...person, nationalIdNumber: e.target.value })
           }>
-          <Button onClick={() => onSearchPerson(nationalIdNumber)}>
+          <Button
+            onClick={() => onSearchPerson(nationalIdNumber)}
+            disabled={disableCustomerChange}>
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
@@ -113,7 +119,7 @@ const PersonalInfo = ({
           label={t(`${T_PATH}.addressSecurityBan`)}
           checked={addressSecurityBan}
           onChange={e =>
-            onUpdatePerson({ ...person, addressSecurityBan: e.target.checked })
+            updateCustomer({ ...person, addressSecurityBan: e.target.checked })
           }
         />
         <TextInput
@@ -123,7 +129,7 @@ const PersonalInfo = ({
           label={t(`${T_PATH}.firstName`)}
           value={addressSecurityBan ? '' : firstName}
           onChange={e =>
-            onUpdatePerson({ ...person, firstName: e.target.value })
+            updateCustomer({ ...person, firstName: e.target.value })
           }
         />
         <TextInput
@@ -133,63 +139,64 @@ const PersonalInfo = ({
           label={t(`${T_PATH}.lastName`)}
           value={addressSecurityBan ? '' : lastName}
           onChange={e =>
-            onUpdatePerson({ ...person, lastName: e.target.value })
+            updateCustomer({ ...person, lastName: e.target.value })
           }
         />
-        <RadioButton
-          disabled={addressSecurityBan}
-          className={styles.fieldItem}
-          id="usePrimaryAddress"
-          name="selectedAddress"
-          label={t(`${T_PATH}.primaryAddress`)}
-          value={addressSecurityBan ? '' : SelectedAddress.PRIMARY}
-          checked={selectedAddress === SelectedAddress.PRIMARY}
-          onChange={() => {
-            setSelectedAddress(SelectedAddress.PRIMARY);
-            if (primaryAddress?.zone) {
-              onUpdatePerson({ ...person, zone: primaryAddress.zone });
-            }
-          }}
-        />
+        <div>{selectedAddress}</div>
+        <div className={styles.radioGroup}>
+          <RadioButton
+            disabled={addressSecurityBan}
+            className={styles.fieldItem}
+            id="usePrimaryAddress"
+            name="selectedAddress"
+            label={t(`${T_PATH}.primaryAddress`)}
+            value={addressSecurityBan ? '' : SelectedAddress.PRIMARY}
+            checked={selectedAddress === SelectedAddress.PRIMARY}
+            onChange={() => {
+              setSelectedAddress(SelectedAddress.PRIMARY);
+              onSelectAddress(
+                SelectedAddress.PRIMARY,
+                primaryAddress as Address
+              );
+            }}
+          />
+          <div className={styles.radioGroupAddress}>
+            {primaryAddress && !addressSecurityBan
+              ? formatAddress(primaryAddress, i18n.language)
+              : ''}
+          </div>
+        </div>
+        <div className={styles.radioGroup}>
+          <RadioButton
+            disabled={addressSecurityBan}
+            className={styles.fieldItem}
+            id="useOtherAddress"
+            name="selectedAddress"
+            label={t(`${T_PATH}.otherAddress`)}
+            value={addressSecurityBan ? '' : SelectedAddress.OTHER}
+            checked={selectedAddress === SelectedAddress.OTHER}
+            onChange={() => {
+              setSelectedAddress(SelectedAddress.OTHER);
+              onSelectAddress(SelectedAddress.OTHER, otherAddress as Address);
+            }}
+          />
+          <div className={styles.radioGroupAddress}>
+            {otherAddress && !addressSecurityBan
+              ? formatAddress(otherAddress, i18n.language)
+              : ''}
+          </div>
+        </div>
         <AddressSearch
-          disabled={
-            addressSecurityBan || selectedAddress !== SelectedAddress.PRIMARY
-          }
           className={styles.addressSearch}
-          address={addressSecurityBan ? undefined : primaryAddress}
-          onSelect={address => onSelectAddress('primaryAddress', address)}
-        />
-        <RadioButton
-          disabled={addressSecurityBan}
-          className={styles.fieldItem}
-          id="useOtherAddress"
-          name="selectedAddress"
-          label={addressSecurityBan ? '' : t(`${T_PATH}.otherAddress`)}
-          value={addressSecurityBan ? '' : SelectedAddress.OTHER}
-          checked={selectedAddress === SelectedAddress.OTHER}
-          onChange={() => {
-            setSelectedAddress(SelectedAddress.OTHER);
-            if (otherAddress?.zone) {
-              onUpdatePerson({ ...person, zone: otherAddress.zone });
-            }
-          }}
-        />
-        <AddressSearch
-          disabled={
-            addressSecurityBan || selectedAddress !== SelectedAddress.OTHER
-          }
-          className={styles.addressSearch}
-          address={addressSecurityBan ? undefined : otherAddress}
-          onSelect={address => onSelectAddress('otherAddress', address)}
+          onSelect={address => onSelectAddress(selectedAddress, address)}
         />
         <ZoneSelect
           required
           className={styles.fieldItem}
-          value={zone}
+          value={parkingZone?.name}
           onChange={(selectedZone: ParkingZone) =>
-            onUpdatePerson({ ...person, zone: selectedZone })
+            onUpdatePermit({ parkingZone: selectedZone })
           }
-          error={addressSearchError}
         />
         <Divider className={styles.fieldDivider} />
         <PhoneInput
@@ -198,7 +205,7 @@ const PersonalInfo = ({
           label={t(`${T_PATH}.phoneNumber`)}
           value={phoneNumber}
           onChange={e =>
-            onUpdatePerson({ ...person, phoneNumber: e.target.value })
+            updateCustomer({ ...person, phoneNumber: e.target.value })
           }
         />
         <TextInput
@@ -206,7 +213,7 @@ const PersonalInfo = ({
           id="email"
           label={t(`${T_PATH}.email`)}
           value={email}
-          onChange={e => onUpdatePerson({ ...person, email: e.target.value })}
+          onChange={e => updateCustomer({ ...person, email: e.target.value })}
         />
         <Divider className={styles.fieldDivider} />
         <Checkbox
@@ -215,7 +222,7 @@ const PersonalInfo = ({
           label={t(`${T_PATH}.driverLicenseChecked`)}
           checked={driverLicenseChecked}
           onChange={e =>
-            onUpdatePerson({
+            updateCustomer({
               ...person,
               driverLicenseChecked: e.target.checked,
             })
