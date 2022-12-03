@@ -16,7 +16,11 @@ import {
   PermitPrice,
   PermitPriceChange,
 } from '../types';
-import { convertToPermitInput, isValidForPriceCheck } from '../utils';
+import {
+  convertAddressToAddressInput,
+  convertToPermitInput,
+  isValidForPriceCheck,
+} from '../utils';
 import styles from './EditResidentPermit.module.scss';
 
 const T_PATH = 'pages.editResidentPermit';
@@ -43,6 +47,12 @@ const PERMIT_DETAIL_QUERY = gql`
         endDate
         quantity
       }
+      address {
+        id
+        zone {
+          name
+        }
+      }
       customer {
         firstName
         lastName
@@ -52,20 +62,34 @@ const PERMIT_DETAIL_QUERY = gql`
         addressSecurityBan
         driverLicenseChecked
         primaryAddress {
+          id
           streetName
           streetNameSv
           streetNumber
           city
           citySv
           postalCode
+          location
+          zone {
+            name
+            label
+            labelSv
+          }
         }
         otherAddress {
+          id
           streetName
           streetNameSv
           streetNumber
           city
           citySv
           postalCode
+          location
+          zone {
+            name
+            label
+            labelSv
+          }
         }
         activePermits {
           id
@@ -221,7 +245,11 @@ const EditResidentPermit = (): React.ReactElement => {
     updateResidentPermit({
       variables: {
         permitId,
-        permitInfo: convertToPermitInput(permit),
+        permitInfo: {
+          ...convertToPermitInput(permit),
+          address: convertAddressToAddressInput(permit.address),
+          zone: permit.parkingZone?.name,
+        },
         iban: refundAccountNumber,
       },
     });
