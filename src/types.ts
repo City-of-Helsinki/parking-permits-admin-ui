@@ -294,6 +294,10 @@ export interface PermitsQueryData {
   permits: PagedPermits;
 }
 
+export interface AddressSearchQueryData {
+  addressSearch: Address[];
+}
+
 export interface LimitedPermitsQueryData {
   limitedPermits: PagedPermits;
 }
