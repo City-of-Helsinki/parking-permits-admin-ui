@@ -1,17 +1,16 @@
-import { SearchInput, TextInput } from 'hds-react';
-import React from 'react';
+import { gql, useLazyQuery } from '@apollo/client';
+import { Notification, SearchInput } from 'hds-react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import addressSearch from '../../services/addressSearch';
-import { Address } from '../../types';
+import { Address, AddressSearchQueryData } from '../../types';
 import { formatAddress } from '../../utils';
 
 const T_PATH = 'components.common.addressSearch';
+const SEARCH_DEBOUNCE = 500;
 
 interface AddressSearchProps {
   className?: string;
-  disabled?: boolean;
   label?: string;
-  address?: Address;
   onSelect: (address: Address) => void;
 }
 
@@ -20,22 +19,65 @@ interface AddressSuggestionItem {
   address: Address;
 }
 
+const ADDRESS_SEARCH_QUERY = gql`
+  query AddressSearch($searchInput: String!) {
+    addressSearch(searchInput: $searchInput) {
+      streetName
+      streetNameSv
+      streetNumber
+      city
+      citySv
+      postalCode
+      zone {
+        name
+        label
+        labelSv
+      }
+    }
+  }
+`;
+
+let SEARCH_TIMER: number | null = null;
+
 const AddressSearch = ({
   className,
-  disabled = false,
   label,
-  address,
   onSelect,
 }: AddressSearchProps): React.ReactElement => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const variables: { searchInput: string } = { searchInput: '' };
+
+  const [, { data, refetch }] = useLazyQuery<AddressSearchQueryData>(
+    ADDRESS_SEARCH_QUERY,
+    {
+      variables,
+      fetchPolicy: 'no-cache',
+      onError: error => setErrorMessage(error.message),
+    }
+  );
+
   let searchSuggestions: AddressSuggestionItem[] = [];
   const getSuggestions = (inputValue: string) =>
-    addressSearch.search(inputValue).then(addresses => {
-      searchSuggestions = addresses.map(_address => ({
-        label: formatAddress(_address, 'fi'),
-        address: _address,
-      }));
-      return searchSuggestions;
+    new Promise<AddressSuggestionItem[]>(resolve => {
+      if (SEARCH_TIMER) {
+        clearTimeout(SEARCH_TIMER);
+      }
+      SEARCH_TIMER = window.setTimeout(() => {
+        refetch({ searchInput: inputValue }).then(() => {
+          searchSuggestions = (data?.addressSearch || []).map(
+            (_address: Address) => ({
+              label: formatAddress(_address, 'fi'),
+              address: _address,
+            })
+          );
+          return searchSuggestions.sort((a, b) =>
+            a.label.localeCompare(b.label)
+          );
+        });
+        resolve(searchSuggestions);
+      }, SEARCH_DEBOUNCE);
     });
 
   const handleSubmit = (value: string) => {
@@ -47,30 +89,32 @@ const AddressSearch = ({
     }
   };
 
-  if (!disabled) {
-    return (
+  return (
+    <>
       <SearchInput
         hideSearchButton
         className={className}
         label={label}
-        placeholder={address ? formatAddress(address, i18n.language) : ''}
+        placeholder={t(`${T_PATH}.placeholder`)}
         clearButtonAriaLabel={t(`${T_PATH}.clear`)}
         suggestionLabelField="label"
         getSuggestions={getSuggestions}
         onSubmit={handleSubmit}
       />
-    );
-  }
-  // HDS SearchInput does not have a disabled property,
-  // so use a TextInput for disabled
-  return (
-    <TextInput
-      disabled
-      className={className}
-      id="address"
-      label={label}
-      value={address ? formatAddress(address, i18n.language) : ''}
-    />
+
+      {errorMessage && (
+        <Notification
+          type="error"
+          label={t('message.error')}
+          position="bottom-center"
+          dismissible
+          closeButtonLabelText={t('message.close')}
+          onClose={() => setErrorMessage('')}
+          style={{ zIndex: 100 }}>
+          {errorMessage}
+        </Notification>
+      )}
+    </>
   );
 };
 
