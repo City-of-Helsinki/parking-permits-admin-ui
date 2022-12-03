@@ -11,8 +11,10 @@ import PermitInfo from '../components/residentPermit/PermitInfo';
 import PersonalInfo from '../components/residentPermit/PersonalInfo';
 import VehicleInfo from '../components/residentPermit/VehicleInfo';
 import {
+  Address,
   CreatePermitResponse,
   Customer,
+  ParkingZone,
   PermitDetail,
   PermitPrice,
   Vehicle,
@@ -38,11 +40,13 @@ const CUSTOMER_QUERY = gql`
       addressSecurityBan
       driverLicenseChecked
       primaryAddress {
+        id
         city
         citySv
         streetName
         streetNumber
         postalCode
+        location
         zone {
           name
           label
@@ -50,11 +54,13 @@ const CUSTOMER_QUERY = gql`
         }
       }
       otherAddress {
+        id
         city
         citySv
         streetName
         streetNumber
         postalCode
+        location
         zone {
           name
           label
@@ -134,14 +140,15 @@ const CreateResidentPermit = (): React.ReactElement => {
     fetchPolicy: 'no-cache',
     onCompleted: ({ customer: newCustomer }) => {
       setPersonSearchError('');
-      const defaultZone =
-        newCustomer?.primaryAddress?.zone || customer?.otherAddress?.zone;
+      const defaultAddress =
+        newCustomer.primaryAddress || customer.otherAddress;
       setPermit({
         ...permit,
         customer: {
           ...newCustomer,
-          zone: defaultZone,
         },
+        address: defaultAddress as Address,
+        parkingZone: defaultAddress?.zone as ParkingZone,
       });
     },
     onError: error => setPersonSearchError(error.message),
@@ -223,14 +230,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       variables: { query: { nationalIdNumber } },
     });
   };
-  const handleUpdatePerson = (person: Customer) => {
-    const newPermit = {
-      ...permit,
-      customer: person,
-    };
-    setPermit(newPermit);
-    updatePermitPrices(newPermit);
-  };
+
   const handleUpdatePermit = (newPermit: PermitDetail) => {
     setPermit(newPermit);
     updatePermitPrices(newPermit);
@@ -254,10 +254,17 @@ const CreateResidentPermit = (): React.ReactElement => {
       <div className={styles.content}>
         <PersonalInfo
           person={customer}
+          permitAddress={permit.address}
           className={styles.personalInfo}
           searchError={personSearchError}
+          onUpdatePermit={(tempPermit: Partial<PermitDetail>) =>
+            setPermit({
+              ...permit,
+              ...tempPermit,
+            })
+          }
           onSearchPerson={handleSearchPerson}
-          onUpdatePerson={handleUpdatePerson}
+          parkingZone={permit.parkingZone}
         />
         <VehicleInfo
           vehicle={vehicle}
