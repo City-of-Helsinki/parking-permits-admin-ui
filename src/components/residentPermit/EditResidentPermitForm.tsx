@@ -89,7 +89,7 @@ const EditResidentPermitForm = ({
   const { t } = useTranslation();
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
-  const { customer, vehicle } = permit;
+  const { customer, vehicle, address: permitAddress } = permit;
 
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
@@ -125,9 +125,19 @@ const EditResidentPermitForm = ({
     });
   };
 
+  const handleUpdatePermit = (newPermit: PermitDetail) =>
+    onUpdatePermit(newPermit);
+
   const handleSearchPerson = (nationalIdNumber: string) => {
     getCustomer({
       variables: { query: { nationalIdNumber } },
+    }).then(response => {
+      if (response.data?.customer) {
+        handleUpdatePermit({
+          ...permit,
+          customer: response.data?.customer,
+        });
+      }
     });
   };
 
@@ -137,14 +147,6 @@ const EditResidentPermitForm = ({
       vehicle: newVehicle,
     });
   };
-  const handleUpdatePerson = (person: Customer) => {
-    onUpdatePermit({
-      ...permit,
-      customer: person,
-    });
-  };
-  const handleUpdatePermit = (newPermit: PermitDetail) =>
-    onUpdatePermit(newPermit);
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -152,9 +154,17 @@ const EditResidentPermitForm = ({
         <PersonalInfo
           className={styles.column}
           person={customer}
+          permitAddress={permitAddress}
           searchError={personSearchError}
+          parkingZone={permit.parkingZone}
+          disableCustomerChange
           onSearchPerson={handleSearchPerson}
-          onUpdatePerson={handleUpdatePerson}
+          onUpdatePermit={(tempPermit: Partial<PermitDetail>) =>
+            onUpdatePermit({
+              ...permit,
+              ...tempPermit,
+            })
+          }
         />
         <VehicleInfo
           className={styles.column}

@@ -168,7 +168,6 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     otherAddress,
     email,
     phoneNumber,
-    zone,
     addressSecurityBan,
     driverLicenseChecked,
   } = customer;
@@ -186,7 +185,6 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     otherAddress: otherAddressInput,
     email,
     phoneNumber,
-    zone: zone?.name,
     addressSecurityBan,
     driverLicenseChecked,
   };
@@ -201,6 +199,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     startTime,
     monthCount,
     description,
+    address,
   } = permit;
   const vehicleInput = convertToVehicleInput(vehicle);
   const customerInput = convertToCustomerInput(customer);
@@ -212,12 +211,14 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     startTime,
     monthCount,
     description,
+    zone: address?.zone?.name,
+    address: convertAddressToAddressInput(address),
   };
 }
 
 export function isValidForPriceCheck(permit: PermitInput): boolean {
-  const { customer, vehicle } = permit;
-  const hasRequiredCustomerFields = !!customer.zone;
+  const { vehicle } = permit;
+  const hasRequiredZoneField = !!permit.zone;
   const hasRequiredPermitFields = !!(permit.startTime && permit.monthCount);
   const hasRequiredVehicleFields = !!(
     vehicle.powerType &&
@@ -227,9 +228,7 @@ export function isValidForPriceCheck(permit: PermitInput): boolean {
     Number.isInteger(vehicle.emission)
   );
   return (
-    hasRequiredCustomerFields &&
-    hasRequiredPermitFields &&
-    hasRequiredVehicleFields
+    hasRequiredZoneField && hasRequiredPermitFields && hasRequiredVehicleFields
   );
 }
 
