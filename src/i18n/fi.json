@@ -8,7 +8,9 @@
       "addressSearch": {
         "cancel": "Peruuta muokkaus",
         "clear": "Tyhjennä",
-        "edit": "Muokkaa osoitetta"
+        "edit": "Muokkaa osoitetta",
+        "editAddress": "Muokkaa",
+        "placeholder": "Hae osoite..."
       },
       "changeLogs": {
         "createdAt": "Muutosaika",

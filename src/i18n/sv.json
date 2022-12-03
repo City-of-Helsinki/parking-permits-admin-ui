@@ -8,7 +8,9 @@
       "addressSearch": {
         "cancel": "Avbryt redigering",
         "clear": "Rensa",
-        "edit": "Redigera adress"
+        "edit": "Redigera adress",
+        "editAddress": "Redigera",
+        "placeholder": "Sök adress..."
       },
       "changeLogs": {
         "createdAt": "Skapade vid",
