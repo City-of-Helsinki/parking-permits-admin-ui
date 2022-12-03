@@ -8,7 +8,9 @@
       "addressSearch": {
         "cancel": "Cancel editing",
         "clear": "Clear",
-        "edit": "Edit address"
+        "edit": "Edit address",
+        "editAddress": "Edit",
+        "placeholder": "Search address..."
       },
       "changeLogs": {
         "createdAt": "Created at",
