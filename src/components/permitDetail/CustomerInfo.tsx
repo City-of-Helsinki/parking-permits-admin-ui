@@ -25,18 +25,22 @@ const CustomerInfo = ({
       label: t(`${T_PATH}.personalID`),
       value: customer.nationalIdNumber || '-',
     },
-    {
-      label: t(`${T_PATH}.primaryAddress`),
-      value: customer?.primaryAddress
-        ? formatAddress(customer.primaryAddress, i18n.language)
-        : '-',
-    },
-    {
-      label: t(`${T_PATH}.otherAddress`),
-      value: customer?.otherAddress
-        ? formatAddress(customer.otherAddress, i18n.language)
-        : '-',
-    },
+    ...(customer.addressSecurityBan
+      ? []
+      : [
+          {
+            label: t(`${T_PATH}.primaryAddress`),
+            value: customer?.primaryAddress
+              ? formatAddress(customer.primaryAddress, i18n.language)
+              : '-',
+          },
+          {
+            label: t(`${T_PATH}.otherAddress`),
+            value: customer?.otherAddress
+              ? formatAddress(customer.otherAddress, i18n.language)
+              : '-',
+          },
+        ]),
     {
       label: t(`${T_PATH}.parkingZone`),
       value: i18n.language === 'sv' ? parkingZone.labelSv : parkingZone.label,
