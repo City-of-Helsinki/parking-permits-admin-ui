@@ -53,7 +53,7 @@ const PowerTypeSelect = ({
       label={label}
       options={options}
       value={{
-        label: t(`${T_PATH}.${powerType.name.toLowerCase()}`),
+        label: t(`${T_PATH}.${powerType.name?.toLowerCase()}`),
         name: powerType.name,
         value: powerType.identifier,
       }}
