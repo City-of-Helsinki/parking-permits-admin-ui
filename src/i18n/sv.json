@@ -262,6 +262,7 @@
           "postalCode": "Postnummer",
           "postalCode5Digits": "Postnummer ska ha 5 siffror",
           "save": "Spara",
+          "cancel": "Avbryt",
           "selectLocation": "Välj en plats",
           "streetName": "Gatunamn",
           "streetNameSv": "Gatunamn (sv)",
@@ -295,6 +296,7 @@
           "nedcMaxEmissionLimit": "NEDC maximala utsläppsgräns",
           "powerType": "Strömtyp",
           "save": "Spara",
+          "cancel": "Avbryt",
           "startDate": "Startdatum",
           "validPeriod": "Giltighetsperiod",
           "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
@@ -318,6 +320,7 @@
           "productPrice": "Produktpris",
           "productType": "Produkttyp",
           "save": "Spara",
+          "cancel": "Avbryt",
           "startDate": "Startdatum",
           "unit": "Enhet",
           "validPeriod": "Giltighetsperiod",

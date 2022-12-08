@@ -35,6 +35,7 @@ interface ProductFormProps {
   product?: ProductInput;
   onSubmit: (product: ProductInput) => void;
   onDelete?: () => void;
+  onCancel: () => void;
 }
 
 const ProductForm = ({
@@ -42,6 +43,7 @@ const ProductForm = ({
   product,
   onSubmit,
   onDelete,
+  onCancel,
 }: ProductFormProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
@@ -243,6 +245,12 @@ const ProductForm = ({
                   {t(`${T_PATH}.delete`)}
                 </Button>
               )}
+              <Button
+                className={styles.cancel}
+                variant="secondary"
+                onClick={() => onCancel()}>
+                {t(`${T_PATH}.cancel`)}
+              </Button>
             </div>
           </form>
         )}

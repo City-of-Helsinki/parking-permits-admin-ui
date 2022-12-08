@@ -28,6 +28,7 @@ interface AddressFormProps {
   address?: Address;
   onSubmit: (address: Address) => void;
   onDelete?: () => void;
+  onCancel: () => void;
 }
 
 const AddressForm = ({
@@ -35,6 +36,7 @@ const AddressForm = ({
   address,
   onSubmit,
   onDelete,
+  onCancel,
 }: AddressFormProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const [
@@ -229,6 +231,12 @@ const AddressForm = ({
                   {t(`${T_PATH}.delete`)}
                 </Button>
               )}
+              <Button
+                className={styles.cancel}
+                variant="secondary"
+                onClick={() => onCancel()}>
+                {t(`${T_PATH}.cancel`)}
+              </Button>
             </div>
           </form>
         )}

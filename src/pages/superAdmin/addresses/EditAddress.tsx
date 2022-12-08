@@ -54,6 +54,7 @@ const EditAddress = (): React.ReactElement => {
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const { id: addressId } = useParams();
   const variables = { addressId };
+  const basePath = '/admin/addresses';
   const { loading, data } = useQuery<{ address: Address }>(ADDRESS_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
@@ -62,14 +63,14 @@ const EditAddress = (): React.ReactElement => {
   const [updateAddress] = useMutation<MutationResponse>(
     UPDATE_ADDRESS_MUTATION,
     {
-      onCompleted: () => navigate('/admin/addresses'),
+      onCompleted: () => navigate(basePath),
       onError: e => setErrorMessage(e.message),
     }
   );
   const [deleteAddress] = useMutation<MutationResponse>(
     DELETE_ADDRESS_MUTATION,
     {
-      onCompleted: () => navigate('/admin/addresses'),
+      onCompleted: () => navigate(basePath),
       onError: e => setErrorMessage(e.message),
     }
   );
@@ -89,6 +90,7 @@ const EditAddress = (): React.ReactElement => {
               updateAddress({ variables: { addressId, address } })
             }
             onDelete={() => setIsConfirmDialogOpen(true)}
+            onCancel={() => navigate(basePath)}
             address={data.address}
             className={styles.addressForm}
           />
@@ -105,6 +107,7 @@ const EditAddress = (): React.ReactElement => {
           handleDeleteAddress();
         }}
         onCancel={() => setIsConfirmDialogOpen(false)}
+        isDeleteConfirmation
       />
       {errorMessage && (
         <Notification

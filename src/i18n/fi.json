@@ -332,6 +332,7 @@
           "postalCode": "Postinumero",
           "postalCode5Digits": "Postinumerossa tulee olla 5 numeroa",
           "save": "Tallenna",
+          "cancel": "Peruuta",
           "selectLocation": "Valitse sijainti",
           "streetName": "Kadun nimi",
           "streetNameSv": "Kadun nimi (sv)",
@@ -365,6 +366,7 @@
           "nedcMaxEmissionLimit": "NEDC-maksimipäästöraja",
           "powerType": "Käyttövoima",
           "save": "Tallenna",
+          "cancel": "Peruuta",
           "startDate": "Pvm alkaen",
           "validPeriod": "Voimassaoloaika",
           "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja"
@@ -388,6 +390,7 @@
           "productPrice": "Tuotteen hinta",
           "productType": "Tuotetyyppi",
           "save": "Tallenna",
+          "cancel": "Peruuta",
           "startDate": "Pvm alkaen",
           "unit": "Jakso",
           "validPeriod": "Voimassaoloaika",

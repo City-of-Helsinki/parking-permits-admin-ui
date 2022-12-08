@@ -22,10 +22,11 @@ const CreateAddress = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  const basePath = '/admin/addresses';
   const [createAddress] = useMutation<MutationResponse>(
     CREATE_ADDRESS_MUTATION,
     {
-      onCompleted: () => navigate('/admin/addresses'),
+      onCompleted: () => navigate(basePath),
       onError: e => setErrorMessage(e.message),
     }
   );
@@ -36,6 +37,7 @@ const CreateAddress = (): React.ReactElement => {
         <AddressForm
           onSubmit={address => createAddress({ variables: { address } })}
           className={styles.addressForm}
+          onCancel={() => navigate(basePath)}
         />
       </div>
       {errorMessage && (

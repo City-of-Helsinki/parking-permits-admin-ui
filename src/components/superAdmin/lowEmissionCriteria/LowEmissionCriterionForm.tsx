@@ -18,6 +18,7 @@ interface LowEmissionCriterionFormProps {
   criterion?: LowEmissionCriterion;
   onSubmit: (criterion: LowEmissionCriterion) => void;
   onDelete?: () => void;
+  onCancel: () => void;
 }
 
 const LowEmissionCriterionForm = ({
@@ -25,6 +26,7 @@ const LowEmissionCriterionForm = ({
   criterion,
   onSubmit,
   onDelete,
+  onCancel,
 }: LowEmissionCriterionFormProps): React.ReactElement => {
   const { t } = useTranslation();
   const initialValues = criterion
@@ -164,6 +166,12 @@ const LowEmissionCriterionForm = ({
                   {t(`${T_PATH}.delete`)}
                 </Button>
               )}
+              <Button
+                className={styles.cancel}
+                variant="secondary"
+                onClick={() => onCancel()}>
+                {t(`${T_PATH}.cancel`)}
+              </Button>
             </div>
           </form>
         )}

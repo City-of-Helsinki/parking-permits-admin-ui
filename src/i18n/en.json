@@ -291,6 +291,7 @@
           "postalCode": "Postal code",
           "postalCode5Digits": "Postal code should have 5 digits",
           "save": "Save",
+          "cancel": "Cancel",
           "selectLocation": "Please select a location",
           "streetName": "Street name",
           "streetNameSv": "Street name (sv)",
@@ -324,6 +325,7 @@
           "nedcMaxEmissionLimit": "NEDC maximum emission limit",
           "powerType": "Power type",
           "save": "Save",
+          "cancel": "Cancel",
           "startDate": "Start date",
           "validPeriod": "Valid period",
           "wltpMaxEmissionLimit": "WLTP maximum emission limit"
@@ -347,6 +349,7 @@
           "productPrice": "Product price",
           "productType": "Product type",
           "save": "Save",
+          "cancel": "Cancel",
           "startDate": "Start date",
           "unit": "Unit",
           "validPeriod": "Valid period",

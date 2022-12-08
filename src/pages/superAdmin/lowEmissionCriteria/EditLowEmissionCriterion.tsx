@@ -53,6 +53,7 @@ const EditLowEmissionCriterion = (): React.ReactElement => {
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const { id: criterionId } = useParams();
   const variables = { criterionId };
+  const basePath = '/admin/lowEmissionCriteria';
   const { loading, data } = useQuery<{
     lowEmissionCriterion: LowEmissionCriterion;
   }>(LOW_EMISSION_CRITERION_QUERY, {
@@ -63,14 +64,14 @@ const EditLowEmissionCriterion = (): React.ReactElement => {
   const [updateCriterion] = useMutation<MutationResponse>(
     UPDATE_LOW_EMISSION_CRITERION_MUTATION,
     {
-      onCompleted: () => navigate('/admin/lowEmissionCriteria'),
+      onCompleted: () => navigate(basePath),
       onError: e => setErrorMessage(e.message),
     }
   );
   const [deleteCriterion] = useMutation<MutationResponse>(
     DELETE_LOW_EMISSION_CRITERION_MUTATION,
     {
-      onCompleted: () => navigate('/admin/lowEmissionCriteria'),
+      onCompleted: () => navigate(basePath),
       onError: e => setErrorMessage(e.message),
     }
   );
@@ -92,6 +93,7 @@ const EditLowEmissionCriterion = (): React.ReactElement => {
             updateCriterion({ variables: { criterionId, criterion } })
           }
           onDelete={() => setIsConfirmDialogOpen(true)}
+          onCancel={() => navigate(basePath)}
           criterion={data.lowEmissionCriterion}
         />
       </div>
@@ -106,6 +108,7 @@ const EditLowEmissionCriterion = (): React.ReactElement => {
           handleDeleteCriterion();
         }}
         onCancel={() => setIsConfirmDialogOpen(false)}
+        isDeleteConfirmation
       />
       {errorMessage && (
         <Notification
