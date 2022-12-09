@@ -66,18 +66,19 @@ const AddressSearch = ({
         clearTimeout(SEARCH_TIMER);
       }
       SEARCH_TIMER = window.setTimeout(() => {
-        refetch({ searchInput: inputValue }).then(() => {
-          searchSuggestions = (data?.addressSearch || []).map(
-            (_address: Address) => ({
-              label: formatAddress(_address, 'fi'),
-              address: _address,
-            })
-          );
-          return searchSuggestions.sort((a, b) =>
-            a.label.localeCompare(b.label)
-          );
-        });
-        resolve(searchSuggestions);
+        refetch({ searchInput: inputValue })
+          .then(() =>
+            (data?.addressSearch || [])
+              .map((_address: Address) => ({
+                label: formatAddress(_address, 'fi'),
+                address: _address,
+              }))
+              .sort((a, b) => a.label.localeCompare(b.label))
+          )
+          .then(suggestion => {
+            searchSuggestions = suggestion;
+            return resolve(suggestion);
+          });
       }, SEARCH_DEBOUNCE);
     });
 
