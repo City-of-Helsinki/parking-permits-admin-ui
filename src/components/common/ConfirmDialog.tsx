@@ -10,6 +10,7 @@ interface ConfirmDialogProps {
   cancelLabel: string;
   onCancel: () => void;
   onConfirm: () => void;
+  isDeleteConfirmation?: boolean;
 }
 
 const DIALOG_ID = 'confirm-dialog';
@@ -25,6 +26,7 @@ const ConfirmDialog = ({
   cancelLabel,
   onConfirm,
   onCancel,
+  isDeleteConfirmation,
 }: ConfirmDialogProps): React.ReactElement => (
   <Dialog
     id={DIALOG_ID}
@@ -37,7 +39,11 @@ const ConfirmDialog = ({
       {secondaryMessage && <p>{secondaryMessage}</p>}
     </Dialog.Content>
     <Dialog.ActionButtons>
-      <Button onClick={() => onConfirm()}>{confirmLabel}</Button>
+      <Button
+        variant={isDeleteConfirmation ? 'danger' : 'primary'}
+        onClick={() => onConfirm()}>
+        {confirmLabel}
+      </Button>
       <Button variant="secondary" onClick={() => onCancel()}>
         {cancelLabel}
       </Button>

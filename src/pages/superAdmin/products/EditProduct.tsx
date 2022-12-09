@@ -54,6 +54,7 @@ const Products = (): React.ReactElement => {
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const { id: productId } = useParams();
   const variables = { productId };
+  const basePath = '/admin/products';
   const { loading, data } = useQuery<{ product: Product }>(PRODUCT_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
@@ -62,14 +63,14 @@ const Products = (): React.ReactElement => {
   const [updateProduct] = useMutation<MutationResponse>(
     UPDATE_PRODUCT_MUTATION,
     {
-      onCompleted: () => navigate('/admin/products'),
+      onCompleted: () => navigate(basePath),
       onError: e => setErrorMessage(e.message),
     }
   );
   const [deleteProduct] = useMutation<MutationResponse>(
     DELETE_PRODUCT_MUTATION,
     {
-      onCompleted: () => navigate('/admin/products'),
+      onCompleted: () => navigate(basePath),
       onError: e => setErrorMessage(e.message),
     }
   );
@@ -89,6 +90,7 @@ const Products = (): React.ReactElement => {
               updateProduct({ variables: { productId, product } })
             }
             onDelete={() => setIsConfirmDialogOpen(true)}
+            onCancel={() => navigate(basePath)}
             product={data.product}
             className={styles.productForm}
           />
@@ -105,6 +107,7 @@ const Products = (): React.ReactElement => {
           handleDeleteProduct();
         }}
         onCancel={() => setIsConfirmDialogOpen(false)}
+        isDeleteConfirmation
       />
       {errorMessage && (
         <Notification

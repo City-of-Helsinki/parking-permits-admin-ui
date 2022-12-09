@@ -22,10 +22,11 @@ const Products = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  const basePath = '/admin/products';
   const [createProduct] = useMutation<MutationResponse>(
     CREATE_PRODUCT_MUTATION,
     {
-      onCompleted: () => navigate('/admin/products'),
+      onCompleted: () => navigate(basePath),
       onError: e => setErrorMessage(e.message),
     }
   );
@@ -36,6 +37,7 @@ const Products = (): React.ReactElement => {
         <ProductForm
           onSubmit={product => createProduct({ variables: { product } })}
           className={styles.productForm}
+          onCancel={() => navigate(basePath)}
         />
       </div>
       {errorMessage && (

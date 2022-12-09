@@ -22,10 +22,11 @@ const CreateLowEmissionCriterion = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  const basePath = '/admin/lowEmissionCriteria';
   const [createCriterion] = useMutation<MutationResponse>(
     CREATE_LOW_EMISSION_CRITERION_MUTATION,
     {
-      onCompleted: () => navigate('/admin/lowEmissionCriteria'),
+      onCompleted: () => navigate(basePath),
       onError: e => setErrorMessage(e.message),
     }
   );
@@ -35,6 +36,7 @@ const CreateLowEmissionCriterion = (): React.ReactElement => {
       <div className={styles.content}>
         <LowEmissionCriterionForm
           onSubmit={criterion => createCriterion({ variables: { criterion } })}
+          onCancel={() => navigate(basePath)}
         />
       </div>
       {errorMessage && (
