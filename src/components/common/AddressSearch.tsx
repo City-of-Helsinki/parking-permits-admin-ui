@@ -28,6 +28,7 @@ const ADDRESS_SEARCH_QUERY = gql`
       city
       citySv
       postalCode
+      location
       zone {
         name
         label
