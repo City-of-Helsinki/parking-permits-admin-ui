@@ -142,7 +142,6 @@ const PersonalInfo = ({
             updateCustomer({ ...person, lastName: e.target.value })
           }
         />
-        <div>{selectedAddress}</div>
         <div className={styles.radioGroup}>
           <RadioButton
             disabled={addressSecurityBan}
