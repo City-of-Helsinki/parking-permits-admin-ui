@@ -201,7 +201,7 @@
       "vehicleInfo": {
         "addTemporaryVehicle": "Lisää tilapäinen ajoneuvo",
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
-        "highEmissionVehicle": "Korkeapäästöinen ajoneuvo",
+        "highEmissionVehicle": "Normaalipäästöinen ajoneuvo",
         "invalid": "Ei voimassa",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
         "removeTemporaryVehicle": "Poista tilapäinen ajoneuvo",

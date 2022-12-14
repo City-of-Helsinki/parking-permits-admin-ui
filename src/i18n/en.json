@@ -162,7 +162,7 @@
       "vehicleInfo": {
         "addTemporaryVehicle": "Add a temporary vehicle",
         "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
-        "highEmissionVehcile": "High emission vehicle",
+        "highEmissionVehicle": "Normal emission vehicle",
         "invalid": "Not valid",
         "lowEmissionVehicle": "Low emission vehicle",
         "removeTemporaryVehicle": "Remove temporary vehicle",
