@@ -14,7 +14,7 @@ const useExportData = (): ((url: string | URL) => void) => {
       .then(response => response.blob())
       .then(blob => {
         const file = window.URL.createObjectURL(blob);
-        window.location.assign(file);
+        window.open(file);
       });
   };
 };
