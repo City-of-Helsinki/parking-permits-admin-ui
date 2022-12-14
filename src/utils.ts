@@ -200,6 +200,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     monthCount,
     description,
     address,
+    parkingZone,
   } = permit;
   const vehicleInput = convertToVehicleInput(vehicle);
   const customerInput = convertToCustomerInput(customer);
@@ -211,7 +212,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     startTime,
     monthCount,
     description,
-    zone: address?.zone?.name,
+    zone: parkingZone?.name || address?.zone?.name,
     address: convertAddressToAddressInput(address),
   };
 }
