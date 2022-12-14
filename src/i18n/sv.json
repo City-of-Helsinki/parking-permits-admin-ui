@@ -86,7 +86,10 @@
         "startTime": "Starttid",
         "status": "Status",
         "title": "Tillståndsinformation",
-        "validPeriod": "Giltig period"
+        "validPeriod": "Giltig period",
+        "permitOrder": "Ordning",
+        "firstPermit": "1. tillstånd",
+        "secondPermit": "2. tillstånd"
       },
       "permitPriceChangeInfo": {
         "customerAccountKnown": "Kundkontonummer för återbetalning",
@@ -152,7 +155,10 @@
         "registrationNumber": "Registreringsnummer",
         "startTime": "Starttid",
         "status": "Status",
-        "zone": "Zon"
+        "zone": "Zon",
+        "permitOrder": "Ordning",
+        "firstPermit": "1. tillstånd",
+        "secondPermit": "2. tillstånd"
       },
       "permitsSearch": {
         "placeholder": "Sök",

@@ -111,7 +111,10 @@
         "startTime": "Start time",
         "status": "Status",
         "title": "Permit information",
-        "validPeriod": "Valid period"
+        "validPeriod": "Valid period",
+        "permitOrder": "Order",
+        "firstPermit": "1. permit",
+        "secondPermit": "2. permit"
       },
       "permitPriceChangeInfo": {
         "customerAccountKnown": "Customer account number for refund",
@@ -181,7 +184,10 @@
         "registrationNumber": "Registration number",
         "startTime": "Start time",
         "status": "Status",
-        "zone": "Zone"
+        "zone": "Zone",
+        "permitOrder": "Order",
+        "firstPermit": "1. permit",
+        "secondPermit": "2. permit"
       },
       "permitsSearch": {
         "placeholder": "Search",

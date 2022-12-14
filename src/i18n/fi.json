@@ -154,7 +154,10 @@
         "startTime": "Voimassa alkaen",
         "status": "Tila",
         "title": "Tunnuksen tiedot",
-        "validPeriod": "Voimassaoloaika"
+        "validPeriod": "Voimassaoloaika",
+        "permitOrder": "Järjestys",
+        "firstPermit": "1. tunnus",
+        "secondPermit": "2. tunnus"
       },
       "permitPriceChangeInfo": {
         "customerAccountKnown": "Asiakkaan tilinumero hyvitystä varten",
@@ -220,7 +223,10 @@
         "registrationNumber": "Rekisterinumero",
         "startTime": "Alkuaika",
         "status": "Tila",
-        "zone": "Alue"
+        "zone": "Alue",
+        "permitOrder": "Järjestys",
+        "firstPermit": "1. tunnus",
+        "secondPermit": "2. tunnus"
       },
       "permitsSearch": {
         "placeholder": "Hae",

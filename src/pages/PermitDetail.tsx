@@ -43,6 +43,7 @@ const PERMIT_DETAIL_QUERY = gql`
       contractType
       monthCount
       description
+      primaryVehicle
       changeLogs {
         id
         key

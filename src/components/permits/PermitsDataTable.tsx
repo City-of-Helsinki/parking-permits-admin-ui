@@ -100,6 +100,15 @@ const PermitsDataTable = ({
       sortable: true,
     },
     {
+      name: t(`${T_PATH}.permitOrder`),
+      field: 'primaryVehicle',
+      selector: row =>
+        row.primaryVehicle
+          ? t(`${T_PATH}.firstPermit`)
+          : t(`${T_PATH}.secondPermit`),
+      sortable: true,
+    },
+    {
       name: t(`${T_PATH}.status`),
       field: 'status',
       selector: row => <StatusLabel status={row.status} />,

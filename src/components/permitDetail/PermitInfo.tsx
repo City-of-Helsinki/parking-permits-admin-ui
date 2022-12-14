@@ -28,6 +28,7 @@ const PermitInfo = ({
     status,
     currentPeriodEndTime,
     description,
+    primaryVehicle,
   } = permit;
   let endTimeValue = '';
   if (endType === PermitEndType.IMMEDIATELY) {
@@ -42,6 +43,12 @@ const PermitInfo = ({
     OPEN_ENDED: t('contractType.openEnded'),
   };
   const fields = [
+    {
+      label: t(`${T_PATH}.permitOrder`),
+      value: primaryVehicle
+        ? t(`${T_PATH}.firstPermit`)
+        : t(`${T_PATH}.secondPermit`),
+    },
     {
       label: t(`${T_PATH}.contractType`),
       value: contractTypeLabelMapping[contractType] || '-',

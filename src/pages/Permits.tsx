@@ -41,6 +41,7 @@ const PERMITS_QUERY = gql`
         startTime
         endTime
         status
+        primaryVehicle
         customer {
           firstName
           lastName
