@@ -35,8 +35,12 @@ const PermitInfo = ({
     endTimeValue = formatDateTimeDisplay(new Date());
   } else if (endType === PermitEndType.AFTER_CURRENT_PERIOD) {
     endTimeValue = formatDateTimeDisplay(currentPeriodEndTime);
+  } else if (endTime) {
+    endTimeValue = formatDateTimeDisplay(endTime);
+  } else if (currentPeriodEndTime) {
+    endTimeValue = formatDateTimeDisplay(currentPeriodEndTime);
   } else {
-    endTimeValue = endTime ? formatDateTimeDisplay(endTime) : '-';
+    endTimeValue = '-';
   }
   const contractTypeLabelMapping = {
     FIXED_PERIOD: t('contractType.fixedPeriod'),
