@@ -150,7 +150,23 @@ const RefundDetail = (): React.ReactElement => {
                   name="iban"
                   label="IBAN"
                   value={values.iban}
-                  onChange={handleChange}
+                  onChange={e => {
+                    const { target } = e;
+                    let position = target.selectionEnd || 0;
+                    const { length } = target.value;
+                    target.value = target.value
+                      .replace(/[^\dA-Z]/g, '')
+                      .replace(/(.{4})/g, '$1 ')
+                      .trim();
+                    position +=
+                      target.value.charAt(position - 1) === ' ' &&
+                      target.value.charAt(length - 1) === ' ' &&
+                      length !== target.value.length
+                        ? 1
+                        : 0;
+                    target.selectionEnd = position;
+                    handleChange(e);
+                  }}
                   onBlur={handleBlur}
                   errorText={
                     touched.iban && errors.iban ? errors.iban : undefined

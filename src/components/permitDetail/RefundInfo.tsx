@@ -46,7 +46,23 @@ const RefundInfo = ({
             id="iban"
             label="IBAN"
             value={iban}
-            onChange={e => onChangeIban(e.target.value)}
+            onChange={e => {
+              const { target } = e;
+              let position = target.selectionEnd || 0;
+              const { length } = target.value;
+              target.value = target.value
+                .replace(/[^\dA-Z]/g, '')
+                .replace(/(.{4})/g, '$1 ')
+                .trim();
+              position +=
+                target.value.charAt(position - 1) === ' ' &&
+                target.value.charAt(length - 1) === ' ' &&
+                length !== target.value.length
+                  ? 1
+                  : 0;
+              target.selectionEnd = position;
+              onChangeIban(e.target.value);
+            }}
             errorText={isValidIBAN(iban) ? undefined : t('errors.invalidIBAN')}
           />
         )}
