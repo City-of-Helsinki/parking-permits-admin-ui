@@ -87,7 +87,7 @@ const RefundDetail = (): React.ReactElement => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required(t(`${T_PATH}.nameIsRequired`)),
     iban: Yup.string()
-      .required(`${T_PATH}.IbanIsRequired`)
+      .required(t(`${T_PATH}.ibanIsRequired`))
       .test({
         name: 'isValidIBAN',
         test: value => isValidIBAN(value as string),

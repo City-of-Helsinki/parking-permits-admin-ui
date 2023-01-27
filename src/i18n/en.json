@@ -472,7 +472,8 @@
       "refunds": "Refunds",
       "save": "Save",
       "downloadPdf": "Download redund details as PDF",
-      "title": "Edit Refund"
+      "title": "Edit Refund",
+      "ibanIsRequired": "IBAN number is required"
     },
     "refunds": {
       "acceptRefunds": "Accept refunds",

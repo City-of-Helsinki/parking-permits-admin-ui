@@ -443,7 +443,8 @@
       "refunds": "Returnerar",
       "save": "Spara",
       "downloadPdf": "Ladda ner returnsinformation som PDF",
-      "title": "Redigera Retur"
+      "title": "Redigera Retur",
+      "ibanIsRequired": "IBAN-nummer krävs"
     },
     "refunds": {
       "acceptRefunds": "Acceptera återbetalningar",

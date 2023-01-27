@@ -557,7 +557,8 @@
       "refunds": "Palautukset",
       "save": "Tallenna",
       "downloadPdf": "Lataa palautuksen tiedot PDF:nä",
-      "title": "Muokkaa Palautusta"
+      "title": "Muokkaa Palautusta",
+      "ibanIsRequired": "IBAN-numero vaaditaan"
     },
     "refunds": {
       "acceptRefunds": "Hyväksy palautukset",
