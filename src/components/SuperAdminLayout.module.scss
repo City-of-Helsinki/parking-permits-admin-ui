@@ -10,14 +10,18 @@
 .contentContainer {
   display: flex;
   flex-direction: row;
+  width: $container-width-xl;
+  max-width: $container-width-xl;
+  margin: 0 auto;
 
   .superAdminSideNav {
     height: 100%;
-    width: 400px;
+    width: 300px;
   }
 
   .superAdminContent {
     flex: 1;
-    padding: $spacing-l;
+    padding: $spacing-m;
+    background-color: #fafafa;
   }
 }

@@ -8,7 +8,9 @@
       "addressSearch": {
         "cancel": "Cancel editing",
         "clear": "Clear",
-        "edit": "Edit address"
+        "edit": "Edit address",
+        "editAddress": "Edit",
+        "placeholder": "Search address..."
       },
       "changeLogs": {
         "createdAt": "Created at",
@@ -17,13 +19,24 @@
         "event": "Event"
       },
       "dataTable": {
-        "results": "Results: {{count}}"
+        "downloadCsv": "Download the results as a csv file",
+        "results_other": "Found {{count}} results",
+        "results_one": "Found {{count}} result",
+        "selectAll": "Select all from the list"
       },
       "powerTypeSelect": {
         "bensin": "Bensin",
         "bifuel": "Bifuel",
         "diesel": "Diesel",
         "electric": "Electric"
+      },
+      "table": {
+        "initialText": "Enter the search criteria",
+        "noResults": "No results."
+      },
+      "zoneSelect": {
+        "zone": "Zone",
+        "placeholder": "Select..."
       }
     },
     "createPermit": {
@@ -38,11 +51,9 @@
       "appTitle": "Parking Permits Management",
       "login": "Login",
       "logout": "Log Out",
-      "messages": "Messages",
       "orders": "Orders",
       "permits": "Permits",
-      "reports": "Reports",
-      "returns": "Returns",
+      "refunds": "Refunds",
       "skipToContent": "Skip to content"
     },
     "orders": {
@@ -52,11 +63,24 @@
         "name": "Customer",
         "orderNumber": "Order number",
         "paidTime": "Paid date",
+        "paidTimeFormat": "d.M.Y, H:mm",
+        "permits": "Permits",
         "permitType": "Permit type",
-        "registrationNumber": "Registration number",
         "residentPermit": "Resident permit",
-        "totalPrice": "Price",
+        "totalPaymentPrice": "Price",
         "zone": "Zone"
+      },
+      "ordersSearch": {
+        "startDate": "Permit valid from",
+        "endDate": "Permit valid until",
+        "zone": "Parking zone",
+        "placeholder": "Type the query, e.g. name, identity number or a registration number",
+        "contractType": "Contract type",
+        "paymentType": "Payment type",
+        "priceDiscount": "Price discount",
+        "textSearch": "Text search",
+        "searchButton": "Search",
+        "clearButton": "Clear the search criteria"
       }
     },
     "permitDetail": {
@@ -87,7 +111,10 @@
         "startTime": "Start time",
         "status": "Status",
         "title": "Permit information",
-        "validPeriod": "Valid period"
+        "validPeriod": "Valid period",
+        "permitOrder": "Order",
+        "firstPermit": "1. permit",
+        "secondPermit": "2. permit"
       },
       "permitPriceChangeInfo": {
         "customerAccountKnown": "Customer account number for refund",
@@ -103,7 +130,7 @@
         "refundTotalVat": "Incl. VAT (24%)",
         "title": "New Order"
       },
-      "refundInfoFixedPeriod": {
+      "refundInfo": {
         "monthCount_one": "{{count}} month",
         "monthCount_other": "{{count}} months",
         "orderRemaingDescription": "The price only accounts for remaining full months of the order",
@@ -116,10 +143,29 @@
         "refund": "Refund",
         "title": "Price"
       },
+      "temporaryVehicle": {
+        "actionBtn": {
+          "cancel": "Cancel",
+          "continue": "Continue"
+        },
+        "endDate": "Temporary vehicle end date",
+        "endTime": "End Time",
+        "infoMessage": "After the selected end date, the information of the original vehicle will be restored to the information of the permit automatically.",
+        "registrationNumber": {
+          "helpText": "Temporary vehicle can be valid for a maximum of 14 days.",
+          "label": "Temporary vehicle registration number"
+        },
+        "startDate": "Temporary vehicle start date",
+        "startTime": "Start Time",
+        "title": "Temporary Vehicle Details"
+      },
       "vehicleInfo": {
+        "addTemporaryVehicle": "Add a temporary vehicle",
         "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
-        "highEmissionVehcile": "High emission vehicle",
+        "highEmissionVehicle": "Normal emission vehicle",
+        "invalid": "Not valid",
         "lowEmissionVehicle": "Low emission vehicle",
+        "removeTemporaryVehicle": "Remove temporary vehicle",
         "title": "Vehicle information"
       }
     },
@@ -138,7 +184,10 @@
         "registrationNumber": "Registration number",
         "startTime": "Start time",
         "status": "Status",
-        "zone": "Zone"
+        "zone": "Zone",
+        "permitOrder": "Order",
+        "firstPermit": "1. permit",
+        "secondPermit": "2. permit"
       },
       "permitsSearch": {
         "placeholder": "Search",
@@ -154,9 +203,22 @@
     },
     "refunds": {
       "refundsDataTable": {
+        "acceptedAt": "Accepted at",
+        "accountNumber": "Account number",
         "amount": "Amount",
         "createdAt": "Created at",
         "name": "Name",
+        "orderNumber": "Order number",
+        "refundNumber": "Refund number",
+        "registrationNumber": "Registration number",
+        "status": "Status"
+      },
+      "refundsSearch": {
+        "cash": "Cash",
+        "searchPlaceholder": "Name, registration number or order number",
+        "webshop": "Webshop"
+      },
+      "refundStatusSelect": {
         "status": "Status"
       }
     },
@@ -176,8 +238,7 @@
         "additionalInfoPlaceholder": "Additional information, e.g. information about moped",
         "contractType": "Contract type",
         "effectiveFrom": "Effective from",
-        "expirationDate": "Expiration date",
-        "momentWhenPermitIsSaved": "The time when the parking permit is saved",
+        "expirationDate": "Expiration date (other permit will be taken into account automatically upon saving)",
         "permitInfo": "Permit information",
         "startDate": "Start date",
         "validPeriodInMonths": "Valid period in months"
@@ -214,6 +275,68 @@
       }
     },
     "superAdmin": {
+      "addresses": {
+        "addressesDataTable": {
+          "city": "City",
+          "citySv": "City (sv)",
+          "postalCode": "Postal code",
+          "streetName": "Street name",
+          "streetNameSv": "Street name (sv)",
+          "streetNumber": "Street number",
+          "zone": "Zone"
+        },
+        "addressForm": {
+          "city": "City",
+          "citySv": "City (sv)",
+          "delete": "Delete",
+          "enterPostalCode": "Please enter a postal code",
+          "enterStreetName": "Please enter a street name",
+          "enterStreetNumber": "Please enter a street number",
+          "enterCity": "Please enter city name",
+          "location": "Location",
+          "postalCode": "Postal code",
+          "postalCode5Digits": "Postal code should have 5 digits",
+          "save": "Save",
+          "cancel": "Cancel",
+          "selectLocation": "Please select a location",
+          "streetName": "Street name",
+          "streetNameSv": "Street name (sv)",
+          "streetNumber": "Street number",
+          "zone": "Zone"
+        },
+        "addressesSearch": {
+          "postalCode": "Postal code",
+          "streetName": "Street name",
+          "streetNumber": "Street number",
+          "zone": "Parking zone",
+          "searchButton": "Search",
+          "clearButton": "Clear the search criteria"
+        }
+      },
+      "lowEmissionCriteria": {
+        "lowEmissionCriteriaDataTable": {
+          "euroMinClassLimit": "Euro minimum class limit",
+          "nedcMaxEmissionLimit": "NEDC maximum emission limit",
+          "powerType": "Power type",
+          "validPeriod": "Valid period",
+          "wltpMaxEmissionLimit": "WLTP maximum emission limit"
+        },
+        "lowEmissionCriterionForm": {
+          "delete": "Delete",
+          "endDate": "End date",
+          "enterNedcMaxEmissionLimit": "Please enter an NEDC maximum emission limit",
+          "enterStartDate": "Please enter a start date",
+          "enterWltpMaxEmissionLimit": "Please enter a WLTP maximum emission limit",
+          "euroMinClassLimit": "Euro minimum class limit",
+          "nedcMaxEmissionLimit": "NEDC maximum emission limit",
+          "powerType": "Power type",
+          "save": "Save",
+          "cancel": "Cancel",
+          "startDate": "Start date",
+          "validPeriod": "Valid period",
+          "wltpMaxEmissionLimit": "WLTP maximum emission limit"
+        }
+      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "No discount"
@@ -232,6 +355,7 @@
           "productPrice": "Product price",
           "productType": "Product type",
           "save": "Save",
+          "cancel": "Cancel",
           "startDate": "Start date",
           "unit": "Unit",
           "validPeriod": "Valid period",
@@ -249,10 +373,24 @@
         }
       },
       "sideNav": {
+        "addresses": "Addresses",
+        "lowEmissionCriteria": "Low-emission criteria",
         "menu": "Menu",
-        "products": "Products",
-        "users": "Users"
+        "products": "Products"
       }
+    }
+  },
+  "enums": {
+    "contractType": {
+      "fixedPeriod": "Fixed period",
+      "openEnded": "Open ended"
+    },
+    "paymentType": {
+      "cashierPayment": "Cashier payment",
+      "onlinePayment": "Online payment"
+    },
+    "priceDiscount": {
+      "lowEmission": "Low emission"
     }
   },
   "contractType": {
@@ -264,7 +402,8 @@
   },
   "message": {
     "close": "Close",
-    "error": "Error"
+    "error": "Error",
+    "unauthorized": "You are not authorized to view this page"
   },
   "pages": {
     "createPermit": {
@@ -285,7 +424,8 @@
       "permits": "Permits",
       "residentPermit": "Resident parking permit",
       "save": "Save",
-      "totalPrice": "Total price"
+      "totalPrice": "Total price",
+      "createPermitError": "Permit creation failed"
     },
     "editResidentPermit": {
       "cancelPayment": "Cancel payment",
@@ -314,6 +454,7 @@
     },
     "permitDetail": {
       "changeHistory": "Change history",
+      "downloadPdf": "Download permit details as PDF",
       "edit": "Edit",
       "endPermit": "End permit",
       "now": "Now",
@@ -330,17 +471,53 @@
       "name": "Name",
       "refunds": "Refunds",
       "save": "Save",
-      "title": "Edit Refund"
+      "downloadPdf": "Download redund details as PDF",
+      "title": "Edit Refund",
+      "ibanIsRequired": "IBAN number is required"
     },
     "refunds": {
-      "title": "Returns"
+      "acceptRefunds": "Accept refunds",
+      "requestForApproval": "Request for approval",
+      "title": "Refunds"
     },
     "superAdmin": {
+      "addresses": {
+        "addNewAddress": "Add new address",
+        "title": "Addresses"
+      },
+      "createAddress": {
+        "title": "Add new address"
+      },
+      "createLowEmissionCriterion": {
+        "title": "Add new low emission criterion"
+      },
       "createProduct": {
         "title": "Add new price"
       },
+      "editAddress": {
+        "title": "Edit address",
+        "confirmTitle": "Confirm delete",
+        "confirmMessage": "Address will be permanently deleted. Do you want to proceed?",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
+      "editLowEmissionCriterion": {
+        "title": "Edit low emission criterion",
+        "confirmTitle": "Confirm delete",
+        "confirmMessage": "Low emission criterion will be permanently deleted. Do you want to proceed?",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
       "editProduct": {
-        "title": "Edit product price"
+        "title": "Edit product price",
+        "confirmTitle": "Confirm delete",
+        "confirmMessage": "Product will be permanently deleted. Do you want to proceed?",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
+      "lowEmissionCriteria": {
+        "addNewCriterion": "Add new low emission criterion",
+        "title": "Low-emission criteria"
       },
       "products": {
         "addNewPrice": "Add new price",
@@ -361,5 +538,12 @@
   "productUnit": {
     "monthly": "p/m",
     "pieces": "pcs"
+  },
+  "refundStatus": {
+    "accepted": "Accepted",
+    "all": "All",
+    "open": "Open",
+    "rejected": "Rejected",
+    "requestForApproval": "Request for approval"
   }
 }

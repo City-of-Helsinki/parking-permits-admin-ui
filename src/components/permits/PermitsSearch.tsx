@@ -1,56 +1,50 @@
-import { SearchInput } from 'hds-react';
-import React from 'react';
+import { Button, IconSearch, SearchInput } from 'hds-react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ParkingPermitStatusOrAll, PermitsSearchInfo } from '../../types';
+import { PermitSearchParams } from '../../types';
 import styles from './PermitsSearch.module.scss';
-import PermitsSearchFilters from './PermitsSearchFilters';
 import StatusSelect from './StatusSelect';
 
 const T_PATH = 'components.permits.permitsSearch';
 export interface PermitsSearchProps {
-  searchInfo: PermitsSearchInfo;
-  onSearch: (searchInfo: PermitsSearchInfo) => void;
+  searchParams: PermitSearchParams;
+  onSearch: (newSearchParams: PermitSearchParams) => void;
 }
 
 const PermitsSearch = ({
-  searchInfo,
+  searchParams,
   onSearch,
 }: PermitsSearchProps): React.ReactElement => {
   const { t } = useTranslation();
-  const { status, searchText, filter } = searchInfo;
-  const handleStatusChange = (newStatus: ParkingPermitStatusOrAll) =>
-    onSearch({
-      status: newStatus,
-      searchText,
-      filter,
-    });
-  const handleSearchTextChange = (newSearchText: string) =>
-    onSearch({
-      status,
-      searchText: newSearchText,
-      filter,
-    });
-  const handleFilterChange = (newFilter: string) =>
-    onSearch({
-      status,
-      searchText,
-      filter: newFilter,
-    });
+
+  const [status, setStatus] = useState(searchParams.status);
+  const [query, setQuery] = useState(searchParams.q);
+
+  const handleSubmit = () => onSearch({ status, q: query });
 
   return (
-    <div className={styles['search-container']}>
-      <StatusSelect
-        className={styles['status-select']}
-        value={status}
-        onChange={handleStatusChange}
-      />
-      <SearchInput
-        className={styles['search-input']}
-        label=""
-        placeholder={t(`${T_PATH}.placeholder`)}
-        onSubmit={handleSearchTextChange}
-      />
-      <PermitsSearchFilters filter={filter} onChange={handleFilterChange} />
+    <div className={styles.container}>
+      <div className={styles.row}>
+        <StatusSelect
+          className={styles.statusSelect}
+          value={status}
+          onChange={setStatus}
+        />
+        <SearchInput
+          className={styles.SearchInput}
+          label=""
+          placeholder={searchParams.q || t(`${T_PATH}.placeholder`)}
+          onSubmit={handleSubmit}
+          onChange={setQuery}
+          hideSearchButton
+        />
+        <Button
+          className={styles.searchButton}
+          iconLeft={<IconSearch />}
+          onClick={handleSubmit}>
+          {t(`${T_PATH}.searchButton`)}
+        </Button>
+      </div>
     </div>
   );
 };

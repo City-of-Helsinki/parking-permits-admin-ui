@@ -8,7 +8,7 @@ export interface Column<T> {
   name: string;
   field: string;
   selector: (row: T) => React.ReactNode;
-  orderFields?: string[];
+  sortable: boolean;
 }
 
 export enum MatchType {
@@ -23,8 +23,7 @@ export interface FilterItem {
   matchType: MatchType;
 }
 
-export interface SearchItem {
-  matchType: MatchType;
-  fields: string[];
-  value: unknown;
+export enum ConnectorType {
+  OR = 'or',
+  AND = 'and',
 }

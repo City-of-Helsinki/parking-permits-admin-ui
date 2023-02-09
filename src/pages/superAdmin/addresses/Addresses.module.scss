@@ -1,0 +1,15 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.container {
+  .header {
+    display: flex;
+    align-items: center;
+
+    .title {
+      margin-right: auto;
+    }
+    .actions {
+      align-items: flex-end;
+    }
+  }
+}

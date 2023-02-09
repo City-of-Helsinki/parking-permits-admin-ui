@@ -1,33 +1,37 @@
+import { Checkbox, SelectionGroup } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import ToggleButton from '../common/ToggleButton';
-import ToggleButtonGroup from '../common/ToggleButtonGroup';
 import filterItems from './filterItems';
 
 const T_PATH = 'components.permits.permitsSearchFilters';
 
 export interface PermitsSearchFilterProps {
-  filter: string;
-  onChange: (filter: string) => void;
+  filters: string[];
+  onChange: (filters: string[]) => void;
 }
 
 const PermitsSearchFilters = ({
-  filter,
+  filters,
   onChange,
 }: PermitsSearchFilterProps): React.ReactElement => {
   const { t } = useTranslation();
   return (
-    <ToggleButtonGroup
-      exclusive
-      label={t(`${T_PATH}.filterList`)}
-      value={filter}
-      onChange={value => onChange(value as string)}>
+    <SelectionGroup label={t(`${T_PATH}.filterList`)}>
       {filterItems.map(({ labelKey, value }) => (
-        <ToggleButton key={value} value={value}>
-          {t(labelKey)}
-        </ToggleButton>
+        <Checkbox
+          key={value}
+          id={value}
+          checked={filters.includes(value)}
+          label={t(labelKey)}
+          onChange={e => {
+            const newFilters = e.target.checked
+              ? [...filters, value]
+              : filters.filter(item => item !== value);
+            onChange(newFilters);
+          }}
+        />
       ))}
-    </ToggleButtonGroup>
+    </SelectionGroup>
   );
 };
 

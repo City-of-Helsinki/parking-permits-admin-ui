@@ -10,6 +10,9 @@
 .content-container {
   margin: 0 auto;
   max-width: $breakpoint-xl;
-  padding: $spacing-l;
   width: 100%;
+}
+
+.gutter {
+  margin: $spacing-m;
 }

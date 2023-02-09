@@ -11,19 +11,26 @@ import PermitInfo from '../components/residentPermit/PermitInfo';
 import PersonalInfo from '../components/residentPermit/PersonalInfo';
 import VehicleInfo from '../components/residentPermit/VehicleInfo';
 import {
+  Address,
   CreatePermitResponse,
   Customer,
+  ParkingZone,
   PermitDetail,
+  PermitPrice,
   Vehicle,
 } from '../types';
-import { convertToPermitInput, getPermitTotalPrice } from '../utils';
+import {
+  convertToPermitInput,
+  formatPrice,
+  isValidForPriceCheck,
+} from '../utils';
 import styles from './CreateResidentPermit.module.scss';
 
 const T_PATH = 'pages.createResidentPermit';
 
 const CUSTOMER_QUERY = gql`
-  query GetCustomer($nationalIdNumber: String!) {
-    customer(nationalIdNumber: $nationalIdNumber) {
+  query GetCustomer($query: CustomerRetrieveInput!) {
+    customer(query: $query) {
       firstName
       lastName
       nationalIdNumber
@@ -33,44 +40,36 @@ const CUSTOMER_QUERY = gql`
       addressSecurityBan
       driverLicenseChecked
       primaryAddress {
+        id
         city
         citySv
         streetName
         streetNumber
         postalCode
+        location
         zone {
           name
           label
           labelSv
-          residentProducts {
-            unitPrice
-            startDate
-            endDate
-            vat
-            lowEmissionDiscount
-            secondaryVehicleIncreaseRate
-          }
         }
       }
       otherAddress {
+        id
         city
         citySv
         streetName
         streetNumber
         postalCode
+        location
         zone {
           name
           label
           labelSv
-          residentProducts {
-            unitPrice
-            startDate
-            endDate
-            vat
-            lowEmissionDiscount
-            secondaryVehicleIncreaseRate
-          }
         }
+      }
+      activePermits {
+        id
+        primaryVehicle
       }
     }
   }
@@ -89,7 +88,22 @@ const VEHICLE_QUERY = gql`
       euroClass
       emission
       emissionType
-      powerType
+      powerType {
+        name
+        identifier
+      }
+    }
+  }
+`;
+
+const PERMIT_PRICES_QUERY = gql`
+  query GetPermitPrices($permit: ResidentPermitInput!, $isSecondary: Boolean!) {
+    permitPrices(permit: $permit, isSecondary: $isSecondary) {
+      originalUnitPrice
+      unitPrice
+      startDate
+      endDate
+      quantity
     }
   }
 `;
@@ -99,7 +113,7 @@ const CREATE_RESIDENT_PERMIT_MUTATION = gql`
     createResidentPermit(permit: $permit) {
       success
       permit {
-        identifier
+        id
       }
     }
   }
@@ -111,6 +125,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   // states
   const initialPermit = getEmptyPermit();
   const [permit, setPermit] = useState<PermitDetail>(initialPermit);
+  const [permitPrices, setPermitPrices] = useState<PermitPrice[]>([]);
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -122,16 +137,18 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
   }>(CUSTOMER_QUERY, {
+    fetchPolicy: 'no-cache',
     onCompleted: ({ customer: newCustomer }) => {
       setPersonSearchError('');
-      const defaultZone =
-        newCustomer?.primaryAddress?.zone || customer?.otherAddress?.zone;
+      const defaultAddress =
+        newCustomer.primaryAddress || customer.otherAddress;
       setPermit({
         ...permit,
         customer: {
           ...newCustomer,
-          zone: defaultZone,
         },
+        address: defaultAddress as Address,
+        parkingZone: defaultAddress?.zone as ParkingZone,
       });
     },
     onError: error => setPersonSearchError(error.message),
@@ -139,6 +156,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [getVehicle] = useLazyQuery<{
     vehicle: Vehicle;
   }>(VEHICLE_QUERY, {
+    fetchPolicy: 'no-cache',
     onCompleted: data => {
       setVehicleSearchError('');
       setPermit({
@@ -148,6 +166,16 @@ const CreateResidentPermit = (): React.ReactElement => {
     },
     onError: error => setVehicleSearchError(error.message),
   });
+  const [getPermitPrices] = useLazyQuery<{ permitPrices: PermitPrice[] }>(
+    PERMIT_PRICES_QUERY,
+    {
+      fetchPolicy: 'no-cache',
+      onCompleted: data => {
+        setPermitPrices(data.permitPrices);
+      },
+      onError: error => setErrorMessage(error.message),
+    }
+  );
   const [createResidentPermit] = useMutation<CreatePermitResponse>(
     CREATE_RESIDENT_PERMIT_MUTATION,
     {
@@ -155,17 +183,28 @@ const CreateResidentPermit = (): React.ReactElement => {
     }
   );
 
+  const updatePermitPrices = (newPermit: PermitDetail) => {
+    const isSecondary = newPermit.customer.activePermits?.length === 1;
+    const permitInput = convertToPermitInput(newPermit);
+    if (isValidForPriceCheck(permitInput)) {
+      getPermitPrices({ variables: { permit: permitInput, isSecondary } });
+    }
+  };
+
   // event handlers
   const handleCreateResidentPermit = () => {
     createResidentPermit({
       variables: { permit: convertToPermitInput(permit) },
     })
       .then(response => {
-        const permitId = response.data?.createResidentPermit.permit.identifier;
+        const permitId = response.data?.createResidentPermit.permit.id;
         if (permitId) {
           navigate(`/permits/${permitId}`);
+        }
+        if (response.errors && response.errors.message) {
+          setErrorMessage(response.errors.message);
         } else {
-          setErrorMessage('Create permit error');
+          setErrorMessage(t(`${T_PATH}.createPermitError`));
         }
       })
       .catch(error => setErrorMessage(error.message));
@@ -179,37 +218,31 @@ const CreateResidentPermit = (): React.ReactElement => {
     });
   };
   const handleUpdateVehicle = (newVehicle: Vehicle) => {
-    setPermit({
+    const newPermit = {
       ...permit,
       vehicle: newVehicle,
-    });
+    };
+    setPermit(newPermit);
+    updatePermitPrices(newPermit);
   };
   const handleSearchPerson = (nationalIdNumber: string) => {
     getCustomer({
-      variables: { nationalIdNumber },
+      variables: { query: { nationalIdNumber } },
     });
   };
-  const handleUpdatePerson = (person: Customer) => {
-    setPermit({
-      ...permit,
-      customer: person,
-    });
-  };
-  const handleUpdatePermit = (newPermit: PermitDetail) => setPermit(newPermit);
 
-  let totalPrice: string | number = '-';
-  if (permit.customer.zone?.residentProducts && permit) {
-    const startDate = new Date(permit.startTime);
-    totalPrice = getPermitTotalPrice(
-      permit.customer.zone.residentProducts,
-      startDate,
-      permit.monthCount,
-      {
-        isLowEmission: permit.vehicle.isLowEmission,
-        isSecondaryVehicle: false,
-      }
-    );
-  }
+  const handleUpdatePermit = (newPermit: PermitDetail) => {
+    setPermit(newPermit);
+    updatePermitPrices(newPermit);
+  };
+
+  const totalPrice = formatPrice(
+    permitPrices.reduce(
+      (price, permitPrice) =>
+        price + permitPrice.unitPrice * permitPrice.quantity,
+      0
+    )
+  );
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -221,14 +254,21 @@ const CreateResidentPermit = (): React.ReactElement => {
       <div className={styles.content}>
         <PersonalInfo
           person={customer}
+          permitAddress={permit.address}
           className={styles.personalInfo}
           searchError={personSearchError}
+          onUpdatePermit={(tempPermit: Partial<PermitDetail>) =>
+            setPermit({
+              ...permit,
+              ...tempPermit,
+            })
+          }
           onSearchPerson={handleSearchPerson}
-          onUpdatePerson={handleUpdatePerson}
+          parkingZone={permit.parkingZone}
         />
         <VehicleInfo
           vehicle={vehicle}
-          zone={customer.zone}
+          permitPrices={permitPrices}
           className={styles.vehicleInfo}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
@@ -243,6 +283,9 @@ const CreateResidentPermit = (): React.ReactElement => {
       <div className={styles.footer}>
         <div className={styles.actions}>
           <Button
+            disabled={
+              customer.activePermits && customer.activePermits.length >= 2
+            }
             className={styles.actionButton}
             iconLeft={<IconCheckCircleFill />}
             onClick={() => setIsConfirmDialogOpen(true)}>

@@ -1,8 +1,9 @@
-import { OrderDirection, SearchItem } from './components/types';
+import { OrderDirection } from './components/types';
 
 export type AnyObject = Record<string, unknown>;
 
 export interface Address {
+  id?: string;
   streetName: string;
   streetNumber: string;
   streetNameSv: string;
@@ -13,7 +14,17 @@ export interface Address {
   zone?: ParkingZone;
 }
 
+export type CustomerActivePermit = Pick<Permit, 'id' | 'primaryVehicle'>;
+
+export enum SelectedAddress {
+  PRIMARY = 'primaryAddress',
+  OTHER = 'otherAddress',
+  NONE = 'none',
+}
+
 export interface Customer {
+  id: string;
+  sourceId: string;
   firstName: string;
   lastName: string;
   nationalIdNumber: string;
@@ -24,18 +35,13 @@ export interface Customer {
   zone?: ParkingZone;
   addressSecurityBan: boolean;
   driverLicenseChecked: boolean;
+  activePermits?: CustomerActivePermit[];
+  language?: Language;
 }
 
 export enum EmissionType {
   NEDC = 'NEDC',
   WLTP = 'WLTP',
-}
-
-export enum PowerType {
-  ELECTRIC = 'ELECTRIC',
-  BENSIN = 'BENSIN',
-  DIESEL = 'DIESEL',
-  BIFUEL = 'BIFUEL',
 }
 
 export enum VehicleClass {
@@ -59,6 +65,11 @@ export enum VehicleClass {
   L6eB = 'L6e-B',
   L6eBP = 'L6e-BP',
   L6eBU = 'L6e-BU',
+}
+
+export interface PowerType {
+  name: string;
+  identifier: string;
 }
 
 export interface Vehicle {
@@ -117,6 +128,27 @@ export interface Product {
 
 export type ProductWithQuantity = [Product, number];
 
+export interface Announcement {
+  id: string;
+  parkingZones: ParkingZone[];
+  subjectFi: string;
+  contentFi: string;
+  subjectSv: string;
+  contentSv: string;
+  subjectEn: string;
+  contentEn: string;
+  createdAt: string;
+  createdBy: string;
+}
+
+export interface PermitPrice {
+  originalUnitPrice: number;
+  unitPrice: number;
+  startDate: string;
+  endDate: string;
+  quantity: number;
+}
+
 export interface PriceModifiers {
   isLowEmission: boolean;
   isSecondaryVehicle: boolean;
@@ -126,7 +158,6 @@ export interface ParkingZone {
   name: string;
   label: string;
   labelSv: string;
-  residentProducts?: [Product];
 }
 
 export enum ParkingPermitStatus {
@@ -149,7 +180,7 @@ export enum PermitType {
 }
 
 export interface Permit {
-  identifier: number;
+  id: string;
   type: string;
   customer: Customer;
   vehicle: Vehicle;
@@ -157,6 +188,7 @@ export interface Permit {
   status: ParkingPermitStatus;
   address: Address;
   startTime: string;
+  primaryVehicle: boolean;
   endTime?: string;
 }
 
@@ -165,23 +197,52 @@ export enum ChangeLogEvent {
   CHANGED = 'changed',
 }
 
+export interface ContentType {
+  model: string;
+  appLabel: string;
+}
+
+export interface ChangeLogContext {
+  changes: Record<string, Array<string>>;
+}
+
+export interface ChangeLogRelatedObject extends Refund, Order {
+  __typename: string;
+}
+
 export interface ChangeLog {
-  id: number;
+  id: string;
   event: ChangeLogEvent;
-  description: string;
+  key: string;
   createdAt: string;
   createdBy: string;
+  validityPeriod: Array<string>;
+  context: ChangeLogContext;
+  contentType: ContentType;
+  relatedObject: ChangeLogRelatedObject;
+}
+
+export interface TemporaryVehicle {
+  id: string;
+  vehicle: Vehicle;
+  startTime: Date | string;
+  endTime: Date | string | null;
+  isActive: boolean;
 }
 
 export interface PermitDetail {
-  identifier?: number;
+  id?: number;
+  address: Address;
   customer: Customer;
   vehicle: Vehicle;
+  activeTemporaryVehicle: TemporaryVehicle;
+  primaryVehicle: boolean;
   parkingZone: ParkingZone;
   status: ParkingPermitStatus;
   startTime: string;
   endTime?: string;
   description: string;
+  totalRefundAmount: number;
   currentPeriodEndTime: string;
   canEndImmediately: boolean;
   canEndAfterCurrentPeriod: boolean;
@@ -190,8 +251,8 @@ export interface PermitDetail {
   contractType: PermitContractType;
   monthCount: number;
   monthsLeft: number;
-  monthlyPrice: number;
   changeLogs: ChangeLog[];
+  permitPrices: PermitPrice[];
 }
 
 export interface PermitDetailData {
@@ -219,6 +280,8 @@ export interface PermitInput {
   startTime: string;
   monthCount: number;
   description: string;
+  zone: string | undefined;
+  address: Address | undefined;
 }
 
 export interface PageInfo {
@@ -240,13 +303,48 @@ export interface PermitsQueryData {
   permits: PagedPermits;
 }
 
+export interface AddressSearchQueryData {
+  addressSearch: Address[];
+}
+
+export interface LimitedPermitsQueryData {
+  limitedPermits: PagedPermits;
+}
+
 export interface PagedProducts {
   objects: Product[];
   pageInfo: PageInfo;
 }
 
+export interface PagedAnnouncements {
+  objects: Announcement[];
+  pageInfo: PageInfo;
+}
+
+export interface PagedCustomers {
+  objects: Customer[];
+  pageInfo: PageInfo;
+}
+
 export interface ProductsQueryData {
   products: PagedProducts;
+}
+
+export interface AnnouncementsQueryData {
+  announcements: PagedAnnouncements;
+}
+
+export interface CustomersQueryData {
+  customers: PagedCustomers;
+}
+
+export interface PagedAddresses {
+  objects: Address[];
+  pageInfo: PageInfo;
+}
+
+export interface AddressesQueryData {
+  addresses: PagedAddresses;
 }
 
 export interface VehicleUser {
@@ -262,13 +360,12 @@ export interface MutationResponse {
 export interface CreatePermitResponse {
   createResidentPermit: {
     success: boolean;
-    permit: Pick<Permit, 'identifier'>;
+    permit: Pick<Permit, 'id'>;
   };
 }
 
 export interface OrderBy {
-  field: string;
-  orderFields: string[];
+  orderField: string;
   orderDirection: OrderDirection;
 }
 
@@ -279,19 +376,19 @@ export interface PageInput {
 export interface PermitsQueryVariables {
   pageInput: PageInput;
   orderBy?: OrderBy;
-  searchItems?: SearchItem[];
+  searchParams?: PermitSearchParams;
 }
 
-export interface PermitsSearchInfo {
+export interface SearchBaseParams {
+  page?: number;
+  pageSize?: number;
+  orderBy?: string[];
+  orderDirection?: OrderDirection;
+}
+
+export interface PermitSearchParams {
   status: ParkingPermitStatusOrAll;
-  searchText: string;
-  filter: string;
-}
-
-export enum SavedStatus {
-  PERMITS_PAGE = 'permitsPage',
-  PERMITS_ORDER_BY = 'permitsOrderBy',
-  PERMITS_SEARCH_INFO = 'permitsSearchInfo',
+  q: string;
 }
 
 export type Language = 'fi' | 'sv' | 'en';
@@ -303,12 +400,13 @@ export enum PermitEndType {
 
 export interface Order {
   id: string;
-  orderNumber: number;
   orderType: string;
   totalPrice: number;
+  totalPaymentPrice: number;
   customer: Customer;
   paidTime: string;
   orderPermits: [Permit];
+  paymentType: string;
 }
 
 export interface PagedOrders {
@@ -318,18 +416,40 @@ export interface PagedOrders {
 export interface OrdersQueryData {
   orders: PagedOrders;
 }
+
+export interface OrderSearchParams {
+  q: string;
+  startDate: string;
+  endDate: string;
+  parkingZone: string;
+  contractTypes: string;
+  paymentTypes: string;
+  priceDiscounts: string;
+}
+
+export enum RefundStatus {
+  OPEN = 'OPEN',
+  REQUEST_FOR_APPROVAL = 'REQUEST_FOR_APPROVAL',
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED',
+}
+
+export type RefundStatusOrAll = RefundStatus | 'ALL';
+
 export interface Refund {
   id: string;
-  refundNumber: number;
   name: string;
   amount: number;
   iban: string;
-  status: string;
+  status: RefundStatus;
   description: string;
   createdAt: string;
   createdBy: string;
   modifiedAt: string;
   modifiedBy: string;
+  acceptedAt: string;
+  acceptedBy: string;
+  order: Order;
 }
 export interface PagedRefunds {
   objects: Refund[];
@@ -345,6 +465,19 @@ export interface RefundInput {
   iban: string;
 }
 
+export enum PaymentType {
+  ONLINE_PAYMENT = 'ONLINE_PAYMENT',
+  CASHIER_PAYMENT = 'CASHIER_PAYMENT',
+}
+
+export interface RefundSearchParams {
+  q: string;
+  startDate: string;
+  endDate: string;
+  status: RefundStatusOrAll;
+  paymentTypes: string;
+}
+
 export interface PermitPriceChange {
   product: string;
   previousPrice: number;
@@ -354,4 +487,38 @@ export interface PermitPriceChange {
   startDate: string;
   endDate: string;
   monthCount: number;
+}
+
+export interface LowEmissionCriterion {
+  id?: string;
+  nedcMaxEmissionLimit: number;
+  wltpMaxEmissionLimit: number;
+  euroMinClassLimit: number;
+  startDate: string;
+  endDate: string;
+}
+
+export interface PagedLowEmissionCriteria {
+  objects: LowEmissionCriterion[];
+  pageInfo: PageInfo;
+}
+
+export interface LowEmissionCriteriaQueryData {
+  lowEmissionCriteria: PagedLowEmissionCriteria;
+}
+
+export enum PriceDiscount {
+  LOW_EMISSION = 'LOW_EMISSION',
+}
+
+export interface CustomerSearchParams {
+  name: string;
+  nationalIdNumber: string;
+}
+
+export interface AddressSearchParams {
+  streetName: string;
+  streetNumber: string;
+  postalCode: string;
+  parkingZone: string;
 }

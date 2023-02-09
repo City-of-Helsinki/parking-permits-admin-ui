@@ -1,15 +1,18 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Formik } from 'formik';
-import { Button, Notification, TextInput } from 'hds-react';
+import { Button, IconDownload, Notification, TextInput } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
+import useUserRole, { UserRole } from '../api/useUserRole';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
+import useExportData from '../export/useExportData';
+import { formatExportUrlPdf } from '../export/utils';
 import { MutationResponse, Refund, RefundInput } from '../types';
 import { isValidIBAN } from '../utils';
 import styles from './RefundDetail.module.scss';
@@ -17,10 +20,9 @@ import styles from './RefundDetail.module.scss';
 const T_PATH = 'pages.refundDetail';
 
 const REFUND_DETAIL_QUERY = gql`
-  query GetRefundDetail($refundNumber: Int!) {
-    refund(refundNumber: $refundNumber) {
+  query GetRefundDetail($refundId: ID!) {
+    refund(refundId: $refundId) {
       id
-      refundNumber
       name
       amount
       iban
@@ -30,13 +32,21 @@ const REFUND_DETAIL_QUERY = gql`
       createdBy
       modifiedAt
       modifiedBy
+      order {
+        id
+        orderPermits {
+          vehicle {
+            registrationNumber
+          }
+        }
+      }
     }
   }
 `;
 
 const UPDATE_REFUND_MUTATION = gql`
-  mutation UpdateRefund($refundNumber: Int!, $refund: RefundInput!) {
-    updateRefund(refundNumber: $refundNumber, refund: $refund) {
+  mutation UpdateRefund($refundId: ID!, $refund: RefundInput!) {
+    updateRefund(refundId: $refundId, refund: $refund) {
       success
     }
   }
@@ -44,11 +54,12 @@ const UPDATE_REFUND_MUTATION = gql`
 
 const RefundDetail = (): React.ReactElement => {
   const navigate = useNavigate();
+  const exportData = useExportData();
+  const userRole = useUserRole();
   const { t } = useTranslation();
-  const params = useParams();
+  const { id: refundId } = useParams();
   const [errorMessage, setErrorMessage] = useState('');
-  const refundNumber = parseInt(params.refundNumber as string, 10);
-  const variables = { refundNumber };
+  const variables = { refundId };
   const { loading, data } = useQuery<{ refund: Refund }>(REFUND_DETAIL_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
@@ -58,6 +69,10 @@ const RefundDetail = (): React.ReactElement => {
     onCompleted: () => navigate('/refunds'),
     onError: e => setErrorMessage(e.message),
   });
+  const handleExport = () => {
+    const url = formatExportUrlPdf('refund', refundId || '');
+    exportData(url);
+  };
 
   if (loading) {
     return <div>Loading..</div>;
@@ -72,7 +87,7 @@ const RefundDetail = (): React.ReactElement => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required(t(`${T_PATH}.nameIsRequired`)),
     iban: Yup.string()
-      .required(`${T_PATH}.IbanIsRequired`)
+      .required(t(`${T_PATH}.ibanIsRequired`))
       .test({
         name: 'isValidIBAN',
         test: value => isValidIBAN(value as string),
@@ -84,7 +99,7 @@ const RefundDetail = (): React.ReactElement => {
     <div className={styles.container}>
       <Breadcrumbs>
         <Link to="/refunds">{t(`${T_PATH}.refunds`)}</Link>
-        <span>{refundNumber}</span>
+        <span>{refundId}</span>
       </Breadcrumbs>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
       <div className={styles.content}>
@@ -96,7 +111,7 @@ const RefundDetail = (): React.ReactElement => {
           onSubmit={(refund: RefundInput) =>
             updateRefund({
               variables: {
-                refundNumber,
+                refundId,
                 refund,
               },
             })
@@ -122,6 +137,7 @@ const RefundDetail = (): React.ReactElement => {
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  disabled={userRole <= UserRole.PREPARATORS}
                   errorText={
                     touched.name && errors.name ? errors.name : undefined
                   }
@@ -129,11 +145,28 @@ const RefundDetail = (): React.ReactElement => {
                 <TextInput
                   required
                   className={styles.ibanInput}
+                  disabled={userRole <= UserRole.PREPARATORS}
                   id="iban"
                   name="iban"
                   label="IBAN"
                   value={values.iban}
-                  onChange={handleChange}
+                  onChange={e => {
+                    const { target } = e;
+                    let position = target.selectionEnd || 0;
+                    const { length } = target.value;
+                    target.value = target.value
+                      .replace(/[^\dA-Z]/g, '')
+                      .replace(/(.{4})/g, '$1 ')
+                      .trim();
+                    position +=
+                      target.value.charAt(position - 1) === ' ' &&
+                      target.value.charAt(length - 1) === ' ' &&
+                      length !== target.value.length
+                        ? 1
+                        : 0;
+                    target.selectionEnd = position;
+                    handleChange(e);
+                  }}
                   onBlur={handleBlur}
                   errorText={
                     touched.iban && errors.iban ? errors.iban : undefined
@@ -144,18 +177,29 @@ const RefundDetail = (): React.ReactElement => {
                 <RefundsDataTable refunds={[data.refund]} />
               </div>
               <div className={styles.actions}>
+                {userRole > UserRole.PREPARATORS && (
+                  <Button
+                    className={styles.save}
+                    disabled={!(dirty && isValid)}
+                    type="submit">
+                    {t(`${T_PATH}.save`)}
+                  </Button>
+                )}
                 <Button
-                  className={styles.save}
-                  disabled={!(dirty && isValid)}
-                  type="submit">
-                  {t(`${T_PATH}.save`)}
-                </Button>
-                <Button
+                  className={styles.downloadPdf}
                   variant="secondary"
-                  className={styles.cancel}
-                  onClick={() => navigate('/refunds')}>
-                  {t(`${T_PATH}.cancel`)}
+                  iconLeft={<IconDownload />}
+                  onClick={handleExport}>
+                  {t(`${T_PATH}.downloadPdf`)}
                 </Button>
+                {userRole > UserRole.PREPARATORS && (
+                  <Button
+                    variant="secondary"
+                    className={styles.cancel}
+                    onClick={() => navigate('/refunds')}>
+                    {t(`${T_PATH}.cancel`)}
+                  </Button>
+                )}
               </div>
             </form>
           )}

@@ -8,22 +8,77 @@
       "addressSearch": {
         "cancel": "Peruuta muokkaus",
         "clear": "Tyhjennä",
-        "edit": "Muokkaa osoitetta"
+        "edit": "Muokkaa osoitetta",
+        "editAddress": "Muokkaa",
+        "placeholder": "Hae osoite..."
       },
       "changeLogs": {
         "createdAt": "Muutosaika",
         "createdBy": "Muokkaaja",
         "description": "Selite",
-        "event": "Tapahtuma"
+        "event": "Tapahtuma",
+        "validityPeriod": "Tilauksen aikaväli",
+        "sum": "Summa, €",
+        "paymentType": "Maksutapa",
+        "paymentTypes": {
+          "CASHIER_PAYMENT": "Kassamaksu",
+          "ONLINE_PAYMENT": "Verkkomaksu",
+          "REFUND": "Palautus"
+        },
+        "paidAt": "Maksupäivä",
+        "fieldNames": {
+          "status": "Tila",
+          "customer__email": "Sähköpostiosoite",
+          "customer__first_name": "Etunimi",
+          "customer__last_name": "Sukunimi",
+          "customer__phone_number": "Puhelinnumero",
+          "customer__primary_address": "Osoite",
+          "customer__other_address": "Tilapäinen osoite",
+          "customer__zone": "Pysäköintialue",
+          "vehicle__registration_number": "Rekisterinumero"
+        },
+        "events": {
+          "update_permit": "Muokkaus",
+          "create_permit": "Tunnus luotu",
+          "end_permit": "Tunnus päätetty",
+          "renew_order": "Tunnus uusittu",
+          "create_order": "Tilaus luotu",
+          "create_refund": "Palautus luotu",
+          "add_temporary_vehicle": "Muokkaus",
+          "remove_temporary_vehicle": "Muokkaus"
+        },
+        "descriptions": {
+          "update_permit": "Tunnuksen tietoja muokattu",
+          "create_permit": "Tunnus luotu",
+          "end_permit": "Tunnus päätetty",
+          "renew_order": "Tunnus uusittu",
+          "create_order": "Tilaus #{{relatedObject.id}} luotu tunnukselle",
+          "create_refund": "Palautus #{{relatedObject.id}} luotu tunnukselle",
+          "add_temporary_vehicle": "Tilapäinen ajoneuvo {{relatedObject.vehicle.registrationNumber}} lisätty tunnukseen",
+          "remove_temporary_vehicle": "Tilapäinen ajoneuvo {{relatedObject.vehicle.registrationNumber}} poistettu tunnuksesta"
+        }
       },
       "dataTable": {
-        "results": "Tuloksia: {{count}}"
+        "downloadCsv": "Lataa listan tiedot (.csv)",
+        "results": "Tuloksia {{count}} kpl",
+        "selectAll": "Valitse kaikki listalta"
       },
       "powerTypeSelect": {
-        "bensin": "Bensin",
-        "bifuel": "Bifuel",
+        "bensin": "Bensiini",
+        "bifuel": "Kaksoispolttoaine",
         "diesel": "Diesel",
-        "electric": "Sähköinen"
+        "electric": "Sähkö"
+      },
+      "table": {
+        "initialText": "Syötä hakuehto",
+        "noResults": "Ei tuloksia."
+      },
+      "zoneSelect": {
+        "zone": "Alue",
+        "placeholder": "Valitse..."
+      },
+      "checkboxGroup": {
+        "selectAll": "Valitse kaikki"
       }
     },
     "createPermit": {
@@ -38,12 +93,10 @@
       "appTitle": "Pysäköintitunnusten Hallintapalvelu",
       "login": "Kirjaudu sisään",
       "logout": "Kirjaudu ulos",
-      "messages": "Viestit",
       "orders": "Tilaukset",
       "permits": "Tunnukset",
-      "reports": "Raportointi",
-      "returns": "Palautukset",
-      "skipToContent": ""
+      "refunds": "Palautukset",
+      "skipToContent": "Siirry sisältöön"
     },
     "orders": {
       "ordersDataTable": {
@@ -52,11 +105,25 @@
         "name": "Asiakas",
         "orderNumber": "Tilausnumero",
         "paidTime": "Maksupäivä",
+        "paidTimeFormat": "d.M.Y 'klo' H:mm",
+        "permits": "Tunnukset",
         "permitType": "Tunnustyyppi",
         "registrationNumber": "Rekisterinro",
         "residentPermit": "Asukastunnus",
-        "totalPrice": "Summa",
+        "totalPaymentPrice": "Summa",
         "zone": "Alue"
+      },
+      "ordersSearch": {
+        "startDate": "Voimassaolo alkaen",
+        "endDate": "Voimassaolo päättyy",
+        "zone": "Alue",
+        "placeholder": "Kirjoita hakusana, esim. nimi, hetu tai rek.nro",
+        "contractType": "Voimassaolo",
+        "paymentType": "Maksu",
+        "priceDiscount": "Alennushinta",
+        "textSearch": "Tekstihaku",
+        "searchButton": "Hae",
+        "clearButton": "Tyhjennä hakuehdot"
       }
     },
     "permitDetail": {
@@ -87,7 +154,10 @@
         "startTime": "Voimassa alkaen",
         "status": "Tila",
         "title": "Tunnuksen tiedot",
-        "validPeriod": "Voimassaoloaika"
+        "validPeriod": "Voimassaoloaika",
+        "permitOrder": "Järjestys",
+        "firstPermit": "1. tunnus",
+        "secondPermit": "2. tunnus"
       },
       "permitPriceChangeInfo": {
         "customerAccountKnown": "Asiakkaan tilinumero hyvitystä varten",
@@ -103,7 +173,7 @@
         "refundTotalVat": "Sis. alv (24%)",
         "title": "Uusi tilaus"
       },
-      "refundInfoFixedPeriod": {
+      "refundInfo": {
         "monthCount_one": "{{count}} kuukausi",
         "monthCount_other": "{{count}} kuukautta",
         "orderRemaingDescription": "Hinnassa huomioidaan tilauksen jäljellä olevat täydet kuukaudet.",
@@ -112,15 +182,29 @@
         "refunded": "Palautetaan",
         "title": "Hinta"
       },
-      "refundInfoOpenEnded": {
-        "monthlyPrice": "Kuukausihinta",
-        "refund": "Palautus",
-        "title": "Hinta"
+      "temporaryVehicle": {
+        "actionBtn": {
+          "cancel": "Peruuta",
+          "continue": "Jatka"
+        },
+        "endDate": "Tilapäisyyden päättymispäivä",
+        "endTime": "Päättymisaika",
+        "infoMessage": "Valitun päättymispäivän jälkeen alkuperäisen ajoneuvon tiedot palautuvat tunnuksen tietoihin automaattisesti.",
+        "registrationNumber": {
+          "helpText": "Tilapäisyys voi olla voimassa enintään 14 vuorokautta.",
+          "label": "Tilapäisen ajoneuvon rekisterinumero"
+        },
+        "startDate": "Tilapäisyyden alkamispäivä",
+        "startTime": "Alkamisaika",
+        "title": "Tilapäisen ajoneuvon tiedot"
       },
       "vehicleInfo": {
+        "addTemporaryVehicle": "Lisää tilapäinen ajoneuvo",
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
-        "highEmissionVehicle": "Korkeapäästöinen ajoneuvo",
+        "highEmissionVehicle": "Normaalipäästöinen ajoneuvo",
+        "invalid": "Ei voimassa",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
+        "removeTemporaryVehicle": "Poista tilapäinen ajoneuvo",
         "title": "Ajoneuvon tiedot"
       }
     },
@@ -139,10 +223,14 @@
         "registrationNumber": "Rekisterinumero",
         "startTime": "Alkuaika",
         "status": "Tila",
-        "zone": "Alue"
+        "zone": "Alue",
+        "permitOrder": "Järjestys",
+        "firstPermit": "1. tunnus",
+        "secondPermit": "2. tunnus"
       },
       "permitsSearch": {
-        "placeholder": "Hae"
+        "placeholder": "Hae",
+        "searchButton": "Hae"
       },
       "permitsSearchFilters": {
         "filterList": "Suodata listaa"
@@ -154,9 +242,24 @@
     },
     "refunds": {
       "refundsDataTable": {
+        "acceptedAt": "Hyväksytty",
+        "accountNumber": "Tilinumero",
         "amount": "Määrä",
         "createdAt": "Muutosaika",
         "name": "Nimi",
+        "orderNumber": "Tilausnumero",
+        "refundNumber": "Palautusnumero",
+        "registrationNumber": "Rekisterinumero",
+        "status": "Tila"
+      },
+      "refundsSearch": {
+        "cash": "Kassa",
+        "searchPlaceholder": "Nimi, rekisterinro tai tilausnumero",
+        "webshop": "Verkkokauppa",
+        "searchButton": "Hae",
+        "paymentType": "Maksu"
+      },
+      "refundStatusSelect": {
         "status": "Tila"
       }
     },
@@ -176,8 +279,7 @@
         "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
         "contractType": "Tunnuksen tyyppi",
         "effectiveFrom": "Voimassa alkaen",
-        "expirationDate": "Viimeinen voimassaoloaika",
-        "momentWhenPermitIsSaved": "Tunnuksen tallennushetkestä",
+        "expirationDate": "Viimeinen voimassaoloaika (toinen tunnus otetaan tallennuksen yhteydessä automaattisesti huomioon)",
         "permitInfo": "Tunnuksen tiedot",
         "startDate": "Alkamispäivämäärä",
         "validPeriodInMonths": "Voimassaoloaika, kuukautta"
@@ -214,6 +316,68 @@
       }
     },
     "superAdmin": {
+      "addresses": {
+        "addressesDataTable": {
+          "city": "Kaupunki",
+          "citySv": "Kaupunki (sv)",
+          "postalCode": "Postinumero",
+          "streetName": "Kadun nimi",
+          "streetNameSv": "Kadun nimi (sv)",
+          "streetNumber": "Katunumero",
+          "zone": "Alue"
+        },
+        "addressForm": {
+          "city": "Kaupunki",
+          "citySv": "Kaupunki (sv)",
+          "delete": "Poista",
+          "enterPostalCode": "Anna postinumero",
+          "enterStreetName": "Anna kadun nimi",
+          "enterStreetNumber": "Anna katunumero",
+          "enterCity": "Anna kaupungin nimi",
+          "location": "Sijainti",
+          "postalCode": "Postinumero",
+          "postalCode5Digits": "Postinumerossa tulee olla 5 numeroa",
+          "save": "Tallenna",
+          "cancel": "Peruuta",
+          "selectLocation": "Valitse sijainti",
+          "streetName": "Kadun nimi",
+          "streetNameSv": "Kadun nimi (sv)",
+          "streetNumber": "Katunumero",
+          "zone": "Alue"
+        },
+        "addressesSearch": {
+          "postalCode": "Postinumero",
+          "streetName": "Kadun nimi",
+          "streetNumber": "Katunumero",
+          "zone": "Alue",
+          "searchButton": "Hae",
+          "clearButton": "Tyhjennä hakuehdot"
+        }
+      },
+      "lowEmissionCriteria": {
+        "lowEmissionCriteriaDataTable": {
+          "euroMinClassLimit": "EURO-minimiluokitus",
+          "nedcMaxEmissionLimit": "NEDC-maksimipäästöraja",
+          "powerType": "Käyttövoima",
+          "validPeriod": "Voimassaoloaika",
+          "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja"
+        },
+        "lowEmissionCriterionForm": {
+          "delete": "Poista",
+          "endDate": "Pvm asti",
+          "enterNedcMaxEmissionLimit": "Anna NEDC-maksimipäästöraja",
+          "enterStartDate": "Anna aloituspäivä",
+          "enterWltpMaxEmissionLimit": "Anna WLTP-maksimipäästöraja",
+          "euroMinClassLimit": "EURO-minimiluokitus",
+          "nedcMaxEmissionLimit": "NEDC-maksimipäästöraja",
+          "powerType": "Käyttövoima",
+          "save": "Tallenna",
+          "cancel": "Peruuta",
+          "startDate": "Pvm alkaen",
+          "validPeriod": "Voimassaoloaika",
+          "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja"
+        }
+      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "Ei alennusta"
@@ -230,8 +394,9 @@
           "price": "Hinta",
           "priceGroup": "Hintaryhmä",
           "productPrice": "Tuotteen hinta",
-          "productType": "Tuottetyyppi",
+          "productType": "Tuotetyyppi",
           "save": "Tallenna",
+          "cancel": "Peruuta",
           "startDate": "Pvm alkaen",
           "unit": "Jakso",
           "validPeriod": "Voimassaoloaika",
@@ -249,10 +414,68 @@
         }
       },
       "sideNav": {
+        "addresses": "Osoitteet",
+        "announcements": "Ilmoitukset",
+        "lowEmissionCriteria": "Vähäpäästöisyyskriteerit",
         "menu": "Valikko",
         "products": "Tuotteet",
-        "users": "Käyttäjät"
+        "customers": "Asiakkaat"
+      },
+      "announcements": {
+        "announcementForm": {
+          "announcementInFinnish": "Ilmoitus suomeksi",
+          "announcementInEnglish": "Ilmoitus englanniksi",
+          "announcementInSwedish": "Ilmoitus ruotsiksi",
+          "subjectEn": "Ilmoituksen otsikko (en)",
+          "subjectFi": "Ilmoituksen otsikko (fi)",
+          "subjectSv": "Ilmoituksen otsikko (sv)",
+          "contentEn": "Ilmoitus (en)",
+          "contentFi": "Ilmoitus (fi)",
+          "contentSv": "Ilmoitus (sv)",
+          "submit": "Lähetä ilmoitus",
+          "cancel": "Peruuta",
+          "enterSubject": "Syötä otsikko",
+          "enterContent": "Syötä ilmoituksen sisältö",
+          "selectZone": "Valitse alue",
+          "recipientZones": "Vastaanottajien alue tai alueet"
+        }
+      },
+      "customers": {
+        "customersSearch": {
+          "name": "Nimi",
+          "nationalIdNumber": "Hetu",
+          "searchButton": "Hae",
+          "clearButton": "Tyhjennä hakuehdot"
+        },
+        "customerCard": {
+          "firstName": "Etunimi",
+          "lastName": "Sukunimi",
+          "phoneNumber": "Puhelinnumero",
+          "nationalIdNumber": "Henkilötunnus",
+          "email": "Sähköpostiosoite",
+          "address": "Osoite",
+          "otherAddress": "Muu osoite",
+          "language": "Kieli",
+          "languages": {
+            "fi": "Suomi",
+            "en": "Englanti",
+            "sv": "Ruotsi"
+          }
+        }
       }
+    }
+  },
+  "enums": {
+    "contractType": {
+      "fixedPeriod": "Määräaikainen",
+      "openEnded": "Jatkuvaveloitteinen"
+    },
+    "paymentType": {
+      "cashierPayment": "Kassamaksu",
+      "onlinePayment": "Verkkomaksu"
+    },
+    "priceDiscount": {
+      "lowEmission": "Vähäpäästöinen"
     }
   },
   "contractType": {
@@ -264,7 +487,8 @@
   },
   "message": {
     "close": "Sulje",
-    "error": "Virhe"
+    "error": "Virhe",
+    "unauthorized": "Sinulla ei ole lupaa tarkastella tätä sivua"
   },
   "pages": {
     "createPermit": {
@@ -285,7 +509,8 @@
       "permits": "Tunnukset",
       "residentPermit": "Asukaspysäköintitunnus",
       "save": "Tallenna",
-      "totalPrice": "Tunnuksen yhteissumma"
+      "totalPrice": "Tunnuksen yhteissumma",
+      "createPermitError": "Tunnuksen luonti epäonnistui"
     },
     "editResidentPermit": {
       "cancelPayment": "Peruuta maksu",
@@ -300,7 +525,7 @@
     },
     "endPermit": {
       "cancel": "Peruuta",
-      "endPermit": "Pääta tunnus",
+      "endPermit": "Päätä tunnus",
       "permitId": "Tunnus ID",
       "permits": "Tunnukset",
       "residentParkingPermit": "Asukaspysäköintitunnus",
@@ -314,8 +539,9 @@
     },
     "permitDetail": {
       "changeHistory": "Käsittelyhistoria",
+      "downloadPdf": "Lataa tunnuksen tiedot PDF:nä",
       "edit": "Muokkaa",
-      "endPermit": "Pääta tunnus",
+      "endPermit": "Päätä tunnus",
       "now": "Nyt",
       "permitId": "Tunnus ID",
       "permits": "Tunnukset",
@@ -330,21 +556,89 @@
       "name": "Nimi",
       "refunds": "Palautukset",
       "save": "Tallenna",
-      "title": "Muokkaa Palautusta"
+      "downloadPdf": "Lataa palautuksen tiedot PDF:nä",
+      "title": "Muokkaa Palautusta",
+      "ibanIsRequired": "IBAN-numero vaaditaan"
     },
     "refunds": {
+      "acceptRefunds": "Hyväksy palautukset",
+      "requestForApproval": "Lähetä hyväksyttäväksi",
       "title": "Palautukset"
     },
     "superAdmin": {
+      "addresses": {
+        "addNewAddress": "Lisää uusi osoite",
+        "title": "Osoitteet"
+      },
+      "createAddress": {
+        "title": "Lisää uusi osoite"
+      },
+      "createLowEmissionCriterion": {
+        "title": "Lisää uusi vähäpäästöisyyskriteeri"
+      },
       "createProduct": {
         "title": "Luo uusi hinta"
       },
+      "editAddress": {
+        "title": "Muokkaa osoitetta",
+        "confirmTitle": "Vahvista poisto",
+        "confirmMessage": "Osoite poistetaan pysyvästi. Haluatko jatkaa?",
+        "confirm": "Poista",
+        "cancel": "Peruuta"
+      },
+      "editLowEmissionCriterion": {
+        "title": "Muokkaa vähäpäästöisyyskriteeriä",
+        "confirmTitle": "Vahvista poisto",
+        "confirmMessage": "Vähäpäästöisyyskriteeri poistetaan pysyvästi. Haluatko jatkaa?",
+        "confirm": "Poista",
+        "cancel": "Peruuta"
+      },
       "editProduct": {
-        "title": "Muokkaa tuotteen hintaa"
+        "title": "Muokkaa tuotetta",
+        "confirmTitle": "Vahvista poisto",
+        "confirmMessage": "Tuote poistetaan pysyvästi. Haluatko jatkaa?",
+        "confirm": "Poista",
+        "cancel": "Peruuta"
+      },
+      "lowEmissionCriteria": {
+        "addNewCriterion": "Lisää uusi vähäpäästöisyyskriteeri",
+        "title": "Vähäpäästöisyyskriteerit"
       },
       "products": {
-        "addNewPrice": "Luo uusi hinta",
-        "title": "Tuotehinnasto"
+        "addNewPrice": "Luo uusi tuote",
+        "title": "Tuotteet"
+      },
+      "announcements": {
+        "title": "Ilmoitukset",
+        "createNewAnnouncement": "Luo uusi ilmoitus",
+        "subject": "Otsikko",
+        "zones": "Pysäköintialueet",
+        "sender": "Lähettäjä",
+        "sentAt": "Lähetetty"
+      },
+      "announcement": {
+        "announcementInFinnish": "Ilmoitus suomeksi",
+        "announcementInSwedish": "Ilmoitus ruotsiksi",
+        "announcementInEnglish": "Ilmoitus englanniksi",
+        "returnToList": "Palaa listanäkymään",
+        "zone": "Alue",
+        "sender": "Lähettäjä",
+        "sentAt": "Lähetetty"
+      },
+      "createAnnouncement": {
+        "title": "Luo uusi ilmoitus"
+      },
+      "customers": {
+        "title": "Asiakkaat",
+        "name": "Nimi",
+        "email": "Sähköpostiosoite",
+        "phoneNumber": "Puhelinnumero",
+        "nationalIdNumber": "Hetu"
+      },
+      "viewCustomer": {
+        "personalInfo": "Henkilötiedot",
+        "returnToList": "Palaa listanäkymään",
+        "downloadCustomerData": "Lataa asiakkaan tiedot"
       }
     }
   },
@@ -361,5 +655,12 @@
   "productUnit": {
     "monthly": "kk",
     "pieces": "kpl"
+  },
+  "refundStatus": {
+    "accepted": "Hyväksytty",
+    "all": "Kaikki",
+    "open": "Avoin",
+    "rejected": "Hylätty",
+    "requestForApproval": "Odottaa hyväksyntää"
   }
 }

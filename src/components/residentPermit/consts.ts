@@ -1,4 +1,3 @@
-import { addDays, addMonths, endOfDay } from 'date-fns';
 import {
   Customer,
   EmissionType,
@@ -6,7 +5,6 @@ import {
   ParkingZone,
   PermitContractType,
   PermitDetail,
-  PowerType,
   Vehicle,
   VehicleClass,
 } from '../../types';
@@ -32,7 +30,10 @@ export const initialVehicle: Vehicle = {
   euroClass: 1,
   emission: 0,
   emissionType: EmissionType.WLTP,
-  powerType: PowerType.BENSIN,
+  powerType: {
+    name: 'Bensin',
+    identifier: '01',
+  },
 };
 
 export const initialParkingZone: ParkingZone = {
@@ -43,14 +44,12 @@ export const initialParkingZone: ParkingZone = {
 
 export function getEmptyPermit(): PermitDetail {
   const startTime = new Date();
-  const endTime = endOfDay(addDays(addMonths(new Date(startTime), 1), -1));
   return {
     customer: initialPerson,
     vehicle: initialVehicle,
     parkingZone: initialParkingZone,
     status: ParkingPermitStatus.VALID,
     startTime: startTime.toISOString(),
-    endTime: endTime.toISOString(),
     description: '',
     currentPeriodEndTime: '',
     canEndImmediately: false,
@@ -60,7 +59,6 @@ export function getEmptyPermit(): PermitDetail {
     contractType: PermitContractType.FIXED_PERIOD,
     monthCount: 1,
     monthsLeft: 0,
-    monthlyPrice: 0,
     changeLogs: [],
   };
 }

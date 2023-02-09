@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.4.15",
+    "@apollo/client": "^3.6.9",
+    "@sentry/react": "^7.13.0",
+    "@sentry/tracing": "^7.13.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
+    "@types/leaflet": "^1.7.9",
+    "@types/node": "^12.20.55",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "await-to-js": "^3.0.0",
-    "date-fns": "^2.25.0",
+    "classnames": "^2.3.2",
+    "date-fns": "^2.29.2",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-typescript-prettier": "^4.2.0",
     "eslint-config-prettier": "^8.3.0",
@@ -21,24 +25,27 @@
     "eslint-plugin-sonarjs": "^0.10.0",
     "formik": "^2.2.9",
     "graphql": "^15.6.0",
-    "hds-design-tokens": "^1.9.0",
-    "hds-react": "^1.9.0",
+    "hds-design-tokens": "^2.6.1",
+    "hds-react": "2.6.1",
     "history": "^5.0.1",
     "http-status-typed": "^1.0.1",
     "husky": "^7.0.2",
-    "i18next": "^21.4.1",
+    "i18next": "^21.9.1",
     "ibantools": "^4.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "leaflet": "^1.8.0",
     "node-sass": "^6.0.1",
     "oidc-client": "^1.11.5",
     "prettier": "^2.4.1",
     "prettier-plugin-organize-imports": "^2.3.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-i18next": "^11.12.0",
+    "react-i18next": "^11.18.6",
+    "react-leaflet": "^4.0.0",
     "react-router": "^6.0.0-beta.4",
     "react-router-dom": "^6.0.0-beta.4",
     "react-scripts": "4.0.3",
-    "typescript": "^4.1.2",
+    "typescript": "~4.4.4",
     "web-vitals": "^1.0.1",
     "yup": "^0.32.11"
   },
@@ -58,16 +65,17 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-leaflet)/"
     ]
+  },
+  "devDependencies": {
+    "resize-observer-polyfill": "^1.5.1"
   }
 }

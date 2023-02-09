@@ -9,26 +9,52 @@ import CreateResidentPermit from './pages/CreateResidentPermit';
 import EditResidentPermit from './pages/EditResidentPermit';
 import EndPermit from './pages/EndPermit';
 import Login from './pages/Login';
-import Messages from './pages/Messages';
 import NotFound from './pages/NotFound';
 import Orders from './pages/Orders';
 import PermitDetail from './pages/PermitDetail';
 import Permits from './pages/Permits';
 import RefundDetail from './pages/RefundDetail';
 import Refunds from './pages/Refunds';
-import Reports from './pages/Reports';
-import CreateProduct from './pages/superAdmin/CreateProduct';
-import EditProduct from './pages/superAdmin/EditProduct';
-import Products from './pages/superAdmin/Products';
+import Addresses from './pages/superAdmin/addresses/Addresses';
+import CreateAddress from './pages/superAdmin/addresses/CreateAddress';
+import EditAddress from './pages/superAdmin/addresses/EditAddress';
+import Announcements from './pages/superAdmin/announcements/Announcements';
+import CreateAnnouncement from './pages/superAdmin/announcements/CreateAnnouncement';
+import ViewAnnouncement from './pages/superAdmin/announcements/ViewAnnouncement';
+import Customers from './pages/superAdmin/customers/Customers';
+import ViewCustomer from './pages/superAdmin/customers/ViewCustomer';
+import CreateLowEmissionCriterion from './pages/superAdmin/lowEmissionCriteria/CreateLowEmissionCriterion';
+import EditLowEmissionCriterion from './pages/superAdmin/lowEmissionCriteria/EditLowEmissionCriterion';
+import LowEmissionCriteria from './pages/superAdmin/lowEmissionCriteria/LowEmissionCriteria';
+import CreateProduct from './pages/superAdmin/products/CreateProduct';
+import EditProduct from './pages/superAdmin/products/EditProduct';
+import Products from './pages/superAdmin/products/Products';
 
 const routes = [
   {
     path: 'admin',
     element: <SuperAdminLayout />,
     children: [
+      { path: 'announcements', element: <Announcements /> },
+      { path: 'announcements/:id', element: <ViewAnnouncement /> },
+      { path: 'announcements/create', element: <CreateAnnouncement /> },
+      { path: 'customers', element: <Customers /> },
+      { path: 'customers/:id', element: <ViewCustomer /> },
       { path: 'products', element: <Products /> },
       { path: 'products/create', element: <CreateProduct /> },
       { path: 'products/:id', element: <EditProduct /> },
+      { path: 'addresses', element: <Addresses /> },
+      { path: 'addresses/create', element: <CreateAddress /> },
+      { path: 'addresses/:id', element: <EditAddress /> },
+      { path: 'lowEmissionCriteria', element: <LowEmissionCriteria /> },
+      {
+        path: 'lowEmissionCriteria/create',
+        element: <CreateLowEmissionCriterion />,
+      },
+      {
+        path: 'lowEmissionCriteria/:id',
+        element: <EditLowEmissionCriterion />,
+      },
       { path: '', element: <Navigate to="products" /> },
     ],
   },
@@ -46,9 +72,7 @@ const routes = [
       { path: 'permits/create/company', element: <CreateCompanyPermit /> },
       { path: 'orders', element: <Orders /> },
       { path: 'refunds', element: <Refunds /> },
-      { path: 'refunds/:refundNumber', element: <RefundDetail /> },
-      { path: 'messages', element: <Messages /> },
-      { path: 'reports', element: <Reports /> },
+      { path: 'refunds/:id', element: <RefundDetail /> },
       { path: 'authError', element: <AuthError /> },
       { path: '404', element: <NotFound /> },
       { path: '/', element: <Navigate to="/permits" /> },

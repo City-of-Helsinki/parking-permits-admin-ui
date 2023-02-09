@@ -9,3 +9,13 @@ $color-payment-in-progress-border: $color-alert;
 $color-payment-in-progress-fill: $color-alert-light;
 $color-valid-border: $color-tram;
 $color-valid-fill: $color-tram-light;
+
+// refund status variables
+$color-refund-open-border: $color-metro;
+$color-refund-open-fill: $color-metro-medium-light;
+$color-refund-request-for-approval-border: $color-alert;
+$color-refund-request-for-approval-fill: $color-alert-light;
+$color-refund-accepted-border: $color-tram;
+$color-refund-accepted-fill: $color-tram-light;
+$color-refund-rejected-border: $color-error;
+$color-refund-rejected-fill: $color-error-light;

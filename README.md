@@ -1,8 +1,10 @@
-![Build status](https://github.com/City-of-Helsinki/youth-membership-admin-ui/workflows/CI/badge.svg?branch=develop)
+[![Build Status](https://dev.azure.com/City-of-Helsinki/pysakoinnin-verkkokauppa/_apis/build/status/parking-permits-admin-ui%20Test?repoName=City-of-Helsinki%2Fparking-permits-admin-ui&branchName=develop)](https://dev.azure.com/City-of-Helsinki/pysakoinnin-verkkokauppa/_build/latest?definitionId=1132&repoName=City-of-Helsinki%2Fparking-permits-admin-ui&branchName=develop)
+[![Continuous Integration](https://github.com/City-of-Helsinki/parking-permits-admin-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/City-of-Helsinki/parking-permits-admin-ui/actions/workflows/ci.yml)
+[![SonarCloud Analysis](https://github.com/City-of-Helsinki/parking-permits-admin-ui/actions/workflows/analyze-code.yml/badge.svg)](https://github.com/City-of-Helsinki/parking-permits-admin-ui/actions/workflows/analyze-code.yml)
 
 ## Parking Permits Admin UI
 
-Admin user interface for managning parking permits.
+Admin user interface for managing parking permits.
 
 Related repositories:
 
@@ -10,7 +12,7 @@ Related repositories:
 
 [Backend](https://github.com/City-of-Helsinki/parking-permits)
 
-## Developement
+## Development
 
 Prerequisites:
 
@@ -32,10 +34,10 @@ $ cd parking-permits-admin-ui
 $ yarn install
 ```
 
-Make a local `.env.development.local` copy:
+Make a local `.env.template` copy:
 
 ```bash
-$ cp .env.development.local.example .env.development.local
+$ cp .env.template .env.development.local
 ```
 
 Run the application in the development mode:

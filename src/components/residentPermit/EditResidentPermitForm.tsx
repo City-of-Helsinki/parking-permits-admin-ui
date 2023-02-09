@@ -2,7 +2,7 @@ import { gql, useLazyQuery } from '@apollo/client';
 import { Button, IconCheckCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Customer, PermitDetail, Vehicle } from '../../types';
+import { Customer, PermitDetail, PermitPrice, Vehicle } from '../../types';
 import styles from './EditResidentPermitForm.module.scss';
 import PermitInfo from './PermitInfo';
 import PersonalInfo from './PersonalInfo';
@@ -11,8 +11,8 @@ import VehicleInfo from './VehicleInfo';
 const T_PATH = 'components.residentPermit.editResidentPermitForm';
 
 const CUSTOMER_QUERY = gql`
-  query GetCustomer($nationalIdNumber: String!) {
-    customer(nationalIdNumber: $nationalIdNumber) {
+  query GetCustomer($query: CustomerRetrieveInput!) {
+    customer(query: $query) {
       firstName
       lastName
       nationalIdNumber
@@ -30,14 +30,6 @@ const CUSTOMER_QUERY = gql`
           name
           label
           labelSv
-          residentProducts {
-            unitPrice
-            startDate
-            endDate
-            vat
-            lowEmissionDiscount
-            secondaryVehicleIncreaseRate
-          }
         }
       }
       otherAddress {
@@ -50,14 +42,6 @@ const CUSTOMER_QUERY = gql`
           name
           label
           labelSv
-          residentProducts {
-            unitPrice
-            startDate
-            endDate
-            vat
-            lowEmissionDiscount
-            secondaryVehicleIncreaseRate
-          }
         }
       }
     }
@@ -77,7 +61,10 @@ const VEHICLE_QUERY = gql`
       euroClass
       emission
       emissionType
-      powerType
+      powerType {
+        name
+        identifier
+      }
     }
   }
 `;
@@ -85,6 +72,7 @@ const VEHICLE_QUERY = gql`
 interface EditResidentPermitFormProps {
   className?: string;
   permit: PermitDetail;
+  permitPrices: PermitPrice[];
   onUpdatePermit: (permit: PermitDetail) => void;
   onCancel: () => void;
   onConfirm: () => void;
@@ -93,6 +81,7 @@ interface EditResidentPermitFormProps {
 const EditResidentPermitForm = ({
   className,
   permit,
+  permitPrices,
   onUpdatePermit,
   onCancel,
   onConfirm,
@@ -100,7 +89,7 @@ const EditResidentPermitForm = ({
   const { t } = useTranslation();
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
-  const { customer, vehicle } = permit;
+  const { customer, vehicle, address: permitAddress } = permit;
 
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
@@ -136,9 +125,19 @@ const EditResidentPermitForm = ({
     });
   };
 
+  const handleUpdatePermit = (newPermit: PermitDetail) =>
+    onUpdatePermit(newPermit);
+
   const handleSearchPerson = (nationalIdNumber: string) => {
     getCustomer({
-      variables: { nationalIdNumber },
+      variables: { query: { nationalIdNumber } },
+    }).then(response => {
+      if (response.data?.customer) {
+        handleUpdatePermit({
+          ...permit,
+          customer: response.data?.customer,
+        });
+      }
     });
   };
 
@@ -148,14 +147,6 @@ const EditResidentPermitForm = ({
       vehicle: newVehicle,
     });
   };
-  const handleUpdatePerson = (person: Customer) => {
-    onUpdatePermit({
-      ...permit,
-      customer: person,
-    });
-  };
-  const handleUpdatePermit = (newPermit: PermitDetail) =>
-    onUpdatePermit(newPermit);
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -163,14 +154,22 @@ const EditResidentPermitForm = ({
         <PersonalInfo
           className={styles.column}
           person={customer}
+          permitAddress={permitAddress}
           searchError={personSearchError}
+          parkingZone={permit.parkingZone}
+          disableCustomerChange
           onSearchPerson={handleSearchPerson}
-          onUpdatePerson={handleUpdatePerson}
+          onUpdatePermit={(tempPermit: Partial<PermitDetail>) =>
+            onUpdatePermit({
+              ...permit,
+              ...tempPermit,
+            })
+          }
         />
         <VehicleInfo
           className={styles.column}
           vehicle={vehicle}
-          zone={customer.zone}
+          permitPrices={permitPrices}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
           onUpdateVehicle={handleUpdateVehicle}

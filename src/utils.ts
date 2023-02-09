@@ -1,4 +1,4 @@
-import { addMonths } from 'date-fns';
+import { addMonths, format } from 'date-fns';
 import { extractIBAN } from 'ibantools';
 import {
   Address,
@@ -10,7 +10,6 @@ import {
   PriceModifiers,
   Product,
   ProductWithQuantity,
-  SavedStatus,
   Vehicle,
   VehicleInput,
 } from './types';
@@ -28,12 +27,24 @@ export function getBooleanEnv(key: string): boolean {
   return ['true', '1'].includes(val);
 }
 
-export function formatAddress(address: Address, lang: string): string {
-  const { streetName, streetNameSv, streetNumber, city, citySv } = address;
-  if (lang === 'sv') {
-    return `${streetNameSv} ${streetNumber}, ${citySv}`;
+export function formatAddress(
+  address: Address | undefined,
+  lang: string,
+  options?: { withPostalCode?: boolean }
+): string {
+  if (!address) {
+    return '-';
   }
-  return `${streetName} ${streetNumber}, ${city}`;
+
+  const { streetName, streetNameSv, streetNumber, city, citySv } = address;
+  let postalCode = '';
+  if (options?.withPostalCode) {
+    postalCode = `${address.postalCode} `;
+  }
+  if (lang === 'sv') {
+    return `${streetNameSv} ${streetNumber}, ${postalCode}${citySv}`;
+  }
+  return `${streetName} ${streetNumber}, ${postalCode}${city}`;
 }
 
 export function getPermitAddresses(permits: Permit[]): Address[] {
@@ -57,14 +68,12 @@ export function formatDateDisplay(datetime: string | Date): string {
   return dt.toLocaleDateString('fi');
 }
 
-export function formatDateTimeDisplay(datetime: string | Date): string {
+export function formatDateTimeDisplay(
+  datetime: string | Date,
+  dtFormat = 'd.M.Y, HH:mm'
+): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
-  const dateStr = dt.toLocaleDateString('fi');
-  const timeStr = dt.toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-  return `${dateStr}, ${timeStr}`;
+  return dt ? format(dt, dtFormat) : '';
 }
 
 export function formatCustomerName(customer: Customer): string {
@@ -85,23 +94,12 @@ export function formatVehicleName(vehicle: Vehicle): string {
   return `${registrationNumber} ${manufacturer} ${model}`;
 }
 
-export function formatMonthlyPrice(price: number): string {
-  const formattedPrice = parseFloat(price.toFixed(2));
-  return `${formattedPrice} €/kk`;
-}
-
 export function formatPrice(price: number): string {
-  const formattedPrice = price.toFixed(2);
-  return `${formattedPrice} €`;
+  return parseFloat(price.toString()).toFixed(2);
 }
 
-export function getSavedStatus<T>(key: SavedStatus): T | null {
-  const value = sessionStorage.getItem(key);
-  return value ? (JSON.parse(value) as T) : null;
-}
-
-export function saveStatus(item: SavedStatus, value: unknown): void {
-  sessionStorage.setItem(item as string, JSON.stringify(value));
+export function formatMonthlyPrice(price: number): string {
+  return `${formatPrice(price)} €/kk`;
 }
 
 export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
@@ -127,7 +125,10 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
     euroClass,
     emission,
     emissionType,
-    powerType,
+    powerType: {
+      identifier: powerType.identifier,
+      name: powerType.name,
+    },
   };
 }
 
@@ -167,7 +168,6 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     otherAddress,
     email,
     phoneNumber,
-    zone,
     addressSecurityBan,
     driverLicenseChecked,
   } = customer;
@@ -185,7 +185,6 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     otherAddress: otherAddressInput,
     email,
     phoneNumber,
-    zone: zone?.name,
     addressSecurityBan,
     driverLicenseChecked,
   };
@@ -200,6 +199,8 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     startTime,
     monthCount,
     description,
+    address,
+    parkingZone,
   } = permit;
   const vehicleInput = convertToVehicleInput(vehicle);
   const customerInput = convertToCustomerInput(customer);
@@ -211,7 +212,25 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     startTime,
     monthCount,
     description,
+    zone: parkingZone?.name || address?.zone?.name,
+    address: convertAddressToAddressInput(address),
   };
+}
+
+export function isValidForPriceCheck(permit: PermitInput): boolean {
+  const { vehicle } = permit;
+  const hasRequiredZoneField = !!permit.zone;
+  const hasRequiredPermitFields = !!(permit.startTime && permit.monthCount);
+  const hasRequiredVehicleFields = !!(
+    vehicle.powerType &&
+    vehicle.euroClass &&
+    vehicle.emissionType &&
+    vehicle.registrationNumber?.length &&
+    Number.isInteger(vehicle.emission)
+  );
+  return (
+    hasRequiredZoneField && hasRequiredPermitFields && hasRequiredVehicleFields
+  );
 }
 
 export function getProductsWithQuantities(
@@ -282,4 +301,18 @@ export function getPermitTotalPrice(
 export function isValidIBAN(value: string): boolean {
   const iban = extractIBAN(value);
   return iban.valid && iban.countryCode === 'FI';
+}
+
+export function joinSet<T>(set: Set<T>, separator?: string): string {
+  return Array.from(set)
+    .filter(val => val)
+    .join(separator);
+}
+
+export function mapValues<V>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  obj: Record<string, any>,
+  val: V
+): Record<string | number | symbol, V> {
+  return Object.keys(obj).reduce((acc, key) => ({ ...acc, [key]: val }), {});
 }

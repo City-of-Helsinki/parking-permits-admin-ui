@@ -5,12 +5,16 @@
   margin-bottom: $spacing-s;
 }
 
+.addTemporaryVehicle {
+  margin-top: $spacing-s;
+}
+
 .infoBox {
   display: flex;
   flex-direction: column;
   padding: $spacing-s;
   background-color: $color-coat-of-arms-light;
-  .vechile {
+  .vehicle {
     font-weight: bold;
   }
   .emissionInfo {
@@ -26,5 +30,12 @@
     margin: $spacing-xs 0;
     display: flex;
     flex-direction: column;
+  }
+}
+
+.invalidVehicle {
+  margin-top: $spacing-s;
+  .infoBox {
+    background-color: $color-black-10;
   }
 }

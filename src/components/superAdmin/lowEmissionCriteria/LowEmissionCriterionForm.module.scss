@@ -1,0 +1,40 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.fieldSet {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .field {
+    width: auto;
+  }
+
+  .field:not(:last-child) {
+    margin-right: $spacing-s;
+  }
+}
+
+.field {
+  margin-bottom: $spacing-m;
+  width: 360px;
+}
+
+.dateSeperator {
+  width: 20px;
+  height: 2px;
+  margin: 30px 10px 0 10px;
+  background-color: black;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+
+  .submit {
+    margin-right: $spacing-s;
+  }
+
+  .delete {
+    margin-right: $spacing-s;
+  }
+}

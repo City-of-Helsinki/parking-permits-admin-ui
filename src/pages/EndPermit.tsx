@@ -8,8 +8,7 @@ import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import CustomerInfo from '../components/permitDetail/CustomerInfo';
 import PermitInfo from '../components/permitDetail/PermitInfo';
-import RefundInfoFixedPeriod from '../components/permitDetail/RefundInfoFixedPeriod';
-import RefundInfoOpenEnded from '../components/permitDetail/RefundInfoOpenEnded';
+import RefundInfo from '../components/permitDetail/RefundInfo';
 import VehicleInfo from '../components/permitDetail/VehicleInfo';
 import {
   MutationResponse,
@@ -25,7 +24,7 @@ const T_PATH = 'pages.endPermit';
 const PERMIT_DETAIL_QUERY = gql`
   query GetPermitDetail($permitId: ID!) {
     permitDetail(permitId: $permitId) {
-      identifier
+      id
       startTime
       endTime
       currentPeriodEndTime
@@ -35,7 +34,7 @@ const PERMIT_DETAIL_QUERY = gql`
       contractType
       monthCount
       monthsLeft
-      monthlyPrice
+      totalRefundAmount
       customer {
         firstName
         lastName
@@ -69,21 +68,13 @@ const PERMIT_DETAIL_QUERY = gql`
         name
         label
         labelSv
-        residentProducts {
-          unitPrice
-          startDate
-          endDate
-          vat
-          lowEmissionDiscount
-          secondaryVehicleIncreaseRate
-        }
       }
     }
   }
 `;
 
 const END_PERMIT_MUTATION = gql`
-  mutation endPermit($permitId: Int!, $endType: PermitEndType!, $iban: String) {
+  mutation endPermit($permitId: ID!, $endType: PermitEndType!, $iban: String) {
     endPermit(permitId: $permitId, endType: $endType, iban: $iban) {
       success
     }
@@ -100,6 +91,7 @@ const EndPermit = (): React.ReactElement => {
   const [errorMessage, setErrorMessage] = useState('');
   const { loading, data } = useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
     variables,
+    fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
   const [endPermit] = useMutation<MutationResponse>(END_PERMIT_MUTATION);
@@ -107,7 +99,12 @@ const EndPermit = (): React.ReactElement => {
     return <div>loading...</div>;
   }
   const { permitDetail } = data;
-  const { identifier, contractType } = permitDetail;
+  const {
+    id: permitId,
+    contractType,
+    canBeRefunded,
+    totalRefundAmount,
+  } = permitDetail;
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -136,20 +133,12 @@ const EndPermit = (): React.ReactElement => {
           }
           permit={permitDetail}
         />
-        {contractType === PermitContractType.FIXED_PERIOD && (
-          <RefundInfoFixedPeriod
-            className={styles.column}
-            iban={iban}
-            permit={permitDetail}
-            onChangeIban={newIban => setIban(newIban)}
-          />
-        )}
-        {contractType === PermitContractType.OPEN_ENDED && (
-          <RefundInfoOpenEnded
-            className={styles.column}
-            permit={permitDetail}
-          />
-        )}
+        <RefundInfo
+          className={styles.column}
+          iban={iban}
+          permit={permitDetail}
+          onChangeIban={newIban => setIban(newIban)}
+        />
       </div>
       <div className={styles.actions}>
         <Button
@@ -164,17 +153,16 @@ const EndPermit = (): React.ReactElement => {
           className={styles.actionButton}
           disabled={
             contractType === PermitContractType.FIXED_PERIOD &&
+            canBeRefunded &&
+            totalRefundAmount > 0 &&
             !(iban && isValidIBAN(iban))
           }
           onClick={() => {
             endPermit({
               variables: {
-                permitId: identifier,
+                permitId,
                 endType: endType?.toUpperCase(),
-                iban:
-                  contractType === PermitContractType.FIXED_PERIOD
-                    ? iban
-                    : undefined,
+                iban,
               },
             })
               .then(() => navigate(`/permits/${id}`))

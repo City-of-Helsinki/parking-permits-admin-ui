@@ -28,20 +28,31 @@ const PermitInfo = ({
     status,
     currentPeriodEndTime,
     description,
+    primaryVehicle,
   } = permit;
   let endTimeValue = '';
   if (endType === PermitEndType.IMMEDIATELY) {
     endTimeValue = formatDateTimeDisplay(new Date());
   } else if (endType === PermitEndType.AFTER_CURRENT_PERIOD) {
     endTimeValue = formatDateTimeDisplay(currentPeriodEndTime);
+  } else if (endTime) {
+    endTimeValue = formatDateTimeDisplay(endTime);
+  } else if (currentPeriodEndTime) {
+    endTimeValue = formatDateTimeDisplay(currentPeriodEndTime);
   } else {
-    endTimeValue = endTime ? formatDateTimeDisplay(endTime) : '-';
+    endTimeValue = '-';
   }
   const contractTypeLabelMapping = {
     FIXED_PERIOD: t('contractType.fixedPeriod'),
     OPEN_ENDED: t('contractType.openEnded'),
   };
   const fields = [
+    {
+      label: t(`${T_PATH}.permitOrder`),
+      value: primaryVehicle
+        ? t(`${T_PATH}.firstPermit`)
+        : t(`${T_PATH}.secondPermit`),
+    },
     {
       label: t(`${T_PATH}.contractType`),
       value: contractTypeLabelMapping[contractType] || '-',

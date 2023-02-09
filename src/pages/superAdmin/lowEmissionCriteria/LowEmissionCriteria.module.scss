@@ -1,0 +1,12 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.container {
+  margin: $spacing-m;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

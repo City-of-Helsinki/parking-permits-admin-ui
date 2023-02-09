@@ -1,0 +1,48 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.row {
+  display: flex;
+  flex-direction: row;
+
+  .column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    &:not(:last-child) {
+      margin-right: $spacing-m;
+    }
+  }
+
+  .fieldRow {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: $spacing-s;
+
+    .field:not(:last-child) {
+      margin-right: $spacing-s;
+    }
+  }
+
+  .field {
+    margin-bottom: $spacing-s;
+  }
+}
+
+.locationPicker {
+  height: 420px;
+  width: 480px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+
+  .submit {
+    margin-right: $spacing-s;
+  }
+
+  .delete {
+    margin-right: $spacing-s;
+  }
+}

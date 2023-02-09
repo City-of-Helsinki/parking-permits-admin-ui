@@ -1,9 +1,10 @@
-import { Checkbox } from 'hds-react';
+import { Button, Checkbox, IconPlus, IconTrash } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitDetail, PriceModifiers } from '../../types';
+import useUserRole, { UserRole } from '../../api/useUserRole';
+import { ParkingPermitStatus, PermitDetail, PermitPrice } from '../../types';
 import { formatVehicleName } from '../../utils';
-import ProductPriceRow from '../common/ProductPriceRow';
+import PermitPriceRow from '../common/PermitPriceRow';
 import styles from './VehicleInfo.module.scss';
 
 const T_PATH = 'components.permitDetail.vehicleInfo';
@@ -11,24 +12,30 @@ const T_PATH = 'components.permitDetail.vehicleInfo';
 export interface VehicleInfoProps {
   className?: string;
   permit: PermitDetail;
+  permitPrices?: PermitPrice[];
+  openAddTempVehicle?: (state: boolean) => void;
+  removeTemporaryVehicle: (data: { variables: { permitId: string } }) => void;
 }
 
 const VehicleInfo = ({
   className,
   permit,
+  permitPrices,
+  openAddTempVehicle,
+  removeTemporaryVehicle,
 }: VehicleInfoProps): React.ReactElement => {
+  const userRole = useUserRole();
   const { t } = useTranslation();
-  const { vehicle, parkingZone, consentLowEmissionAccepted } = permit;
+  const { vehicle, consentLowEmissionAccepted, activeTemporaryVehicle } =
+    permit;
   const { isLowEmission } = vehicle;
-  const priceModifiers: PriceModifiers = {
-    isLowEmission,
-    isSecondaryVehicle: false,
-  };
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
       <div className={styles.infoBox}>
-        <div className={styles.vechile}>{formatVehicleName(vehicle)}</div>
+        <div className={styles.vehicle}>
+          {formatVehicleName(activeTemporaryVehicle?.vehicle || vehicle)}
+        </div>
         <div className={styles.emissionInfo}>
           {t(
             `${T_PATH}.${
@@ -36,16 +43,17 @@ const VehicleInfo = ({
             }`
           )}
         </div>
-        <div className={styles.priceList}>
-          {parkingZone.residentProducts?.map(product => (
-            <ProductPriceRow
-              key={product.startDate}
-              className={styles.productPriceRow}
-              product={product}
-              priceModifiers={priceModifiers}
-            />
-          ))}
-        </div>
+        {permitPrices && permitPrices.length > 0 && (
+          <div className={styles.priceList}>
+            {permitPrices.map(permitPrice => (
+              <PermitPriceRow
+                key={permitPrice.startDate}
+                className={styles.productPriceRow}
+                permitPrice={permitPrice}
+              />
+            ))}
+          </div>
+        )}
         <Checkbox
           disabled
           id="consent-low-emission-discount"
@@ -54,6 +62,42 @@ const VehicleInfo = ({
           checked={consentLowEmissionAccepted}
         />
       </div>
+
+      {!activeTemporaryVehicle &&
+        userRole >= UserRole.CUSTOMER_SERVICE &&
+        permit.status === ParkingPermitStatus.VALID && (
+          <Button
+            className={styles.addTemporaryVehicle}
+            variant="supplementary"
+            onClick={() => openAddTempVehicle?.(true)}
+            iconLeft={<IconPlus />}>
+            {t(`${T_PATH}.addTemporaryVehicle`)}
+          </Button>
+        )}
+
+      {activeTemporaryVehicle && (
+        <>
+          {userRole >= UserRole.CUSTOMER_SERVICE && (
+            <Button
+              className={styles.addTemporaryVehicle}
+              variant="supplementary"
+              onClick={() =>
+                removeTemporaryVehicle({
+                  variables: { permitId: `${permit.id}` },
+                })
+              }
+              iconLeft={<IconTrash />}>
+              {t(`${T_PATH}.removeTemporaryVehicle`)}
+            </Button>
+          )}
+          <div className={styles.invalidVehicle}>
+            <div className={styles.title}>{t(`${T_PATH}.invalid`)}</div>
+            <div className={styles.infoBox}>
+              <div className={styles.vehicle}>{formatVehicleName(vehicle)}</div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

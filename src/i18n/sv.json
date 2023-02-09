@@ -8,7 +8,9 @@
       "addressSearch": {
         "cancel": "Avbryt redigering",
         "clear": "Rensa",
-        "edit": "Redigera adress"
+        "edit": "Redigera adress",
+        "editAddress": "Redigera",
+        "placeholder": "Sök adress..."
       },
       "changeLogs": {
         "createdAt": "Skapade vid",
@@ -17,7 +19,12 @@
         "event": "Event"
       },
       "dataTable": {
-        "results": "Resultat: {{count}}"
+        "downloadCsv": "Ladda ner resultaten som en csv-fil",
+        "results": "Resultat: {{count}}",
+        "selectAll": "Välj alla från listan"
+      },
+      "zoneSelect": {
+        "zone": "Område"
       }
     },
     "createPermit": {
@@ -32,11 +39,9 @@
       "appTitle": "Hantering av parkeringstillstånd",
       "login": "Logga in",
       "logout": "Logga ut",
-      "messages": "Meddelanden",
       "orders": "Beställningar",
       "permits": "Tillstånd",
-      "reports": "Rapporter",
-      "returns": "Returnerar",
+      "refunds": "Återbetalningar",
       "skipToContent": "Hoppa till innehållet"
     },
     "orders": {
@@ -46,10 +51,11 @@
         "name": "Kund",
         "orderNumber": "Ordernummer",
         "paidTime": "Betalt datum",
+        "permits": "Tillstånd",
         "permitType": "Typ av tillstånd",
         "registrationNumber": "Registreringsnummer",
         "residentPermit": "Boendeparkering",
-        "totalPrice": "Totalpris",
+        "totalPaymentPrice": "Totalpris",
         "zone": "Zon"
       }
     },
@@ -80,7 +86,10 @@
         "startTime": "Starttid",
         "status": "Status",
         "title": "Tillståndsinformation",
-        "validPeriod": "Giltig period"
+        "validPeriod": "Giltig period",
+        "permitOrder": "Ordning",
+        "firstPermit": "1. tillstånd",
+        "secondPermit": "2. tillstånd"
       },
       "permitPriceChangeInfo": {
         "customerAccountKnown": "Kundkontonummer för återbetalning",
@@ -96,7 +105,7 @@
         "refundTotalVat": "Inkl. moms (24%)",
         "title": "Ny prenumeration"
       },
-      "refundInfoFixedPeriod": {
+      "refundInfo": {
         "monthCount_one": "{{count}} månad",
         "monthCount_other": "{{count}} månader",
         "orderRemaingDescription": "Priset tar hänsyn till de återstående hela månaderna av beställningen.",
@@ -105,15 +114,29 @@
         "refunded": "Återbetalas",
         "title": "Pris"
       },
-      "refundInfoOpenEnded": {
-        "monthlyPrice": "Månadspris",
-        "refund": "Återbetalning",
-        "title": "Pris"
+      "temporaryVehicle": {
+        "actionBtn": {
+          "cancel": "Avbryt",
+          "continue": "Fortsätt"
+        },
+        "endDate": "Tillfälligt slutdatum",
+        "endTime": "Sluttid",
+        "infoMessage": "Efter det valda slutdatumet kommer informationen för det ursprungliga fordonet att återställas till informationen för ID automatiskt.",
+        "registrationNumber": {
+          "helpText": "Tillfälligt kan vara giltigt i maximalt 14 dagar.",
+          "label": "Tillfälligt fordonsregistreringsnummer"
+        },
+        "startDate": "Tillfälligt startdatum",
+        "startTime": "Starttid",
+        "title": "Tillfälliga fordonsdetaljer"
       },
       "vehicleInfo": {
+        "addTemporaryVehicle": "Lägg till ett tillfälligt fordon",
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
-        "highEmissionVehicle": "Fordon med höga utsläpp",
+        "highEmissionVehicle": "Fordon med normala utsläpp",
+        "invalid": "Inte giltig",
         "lowEmissionVehicle": "Fordon med låga utsläpp",
+        "removeTemporaryVehicle": "Ta bort det tillfälliga fordonet",
         "title": "Fordonsinformation"
       }
     },
@@ -132,7 +155,10 @@
         "registrationNumber": "Registreringsnummer",
         "startTime": "Starttid",
         "status": "Status",
-        "zone": "Zon"
+        "zone": "Zon",
+        "permitOrder": "Ordning",
+        "firstPermit": "1. tillstånd",
+        "secondPermit": "2. tillstånd"
       },
       "permitsSearch": {
         "placeholder": "Sök",
@@ -148,9 +174,22 @@
     },
     "refunds": {
       "refundsDataTable": {
+        "acceptedAt": "Godkänd",
+        "accountNumber": "Kontonummer",
         "amount": "Mängd",
         "createdAt": "Skapade vid",
         "name": "Namn",
+        "orderNumber": "Ordernummer",
+        "refundNumber": "Återbetalningsnummer",
+        "registrationNumber": "Registreringsnummer",
+        "status": "Status"
+      },
+      "refundsSearch": {
+        "cash": "Kontanter",
+        "searchPlaceholder": "Namn, registreringsnummer eller ordernummer",
+        "webshop": "Webbshop"
+      },
+      "refundStatusSelect": {
         "status": "Status"
       }
     },
@@ -170,8 +209,7 @@
         "additionalInfoPlaceholder": "För ytterligare information, t.ex. information om mopeden",
         "contractType": "Kontraktstyp",
         "effectiveFrom": "Gäller från",
-        "expirationDate": "Utgångsdatum",
-        "momentWhenPermitIsSaved": "Tiden parkeringstillståndet sparades",
+        "expirationDate": "Utgångsdatum (annat tillstånd kommer att beaktas automatiskt vid lagring)",
         "permitInfo": "Tillståndsinformation",
         "startDate": "Startdatum",
         "validPeriodInMonths": "Giltig period i månader"
@@ -208,6 +246,68 @@
       }
     },
     "superAdmin": {
+      "addresses": {
+        "addressesDataTable": {
+          "city": "Stad",
+          "citySv": "Stad (sv)",
+          "postalCode": "Postnummer",
+          "streetName": "Gatunamn",
+          "streetNameSv": "Gatunamn (sv)",
+          "streetNumber": "Gatunummer",
+          "zone": "Område"
+        },
+        "addressForm": {
+          "city": "Stad",
+          "citySv": "Stad (sv)",
+          "delete": "Radera",
+          "enterPostalCode": "Ange ett postnummer",
+          "enterStreetName": "Ange ett gatunamn",
+          "enterStreetNumber": "Ange ett gatunummer",
+          "enterCity": "Vänligen ange stadens namn",
+          "location": "Plats",
+          "postalCode": "Postnummer",
+          "postalCode5Digits": "Postnummer ska ha 5 siffror",
+          "save": "Spara",
+          "cancel": "Avbryt",
+          "selectLocation": "Välj en plats",
+          "streetName": "Gatunamn",
+          "streetNameSv": "Gatunamn (sv)",
+          "streetNumber": "Gatunummer",
+          "zone": "Område"
+        },
+        "addressesSearch": {
+          "postalCode": "Postnummer",
+          "streetName": "Gatunamn",
+          "streetNumber": "Gatunummer",
+          "zone": "Område",
+          "searchButton": "Sök",
+          "clearButton": "Rensa sökkriterierna"
+        }
+      },
+      "lowEmissionCriteria": {
+        "lowEmissionCriteriaDataTable": {
+          "euroMinClassLimit": "Minsta klassgräns för euro",
+          "nedcMaxEmissionLimit": "NEDC maximala utsläppsgräns",
+          "powerType": "Ström",
+          "validPeriod": "Giltighetsperiod",
+          "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
+        },
+        "lowEmissionCriterionForm": {
+          "delete": "Radera",
+          "endDate": "Slutdatum",
+          "enterNedcMaxEmissionLimit": "Ange en maximal NEDC-gräns för utsläpp",
+          "enterStartDate": "Ange ett startdatum",
+          "enterWltpMaxEmissionLimit": "Ange en maximal WLTP-gräns för utsläpp",
+          "euroMinClassLimit": "Minsta klassgräns för euro",
+          "nedcMaxEmissionLimit": "NEDC maximala utsläppsgräns",
+          "powerType": "Strömtyp",
+          "save": "Spara",
+          "cancel": "Avbryt",
+          "startDate": "Startdatum",
+          "validPeriod": "Giltighetsperiod",
+          "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
+        }
+      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "Ingen rabatt"
@@ -226,6 +326,7 @@
           "productPrice": "Produktpris",
           "productType": "Produkttyp",
           "save": "Spara",
+          "cancel": "Avbryt",
           "startDate": "Startdatum",
           "unit": "Enhet",
           "validPeriod": "Giltighetsperiod",
@@ -243,10 +344,24 @@
         }
       },
       "sideNav": {
+        "addresses": "Adresser",
+        "lowEmissionCriteria": "Lågutsläppskriterier",
         "menu": "Meny",
-        "products": "Produkter",
-        "users": "Användare"
+        "products": "Produkter"
       }
+    }
+  },
+  "enums": {
+    "contractType": {
+      "fixedPeriod": "Tillfällig",
+      "openEnded": "Kontinuerlig laddning"
+    },
+    "paymentType": {
+      "cashierPayment": "Kassabetalning",
+      "onlinePayment": "Online betalning"
+    },
+    "priceDiscount": {
+      "lowEmission": "Lågtutsläpp"
     }
   },
   "contractType": {
@@ -258,7 +373,8 @@
   },
   "message": {
     "close": "Stänga",
-    "error": "Fel"
+    "error": "Fel",
+    "unauthorized": "Du är inte behörig att se den här sidan"
   },
   "pages": {
     "createPermit": {
@@ -279,7 +395,8 @@
       "permits": "Tillstånd",
       "residentPermit": "Parkeringstillstånd för boende",
       "save": "Spara",
-      "totalPrice": "Totalpris"
+      "totalPrice": "Totalpris",
+      "createPermitError": "Det gick inte att skapa tillstånd"
     },
     "editResidentPermit": {
       "cancelPayment": "Avbryt betalning",
@@ -308,6 +425,7 @@
     },
     "permitDetail": {
       "changeHistory": "Ändringshistorik",
+      "downloadPdf": "Ladda ner tillståndsinformation som PDF",
       "edit": "Redigera",
       "endPermit": "Sluttillstånd",
       "now": "Nu",
@@ -324,21 +442,57 @@
       "name": "Namn",
       "refunds": "Returnerar",
       "save": "Spara",
-      "title": "Redigera Retur"
+      "downloadPdf": "Ladda ner returnsinformation som PDF",
+      "title": "Redigera Retur",
+      "ibanIsRequired": "IBAN-nummer krävs"
     },
     "refunds": {
-      "title": "Returnerar"
+      "acceptRefunds": "Acceptera återbetalningar",
+      "requestForApproval": "Begäran om godkännande",
+      "title": "Återbetalningar"
     },
     "superAdmin": {
+      "addresses": {
+        "addNewAddress": "Lägg till ny adress",
+        "title": "Adresser"
+      },
+      "createAddress": {
+        "title": "Lägg till ny adress"
+      },
+      "createLowEmissionCriterion": {
+        "title": "Lägg till nytt kriterium för låga utsläpp"
+      },
       "createProduct": {
-        "title": "Skapa ett nytt pris"
+        "title": "Skapa ett nytt produkt"
+      },
+      "editAddress": {
+        "title": "Redigera adress",
+        "confirmTitle": "Bekräfta radering",
+        "confirmMessage": "Adressen kommer att raderas permanent. Vill du fortsätta?",
+        "confirm": "Radera",
+        "cancel": "Avbryt"
+      },
+      "editLowEmissionCriterion": {
+        "title": "Redigera kriterium för låga utsläpp",
+        "confirmTitle": "Bekräfta radering",
+        "confirmMessage": "Kriterium för låga utsläppen kommer att raderas permanent. Vill du fortsätta?",
+        "confirm": "Radera",
+        "cancel": "Avbryt"
       },
       "editProduct": {
-        "title": "Redigera produktpris"
+        "title": "Redigera produktpris",
+        "confirmTitle": "Bekräfta radering",
+        "confirmMessage": "Produkten kommer att raderas permanent. Vill du fortsätta?",
+        "confirm": "Radera",
+        "cancel": "Avbryt"
+      },
+      "lowEmissionCriteria": {
+        "addNewCriterion": "Lägg till ett nytt kriterium för låga utsläpp",
+        "title": "Lågutsläppskriterier"
       },
       "products": {
-        "addNewPrice": "Skapa ett nytt pris",
-        "title": "Produktprislista"
+        "addNewPrice": "Skapa ett nytt produkt",
+        "title": "Produktslista"
       }
     }
   },
@@ -355,5 +509,12 @@
   "productUnit": {
     "monthly": "kk",
     "pieces": "kpl"
+  },
+  "refundStatus": {
+    "accepted": "Accepterad",
+    "all": "Alla",
+    "open": "Öppna",
+    "rejected": "Avvisade",
+    "requestForApproval": "Begäran om godkännande"
   }
 }

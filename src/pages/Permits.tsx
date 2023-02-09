@@ -1,23 +1,26 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import { Button, IconArrowRight, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
+import useUserRole, { UserRole } from '../api/useUserRole';
 import { makePrivate } from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
+import useExportData from '../export/useExportData';
+import { formatExportUrl } from '../export/utils';
+import { useOrderByParam, usePageParam } from '../hooks/searchParam';
 import {
-  DEFAULT_SEARCH_INFO,
-  getSearchItems,
-} from '../components/permits/utils';
-import {
+  LimitedPermitsQueryData,
   OrderBy,
+  ParkingPermitStatus,
+  ParkingPermitStatusOrAll,
+  Permit,
+  PermitSearchParams,
   PermitsQueryData,
   PermitsQueryVariables,
-  PermitsSearchInfo,
-  SavedStatus,
 } from '../types';
-import { getSavedStatus, saveStatus } from '../utils';
 import styles from './Permits.module.scss';
 
 const T_PATH = 'pages.permits';
@@ -26,18 +29,19 @@ const PERMITS_QUERY = gql`
   query GetPermits(
     $pageInput: PageInput!
     $orderBy: OrderByInput
-    $searchItems: [SearchItem]
+    $searchParams: PermitSearchParamsInput
   ) {
     permits(
       pageInput: $pageInput
       orderBy: $orderBy
-      searchItems: $searchItems
+      searchParams: $searchParams
     ) {
       objects {
-        identifier
+        id
         startTime
         endTime
         status
+        primaryVehicle
         customer {
           firstName
           lastName
@@ -81,62 +85,161 @@ const PERMITS_QUERY = gql`
   }
 `;
 
+const LIMITED_PERMITS_QUERY = gql`
+  query GetPermits(
+    $pageInput: PageInput!
+    $orderBy: OrderByInput
+    $searchParams: PermitSearchParamsInput
+  ) {
+    limitedPermits(
+      pageInput: $pageInput
+      orderBy: $orderBy
+      searchParams: $searchParams
+    ) {
+      objects {
+        id
+        startTime
+        endTime
+        status
+        vehicle {
+          manufacturer
+          model
+          registrationNumber
+        }
+        parkingZone {
+          name
+        }
+      }
+      pageInfo {
+        numPages
+        page
+        next
+        prev
+        startIndex
+        endIndex
+        count
+      }
+    }
+  }
+`;
+
 const Permits = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const initialPage = getSavedStatus<number>(SavedStatus.PERMITS_PAGE) || 1;
-  const initialOrderBy =
-    getSavedStatus<OrderBy>(SavedStatus.PERMITS_ORDER_BY) || undefined;
-  const initialSearchInfo =
-    getSavedStatus<PermitsSearchInfo>(SavedStatus.PERMITS_SEARCH_INFO) ||
-    DEFAULT_SEARCH_INFO;
-  const [page, setPage] = useState(initialPage);
-  const [orderBy, setOrderBy] = useState<OrderBy | undefined>(initialOrderBy);
-  const [searchInfo, setSearchInfo] =
-    useState<PermitsSearchInfo>(initialSearchInfo);
+  const userRole = useUserRole();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const exportData = useExportData();
+  const statusParam = searchParams.get('status');
+  const qParam = searchParams.get('q');
+
+  const { pageParam: page, setPageParam } = usePageParam();
+  const { orderByParam: orderBy, setOrderBy } = useOrderByParam();
+
+  const permitSearchParams = {
+    status:
+      (statusParam as ParkingPermitStatusOrAll | null) ||
+      ParkingPermitStatus.VALID,
+    q: qParam || '',
+  };
   const [errorMessage, setErrorMessage] = useState('');
-  const searchItems = getSearchItems(searchInfo);
   const variables: PermitsQueryVariables = {
     pageInput: { page },
     orderBy,
-    searchItems,
+    searchParams: permitSearchParams,
   };
-  const { loading, data } = useQuery<PermitsQueryData>(PERMITS_QUERY, {
+
+  const [getPermits, { loading, data, refetch }] = useLazyQuery<
+    PermitsQueryData | LimitedPermitsQueryData
+  >(userRole > UserRole.INSPECTORS ? PERMITS_QUERY : LIMITED_PERMITS_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(error.message),
   });
-  const handleSearch = (newSearchInfo: PermitsSearchInfo) => {
-    setSearchInfo(newSearchInfo);
-    saveStatus(SavedStatus.PERMITS_SEARCH_INFO, newSearchInfo);
+
+  const handleSearch = (newSearchParams: PermitSearchParams) => {
+    setSearchParams(
+      new URLSearchParams({
+        ...newSearchParams,
+        ...orderBy,
+        page: '1',
+      }),
+      { replace: true }
+    );
+
+    getPermits({
+      variables: {
+        searchParams: newSearchParams,
+        pageInput: { page: 1 },
+        orderBy,
+      },
+    });
   };
+
   const handlePage = (newPage: number) => {
-    setPage(newPage);
-    saveStatus(SavedStatus.PERMITS_PAGE, newPage);
+    setPageParam(newPage);
+
+    refetch({
+      pageInput: { page: newPage },
+    });
   };
+
   const handleOrderBy = (newOrderBy: OrderBy) => {
     setOrderBy(newOrderBy);
-    saveStatus(SavedStatus.PERMITS_ORDER_BY, newOrderBy);
+
+    refetch({
+      orderBy: newOrderBy,
+    });
   };
+
+  const handleExport = () => {
+    const url = formatExportUrl('permits', {
+      ...permitSearchParams,
+      ...orderBy,
+      page: page.toString(),
+    });
+    exportData(url);
+  };
+
+  const handleRowClick = (row: Permit) => {
+    if (userRole > UserRole.INSPECTORS) {
+      navigate(row.id);
+    }
+  };
+
+  const extractDataFromPermitQuery = (
+    queryData: LimitedPermitsQueryData | PermitsQueryData | undefined
+  ) => {
+    if (userRole > UserRole.INSPECTORS) {
+      return (queryData as PermitsQueryData)?.permits;
+    }
+    return (queryData as LimitedPermitsQueryData)?.limitedPermits;
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
-        <Button
-          iconLeft={<IconArrowRight />}
-          onClick={() => navigate('create')}>
-          {t(`${T_PATH}.createNewPermit`)}
-        </Button>
+        <h2>{t(`${T_PATH}.title`)}</h2>
+        {userRole > UserRole.PREPARATORS && (
+          <Button
+            iconLeft={<IconArrowRight />}
+            onClick={() => navigate('create')}>
+            {t(`${T_PATH}.createNewPermit`)}
+          </Button>
+        )}
       </div>
-      <PermitsSearch searchInfo={searchInfo} onSearch={handleSearch} />
+      <PermitsSearch
+        searchParams={permitSearchParams}
+        onSearch={handleSearch}
+      />
       <PermitsDataTable
-        permits={data?.permits.objects || []}
-        pageInfo={data?.permits.pageInfo}
+        permits={extractDataFromPermitQuery(data)?.objects}
+        pageInfo={extractDataFromPermitQuery(data)?.pageInfo}
         loading={loading}
         orderBy={orderBy}
         onPage={handlePage}
         onOrderBy={handleOrderBy}
-        onRowClick={row => navigate(row.identifier.toString())}
+        onRowClick={handleRowClick}
+        onExport={userRole > UserRole.INSPECTORS && handleExport}
       />
       {errorMessage && (
         <Notification

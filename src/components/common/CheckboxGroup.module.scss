@@ -1,0 +1,27 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.checkboxController {
+  margin-bottom: $spacing-xs;
+}
+
+.checkbox {
+  margin-top: $spacing-2-xs;
+  margin-bottom: $spacing-xs;
+}
+
+.checkboxGrid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+}
+
+.errorIcon {
+  margin-right: $spacing-2-xs;
+}
+
+.errorText {
+  color: $color-error;
+  align-items: center;
+  display: flex;
+  margin-top: $spacing-3-xs;
+}

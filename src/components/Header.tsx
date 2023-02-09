@@ -2,6 +2,7 @@ import { Navigation } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { matchPath, useLocation, useNavigate } from 'react-router-dom';
+import useUserRole, { UserRole } from '../api/useUserRole';
 import { useClient } from '../auth/hooks';
 
 const T_PATH = 'components.header';
@@ -18,6 +19,7 @@ const isActiveLink = (path: string, currentPath: string): boolean =>
 const Header = (): React.ReactElement => {
   const navigate = useNavigate();
   const client = useClient();
+  const userRole = useUserRole();
   const user = client.getUser();
   const userName = user ? `${user.given_name} ${user.family_name}` : '';
   const { t, i18n } = useTranslation();
@@ -28,26 +30,26 @@ const Header = (): React.ReactElement => {
       path: '/permits',
       label: t(`${T_PATH}.permits`),
     },
-    {
-      path: '/orders',
-      label: t(`${T_PATH}.orders`),
-    },
-    {
-      path: '/refunds',
-      label: t(`${T_PATH}.returns`),
-    },
-    {
-      path: '/messages',
-      label: t(`${T_PATH}.messages`),
-    },
-    {
-      path: '/reports',
-      label: t(`${T_PATH}.reports`),
-    },
-    {
-      path: '/admin',
-      label: t(`${T_PATH}.admin`),
-    },
+    ...(userRole > UserRole.INSPECTORS
+      ? [
+          {
+            path: '/orders',
+            label: t(`${T_PATH}.orders`),
+          },
+          {
+            path: '/refunds',
+            label: t(`${T_PATH}.refunds`),
+          },
+        ]
+      : []),
+    ...(userRole === UserRole.SUPER_ADMIN
+      ? [
+          {
+            path: '/admin',
+            label: t(`${T_PATH}.admin`),
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -80,7 +82,7 @@ const Header = (): React.ReactElement => {
           />
         </Navigation.User>
       </Navigation.Actions>
-      {client.isAuthenticated() && (
+      {client.isAuthenticated() && userRole > UserRole.NON_AD_GROUPS && (
         <Navigation.Row>
           {navLinks.map(({ path, label }) => (
             <Navigation.Item

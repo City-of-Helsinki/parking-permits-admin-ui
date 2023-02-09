@@ -1,0 +1,59 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  &.filters {
+    align-items: flex-start;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: $spacing-m;
+  }
+
+  > div:not(:last-child),
+  > fieldset:not(:last-child) {
+    margin-right: $spacing-m;
+  }
+
+  .dateRange {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 0 0 auto;
+
+    .startDate,
+    .endDate {
+      width: 180px;
+    }
+
+    .dateSeparator {
+      margin: $spacing-m 5px 0;
+      width: 16px;
+      height: 2px;
+      background-color: black;
+    }
+  }
+
+  .zone {
+    flex: 0 1 auto;
+    width: 204px;
+  }
+
+  .searchInput {
+    flex: 1 0 auto;
+  }
+
+  .searchButton {
+    margin-top: auto;
+    margin-left: auto;
+    width: 180px;
+  }
+
+  .clearButton {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

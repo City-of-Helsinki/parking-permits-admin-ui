@@ -13,9 +13,14 @@ import {
   MutationResponse,
   PermitDetail,
   PermitDetailData,
+  PermitPrice,
   PermitPriceChange,
 } from '../types';
-import { convertToPermitInput } from '../utils';
+import {
+  convertAddressToAddressInput,
+  convertToPermitInput,
+  isValidForPriceCheck,
+} from '../utils';
 import styles from './EditResidentPermit.module.scss';
 
 const T_PATH = 'pages.editResidentPermit';
@@ -23,9 +28,10 @@ const T_PATH = 'pages.editResidentPermit';
 const PERMIT_DETAIL_QUERY = gql`
   query GetPermitDetail($permitId: ID!) {
     permitDetail(permitId: $permitId) {
-      identifier
+      id
       startTime
       endTime
+      primaryVehicle
       currentPeriodEndTime
       canEndImmediately
       canEndAfterCurrentPeriod
@@ -34,6 +40,19 @@ const PERMIT_DETAIL_QUERY = gql`
       contractType
       monthCount
       description
+      permitPrices {
+        originalUnitPrice
+        unitPrice
+        startDate
+        endDate
+        quantity
+      }
+      address {
+        id
+        zone {
+          name
+        }
+      }
       customer {
         firstName
         lastName
@@ -43,20 +62,38 @@ const PERMIT_DETAIL_QUERY = gql`
         addressSecurityBan
         driverLicenseChecked
         primaryAddress {
+          id
           streetName
           streetNameSv
           streetNumber
           city
           citySv
           postalCode
+          location
+          zone {
+            name
+            label
+            labelSv
+          }
         }
         otherAddress {
+          id
           streetName
           streetNameSv
           streetNumber
           city
           citySv
           postalCode
+          location
+          zone {
+            name
+            label
+            labelSv
+          }
+        }
+        activePermits {
+          id
+          primaryVehicle
         }
       }
       vehicle {
@@ -70,20 +107,15 @@ const PERMIT_DETAIL_QUERY = gql`
         euroClass
         emission
         emissionType
-        powerType
+        powerType {
+          name
+          identifier
+        }
       }
       parkingZone {
         name
         label
         labelSv
-        residentProducts {
-          unitPrice
-          startDate
-          endDate
-          vat
-          lowEmissionDiscount
-          secondaryVehicleIncreaseRate
-        }
       }
     }
   }
@@ -100,6 +132,18 @@ const PERMIT_PRICE_CHANGE_QUERY = gql`
       startDate
       endDate
       monthCount
+    }
+  }
+`;
+
+const PERMIT_PRICES_QUERY = gql`
+  query GetPermitPrices($permit: ResidentPermitInput!, $isSecondary: Boolean!) {
+    permitPrices(permit: $permit, isSecondary: $isSecondary) {
+      originalUnitPrice
+      unitPrice
+      startDate
+      endDate
+      quantity
     }
   }
 `;
@@ -128,6 +172,7 @@ const EditResidentPermit = (): React.ReactElement => {
 
   // states
   const [permit, setPermit] = useState<PermitDetail | null>(null);
+  const [permitPrices, setPermitPrices] = useState<PermitPrice[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [showEditPreview, setShowEditPreview] = useState(false);
   const [priceChangeList, setPriceChangeList] = useState<
@@ -139,6 +184,7 @@ const EditResidentPermit = (): React.ReactElement => {
   // graphql queries and mutations
   useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
     variables: { permitId },
+    fetchPolicy: 'no-cache',
     onCompleted: ({ permitDetail }) => {
       // permit parking zone should override customer
       // zone as pre-selected vaule
@@ -150,6 +196,7 @@ const EditResidentPermit = (): React.ReactElement => {
         ...permitDetail,
         customer: newCustomer,
       });
+      setPermitPrices(permitDetail.permitPrices);
     },
     onError: error => setErrorMessage(error.message),
   });
@@ -157,10 +204,20 @@ const EditResidentPermit = (): React.ReactElement => {
   const [getPermitPriceChangeList] = useLazyQuery<{
     permitPriceChangeList: PermitPriceChange[];
   }>(PERMIT_PRICE_CHANGE_QUERY, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'no-cache',
     onCompleted: data => setPriceChangeList(data.permitPriceChangeList),
     onError: error => setErrorMessage(error.message),
   });
+
+  const [getPermitPrices] = useLazyQuery<{ permitPrices: PermitPrice[] }>(
+    PERMIT_PRICES_QUERY,
+    {
+      onCompleted: data => {
+        setPermitPrices(data.permitPrices);
+      },
+      onError: error => setErrorMessage(error.message),
+    }
+  );
 
   const [updateResidentPermit] = useMutation<MutationResponse>(
     UPDATE_RESIDENT_PERMIT_MUTATION,
@@ -170,6 +227,16 @@ const EditResidentPermit = (): React.ReactElement => {
     }
   );
 
+  const updatePermitPrices = (
+    newPermit: PermitDetail,
+    isSecondary: boolean
+  ) => {
+    const permitInput = convertToPermitInput(newPermit);
+    if (isValidForPriceCheck(permitInput)) {
+      getPermitPrices({ variables: { permit: permitInput, isSecondary } });
+    }
+  };
+
   if (!permit) {
     return <div>{t(`${T_PATH}.loading`)}</div>;
   }
@@ -178,7 +245,11 @@ const EditResidentPermit = (): React.ReactElement => {
     updateResidentPermit({
       variables: {
         permitId,
-        permitInfo: convertToPermitInput(permit),
+        permitInfo: {
+          ...convertToPermitInput(permit),
+          address: convertAddressToAddressInput(permit.address),
+          zone: permit.parkingZone?.name,
+        },
         iban: refundAccountNumber,
       },
     });
@@ -201,7 +272,11 @@ const EditResidentPermit = (): React.ReactElement => {
       {!showEditPreview && (
         <EditResidentPermitForm
           permit={permit}
-          onUpdatePermit={updatedPermit => setPermit(updatedPermit)}
+          permitPrices={permitPrices}
+          onUpdatePermit={updatedPermit => {
+            setPermit(updatedPermit);
+            updatePermitPrices(updatedPermit, !updatedPermit.primaryVehicle);
+          }}
           onCancel={() => navigate('/permits')}
           onConfirm={() => {
             getPermitPriceChangeList({

@@ -1,6 +1,6 @@
-import { Button, IconEnvelope } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useUserRole, { UserRole } from '../../api/useUserRole';
 import { PermitDetail } from '../../types';
 import { formatAddress } from '../../utils';
 import styles from './CustomerInfo.module.scss';
@@ -17,25 +17,30 @@ const CustomerInfo = ({
   className,
   permit,
 }: CustomerInfoProps): React.ReactElement => {
+  const userRole = useUserRole();
   const { t, i18n } = useTranslation();
   const { customer, parkingZone } = permit;
-  const fields = [
+  let fields = [
     {
       label: t(`${T_PATH}.personalID`),
       value: customer.nationalIdNumber || '-',
     },
-    {
-      label: t(`${T_PATH}.primaryAddress`),
-      value: customer?.primaryAddress
-        ? formatAddress(customer.primaryAddress, i18n.language)
-        : '-',
-    },
-    {
-      label: t(`${T_PATH}.otherAddress`),
-      value: customer?.otherAddress
-        ? formatAddress(customer.otherAddress, i18n.language)
-        : '-',
-    },
+    ...(customer.addressSecurityBan
+      ? []
+      : [
+          {
+            label: t(`${T_PATH}.primaryAddress`),
+            value: customer?.primaryAddress
+              ? formatAddress(customer.primaryAddress, i18n.language)
+              : '-',
+          },
+          {
+            label: t(`${T_PATH}.otherAddress`),
+            value: customer?.otherAddress
+              ? formatAddress(customer.otherAddress, i18n.language)
+              : '-',
+          },
+        ]),
     {
       label: t(`${T_PATH}.parkingZone`),
       value: i18n.language === 'sv' ? parkingZone.labelSv : parkingZone.label,
@@ -49,6 +54,14 @@ const CustomerInfo = ({
       value: customer.email || '-',
     },
   ];
+  if (userRole <= UserRole.INSPECTORS) {
+    fields = [
+      {
+        label: t(`${T_PATH}.parkingZone`),
+        value: i18n.language === 'sv' ? parkingZone.labelSv : parkingZone.label,
+      },
+    ];
+  }
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -61,14 +74,6 @@ const CustomerInfo = ({
             value={value}
           />
         ))}
-        {customer.email && (
-          <Button
-            variant="supplementary"
-            iconLeft={<IconEnvelope />}
-            onClick={() => window.open(`mailto:${customer.email}`)}>
-            {t(`${T_PATH}.sendMessageToEmail`)}
-          </Button>
-        )}
       </div>
     </div>
   );
