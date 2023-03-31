@@ -104,6 +104,7 @@
         "title": "End permit"
       },
       "permitInfo": {
+        "address": "Address",
         "additionalInfo": "Additional information",
         "contractType": "Contract type",
         "endTime": "End time",

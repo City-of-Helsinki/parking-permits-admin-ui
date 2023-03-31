@@ -79,6 +79,7 @@
         "title": "Sluttillstånd"
       },
       "permitInfo": {
+        "address": "Adress",
         "additionalInfo": "Ytterligare information",
         "contractType": "Kontraktstyp",
         "endTime": "Sluttid",

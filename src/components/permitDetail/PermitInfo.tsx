@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail, PermitEndType } from '../../types';
-import { formatDateTimeDisplay } from '../../utils';
+import { formatAddress, formatDateTimeDisplay } from '../../utils';
 import Divider from '../common/Divider';
 import StatusLabel from '../common/StatusLabel';
 import FieldItem from './FieldItem';
@@ -19,7 +19,7 @@ const PermitInfo = ({
   endType,
   permit,
 }: PermitInfoProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const {
     contractType,
     monthCount,
@@ -29,6 +29,7 @@ const PermitInfo = ({
     currentPeriodEndTime,
     description,
     primaryVehicle,
+    address,
   } = permit;
   let endTimeValue = '';
   if (endType === PermitEndType.IMMEDIATELY) {
@@ -72,6 +73,10 @@ const PermitInfo = ({
     {
       label: t(`${T_PATH}.status`),
       value: <StatusLabel status={status} />,
+    },
+    {
+      label: t(`${T_PATH}.address`),
+      value: formatAddress(address, i18n.language),
     },
     {
       label: t(`${T_PATH}.additionalInfo`),

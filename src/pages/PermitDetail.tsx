@@ -44,6 +44,14 @@ const PERMIT_DETAIL_QUERY = gql`
       monthCount
       description
       primaryVehicle
+      address {
+        streetName
+        streetNameSv
+        streetNumber
+        city
+        citySv
+        postalCode
+      }
       changeLogs {
         id
         key

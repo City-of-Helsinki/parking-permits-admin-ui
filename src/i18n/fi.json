@@ -146,6 +146,7 @@
         "title": "Tunnuksen päättäminen"
       },
       "permitInfo": {
+        "address": "Osoite",
         "additionalInfo": "Lisätiedot",
         "contractType": "Tunnuksen tyyppi",
         "endTime": "Viimeinen voimassaoloaika",
