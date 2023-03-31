@@ -47,6 +47,19 @@ export function formatAddress(
   return `${streetName} ${streetNumber}, ${postalCode}${city}`;
 }
 
+export function isPermitAddress(
+  address: Address | undefined,
+  customerAddress: Address | undefined
+): boolean {
+  return (
+    customerAddress &&
+    address &&
+    customerAddress.streetName === address.streetName &&
+    customerAddress.streetNumber.substring(0, 2) ===
+      address.streetNumber.substring(0, 2)
+  );
+}
+
 export function getPermitAddresses(permits: Permit[]): Address[] {
   const addresses = permits.map(permit => permit.address);
   return addresses.filter(address => address);

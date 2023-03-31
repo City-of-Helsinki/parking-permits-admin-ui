@@ -42,6 +42,14 @@ const PERMITS_QUERY = gql`
         endTime
         status
         primaryVehicle
+        address {
+          streetName
+          streetNameSv
+          streetNumber
+          city
+          citySv
+          postalCode
+        }
         customer {
           firstName
           lastName

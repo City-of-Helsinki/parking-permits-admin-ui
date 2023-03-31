@@ -6,6 +6,7 @@ import {
   formatAddress,
   formatCustomerName,
   formatDateTimeDisplay,
+  isPermitAddress,
 } from '../../utils';
 import DataTable from '../common/DataTable';
 import StatusLabel from '../common/StatusLabel';
@@ -64,18 +65,18 @@ const PermitsDataTable = ({
           {
             name: t(`${T_PATH}.primaryAddress`),
             field: 'primaryAddress',
-            selector: ({ customer }) =>
-              customer?.primaryAddress
-                ? formatAddress(customer.primaryAddress, i18n.language)
+            selector: ({ address, customer }) =>
+              isPermitAddress(address, customer?.primaryAddress)
+                ? formatAddress(address, i18n.language)
                 : '-',
             sortable: true,
           },
           {
             name: t(`${T_PATH}.otherAddress`),
             field: 'otherAddress',
-            selector: ({ customer }) =>
-              customer?.otherAddress
-                ? formatAddress(customer.otherAddress, i18n.language)
+            selector: ({ address, customer }) =>
+              isPermitAddress(address, customer?.otherAddress)
+                ? formatAddress(address, i18n.language)
                 : '-',
             sortable: true,
           },
