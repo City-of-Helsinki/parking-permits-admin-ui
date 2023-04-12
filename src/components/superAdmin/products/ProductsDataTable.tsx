@@ -59,6 +59,13 @@ const ProductsDataTable = ({
       sortable: true,
     },
     {
+      name: t(`${T_PATH}.lowEmissionDiscount`),
+      field: 'lowEmissionDiscount',
+      selector: ({ lowEmissionDiscountPercentage }) =>
+        `${lowEmissionDiscountPercentage}%`,
+      sortable: true,
+    },
+    {
       name: t(`${T_PATH}.validPeriod`),
       field: 'validPeriod',
       selector: ({ startDate, endDate }) => {

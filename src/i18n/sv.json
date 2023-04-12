@@ -320,8 +320,9 @@
           "errorEnterPrice": "Ange ett pris",
           "errorEnterStartDate": "Ange ett startdatum",
           "errorEnterVAT": "Ange en momsprocent",
+          "errorEnterLowEmissionDiscount": "Ange en låg utsläppsrabattprocent",
           "errorSelectZone": "Välj en zon",
-          "lowEmissionDiscount": "Vähäpäästöinen alennus",
+          "lowEmissionDiscount": "Lågutsläppsrabatt",
           "price": "Pris",
           "priceGroup": "Prisgrupp",
           "productPrice": "Produktpris",
@@ -339,6 +340,7 @@
           "modifiedBy": "Modifierare",
           "price": "Pris",
           "productType": "Produkttyp",
+          "lowEmissionDiscount": "Lågutsläppsrabatt",
           "validPeriod": "Giltighetsperiod",
           "vat": "VAT",
           "zone": "Zon"

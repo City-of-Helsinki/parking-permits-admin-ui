@@ -107,7 +107,7 @@ export interface ProductInput {
   startDate: string;
   endDate: string;
   vatPercentage: number;
-  lowEmissionDiscount: number;
+  lowEmissionDiscountPercentage: number;
 }
 
 export interface Product {
@@ -121,6 +121,7 @@ export interface Product {
   vat: number;
   vatPercentage: number;
   lowEmissionDiscount: number;
+  lowEmissionDiscountPercentage: number;
   secondaryVehicleIncreaseRate: number;
   modifiedAt: string;
   modifiedBy: string;

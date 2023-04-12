@@ -349,6 +349,7 @@
           "errorEnterPrice": "Please enter a price",
           "errorEnterStartDate": "Please enter a start date",
           "errorEnterVAT": "Please enter a VAT percentage",
+          "errorEnterLowEmissionDiscount": "Please enter a low emission discount percentage", 
           "errorSelectZone": "Please select a zone",
           "lowEmissionDiscount": "Low emission discount",
           "price": "Price",
@@ -368,6 +369,7 @@
           "modifiedBy": "Modified by",
           "price": "Price",
           "productType": "Product type",
+          "lowEmissionDiscount": "Low emission discount",
           "validPeriod": "Valid period",
           "vat": "VAT",
           "zone": "Zone"

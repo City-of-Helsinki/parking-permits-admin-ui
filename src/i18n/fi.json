@@ -390,6 +390,7 @@
           "errorEnterPrice": "Anna hinta",
           "errorEnterStartDate": "Anna aloituspäivä",
           "errorEnterVAT": "Anna ALV-prosentti",
+          "errorEnterLowEmissionDiscount": "Anna vähäpäästöinen alennusprosentti",
           "errorSelectZone": "Valitse vyöhyke",
           "lowEmissionDiscount": "Vähäpäästöinen alennus",
           "price": "Hinta",
@@ -409,6 +410,7 @@
           "modifiedBy": "Muokkaaja",
           "price": "Hinta",
           "productType": "Tuotetyyppi",
+          "lowEmissionDiscount": "Vähäpäästöinen alennus",
           "validPeriod": "Voimassaoloaika",
           "vat": "ALV",
           "zone": "Alue"
