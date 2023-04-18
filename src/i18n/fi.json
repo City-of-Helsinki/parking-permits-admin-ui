@@ -130,7 +130,6 @@
       "customerInfo": {
         "email": "Sähköpostiosoite",
         "otherAddress": "Tilapäinen osoite",
-        "parkingZone": "Pysäköintialue",
         "personalID": "Henkilötunnus",
         "phoneNumber": "Puhelinnumero",
         "primaryAddress": "Vakituinen osoite",
@@ -147,6 +146,7 @@
       },
       "permitInfo": {
         "address": "Osoite",
+        "parkingZone": "Pysäköintialue",
         "additionalInfo": "Lisätiedot",
         "contractType": "Tunnuksen tyyppi",
         "endTime": "Viimeinen voimassaoloaika",

@@ -33,6 +33,7 @@ const PermitInfo = ({
     currentPeriodEndTime,
     description,
     primaryVehicle,
+    parkingZone,
     address,
   } = permit;
   let endTimeValue = '';
@@ -81,6 +82,10 @@ const PermitInfo = ({
     {
       label: t(`${T_PATH}.address`),
       value: formatAddress(address, i18n.language),
+    },
+    {
+      label: t(`${T_PATH}.parkingZone`),
+      value: i18n.language === 'sv' ? parkingZone.labelSv : parkingZone.label,
     },
     {
       label: t(`${T_PATH}.additionalInfo`),

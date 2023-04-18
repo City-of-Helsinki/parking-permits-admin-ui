@@ -63,7 +63,6 @@
       "customerInfo": {
         "email": "E-post",
         "otherAddress": "Temporär adress",
-        "parkingZone": "Parkeringszon",
         "personalID": "Personligt ID",
         "phoneNumber": "Telefonnummer",
         "primaryAddress": "Permanent adress",
@@ -80,6 +79,7 @@
       },
       "permitInfo": {
         "address": "Adress",
+        "parkingZone": "Parkeringszon",
         "additionalInfo": "Ytterligare information",
         "contractType": "Kontraktstyp",
         "endTime": "Sluttid",
