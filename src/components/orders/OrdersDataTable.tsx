@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Address, Order, OrderBy, PageInfo } from '../../types';
+import { Order, OrderBy, PageInfo } from '../../types';
 import {
   formatCustomerName,
   formatDateTimeDisplay,
@@ -33,7 +33,7 @@ const OrdersDataTable = ({
   onRowClick,
   onExport,
 }: OrdersDataTableProps): React.ReactElement => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const columns: Column<Order>[] = [
     {
       name: t(`${T_PATH}.permits`),
@@ -65,43 +65,8 @@ const OrdersDataTable = ({
     {
       name: t(`${T_PATH}.zone`),
       field: 'parkingZone',
-      selector: ({ orderPermits }) => formatParkingZone(orderPermits[0]),
-      sortable: true,
-    },
-    {
-      name: t(`${T_PATH}.address`),
-      field: 'address',
-      selector: ({ orderPermits }) => {
-        const formatAddress = (address: Address) => {
-          if (i18n.language === 'sv') {
-            return `${address.streetNameSv} ${address.streetNumber}`;
-          }
-          return `${address.streetName} ${address.streetNumber}`;
-        };
-
-        // Get all unique addresses from permits.
-        const addresses = orderPermits
-          .map(permit => permit.address)
-          .filter(
-            (address, index, self) =>
-              self.findIndex(item => item.id === address.id) === index
-          );
-
-        return (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {addresses.map((address, index) => {
-              const isLastItem = addresses.length === index + 1;
-
-              return (
-                <div key={address.id}>
-                  {formatAddress(address)}
-                  {!isLastItem && ','}
-                </div>
-              );
-            })}
-          </div>
-        );
-      },
+      selector: ({ orderItemsContent }) =>
+        formatParkingZone(orderItemsContent[0]),
       sortable: true,
     },
     {

@@ -193,6 +193,11 @@ export interface Permit {
   endTime?: string;
 }
 
+export interface OrderItem {
+  id: string;
+  product: Product;
+}
+
 export enum ChangeLogEvent {
   CREATED = 'created',
   CHANGED = 'changed',
@@ -407,6 +412,7 @@ export interface Order {
   customer: Customer;
   paidTime: string;
   orderPermits: [Permit];
+  orderItemsContent: [OrderItem];
   paymentType: string;
 }
 

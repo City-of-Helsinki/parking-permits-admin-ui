@@ -4,6 +4,7 @@ import {
   Address,
   Customer,
   CustomerInput,
+  OrderItem,
   Permit,
   PermitDetail,
   PermitInput,
@@ -102,8 +103,8 @@ export function formatRegistrationNumbers(permits: Permit[]): string {
   return permits.map(permit => permit.vehicle.registrationNumber).join(', ');
 }
 
-export function formatParkingZone(permit: Permit): string {
-  return permit ? permit?.parkingZone.name : '-';
+export function formatParkingZone(orderItem: OrderItem): string {
+  return orderItem ? orderItem?.product.zone : '-';
 }
 
 export function formatVehicleName(vehicle: Vehicle): string {

@@ -35,6 +35,8 @@
           "customer__primary_address": "Osoite",
           "customer__other_address": "Tilapäinen osoite",
           "customer__zone": "Pysäköintialue",
+          "parking_zone": "Pysäköintialue",
+          "vehicle": "Ajoneuvo",
           "vehicle__registration_number": "Rekisterinumero"
         },
         "events": {

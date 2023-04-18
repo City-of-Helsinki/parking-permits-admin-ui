@@ -64,6 +64,12 @@ const ORDERS_QUERY = gql`
             citySv
           }
         }
+        orderItemsContent {
+          id
+          product {
+            zone
+          }
+        }
       }
       pageInfo {
         numPages
