@@ -27,6 +27,10 @@ export function getBooleanEnv(key: string): boolean {
   return ['true', '1'].includes(val);
 }
 
+export function formatPeriod(count: number, unit: string): string {
+  return `${count} ${unit}`;
+}
+
 export function formatAddress(
   address: Address | undefined,
   lang: string,

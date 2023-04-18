@@ -88,6 +88,7 @@
         "status": "Status",
         "title": "Tillståndsinformation",
         "validPeriod": "Giltig period",
+        "periodUnit": "månader",
         "permitOrder": "Ordning",
         "firstPermit": "1. tillstånd",
         "secondPermit": "2. tillstånd"

@@ -113,6 +113,7 @@
         "status": "Status",
         "title": "Permit information",
         "validPeriod": "Valid period",
+        "periodUnit": "months",
         "permitOrder": "Order",
         "firstPermit": "1. permit",
         "secondPermit": "2. permit"

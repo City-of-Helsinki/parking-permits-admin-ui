@@ -1,7 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail, PermitEndType } from '../../types';
-import { formatAddress, formatDateTimeDisplay } from '../../utils';
+import {
+  formatAddress,
+  formatDateTimeDisplay,
+  formatPeriod,
+} from '../../utils';
 import Divider from '../common/Divider';
 import StatusLabel from '../common/StatusLabel';
 import FieldItem from './FieldItem';
@@ -60,7 +64,7 @@ const PermitInfo = ({
     },
     {
       label: t(`${T_PATH}.validPeriod`),
-      value: monthCount,
+      value: formatPeriod(monthCount, t(`${T_PATH}.periodUnit`)),
     },
     {
       label: t(`${T_PATH}.startTime`),

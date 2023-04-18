@@ -156,6 +156,7 @@
         "status": "Tila",
         "title": "Tunnuksen tiedot",
         "validPeriod": "Voimassaoloaika",
+        "periodUnit": "kuukautta",
         "permitOrder": "Järjestys",
         "firstPermit": "1. tunnus",
         "secondPermit": "2. tunnus"
