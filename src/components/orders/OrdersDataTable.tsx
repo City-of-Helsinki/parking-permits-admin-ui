@@ -4,7 +4,6 @@ import { Order, OrderBy, PageInfo } from '../../types';
 import {
   formatCustomerName,
   formatDateTimeDisplay,
-  formatParkingZone,
   formatPrice,
 } from '../../utils';
 import DataTable from '../common/DataTable';
@@ -64,9 +63,14 @@ const OrdersDataTable = ({
     },
     {
       name: t(`${T_PATH}.zone`),
-      field: 'parkingZone',
-      selector: ({ orderItemsContent }) =>
-        formatParkingZone(orderItemsContent[0]),
+      field: 'parkingZoneName',
+      selector: ({ parkingZoneName }) => parkingZoneName,
+      sortable: true,
+    },
+    {
+      name: t(`${T_PATH}.address`),
+      field: 'addressText',
+      selector: ({ addressText }) => addressText,
       sortable: true,
     },
     {

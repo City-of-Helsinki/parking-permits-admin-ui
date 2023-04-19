@@ -414,6 +414,8 @@ export interface Order {
   orderPermits: [Permit];
   orderItemsContent: [OrderItem];
   paymentType: string;
+  addressText: string;
+  parkingZoneName: string;
 }
 
 export interface PagedOrders {
