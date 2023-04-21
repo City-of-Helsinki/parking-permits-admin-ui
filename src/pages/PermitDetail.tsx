@@ -72,7 +72,7 @@ const PERMIT_DETAIL_QUERY = gql`
             id
             paidTime
             paymentType
-            totalPrice
+            totalPaymentPrice
           }
           ... on TemporaryVehicleNode {
             id

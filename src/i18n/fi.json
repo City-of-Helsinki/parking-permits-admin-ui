@@ -40,20 +40,20 @@
           "vehicle__registration_number": "Rekisteritunnus"
         },
         "events": {
-          "update_permit": "Muokkaus",
+          "update_permit": "Tunnus päivitetty",
           "create_permit": "Tunnus luotu",
           "end_permit": "Tunnus päätetty",
-          "renew_order": "Tunnus uusittu",
+          "renew_order": "Tilaus päivitetty",
           "create_order": "Tilaus luotu",
           "create_refund": "Palautus luotu",
-          "add_temporary_vehicle": "Muokkaus",
-          "remove_temporary_vehicle": "Muokkaus"
+          "add_temporary_vehicle": "Tunnus päivitetty",
+          "remove_temporary_vehicle": "Tunnus päivitetty"
         },
         "descriptions": {
-          "update_permit": "Tunnuksen tietoja muokattu",
+          "update_permit": "Tunnuksen tietoja päivitetty",
           "create_permit": "Tunnus luotu",
           "end_permit": "Tunnus päätetty",
-          "renew_order": "Tunnus uusittu",
+          "renew_order": "Tilaus päivitetty",
           "create_order": "Tilaus #{{relatedObject.id}} luotu tunnukselle",
           "create_refund": "Palautus #{{relatedObject.id}} luotu tunnukselle",
           "add_temporary_vehicle": "Tilapäinen ajoneuvo {{relatedObject.vehicle.registrationNumber}} lisätty tunnukseen",

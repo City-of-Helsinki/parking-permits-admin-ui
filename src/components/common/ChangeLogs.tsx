@@ -72,7 +72,7 @@ const ChangeLogs = ({ changeLogs }: ChangeLogsProps): React.ReactElement => {
       selector: ({ relatedObject }) => {
         switch (relatedObject?.__typename) {
           case 'OrderNode':
-            return formatPrice((relatedObject as Order).totalPrice);
+            return formatPrice((relatedObject as Order).totalPaymentPrice);
           case 'RefundNode':
             return formatPrice((relatedObject as Refund).amount);
           default:
