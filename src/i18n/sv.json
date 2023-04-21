@@ -51,9 +51,9 @@
         "name": "Kund",
         "orderNumber": "Ordernummer",
         "paidTime": "Betalt datum",
-        "permits": "Tillstånd",
+        "permits": "Parkeringstillstånd",
         "permitType": "Typ av tillstånd",
-        "registrationNumber": "Registreringsnummer",
+        "registrationNumbers": "Registreringsnummer",
         "residentPermit": "Boendeparkering",
         "totalPaymentPrice": "Totalpris",
         "zone": "Zon"

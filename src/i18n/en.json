@@ -64,8 +64,9 @@
         "orderNumber": "Order number",
         "paidTime": "Paid date",
         "paidTimeFormat": "d.M.Y, H:mm",
-        "permits": "Permits",
+        "permits": "Parking permits",
         "permitType": "Permit type",
+        "registrationNumbers": "Registration numbers",
         "residentPermit": "Resident permit",
         "totalPaymentPrice": "Price",
         "zone": "Zone"

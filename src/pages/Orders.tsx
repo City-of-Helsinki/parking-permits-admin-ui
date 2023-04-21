@@ -65,7 +65,8 @@ const ORDERS_QUERY = gql`
           }
         }
         addressText
-        parkingZoneName        
+        parkingZoneName
+        vehicles
       }
       pageInfo {
         numPages

@@ -41,9 +41,28 @@ const OrdersDataTable = ({
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {orderPermits.map((permit, index) => {
             const isLastItem = orderPermits.length === index + 1;
-            const { id, vehicle } = permit;
-            const { registrationNumber } = vehicle;
-            const label = `${id} (${registrationNumber})`;
+            const { id } = permit;
+            const label = `${id}`;
+            return (
+              <div key={id}>
+                {label}
+                {!isLastItem && ','}
+              </div>
+            );
+          })}
+        </div>
+      ),
+      sortable: true,
+    },
+    {
+      name: t(`${T_PATH}.registrationNumbers`),
+      field: 'vehicles',
+      selector: ({ vehicles }) => (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {vehicles.map((vehicle, index) => {
+            const isLastItem = vehicles.length === index + 1;
+            const id = `${vehicle}`;
+            const label = `${vehicle}`;
             return (
               <div key={id}>
                 {label}
@@ -86,6 +105,15 @@ const OrdersDataTable = ({
       name: t(`${T_PATH}.orderNumber`),
       field: 'id',
       selector: ({ id }) => id,
+      sortable: true,
+    },
+    {
+      name: t(`${T_PATH}.paymentType`),
+      field: 'paymentType',
+      selector: ({ paymentType }) =>
+        paymentType === 'ONLINE_PAYMENT'
+          ? t(`enums.paymentType.onlinePayment`)
+          : t(`enums.paymentType.cashierPayment`),
       sortable: true,
     },
     {

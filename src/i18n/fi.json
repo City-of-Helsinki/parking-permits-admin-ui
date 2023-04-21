@@ -25,7 +25,7 @@
           "ONLINE_PAYMENT": "Verkkomaksu",
           "REFUND": "Palautus"
         },
-        "paidAt": "Maksupäivä",
+        "paidAt": "Maksuaika",
         "fieldNames": {
           "status": "Tila",
           "customer__email": "Sähköpostiosoite",
@@ -37,7 +37,7 @@
           "customer__zone": "Pysäköintialue",
           "parking_zone": "Pysäköintialue",
           "vehicle": "Ajoneuvo",
-          "vehicle__registration_number": "Rekisterinumero"
+          "vehicle__registration_number": "Rekisteritunnus"
         },
         "events": {
           "update_permit": "Muokkaus",
@@ -106,13 +106,14 @@
         "companyPermit": "Yritystunnus",
         "name": "Asiakas",
         "orderNumber": "Tilausnumero",
-        "paidTime": "Maksupäivä",
+        "paidTime": "Maksuaika",
         "paidTimeFormat": "d.M.Y 'klo' H:mm",
-        "permits": "Tunnukset",
+        "permits": "Pysäköintitunnukset",
         "permitType": "Tunnustyyppi",
-        "registrationNumber": "Rekisterinro",
+        "registrationNumbers": "Rekisteritunnukset",
         "residentPermit": "Asukastunnus",
-        "totalPaymentPrice": "Summa",
+        "paymentType": "Maksutapa",
+        "totalPaymentPrice": "Määrä",
         "zone": "Alue"
       },
       "ordersSearch": {
@@ -196,7 +197,7 @@
         "infoMessage": "Valitun päättymispäivän jälkeen alkuperäisen ajoneuvon tiedot palautuvat tunnuksen tietoihin automaattisesti.",
         "registrationNumber": {
           "helpText": "Tilapäisyys voi olla voimassa enintään 14 vuorokautta.",
-          "label": "Tilapäisen ajoneuvon rekisterinumero"
+          "label": "Tilapäisen ajoneuvon rekisteritunnus"
         },
         "startDate": "Tilapäisyyden alkamispäivä",
         "startTime": "Alkamisaika",
@@ -217,14 +218,14 @@
         "customer": "Asiakas",
         "hetuOrBusinessId": "Hetu / Y-tunnus",
         "identifier": "Tunniste",
-        "registrationNumber": "Rekisterinumero"
+        "registrationNumber": "Rekisteritunnus"
       },
       "permitsDataTable": {
         "endTime": "Loppuaika",
         "name": "Nimi",
         "otherAddress": "Tilapäinen osoite",
         "primaryAddress": "Vakituinen osoite",
-        "registrationNumber": "Rekisterinumero",
+        "registrationNumber": "Rekisteritunnus",
         "startTime": "Alkuaika",
         "status": "Tila",
         "zone": "Alue",
@@ -253,7 +254,7 @@
         "name": "Nimi",
         "orderNumber": "Tilausnumero",
         "refundNumber": "Palautusnumero",
-        "registrationNumber": "Rekisterinumero",
+        "registrationNumber": "Rekisteritunnus",
         "status": "Tila"
       },
       "refundsSearch": {
@@ -312,7 +313,7 @@
         "model": "Malli",
         "powerType": "Käyttövoima",
         "price": "Hinta",
-        "registrationNumber": "Rekisterinumero",
+        "registrationNumber": "Rekisteritunnus",
         "search": "Hae",
         "serialNumber": "Valmistenumero",
         "vehicleClass": "Ajoneuvoluokka",

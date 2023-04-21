@@ -416,6 +416,7 @@ export interface Order {
   paymentType: string;
   addressText: string;
   parkingZoneName: string;
+  vehicles: [string];
 }
 
 export interface PagedOrders {
