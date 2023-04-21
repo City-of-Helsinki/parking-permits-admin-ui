@@ -283,6 +283,9 @@
       "permitInfo": {
         "additionalInfo": "Lisätiedot",
         "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
+        "permitOrder": "Järjestys",
+        "firstPermit": "1. tunnus",
+        "secondPermit": "2. tunnus",
         "contractType": "Tunnuksen tyyppi",
         "effectiveFrom": "Voimassa alkaen",
         "expirationDate": "Viimeinen voimassaoloaika (toinen tunnus otetaan tallennuksen yhteydessä automaattisesti huomioon)",

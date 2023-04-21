@@ -3,7 +3,11 @@ import { DateInput, NumberInput, TextArea, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Language, ParkingPermitStatus, PermitDetail } from '../../types';
-import { formatDateDisplay, formatDateTimeDisplay } from '../../utils';
+import {
+  formatDateDisplay,
+  formatDateTimeDisplay,
+  formatPermitOrder,
+} from '../../utils';
 import Divider from '../common/Divider';
 import StatusSelect from '../permits/StatusSelect';
 import styles from './PermitInfo.module.scss';
@@ -38,6 +42,17 @@ const PermitInfo = ({
       <div className={styles.title}>{t(`${T_PATH}.permitInfo`)}</div>
       <Divider />
       <div className={styles.content}>
+        <TextInput
+          readOnly
+          className={styles.fieldItem}
+          id="order"
+          label={t(`${T_PATH}.permitOrder`)}
+          value={formatPermitOrder(
+            permit,
+            t(`${T_PATH}.firstPermit`),
+            t(`${T_PATH}.secondPermit`)
+          )}
+        />
         <TextInput
           readOnly
           className={styles.fieldItem}

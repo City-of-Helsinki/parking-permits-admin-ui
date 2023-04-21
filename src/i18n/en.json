@@ -240,6 +240,9 @@
       "permitInfo": {
         "additionalInfo": "Additional information",
         "additionalInfoPlaceholder": "Additional information, e.g. information about moped",
+        "permitOrder": "Order",
+        "firstPermit": "1. permit",
+        "secondPermit": "2. permit",
         "contractType": "Contract type",
         "effectiveFrom": "Effective from",
         "expirationDate": "Expiration date (other permit will be taken into account automatically upon saving)",

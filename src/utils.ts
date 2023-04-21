@@ -86,6 +86,16 @@ export function formatDateDisplay(datetime: string | Date): string {
   return dt.toLocaleDateString('fi');
 }
 
+export function formatPermitOrder(
+  permit: PermitDetail,
+  firstPermit: string,
+  secondPermit: string
+): string {
+  return permit.customer.activePermits?.length === 1
+    ? secondPermit
+    : firstPermit;
+}
+
 export function formatDateTimeDisplay(
   datetime: string | Date,
   dtFormat = 'd.M.Y, HH:mm'

@@ -210,6 +210,9 @@
       "permitInfo": {
         "additionalInfo": "Ytterligare information",
         "additionalInfoPlaceholder": "För ytterligare information, t.ex. information om mopeden",
+        "permitOrder": "Ordning",
+        "firstPermit": "1. tillstånd",
+        "secondPermit": "2. tillstånd",
         "contractType": "Kontraktstyp",
         "effectiveFrom": "Gäller från",
         "expirationDate": "Utgångsdatum (annat tillstånd kommer att beaktas automatiskt vid lagring)",
