@@ -152,6 +152,7 @@
       "permitsDataTable": {
         "endTime": "Sluttid",
         "name": "Namn",
+        "nationalIdNumber": "Personnummer",
         "otherAddress": "Temporär adress",
         "primaryAddress": "Permanent adress",
         "registrationNumber": "Registreringsnummer",

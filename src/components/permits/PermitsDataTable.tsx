@@ -47,7 +47,7 @@ const PermitsDataTable = ({
             sortable: true,
           },
           {
-            name: 'Hetu',
+            name: t(`${T_PATH}.nationalIdNumber`),
             field: 'nationalIdNumber',
             selector: ({ customer }) => customer.nationalIdNumber,
             sortable: true,

@@ -182,8 +182,9 @@
       "permitsDataTable": {
         "endTime": "End time",
         "name": "Name",
+        "nationalIdNumber": "Personal identification number",
         "otherAddress": "Temporary address",
-        "primaryAddress": "Permanent address",
+        "primaryAddress": "Primary address",
         "registrationNumber": "Registration number",
         "startTime": "Start time",
         "status": "Status",

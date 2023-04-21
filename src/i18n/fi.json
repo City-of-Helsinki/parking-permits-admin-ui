@@ -223,6 +223,7 @@
       "permitsDataTable": {
         "endTime": "Loppuaika",
         "name": "Nimi",
+        "nationalIdNumber": "Henkilötunnus",
         "otherAddress": "Tilapäinen osoite",
         "primaryAddress": "Vakituinen osoite",
         "registrationNumber": "Rekisteritunnus",
