@@ -91,9 +91,7 @@ export function formatPermitOrder(
   firstPermit: string,
   secondPermit: string
 ): string {
-  return permit.customer.activePermits?.length === 1
-    ? secondPermit
-    : firstPermit;
+  return permit.primaryVehicle ? firstPermit : secondPermit;
 }
 
 export function formatDateTimeDisplay(
