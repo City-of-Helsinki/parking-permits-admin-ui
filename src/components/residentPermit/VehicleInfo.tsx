@@ -56,7 +56,7 @@ const VehicleInfo = ({
           className={styles.fieldItem}
           id="registrationNumber"
           label={t(`${T_PATH}.registrationNumber`)}
-          value={registrationNumber}
+          value={registrationNumber?.toUpperCase()}
           onChange={e =>
             onUpdateVehicle({ ...vehicle, registrationNumber: e.target.value })
           }>
