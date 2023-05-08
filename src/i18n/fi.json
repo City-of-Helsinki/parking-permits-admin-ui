@@ -310,10 +310,10 @@
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
         "emission": "Hiilidioksidipäästöt (g/km)",
-        "emissionType": "Hiilidioksidin mittaustyyppi",
+        "emissionType": "Hiilidioksidin mittaustapa",
         "euroClass": "Euro-luokka",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
-        "manufacturer": "Valmistaja",
+        "manufacturer": "Merkki",
         "model": "Malli",
         "powerType": "Käyttövoima",
         "price": "Hinta",
