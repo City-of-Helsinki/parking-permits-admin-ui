@@ -91,6 +91,14 @@ export function formatPermitOrder(
   firstPermit: string,
   secondPermit: string
 ): string {
+  if (!permit.id) {
+    const activePermitsCount = permit.customer.activePermits?.length;
+    if (activePermitsCount === 2) {
+      return '-';
+    }
+    const isSecondary = activePermitsCount === 1;
+    return !isSecondary ? firstPermit : secondPermit;
+  }
   return permit.primaryVehicle ? firstPermit : secondPermit;
 }
 
