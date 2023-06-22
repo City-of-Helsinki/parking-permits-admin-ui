@@ -102,6 +102,21 @@ export function formatPermitOrder(
   return permit.primaryVehicle ? firstPermit : secondPermit;
 }
 
+export function formatPermitMaxValidPeriodInMonths(
+  permit: PermitDetail,
+  editMode: boolean
+): number {
+  const defaultMaxValidPeriodInMonths = 12;
+  if (!editMode) {
+    const activePermits = permit.customer?.activePermits;
+    if (activePermits && activePermits.length > 0) {
+      const monthCount = activePermits[0]?.monthCount;
+      if (monthCount) return monthCount;
+    }
+  }
+  return defaultMaxValidPeriodInMonths;
+}
+
 export function formatDateTimeDisplay(
   datetime: string | Date,
   dtFormat = 'd.M.Y, HH:mm'

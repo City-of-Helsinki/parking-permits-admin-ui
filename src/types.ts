@@ -14,7 +14,10 @@ export interface Address {
   zone?: ParkingZone;
 }
 
-export type CustomerActivePermit = Pick<Permit, 'id' | 'primaryVehicle'>;
+export type CustomerActivePermit = Pick<
+  Permit,
+  'id' | 'primaryVehicle' | 'monthCount'
+>;
 
 export enum SelectedAddress {
   PRIMARY = 'primaryAddress',
@@ -191,6 +194,7 @@ export interface Permit {
   startTime: string;
   primaryVehicle: boolean;
   endTime?: string;
+  monthCount: number;
 }
 
 export interface OrderItem {

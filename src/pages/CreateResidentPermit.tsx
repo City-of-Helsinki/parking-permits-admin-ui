@@ -70,6 +70,7 @@ const CUSTOMER_QUERY = gql`
       activePermits {
         id
         primaryVehicle
+        monthCount
       }
     }
   }

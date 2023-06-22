@@ -6,6 +6,7 @@ import { Language, ParkingPermitStatus, PermitDetail } from '../../types';
 import {
   formatDateDisplay,
   formatDateTimeDisplay,
+  formatPermitMaxValidPeriodInMonths,
   formatPermitOrder,
 } from '../../utils';
 import Divider from '../common/Divider';
@@ -68,7 +69,7 @@ const PermitInfo = ({
           label={t(`${T_PATH}.validPeriodInMonths`)}
           step={1}
           min={1}
-          max={12}
+          max={formatPermitMaxValidPeriodInMonths(permit, editMode)}
           value={permit.monthCount}
           onChange={e =>
             onUpdatePermit({
