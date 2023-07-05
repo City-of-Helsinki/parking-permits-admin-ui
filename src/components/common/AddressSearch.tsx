@@ -70,7 +70,9 @@ const AddressSearch = ({
           .then(() =>
             (data?.addressSearch || [])
               .map((_address: Address) => ({
-                label: formatAddress(_address, 'fi'),
+                label: formatAddress(_address, 'fi', {
+                  withPostalCode: true,
+                }),
                 address: _address,
               }))
               .sort((a, b) => a.label.localeCompare(b.label))

@@ -32,6 +32,7 @@ const CUSTOMER_QUERY = gql`
           labelSv
         }
       }
+      primaryAddressApartment
       otherAddress {
         city
         citySv
@@ -44,6 +45,7 @@ const CUSTOMER_QUERY = gql`
           labelSv
         }
       }
+      otherAddressApartment
     }
   }
 `;

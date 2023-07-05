@@ -35,6 +35,7 @@ const PermitInfo = ({
     primaryVehicle,
     parkingZone,
     address,
+    addressApartment,
   } = permit;
   let endTimeValue = '';
   if (endType === PermitEndType.IMMEDIATELY) {
@@ -81,7 +82,9 @@ const PermitInfo = ({
     },
     {
       label: t(`${T_PATH}.address`),
-      value: formatAddress(address, i18n.language),
+      value: formatAddress(address, i18n.language, {
+        addressApartment,
+      }),
     },
     {
       label: t(`${T_PATH}.parkingZone`),

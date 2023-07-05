@@ -62,6 +62,7 @@ const PERMITS_QUERY = gql`
             citySv
             postalCode
           }
+          primaryAddressApartment
           otherAddress {
             streetName
             streetNameSv
@@ -70,6 +71,7 @@ const PERMITS_QUERY = gql`
             citySv
             postalCode
           }
+          otherAddressApartment
         }
         vehicle {
           manufacturer

@@ -47,7 +47,9 @@ const PersonalInfo = ({
   const { t, i18n } = useTranslation();
   const {
     primaryAddress,
+    primaryAddressApartment,
     otherAddress,
+    otherAddressApartment,
     nationalIdNumber,
     addressSecurityBan,
     firstName,
@@ -188,6 +190,35 @@ const PersonalInfo = ({
         <AddressSearch
           className={styles.addressSearch}
           onSelect={address => onSelectAddress(selectedAddress, address)}
+        />
+        <TextInput
+          className={styles.fieldItem}
+          id="addressApartment"
+          label={t(`${T_PATH}.addressApartment`)}
+          value={
+            selectedAddress === SelectedAddress.PRIMARY
+              ? primaryAddressApartment
+              : otherAddressApartment
+          }
+          onChange={e => {
+            if (selectedAddress === SelectedAddress.PRIMARY) {
+              onUpdatePermit({
+                addressApartment: e.target.value,
+                customer: {
+                  ...person,
+                  primaryAddressApartment: e.target.value,
+                },
+              });
+            } else {
+              onUpdatePermit({
+                addressApartment: e.target.value,
+                customer: {
+                  ...person,
+                  otherAddressApartment: e.target.value,
+                },
+              });
+            }
+          }}
         />
         <ZoneSelect
           required

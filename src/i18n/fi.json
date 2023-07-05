@@ -304,6 +304,7 @@
         "personalInfo": "Henkilötiedot",
         "phoneNumber": "Puhelinnumero",
         "primaryAddress": "Vakituinen osoite",
+        "addressApartment": "Huoneisto",
         "search": "Hae",
         "zone": "Alue"
       },

@@ -53,6 +53,7 @@ const CUSTOMER_QUERY = gql`
           labelSv
         }
       }
+      primaryAddressApartment
       otherAddress {
         id
         city
@@ -67,6 +68,7 @@ const CUSTOMER_QUERY = gql`
           labelSv
         }
       }
+      otherAddressApartment
       activePermits {
         id
         primaryVehicle

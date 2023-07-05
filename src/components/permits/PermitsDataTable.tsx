@@ -67,7 +67,10 @@ const PermitsDataTable = ({
             field: 'primaryAddress',
             selector: ({ address, customer }) =>
               isPermitAddress(address, customer?.primaryAddress)
-                ? formatAddress(address, i18n.language)
+                ? formatAddress(address, i18n.language, {
+                    addressApartment: customer.primaryAddressApartment,
+                    withPostalCode: true,
+                  })
                 : '-',
             sortable: true,
           },
@@ -76,7 +79,10 @@ const PermitsDataTable = ({
             field: 'otherAddress',
             selector: ({ address, customer }) =>
               isPermitAddress(address, customer?.otherAddress)
-                ? formatAddress(address, i18n.language)
+                ? formatAddress(address, i18n.language, {
+                    addressApartment: customer.otherAddressApartment,
+                    withPostalCode: true,
+                  })
                 : '-',
             sortable: true,
           },

@@ -31,13 +31,17 @@ const CustomerInfo = ({
           {
             label: t(`${T_PATH}.primaryAddress`),
             value: customer?.primaryAddress
-              ? formatAddress(customer.primaryAddress, i18n.language)
+              ? formatAddress(customer.primaryAddress, i18n.language, {
+                  addressApartment: customer.primaryAddressApartment,
+                })
               : '-',
           },
           {
             label: t(`${T_PATH}.otherAddress`),
             value: customer?.otherAddress
-              ? formatAddress(customer.otherAddress, i18n.language)
+              ? formatAddress(customer.otherAddress, i18n.language, {
+                  addressApartment: customer.otherAddressApartment,
+                })
               : '-',
           },
         ]),
