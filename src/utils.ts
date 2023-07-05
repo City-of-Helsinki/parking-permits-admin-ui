@@ -51,7 +51,7 @@ export function formatAddress(
   }
 
   let addressApartmentStr = '';
-  if (options?.addressApartment && options.addressApartment.length > 0) {
+  if (options?.addressApartment) {
     addressApartmentStr = ` ${options.addressApartment}`;
   }
   if (lang === 'sv') {
