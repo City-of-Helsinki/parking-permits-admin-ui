@@ -261,6 +261,7 @@
         "personalInfo": "Personal Information",
         "phoneNumber": "Phone number",
         "primaryAddress": "Permanent address",
+        "addressApartment": "Apartment",
         "search": "Search",
         "zone": "Zone"
       },

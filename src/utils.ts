@@ -35,7 +35,10 @@ export function formatPeriod(count: number, unit: string): string {
 export function formatAddress(
   address: Address | undefined,
   lang: string,
-  options?: { withPostalCode?: boolean }
+  options?: {
+    withPostalCode?: boolean;
+    addressApartment?: string;
+  }
 ): string {
   if (!address) {
     return '-';
@@ -46,10 +49,15 @@ export function formatAddress(
   if (options?.withPostalCode) {
     postalCode = `${address.postalCode} `;
   }
-  if (lang === 'sv') {
-    return `${streetNameSv} ${streetNumber}, ${postalCode}${citySv}`;
+
+  let addressApartmentStr = '';
+  if (options?.addressApartment && options.addressApartment.length > 0) {
+    addressApartmentStr = ` ${options.addressApartment}`;
   }
-  return `${streetName} ${streetNumber}, ${postalCode}${city}`;
+  if (lang === 'sv') {
+    return `${streetNameSv} ${streetNumber}${addressApartmentStr}, ${postalCode}${citySv}`;
+  }
+  return `${streetName} ${streetNumber}${addressApartmentStr}, ${postalCode}${city}`;
 }
 
 export function isPermitAddress(
@@ -214,7 +222,9 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     lastName,
     nationalIdNumber,
     primaryAddress,
+    primaryAddressApartment,
     otherAddress,
+    otherAddressApartment,
     email,
     phoneNumber,
     addressSecurityBan,
@@ -231,7 +241,9 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     lastName,
     nationalIdNumber,
     primaryAddress: primaryAddressInput,
+    primaryAddressApartment,
     otherAddress: otherAddressInput,
+    otherAddressApartment,
     email,
     phoneNumber,
     addressSecurityBan,
@@ -249,6 +261,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     monthCount,
     description,
     address,
+    addressApartment,
     parkingZone,
   } = permit;
   const vehicleInput = convertToVehicleInput(vehicle);
@@ -263,6 +276,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     description,
     zone: parkingZone?.name || address?.zone?.name,
     address: convertAddressToAddressInput(address),
+    addressApartment,
   };
 }
 

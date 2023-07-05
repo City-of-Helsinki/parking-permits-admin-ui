@@ -53,6 +53,7 @@ const PERMIT_DETAIL_QUERY = gql`
           name
         }
       }
+      addressApartment
       customer {
         firstName
         lastName
@@ -76,6 +77,7 @@ const PERMIT_DETAIL_QUERY = gql`
             labelSv
           }
         }
+        primaryAddressApartment
         otherAddress {
           id
           streetName
@@ -91,6 +93,7 @@ const PERMIT_DETAIL_QUERY = gql`
             labelSv
           }
         }
+        otherAddressApartment
         activePermits {
           id
           primaryVehicle

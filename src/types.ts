@@ -32,7 +32,9 @@ export interface Customer {
   lastName: string;
   nationalIdNumber: string;
   primaryAddress?: Address;
+  primaryAddressApartment?: string;
   otherAddress?: Address;
+  otherAddressApartment?: string;
   email: string;
   phoneNumber: string;
   zone?: ParkingZone;
@@ -243,6 +245,7 @@ export interface TemporaryVehicle {
 export interface PermitDetail {
   id?: number;
   address: Address;
+  addressApartment: string;
   customer: Customer;
   vehicle: Vehicle;
   activeTemporaryVehicle: TemporaryVehicle;
@@ -274,7 +277,9 @@ export interface CustomerInput {
   lastName: string;
   nationalIdNumber: string;
   primaryAddress?: Address;
+  primaryAddressApartment?: string;
   otherAddress?: Address;
+  otherAddressApartment?: string;
   zone?: string;
   email: string;
   phoneNumber: string;
@@ -292,6 +297,7 @@ export interface PermitInput {
   description: string;
   zone: string | undefined;
   address: Address | undefined;
+  addressApartment: string;
 }
 
 export interface PageInfo {
