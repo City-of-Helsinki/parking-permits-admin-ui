@@ -6,7 +6,6 @@ const T_PATH = 'components.footer';
 
 const Footer = (): React.ReactElement => {
   const { t } = useTranslation();
-  const FOOTER_COLOR = 'var(--color-white)';
   return (
     <HDSFooter theme="dark">
       <HDSFooter.Base copyrightHolder={t(`${T_PATH}.copyright`)}>
