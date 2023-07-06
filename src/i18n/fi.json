@@ -100,6 +100,12 @@
       "refunds": "Palautukset",
       "skipToContent": "Siirry sisältöön"
     },
+    "footer": {
+      "parkingInfo": "Tietoa pysäköinnistä",
+      "copyright": "Helsinki kaupunki, Henkilötiedot - Digi- ja väestötietovirasto, Ajoneuvo- ja ajokorttitiedot - Liikenne- ja viestintävirasto Traficom",
+      "dataProtection": "Tietosuoja",
+      "registryDescription": "Rekisteriseloste"
+    },
     "orders": {
       "ordersDataTable": {
         "address": "Osoite",

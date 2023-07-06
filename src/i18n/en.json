@@ -50,11 +50,17 @@
       "admin": "Admin",
       "appTitle": "Parking Permits Management",
       "login": "Login",
-      "logout": "Log Out",
+      "logout": "Logout",
       "orders": "Orders",
       "permits": "Permits",
       "refunds": "Refunds",
       "skipToContent": "Skip to content"
+    },
+    "footer": {
+      "parkingInfo": "Information about parking",
+      "copyright": "City of Helsinki, Personal data - Digital and population data services agency, Vehicle and driving licence data - Traficom",
+      "dataProtection": "Data protection",
+      "registryDescription": "Registry description"
     },
     "orders": {
       "ordersDataTable": {

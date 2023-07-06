@@ -3,6 +3,7 @@ import { Outlet } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import Divider from './common/Divider';
+import Footer from './footer/Footer';
 import Header from './Header';
 import SideNav from './superAdmin/SideNav';
 import styles from './SuperAdminLayout.module.scss';
@@ -24,6 +25,7 @@ const SuperAdminLayout = (): React.ReactElement => {
           <Outlet />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
