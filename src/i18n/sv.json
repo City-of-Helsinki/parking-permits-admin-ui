@@ -44,6 +44,12 @@
       "refunds": "Återbetalningar",
       "skipToContent": "Hoppa till innehållet"
     },
+    "footer": {
+      "parkingInfo": "Information om parkering",
+      "copyright": "Helsingfors stad, Personuppgifter - Digital- och befolkningsdatatjänstbyrå, Fordons- och körkortsdata - Traficom",
+      "dataProtection": "Dataskydd",
+      "registryDescription": "Registerbeskrivning"
+    },
     "orders": {
       "ordersDataTable": {
         "address": "Adress",
