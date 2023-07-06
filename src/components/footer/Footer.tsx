@@ -8,13 +8,7 @@ const Footer = (): React.ReactElement => {
   const { t } = useTranslation();
   const FOOTER_COLOR = 'var(--color-white)';
   return (
-    <HDSFooter
-      theme={{
-        '--footer-background': 'var(--color-black)',
-        '--footer-color': FOOTER_COLOR,
-        '--footer-divider-color': FOOTER_COLOR,
-        '--footer-focus-outline-color': FOOTER_COLOR,
-      }}>
+    <HDSFooter theme="dark">
       <HDSFooter.Base copyrightHolder={t(`${T_PATH}.copyright`)}>
         <HDSFooter.Item
           target="_blank"
