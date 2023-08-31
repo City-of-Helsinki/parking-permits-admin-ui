@@ -333,6 +333,8 @@ export function createOidcClient(): Client {
           returnedHttpStatus === HttpStatusCode.UNAUTHORIZED)
       ) {
         setError({ type: ClientError.UNEXPECTED_AUTH_CHANGE, message: '' });
+        // reload page to force redirect to login
+        window.location.reload();
         return { keepPolling: false };
       }
       return { keepPolling: isAuthenticated() };
