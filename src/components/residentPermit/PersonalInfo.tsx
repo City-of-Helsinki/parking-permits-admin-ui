@@ -108,9 +108,7 @@ const PersonalInfo = ({
           onChange={e =>
             updateCustomer({ ...person, nationalIdNumber: e.target.value })
           }>
-          <Button
-            onClick={() => onSearchPerson(nationalIdNumber)}
-            disabled={disableCustomerChange}>
+          <Button onClick={() => onSearchPerson(nationalIdNumber)}>
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
