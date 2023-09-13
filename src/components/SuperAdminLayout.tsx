@@ -1,3 +1,4 @@
+import { LoadingSpinner } from 'hds-react';
 import React from 'react';
 import { Outlet } from 'react-router';
 import { Navigate } from 'react-router-dom';
@@ -10,6 +11,20 @@ import styles from './SuperAdminLayout.module.scss';
 
 const SuperAdminLayout = (): React.ReactElement => {
   const userRole = useUserRole();
+  // still loading, we don't know user groups yet
+  if (userRole === UserRole.UNKNOWN) {
+    return (
+      <div className={styles.mainLayout}>
+        <Header />
+        <Divider />
+        <div className={styles.contentContainer}>
+          <LoadingSpinner />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+  // not a super admin, redirect to Permits page
   if (userRole < UserRole.SUPER_ADMIN) {
     return <Navigate to="/permits" />;
   }
