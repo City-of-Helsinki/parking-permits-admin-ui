@@ -27,24 +27,31 @@
     }
   }
   .footer {
-    padding: $spacing-m 0;
+    padding: $spacing-m $spacing-s;
     box-shadow: 0 -5px 5px -5px $color-black-30;
     position: fixed;
-    width: 100%;
-    max-width: $breakpoint-xl;
-    left: calc(100% - #{$breakpoint-xl}) / 2;
+    width: 99%;
+    left: 0;
     bottom: 0;
     background-color: white;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    z-index: 20;
+
+    .inner {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: $breakpoint-xl;
+    }
 
     .actions {
       display: flex;
       flex-direction: row;
       .actionButton {
         &:not(:last-child) {
-          margin-right: $spacing-m;
+          margin-right: $spacing-s;
         }
       }
     }
@@ -55,10 +62,11 @@
       background-color: $color-coat-of-arms-light;
       padding: 0 $spacing-s;
       align-items: center;
+      margin-right: $spacing-s;
       .priceLabel {
         font-weight: bold;
         font-size: $fontsize-body-l;
-        margin-right: $spacing-m;
+        margin-right: $spacing-s;
       }
       .totalPrice {
         .totalPriceValue {

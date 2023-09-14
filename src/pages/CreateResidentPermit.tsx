@@ -284,28 +284,30 @@ const CreateResidentPermit = (): React.ReactElement => {
         />
       </div>
       <div className={styles.footer}>
-        <div className={styles.actions}>
-          <Button
-            disabled={
-              customer.activePermits && customer.activePermits.length >= 2
-            }
-            className={styles.actionButton}
-            iconLeft={<IconCheckCircleFill />}
-            onClick={() => setIsConfirmDialogOpen(true)}>
-            {t(`${T_PATH}.save`)}
-          </Button>
-          <Button
-            className={styles.actionButton}
-            variant="secondary"
-            onClick={() => navigate('/permits')}>
-            {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
-          </Button>
-        </div>
-        <div className={styles.priceInfo}>
-          <div className={styles.priceLabel}>{t(`${T_PATH}.totalPrice`)}</div>
-          <div className={styles.totalPrice}>
-            <span className={styles.totalPriceValue}>{totalPrice}</span>
-            <span className={styles.totalPriceCurrency}>€</span>
+        <div className={styles.inner}>
+          <div className={styles.actions}>
+            <Button
+              disabled={
+                customer.activePermits && customer.activePermits.length >= 2
+              }
+              className={styles.actionButton}
+              iconLeft={<IconCheckCircleFill />}
+              onClick={() => setIsConfirmDialogOpen(true)}>
+              {t(`${T_PATH}.save`)}
+            </Button>
+            <Button
+              className={styles.actionButton}
+              variant="secondary"
+              onClick={() => navigate('/permits')}>
+              {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
+            </Button>
+          </div>
+          <div className={styles.priceInfo}>
+            <div className={styles.priceLabel}>{t(`${T_PATH}.totalPrice`)}</div>
+            <div className={styles.totalPrice}>
+              <span className={styles.totalPriceValue}>{totalPrice}</span>
+              <span className={styles.totalPriceCurrency}>€</span>
+            </div>
           </div>
         </div>
       </div>
