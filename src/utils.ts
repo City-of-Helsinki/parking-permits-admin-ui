@@ -65,8 +65,8 @@ export function isPermitAddress(
   customerAddress: Address | undefined
 ): boolean {
   return (
-    customerAddress &&
-    address &&
+    !!customerAddress &&
+    !!address &&
     customerAddress.streetName === address.streetName &&
     customerAddress.streetNumber.substring(0, 2) ===
       address.streetNumber.substring(0, 2)
@@ -152,7 +152,8 @@ export function formatVehicleName(vehicle: Vehicle): string {
 }
 
 export function formatPrice(price: number): string {
-  return parseFloat(price.toString()).toFixed(2);
+  // ensure accurate rounding e.g. 90.955 -> 90.96
+  return (Math.round(price * 100) / 100).toFixed(2);
 }
 
 export function formatMonthlyPrice(price: number): string {
