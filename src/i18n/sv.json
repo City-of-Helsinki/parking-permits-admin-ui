@@ -141,7 +141,7 @@
       "vehicleInfo": {
         "addTemporaryVehicle": "Lägg till ett tillfälligt fordon",
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
-        "highEmissionVehicle": "Fordon med normala utsläpp",
+        "highEmissionVehicle": "Fordon med normalt utsläpp",
         "invalid": "Inte giltig",
         "lowEmissionVehicle": "Fordon med låga utsläpp",
         "removeTemporaryVehicle": "Ta bort det tillfälliga fordonet",
