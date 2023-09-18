@@ -34,8 +34,11 @@ const PriceChangeItem = ({
     priceChangeItem;
   const monthlyPriceLabel =
     type === PriceChangeType.HIGHER_PRICE
-      ? `${formatMonthlyPrice(priceChange)} (${formatMonthlyPrice(newPrice)})`
-      : formatMonthlyPrice(newPrice);
+      ? `${formatMonthlyPrice(priceChange, t)} (${formatMonthlyPrice(
+          newPrice,
+          t
+        )})`
+      : formatMonthlyPrice(newPrice, t);
   return (
     <div className={className}>
       <div className={styles.row}>

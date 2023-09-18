@@ -30,6 +30,9 @@
         "diesel": "Diesel",
         "electric": "Electric"
       },
+      "price": {
+        "perMonth": "€/kk"
+      },
       "table": {
         "initialText": "Enter the search criteria",
         "noResults": "No results."
@@ -362,7 +365,7 @@
           "errorEnterPrice": "Please enter a price",
           "errorEnterStartDate": "Please enter a start date",
           "errorEnterVAT": "Please enter a VAT percentage",
-          "errorEnterLowEmissionDiscount": "Please enter a low emission discount percentage", 
+          "errorEnterLowEmissionDiscount": "Please enter a low emission discount percentage",
           "errorSelectZone": "Please select a zone",
           "lowEmissionDiscount": "Low emission discount",
           "price": "Price",

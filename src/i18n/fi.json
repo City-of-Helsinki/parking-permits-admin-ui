@@ -71,6 +71,9 @@
         "diesel": "Diesel",
         "electric": "Sähkö"
       },
+      "price": {
+        "perMonth": "€/pm"
+      },
       "table": {
         "initialText": "Syötä hakuehto",
         "noResults": "Ei tuloksia."
