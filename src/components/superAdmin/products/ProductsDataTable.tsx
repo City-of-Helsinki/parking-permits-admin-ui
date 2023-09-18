@@ -49,7 +49,7 @@ const ProductsDataTable = ({
     {
       name: t(`${T_PATH}.price`),
       field: 'price',
-      selector: ({ unitPrice }) => formatMonthlyPrice(unitPrice),
+      selector: ({ unitPrice }) => formatMonthlyPrice(unitPrice, t),
       sortable: true,
     },
     {

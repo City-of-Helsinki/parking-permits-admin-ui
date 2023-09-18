@@ -15,6 +15,8 @@ import {
   VehicleInput,
 } from './types';
 
+type TranslateFunction = (name: string) => string;
+
 export function getEnv(key: string): string {
   const variable = process.env[key];
   if (variable === undefined) {
@@ -156,9 +158,10 @@ export function formatPrice(price: number): string {
   return (Math.round(price * 100) / 100).toFixed(2);
 }
 
-export function formatMonthlyPrice(price: number): string {
-  return `${formatPrice(price)} €/kk`;
-}
+export const formatMonthlyPrice = (
+  price: number,
+  t: TranslateFunction
+): string => `${formatPrice(price)} ${t('common.price.perMonth')}`;
 
 export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
   const {

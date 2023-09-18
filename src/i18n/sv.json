@@ -23,6 +23,9 @@
         "results": "Resultat: {{count}}",
         "selectAll": "Välj alla från listan"
       },
+      "price": {
+        "perMonth": "€/pm"
+      },
       "zoneSelect": {
         "zone": "Område"
       }
