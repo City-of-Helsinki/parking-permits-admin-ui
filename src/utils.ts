@@ -161,7 +161,7 @@ export function formatPrice(price: number): string {
 export const formatMonthlyPrice = (
   price: number,
   t: TranslateFunction
-): string => `${formatPrice(price)} ${t('common.price.perMonth')}`;
+): string => `${formatPrice(price)} ${t('components.common.price.perMonth')}`;
 
 export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
   const {

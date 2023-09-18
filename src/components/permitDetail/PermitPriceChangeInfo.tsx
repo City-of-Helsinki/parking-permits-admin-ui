@@ -5,6 +5,7 @@ import { PermitPriceChange } from '../../types';
 import {
   formatDateDisplay,
   formatMonthlyPrice,
+  formatPrice,
   isValidIBAN,
 } from '../../utils';
 import Divider from '../common/Divider';
@@ -59,7 +60,7 @@ const PriceChangeItem = ({
           {t(`${T_PATH}.priceChangeItemTotalLabel`, { count: monthCount })}
         </div>
         <div>
-          <b>{formatMonthlyPrice(newPrice * monthCount)}</b>
+          <b>{formatMonthlyPrice(newPrice * monthCount, t)}</b>
         </div>
       </div>
     </div>
@@ -77,6 +78,18 @@ export interface PermitPriceChangeInfoProps {
   refundAccountNumber: string;
   onChangeRefundAccountNumber: (account: string) => void;
 }
+
+const getPriceChangeType = (priceChangeTotal: number): PriceChangeType => {
+  if (priceChangeTotal > 0) {
+    return PriceChangeType.HIGHER_PRICE;
+  }
+
+  if (priceChangeTotal < 0) {
+    return PriceChangeType.LOWER_PRICE;
+  }
+
+  return PriceChangeType.NO_CHANGE;
+};
 
 const PermitPriceChangeInfo = ({
   className,
@@ -104,14 +117,8 @@ const PermitPriceChangeInfo = ({
     (total, item) => total + item.priceChangeVat * item.monthCount,
     0
   );
-  let priceChangeType = PriceChangeType.NO_CHANGE;
-  if (priceChangeTotal > 0) {
-    priceChangeType = PriceChangeType.HIGHER_PRICE;
-  } else if (priceChangeTotal < 0) {
-    priceChangeType = PriceChangeType.LOWER_PRICE;
-  } else {
-    priceChangeType = PriceChangeType.NO_CHANGE;
-  }
+  const priceChangeType = getPriceChangeType(priceChangeTotal);
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -132,16 +139,16 @@ const PermitPriceChangeInfo = ({
         <div className={styles.totalInfo}>
           <div className={styles.row}>
             <div>{t(`${T_PATH}.newOrderTotal`)}</div>
-            <div>{newOrderTotal} €</div>
+            <div>{formatPrice(newOrderTotal)} €</div>
           </div>
           <div className={styles.row}>
             <div>{t(`${T_PATH}.previousOrderRemaining`)}</div>
-            <div>{-previousOrderRemaining} €</div>
+            <div>{-formatPrice(previousOrderRemaining)} €</div>
           </div>
           <Divider />
           <div className={styles.row}>
             <div>{t(`${T_PATH}.priceDifference`)}</div>
-            <div>{priceChangeTotal} €</div>
+            <div>{formatPrice(priceChangeTotal)} €</div>
           </div>
           <div className={styles.row}>
             <div>{t(`${T_PATH}.priceCalcDescription`)}</div>
@@ -154,12 +161,12 @@ const PermitPriceChangeInfo = ({
                 <b>{t(`${T_PATH}.extraPaymentTotal`)}</b>
               </div>
               <div>
-                <b>{priceChangeTotal} €</b>
+                <b>{formatPrice(priceChangeTotal)} €</b>
               </div>
             </div>
             <div className={styles.row}>
               <div>{t(`${T_PATH}.extraPaymentVatTotal`)}</div>
-              <div>{priceChangeVatTotal} €</div>
+              <div>{formatPrice(priceChangeVatTotal)} €</div>
             </div>
           </div>
         )}
@@ -171,12 +178,12 @@ const PermitPriceChangeInfo = ({
                   <b>{t(`${T_PATH}.refundTotal`)}</b>
                 </div>
                 <div>
-                  <b>{-priceChangeTotal} €</b>
+                  <b>{-formatPrice(priceChangeTotal)} €</b>
                 </div>
               </div>
               <div className={styles.row}>
                 <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-                <div>{-priceChangeVatTotal} €</div>
+                <div>{-formatPrice(priceChangeVatTotal)} €</div>
               </div>
             </div>
             <div className={styles.ibanInfo}>
