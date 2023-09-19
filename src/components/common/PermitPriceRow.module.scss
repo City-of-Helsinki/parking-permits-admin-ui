@@ -1,6 +1,6 @@
 @import '~hds-design-tokens/lib/all.scss';
 
-.modifiedPrice,
-.originalPrice {
+.modifiedPrice {
   margin-right: $spacing-xs;
+  font-weight: bold;
 }
