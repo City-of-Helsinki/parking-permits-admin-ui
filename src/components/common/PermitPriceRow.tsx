@@ -14,25 +14,12 @@ const PermitPriceRow = ({
   permitPrice,
 }: PermitPriceRowProps): React.ReactElement => {
   const { t } = useTranslation();
-  const { originalUnitPrice, unitPrice, startDate, endDate } = permitPrice;
-  const isPriceModified = false;
+  const { unitPrice, startDate, endDate } = permitPrice;
   return (
     <div className={className}>
-      {isPriceModified && (
-        <>
-          <span className={styles.modifiedPrice}>
-            <b>{formatMonthlyPrice(unitPrice, t)}</b>
-          </span>
-          <span className={styles.originalPrice}>
-            <s>{formatMonthlyPrice(originalUnitPrice, t)}</s>
-          </span>
-        </>
-      )}
-      {!isPriceModified && (
-        <span className={styles.modifiedPrice}>
-          {formatMonthlyPrice(unitPrice, t)}
-        </span>
-      )}
+      <span className={styles.modifiedPrice}>
+        {formatMonthlyPrice(unitPrice, t)}
+      </span>
       <span className={styles.dateRange}>
         {`(${formatDateDisplay(startDate)} - ${formatDateDisplay(endDate)})`}
       </span>

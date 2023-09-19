@@ -183,19 +183,21 @@ const EditResidentPermitForm = ({
           onUpdatePermit={handleUpdatePermit}
         />
       </div>
-      <div className={styles.actions}>
-        <Button
-          className={styles.actionButton}
-          variant="secondary"
-          onClick={() => onCancel()}>
-          {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
-        </Button>
-        <Button
-          className={styles.actionButton}
-          iconLeft={<IconCheckCircleFill />}
-          onClick={() => onConfirm()}>
-          {t(`${T_PATH}.continue`)}
-        </Button>
+      <div className={styles.footer}>
+        <div className={styles.actions}>
+          <Button
+            className={styles.actionButton}
+            variant="secondary"
+            onClick={() => onCancel()}>
+            {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
+          </Button>
+          <Button
+            className={styles.actionButton}
+            iconLeft={<IconCheckCircleFill />}
+            onClick={() => onConfirm()}>
+            {t(`${T_PATH}.continue`)}
+          </Button>
+        </div>
       </div>
     </div>
   );
