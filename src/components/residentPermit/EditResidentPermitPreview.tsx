@@ -51,22 +51,24 @@ const EditResidentPermitPreview = ({
           />
         </div>
       </div>
-      <div className={styles.actions}>
-        <Button
-          className={styles.actionButton}
-          variant="secondary"
-          onClick={() => onCancel()}>
-          {t(`${T_PATH}.goBack`)}
-        </Button>
-        <Button
-          disabled={
-            refundAccountNumber !== '' && isValidIBAN(refundAccountNumber)
-          }
-          className={styles.actionButton}
-          iconLeft={<IconCheckCircleFill />}
-          onClick={() => onConfirm()}>
-          {t(`${T_PATH}.save`)}
-        </Button>
+      <div className={styles.footer}>
+        <div className={styles.actions}>
+          <Button
+            className={styles.actionButton}
+            variant="secondary"
+            onClick={() => onCancel()}>
+            {t(`${T_PATH}.goBack`)}
+          </Button>
+          <Button
+            disabled={
+              refundAccountNumber !== '' && isValidIBAN(refundAccountNumber)
+            }
+            className={styles.actionButton}
+            iconLeft={<IconCheckCircleFill />}
+            onClick={() => onConfirm()}>
+            {t(`${T_PATH}.save`)}
+          </Button>
+        </div>
       </div>
     </div>
   );
