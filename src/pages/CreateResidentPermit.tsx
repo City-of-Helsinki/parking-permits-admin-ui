@@ -102,7 +102,6 @@ const VEHICLE_QUERY = gql`
 const PERMIT_PRICES_QUERY = gql`
   query GetPermitPrices($permit: ResidentPermitInput!, $isSecondary: Boolean!) {
     permitPrices(permit: $permit, isSecondary: $isSecondary) {
-      originalUnitPrice
       unitPrice
       startDate
       endDate
