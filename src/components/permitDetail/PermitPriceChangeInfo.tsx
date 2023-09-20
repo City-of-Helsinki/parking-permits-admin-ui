@@ -40,6 +40,7 @@ const PriceChangeItem = ({
           t
         )})`
       : formatMonthlyPrice(newPrice, t);
+
   return (
     <div className={className}>
       <div className={styles.row}>
@@ -143,7 +144,7 @@ const PermitPriceChangeInfo = ({
           </div>
           <div className={styles.row}>
             <div>{t(`${T_PATH}.previousOrderRemaining`)}</div>
-            <div>{-formatPrice(previousOrderRemaining)} €</div>
+            <div>{formatPrice(-previousOrderRemaining)} €</div>
           </div>
           <Divider />
           <div className={styles.row}>
@@ -178,12 +179,12 @@ const PermitPriceChangeInfo = ({
                   <b>{t(`${T_PATH}.refundTotal`)}</b>
                 </div>
                 <div>
-                  <b>{-formatPrice(priceChangeTotal)} €</b>
+                  <b>{formatPrice(-priceChangeTotal)} €</b>
                 </div>
               </div>
               <div className={styles.row}>
                 <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-                <div>{-formatPrice(priceChangeVatTotal)} €</div>
+                <div>{formatPrice(-priceChangeVatTotal)} €</div>
               </div>
             </div>
             <div className={styles.ibanInfo}>

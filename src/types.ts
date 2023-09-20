@@ -148,7 +148,6 @@ export interface Announcement {
 }
 
 export interface PermitPrice {
-  originalUnitPrice: number;
   unitPrice: number;
   startDate: string;
   endDate: string;

@@ -72,7 +72,7 @@
         "electric": "Sähkö"
       },
       "price": {
-        "perMonth": "€/pm"
+        "perMonth": "€/kk"
       },
       "table": {
         "initialText": "Syötä hakuehto",

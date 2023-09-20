@@ -525,8 +525,8 @@
     "resident": "Boendeparkering"
   },
   "productUnit": {
-    "monthly": "kk",
-    "pieces": "kpl"
+    "monthly": "pm",
+    "pieces": "st"
   },
   "refundStatus": {
     "accepted": "Accepterad",

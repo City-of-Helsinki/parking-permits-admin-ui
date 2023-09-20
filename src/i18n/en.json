@@ -31,7 +31,7 @@
         "electric": "Electric"
       },
       "price": {
-        "perMonth": "€/kk"
+        "perMonth": "€/pm"
       },
       "table": {
         "initialText": "Enter the search criteria",
