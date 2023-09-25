@@ -1,7 +1,7 @@
 import { RadioButton, TextInput } from 'hds-react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitPriceChange } from '../../types';
+import { PermitPriceChange, RefundAccountOption } from '../../types';
 import {
   formatDateDisplay,
   formatMonthlyPrice,
@@ -68,16 +68,13 @@ const PriceChangeItem = ({
   );
 };
 
-enum RefundAccountOption {
-  KNOWN = 'known',
-  UNKNOWN = 'unknown',
-}
-
 export interface PermitPriceChangeInfoProps {
   className?: string;
   priceChangeList: PermitPriceChange[];
   refundAccountNumber: string;
+  refundAccountOption: string;
   onChangeRefundAccountNumber: (account: string) => void;
+  onChangeRefundAccountOption: (option: string) => void;
 }
 
 const getPriceChangeType = (priceChangeTotal: number): PriceChangeType => {
@@ -96,12 +93,12 @@ const PermitPriceChangeInfo = ({
   className,
   priceChangeList,
   refundAccountNumber,
+  refundAccountOption,
   onChangeRefundAccountNumber,
+  onChangeRefundAccountOption,
 }: PermitPriceChangeInfoProps): React.ReactElement => {
   const { t } = useTranslation();
-  const [refundAccountOption, setRefundAccountOption] = useState(
-    RefundAccountOption.KNOWN
-  );
+
   const newOrderTotal = priceChangeList.reduce(
     (total, item) => total + item.newPrice * item.monthCount,
     0
@@ -195,7 +192,9 @@ const PermitPriceChangeInfo = ({
                 value={RefundAccountOption.KNOWN}
                 checked={refundAccountOption === RefundAccountOption.KNOWN}
                 onChange={e =>
-                  setRefundAccountOption(e.target.value as RefundAccountOption)
+                  onChangeRefundAccountOption(
+                    e.target.value as RefundAccountOption
+                  )
                 }
               />
               <TextInput
@@ -207,6 +206,7 @@ const PermitPriceChangeInfo = ({
                 value={refundAccountNumber}
                 onChange={e => onChangeRefundAccountNumber(e.target.value)}
                 errorText={
+                  refundAccountOption === RefundAccountOption.UNKNOWN ||
                   isValidIBAN(refundAccountNumber)
                     ? undefined
                     : t('errors.invalidIBAN')
@@ -219,7 +219,9 @@ const PermitPriceChangeInfo = ({
                 value={RefundAccountOption.UNKNOWN}
                 checked={refundAccountOption === RefundAccountOption.UNKNOWN}
                 onChange={e => {
-                  setRefundAccountOption(e.target.value as RefundAccountOption);
+                  onChangeRefundAccountOption(
+                    e.target.value as RefundAccountOption
+                  );
                   onChangeRefundAccountNumber('');
                 }}
               />

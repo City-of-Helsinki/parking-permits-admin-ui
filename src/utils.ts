@@ -366,6 +366,9 @@ export function getPermitTotalPrice(
 }
 
 export function isValidIBAN(value: string): boolean {
+  if (!value || value.trim() === '') {
+    return false;
+  }
   const iban = extractIBAN(value);
   return iban.valid && iban.countryCode === 'FI';
 }
