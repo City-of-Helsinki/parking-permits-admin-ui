@@ -25,6 +25,11 @@ export enum SelectedAddress {
   NONE = 'none',
 }
 
+export enum RefundAccountOption {
+  KNOWN = 'known',
+  UNKNOWN = 'unknown',
+}
+
 export interface Customer {
   id: string;
   sourceId: string;
