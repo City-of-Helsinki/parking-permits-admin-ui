@@ -21,25 +21,15 @@ enum PriceChangeType {
 
 interface PriceChangeItemProps {
   className?: string;
-  type: PriceChangeType;
   priceChangeItem: PermitPriceChange;
 }
 
 const PriceChangeItem = ({
   className,
-  type,
   priceChangeItem,
 }: PriceChangeItemProps): React.ReactElement => {
   const { t } = useTranslation();
-  const { product, newPrice, priceChange, startDate, endDate, monthCount } =
-    priceChangeItem;
-  const monthlyPriceLabel =
-    type === PriceChangeType.HIGHER_PRICE
-      ? `${formatMonthlyPrice(priceChange, t)} (${formatMonthlyPrice(
-          newPrice,
-          t
-        )})`
-      : formatMonthlyPrice(newPrice, t);
+  const { product, newPrice, startDate, endDate, monthCount } = priceChangeItem;
 
   return (
     <div className={className}>
@@ -48,7 +38,7 @@ const PriceChangeItem = ({
           <b>{product}</b>
         </div>
         <div>
-          <span>{monthlyPriceLabel}</span>
+          <span>{formatMonthlyPrice(newPrice, t)}</span>
         </div>
       </div>
       <div className={styles.row}>
@@ -61,7 +51,7 @@ const PriceChangeItem = ({
           {t(`${T_PATH}.priceChangeItemTotalLabel`, { count: monthCount })}
         </div>
         <div>
-          <b>{formatMonthlyPrice(newPrice * monthCount, t)}</b>
+          <b>{formatPrice(newPrice * monthCount)} €</b>
         </div>
       </div>
     </div>
