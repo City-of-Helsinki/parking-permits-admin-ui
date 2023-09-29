@@ -6,7 +6,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import ConfirmDialog from '../components/common/ConfirmDialog';
-import { getEmptyPermit } from '../components/residentPermit/consts';
+import {
+  getEmptyPermit,
+  initialVehicle,
+} from '../components/residentPermit/consts';
 import PermitInfo from '../components/residentPermit/PermitInfo';
 import PersonalInfo from '../components/residentPermit/PersonalInfo';
 import VehicleInfo from '../components/residentPermit/VehicleInfo';
@@ -211,10 +214,15 @@ const CreateResidentPermit = (): React.ReactElement => {
       })
       .catch(error => setErrorMessage(error.message));
   };
+
   const handleSearchVehicle = (regNumber: string) => {
     if (!customer.nationalIdNumber) {
       return;
     }
+    setPermit({
+      ...permit,
+      vehicle: { ...initialVehicle, registrationNumber: regNumber },
+    });
     getVehicle({
       variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
@@ -227,7 +235,13 @@ const CreateResidentPermit = (): React.ReactElement => {
     setPermit(newPermit);
     updatePermitPrices(newPermit);
   };
+
   const handleSearchPerson = (nationalIdNumber: string) => {
+    const emptyPermit = getEmptyPermit();
+    setPermit({
+      ...emptyPermit,
+      customer: { ...emptyPermit.customer, nationalIdNumber },
+    });
     getCustomer({
       variables: { query: { nationalIdNumber } },
     });
