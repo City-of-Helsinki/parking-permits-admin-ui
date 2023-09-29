@@ -75,6 +75,8 @@ interface EditResidentPermitFormProps {
   className?: string;
   permit: PermitDetail;
   permitPrices: PermitPrice[];
+  onResetPermit: (nationalIdNumber: string) => void;
+  onResetVehicle: (regNumber: string) => void;
   onUpdatePermit: (permit: PermitDetail) => void;
   onCancel: () => void;
   onConfirm: () => void;
@@ -84,6 +86,8 @@ const EditResidentPermitForm = ({
   className,
   permit,
   permitPrices,
+  onResetPermit,
+  onResetVehicle,
   onUpdatePermit,
   onCancel,
   onConfirm,
@@ -122,6 +126,7 @@ const EditResidentPermitForm = ({
     if (!customer.nationalIdNumber) {
       return;
     }
+    onResetVehicle(regNumber);
     getVehicle({
       variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
@@ -131,6 +136,7 @@ const EditResidentPermitForm = ({
     onUpdatePermit(newPermit);
 
   const handleSearchPerson = (nationalIdNumber: string) => {
+    onResetPermit(nationalIdNumber);
     getCustomer({
       variables: { query: { nationalIdNumber } },
     }).then(response => {

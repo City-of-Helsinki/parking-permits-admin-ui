@@ -7,6 +7,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import ConfirmDialog from '../components/common/ConfirmDialog';
+import {
+  getEmptyPermit,
+  initialVehicle,
+} from '../components/residentPermit/consts';
 import EditResidentPermitForm from '../components/residentPermit/EditResidentPermitForm';
 import EditResidentPermitPreview from '../components/residentPermit/EditResidentPermitPreview';
 import {
@@ -243,6 +247,21 @@ const EditResidentPermit = (): React.ReactElement => {
     return <div>{t(`${T_PATH}.loading`)}</div>;
   }
 
+  const handleResetPermit = (nationalIdNumber: string) => {
+    const emptyPermit = getEmptyPermit();
+    setPermit({
+      ...emptyPermit,
+      customer: { ...emptyPermit.customer, nationalIdNumber },
+    });
+  };
+
+  const handleResetVehicle = (registrationNumber: string) => {
+    setPermit({
+      ...permit,
+      vehicle: { ...initialVehicle, registrationNumber },
+    });
+  };
+
   const handleUpdatePermit = () => {
     updateResidentPermit({
       variables: {
@@ -275,6 +294,8 @@ const EditResidentPermit = (): React.ReactElement => {
         <EditResidentPermitForm
           permit={permit}
           permitPrices={permitPrices}
+          onResetPermit={handleResetPermit}
+          onResetVehicle={handleResetVehicle}
           onUpdatePermit={updatedPermit => {
             setPermit(updatedPermit);
             updatePermitPrices(updatedPermit, !updatedPermit.primaryVehicle);

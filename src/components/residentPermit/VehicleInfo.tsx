@@ -126,7 +126,7 @@ const VehicleInfo = ({
           id="emission"
           className={styles.fieldItem}
           label={t(`${T_PATH}.emission`)}
-          value={emission}
+          value={emission || 0}
           min={0}
           step={1}
           onChange={e =>
