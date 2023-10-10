@@ -95,13 +95,15 @@ const PersonalInfo = ({
     });
   };
 
-  // automatically pre-select the primary address if customer
-  // has at least one address and none selected
-  const isPrimaryAddressSelected =
-    selectedAddress === SelectedAddress.PRIMARY ||
-    (selectedAddress === SelectedAddress.NONE &&
-      !addressSecurityBan &&
-      !!primaryAddress);
+  let isPrimaryAddressSelected = false;
+  let isOtherAddressSelected = false;
+
+  if (!addressSecurityBan) {
+    isOtherAddressSelected =
+      !!otherAddress && selectedAddress === SelectedAddress.OTHER;
+
+    isPrimaryAddressSelected = !isOtherAddressSelected && !!primaryAddress;
+  }
 
   return (
     <div className={className}>
@@ -182,7 +184,7 @@ const PersonalInfo = ({
             name="selectedAddress"
             label={t(`${T_PATH}.otherAddress`)}
             value={addressSecurityBan ? '' : SelectedAddress.OTHER}
-            checked={selectedAddress === SelectedAddress.OTHER}
+            checked={isOtherAddressSelected}
             onChange={() => {
               setSelectedAddress(SelectedAddress.OTHER);
               onSelectAddress(SelectedAddress.OTHER, otherAddress as Address);
