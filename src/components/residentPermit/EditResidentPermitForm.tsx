@@ -2,7 +2,13 @@ import { gql, useLazyQuery } from '@apollo/client';
 import { Button, IconCheckCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Customer, PermitDetail, PermitPrice, Vehicle } from '../../types';
+import {
+  Address,
+  Customer,
+  PermitDetail,
+  PermitPrice,
+  Vehicle,
+} from '../../types';
 import styles from './EditResidentPermitForm.module.scss';
 import PermitInfo from './PermitInfo';
 import PersonalInfo from './PersonalInfo';
@@ -155,6 +161,46 @@ const EditResidentPermitForm = ({
       vehicle: newVehicle,
     });
   };
+  // ensure address has all correct fields
+  const handleSelectAddress = (
+    address: Address | undefined,
+    apartment: string | undefined
+  ) => {
+    if (!!address && address.id && address.zone) {
+      const { address: currentAddress, addressApartment: currentApartment } =
+        permit;
+      if (currentAddress?.id === address.id) {
+        onUpdatePermit({
+          ...permit,
+          address,
+          addressApartment: currentApartment ?? apartment ?? '',
+          parkingZone: address.zone,
+        });
+      }
+    }
+  };
+
+  const updateAddress = () => {
+    const { address: currentAddress } = permit;
+    onUpdatePermit({
+      ...permit,
+      address: currentAddress ?? permit?.customer?.primaryAddress,
+    });
+    handleSelectAddress(
+      permit?.customer?.otherAddress,
+      permit?.customer?.otherAddressApartment
+    );
+    handleSelectAddress(
+      permit?.customer?.primaryAddress,
+      permit?.customer?.primaryAddressApartment
+    );
+  };
+
+  const handleConfirm = () => {
+    updateAddress();
+    onConfirm();
+  };
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -200,7 +246,7 @@ const EditResidentPermitForm = ({
           <Button
             className={styles.actionButton}
             iconLeft={<IconCheckCircleFill />}
-            onClick={() => onConfirm()}>
+            onClick={handleConfirm}>
             {t(`${T_PATH}.continue`)}
           </Button>
         </div>
