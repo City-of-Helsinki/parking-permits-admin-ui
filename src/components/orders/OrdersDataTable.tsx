@@ -10,7 +10,6 @@ import DataTable from '../common/DataTable';
 import { Column } from '../types';
 
 const T_PATH = 'components.orders.ordersDataTable';
-
 export interface OrdersDataTableProps {
   orders?: Order[];
   pageInfo?: PageInfo;
@@ -33,6 +32,18 @@ const OrdersDataTable = ({
   onExport,
 }: OrdersDataTableProps): React.ReactElement => {
   const { t } = useTranslation();
+
+  const getPermitType = (order: Order): string => {
+    switch (order.orderPermits[0]?.type) {
+      case 'RESIDENT':
+        return t(`${T_PATH}.residentPermit`);
+      case 'COMPANY':
+        return t(`${T_PATH}.companyPermit`);
+      default:
+        return '-';
+    }
+  };
+
   const columns: Column<Order>[] = [
     {
       name: t(`${T_PATH}.permits`),
@@ -95,10 +106,7 @@ const OrdersDataTable = ({
     {
       name: t(`${T_PATH}.permitType`),
       field: 'permitType',
-      selector: ({ orderPermits }) =>
-        orderPermits[0]?.type === 'RESIDENT'
-          ? t(`${T_PATH}.residentPermit`)
-          : t(`${T_PATH}.companyPermit`),
+      selector: getPermitType,
       sortable: true,
     },
     {
