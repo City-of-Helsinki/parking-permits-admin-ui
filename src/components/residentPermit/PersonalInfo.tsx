@@ -114,7 +114,7 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="personalId"
           label={t(`${T_PATH}.personalId`)}
-          value={nationalIdNumber}
+          value={nationalIdNumber?.toUpperCase()}
           disabled={disableCustomerChange}
           onChange={e =>
             updateCustomer({ ...person, nationalIdNumber: e.target.value })
