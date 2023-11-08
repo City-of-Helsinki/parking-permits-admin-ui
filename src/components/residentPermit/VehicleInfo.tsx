@@ -150,6 +150,9 @@ const VehicleInfo = ({
             })
           }
         />
+        <div className={styles.vehicleCopyright}>
+          © {t(`${T_PATH}.vehicleCopyright`)}
+        </div>
         {permitPrices.length > 0 && (
           <div className={styles.priceInfo}>
             <div className={styles.priceTitle}>{t(`${T_PATH}.price`)}</div>

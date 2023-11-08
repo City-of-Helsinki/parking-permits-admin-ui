@@ -61,6 +61,9 @@ const VehicleInfo = ({
           label={t(`${T_PATH}.consentLowEmissionDiscountText`)}
           checked={consentLowEmissionAccepted}
         />
+        <div className={styles.vehicleCopyright}>
+          © {t(`${T_PATH}.vehicleCopyright`)}
+        </div>
       </div>
 
       {!activeTemporaryVehicle &&
