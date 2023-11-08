@@ -148,7 +148,8 @@
         "invalid": "Inte giltig",
         "lowEmissionVehicle": "Fordon med låga utsläpp",
         "removeTemporaryVehicle": "Ta bort det tillfälliga fordonet",
-        "title": "Fordonsinformation"
+        "title": "Fordonsinformation",
+        "vehicleCopyright": "Fordonsuppgifter - Trafik- och transportregistret, Traficom"
       }
     },
     "permits": {
@@ -258,7 +259,8 @@
         "search": "Sök",
         "serialNumber": "Serienummer",
         "vehicleClass": "Fordonsklass",
-        "vehicleInfo": "Fordonsinformation"
+        "vehicleInfo": "Fordonsinformation",
+        "vehicleCopyright": "Fordonsuppgifter - Trafik- och transportregistret, Traficom"
       }
     },
     "superAdmin": {

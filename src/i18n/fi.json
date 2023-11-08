@@ -219,7 +219,8 @@
         "invalid": "Ei voimassa",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
         "removeTemporaryVehicle": "Poista tilapäinen ajoneuvo",
-        "title": "Ajoneuvon tiedot"
+        "title": "Ajoneuvon tiedot",
+        "vehicleCopyright": "Ajoneuvon tiedot - Liikenneasioidenrekisteri, Traficom"
       }
     },
     "permits": {
@@ -331,7 +332,8 @@
         "search": "Hae",
         "serialNumber": "Valmistenumero",
         "vehicleClass": "Ajoneuvoluokka",
-        "vehicleInfo": "Ajoneuvon tiedot"
+        "vehicleInfo": "Ajoneuvon tiedot",
+        "vehicleCopyright": "Ajoneuvon tiedot - Liikenneasioidenrekisteri, Traficom"
       }
     },
     "superAdmin": {

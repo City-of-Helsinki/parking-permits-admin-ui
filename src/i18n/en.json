@@ -178,7 +178,8 @@
         "invalid": "Not valid",
         "lowEmissionVehicle": "Low emission vehicle",
         "removeTemporaryVehicle": "Remove temporary vehicle",
-        "title": "Vehicle information"
+        "title": "Vehicle information",
+        "vehicleCopyright": "Vehicle information - Transport register, Traficom"
       }
     },
     "permits": {
@@ -288,7 +289,8 @@
         "search": "Search",
         "serialNumber": "Serial number",
         "vehicleClass": "Vehicle class",
-        "vehicleInfo": "Vehicle information"
+        "vehicleInfo": "Vehicle information",
+        "vehicleCopyright": "Vehicle information - Transport register, Traficom"
       }
     },
     "superAdmin": {
