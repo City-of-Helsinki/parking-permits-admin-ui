@@ -31,6 +31,10 @@
     display: flex;
     flex-direction: column;
   }
+  .vehicleCopyright {
+    margin-top: $spacing-xs;
+    font-size: $fontsize-body-s;
+  }
 }
 
 .invalidVehicle {
