@@ -64,8 +64,8 @@ const AddressForm = ({
         streetNameSv: '',
         streetNumber: '',
         postalCode: '',
-        city: 'Helsinki',
-        citySv: 'Helsingfors',
+        city: 'HELSINKI',
+        citySv: 'HELSINGFORS',
         location: HELSINKI_LOCATION,
       };
   const validationSchema = Yup.object().shape({
@@ -173,7 +173,7 @@ const AddressForm = ({
                         id={field.name}
                         className={styles.field}
                         label={t(`${T_PATH}.city`)}
-                        value="Helsinki"
+                        value="HELSINKI"
                       />
                     )}
                   </Field>
@@ -184,7 +184,7 @@ const AddressForm = ({
                         id={field.name}
                         className={styles.field}
                         label={t(`${T_PATH}.citySv`)}
-                        value="Helsingfors"
+                        value="HELSINGFORS"
                       />
                     )}
                   </Field>

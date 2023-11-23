@@ -23,6 +23,9 @@
         "results": "Resultat: {{count}}",
         "selectAll": "Välj alla från listan"
       },
+      "price": {
+        "perMonth": "€/pm"
+      },
       "zoneSelect": {
         "zone": "Område"
       }
@@ -44,6 +47,12 @@
       "refunds": "Återbetalningar",
       "skipToContent": "Hoppa till innehållet"
     },
+    "footer": {
+      "parkingInfo": "Information om parkering",
+      "copyright": "Helsingfors stad, Personuppgifter - Digital- och befolkningsdatatjänstbyrå, Fordons- och körkortsdata - Traficom",
+      "dataProtection": "Dataskydd",
+      "registryDescription": "Registerbeskrivning"
+    },
     "orders": {
       "ordersDataTable": {
         "address": "Adress",
@@ -51,9 +60,9 @@
         "name": "Kund",
         "orderNumber": "Ordernummer",
         "paidTime": "Betalt datum",
-        "permits": "Tillstånd",
+        "permits": "Parkeringstillstånd",
         "permitType": "Typ av tillstånd",
-        "registrationNumber": "Registreringsnummer",
+        "registrationNumbers": "Registreringsnummer",
         "residentPermit": "Boendeparkering",
         "totalPaymentPrice": "Totalpris",
         "zone": "Zon"
@@ -63,7 +72,6 @@
       "customerInfo": {
         "email": "E-post",
         "otherAddress": "Temporär adress",
-        "parkingZone": "Parkeringszon",
         "personalID": "Personligt ID",
         "phoneNumber": "Telefonnummer",
         "primaryAddress": "Permanent adress",
@@ -79,6 +87,8 @@
         "title": "Sluttillstånd"
       },
       "permitInfo": {
+        "address": "Adress",
+        "parkingZone": "Parkeringszon",
         "additionalInfo": "Ytterligare information",
         "contractType": "Kontraktstyp",
         "endTime": "Sluttid",
@@ -87,6 +97,7 @@
         "status": "Status",
         "title": "Tillståndsinformation",
         "validPeriod": "Giltig period",
+        "periodUnit": "månader",
         "permitOrder": "Ordning",
         "firstPermit": "1. tillstånd",
         "secondPermit": "2. tillstånd"
@@ -133,11 +144,12 @@
       "vehicleInfo": {
         "addTemporaryVehicle": "Lägg till ett tillfälligt fordon",
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
-        "highEmissionVehicle": "Fordon med normala utsläpp",
+        "highEmissionVehicle": "Fordon med normalt utsläpp",
         "invalid": "Inte giltig",
         "lowEmissionVehicle": "Fordon med låga utsläpp",
         "removeTemporaryVehicle": "Ta bort det tillfälliga fordonet",
-        "title": "Fordonsinformation"
+        "title": "Fordonsinformation",
+        "vehicleCopyright": "Fordonsuppgifter - Trafik- och transportregistret, Traficom"
       }
     },
     "permits": {
@@ -150,6 +162,7 @@
       "permitsDataTable": {
         "endTime": "Sluttid",
         "name": "Namn",
+        "nationalIdNumber": "Personnummer",
         "otherAddress": "Temporär adress",
         "primaryAddress": "Permanent adress",
         "registrationNumber": "Registreringsnummer",
@@ -207,6 +220,9 @@
       "permitInfo": {
         "additionalInfo": "Ytterligare information",
         "additionalInfoPlaceholder": "För ytterligare information, t.ex. information om mopeden",
+        "permitOrder": "Ordning",
+        "firstPermit": "1. tillstånd",
+        "secondPermit": "2. tillstånd",
         "contractType": "Kontraktstyp",
         "effectiveFrom": "Gäller från",
         "expirationDate": "Utgångsdatum (annat tillstånd kommer att beaktas automatiskt vid lagring)",
@@ -225,6 +241,7 @@
         "personalInfo": "Personlig information",
         "phoneNumber": "Telefonnummer",
         "primaryAddress": "Permanent adress",
+        "addressApartment": "Lägenhet",
         "search": "Sök",
         "zone": "Zon"
       },
@@ -242,7 +259,8 @@
         "search": "Sök",
         "serialNumber": "Serienummer",
         "vehicleClass": "Fordonsklass",
-        "vehicleInfo": "Fordonsinformation"
+        "vehicleInfo": "Fordonsinformation",
+        "vehicleCopyright": "Fordonsuppgifter - Trafik- och transportregistret, Traficom"
       }
     },
     "superAdmin": {
@@ -319,8 +337,9 @@
           "errorEnterPrice": "Ange ett pris",
           "errorEnterStartDate": "Ange ett startdatum",
           "errorEnterVAT": "Ange en momsprocent",
+          "errorEnterLowEmissionDiscount": "Ange en låg utsläppsrabattprocent",
           "errorSelectZone": "Välj en zon",
-          "lowEmissionDiscount": "Vähäpäästöinen alennus",
+          "lowEmissionDiscount": "Lågutsläppsrabatt",
           "price": "Pris",
           "priceGroup": "Prisgrupp",
           "productPrice": "Produktpris",
@@ -338,6 +357,7 @@
           "modifiedBy": "Modifierare",
           "price": "Pris",
           "productType": "Produkttyp",
+          "lowEmissionDiscount": "Lågutsläppsrabatt",
           "validPeriod": "Giltighetsperiod",
           "vat": "VAT",
           "zone": "Zon"
@@ -507,8 +527,8 @@
     "resident": "Boendeparkering"
   },
   "productUnit": {
-    "monthly": "kk",
-    "pieces": "kpl"
+    "monthly": "pm",
+    "pieces": "st"
   },
   "refundStatus": {
     "accepted": "Accepterad",

@@ -2,7 +2,13 @@ import { gql, useLazyQuery } from '@apollo/client';
 import { Button, IconCheckCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Customer, PermitDetail, PermitPrice, Vehicle } from '../../types';
+import {
+  Address,
+  Customer,
+  PermitDetail,
+  PermitPrice,
+  Vehicle,
+} from '../../types';
 import styles from './EditResidentPermitForm.module.scss';
 import PermitInfo from './PermitInfo';
 import PersonalInfo from './PersonalInfo';
@@ -32,6 +38,7 @@ const CUSTOMER_QUERY = gql`
           labelSv
         }
       }
+      primaryAddressApartment
       otherAddress {
         city
         citySv
@@ -44,6 +51,7 @@ const CUSTOMER_QUERY = gql`
           labelSv
         }
       }
+      otherAddressApartment
     }
   }
 `;
@@ -73,6 +81,8 @@ interface EditResidentPermitFormProps {
   className?: string;
   permit: PermitDetail;
   permitPrices: PermitPrice[];
+  onResetPermit: (nationalIdNumber: string) => void;
+  onResetVehicle: (regNumber: string) => void;
   onUpdatePermit: (permit: PermitDetail) => void;
   onCancel: () => void;
   onConfirm: () => void;
@@ -82,6 +92,8 @@ const EditResidentPermitForm = ({
   className,
   permit,
   permitPrices,
+  onResetPermit,
+  onResetVehicle,
   onUpdatePermit,
   onCancel,
   onConfirm,
@@ -120,6 +132,7 @@ const EditResidentPermitForm = ({
     if (!customer.nationalIdNumber) {
       return;
     }
+    onResetVehicle(regNumber);
     getVehicle({
       variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
@@ -129,6 +142,7 @@ const EditResidentPermitForm = ({
     onUpdatePermit(newPermit);
 
   const handleSearchPerson = (nationalIdNumber: string) => {
+    onResetPermit(nationalIdNumber);
     getCustomer({
       variables: { query: { nationalIdNumber } },
     }).then(response => {
@@ -147,6 +161,46 @@ const EditResidentPermitForm = ({
       vehicle: newVehicle,
     });
   };
+  // ensure address has all correct fields
+  const handleSelectAddress = (
+    address: Address | undefined,
+    apartment: string | undefined
+  ) => {
+    if (!!address && address.id && address.zone) {
+      const { address: currentAddress, addressApartment: currentApartment } =
+        permit;
+      if (currentAddress?.id === address.id) {
+        onUpdatePermit({
+          ...permit,
+          address,
+          addressApartment: currentApartment ?? apartment ?? '',
+          parkingZone: address.zone,
+        });
+      }
+    }
+  };
+
+  const updateAddress = () => {
+    const { address: currentAddress } = permit;
+    onUpdatePermit({
+      ...permit,
+      address: currentAddress ?? permit?.customer?.primaryAddress,
+    });
+    handleSelectAddress(
+      permit?.customer?.otherAddress,
+      permit?.customer?.otherAddressApartment
+    );
+    handleSelectAddress(
+      permit?.customer?.primaryAddress,
+      permit?.customer?.primaryAddressApartment
+    );
+  };
+
+  const handleConfirm = () => {
+    updateAddress();
+    onConfirm();
+  };
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -181,19 +235,21 @@ const EditResidentPermitForm = ({
           onUpdatePermit={handleUpdatePermit}
         />
       </div>
-      <div className={styles.actions}>
-        <Button
-          className={styles.actionButton}
-          variant="secondary"
-          onClick={() => onCancel()}>
-          {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
-        </Button>
-        <Button
-          className={styles.actionButton}
-          iconLeft={<IconCheckCircleFill />}
-          onClick={() => onConfirm()}>
-          {t(`${T_PATH}.continue`)}
-        </Button>
+      <div className={styles.footer}>
+        <div className={styles.actions}>
+          <Button
+            className={styles.actionButton}
+            variant="secondary"
+            onClick={() => onCancel()}>
+            {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
+          </Button>
+          <Button
+            className={styles.actionButton}
+            iconLeft={<IconCheckCircleFill />}
+            onClick={handleConfirm}>
+            {t(`${T_PATH}.continue`)}
+          </Button>
+        </div>
       </div>
     </div>
   );

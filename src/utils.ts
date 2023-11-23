@@ -4,6 +4,7 @@ import {
   Address,
   Customer,
   CustomerInput,
+  OrderItem,
   Permit,
   PermitDetail,
   PermitInput,
@@ -13,6 +14,8 @@ import {
   Vehicle,
   VehicleInput,
 } from './types';
+
+type TranslateFunction = (name: string) => string;
 
 export function getEnv(key: string): string {
   const variable = process.env[key];
@@ -27,10 +30,17 @@ export function getBooleanEnv(key: string): boolean {
   return ['true', '1'].includes(val);
 }
 
+export function formatPeriod(count: number, unit: string): string {
+  return `${count} ${unit}`;
+}
+
 export function formatAddress(
   address: Address | undefined,
   lang: string,
-  options?: { withPostalCode?: boolean }
+  options?: {
+    withPostalCode?: boolean;
+    addressApartment?: string;
+  }
 ): string {
   if (!address) {
     return '-';
@@ -41,10 +51,28 @@ export function formatAddress(
   if (options?.withPostalCode) {
     postalCode = `${address.postalCode} `;
   }
-  if (lang === 'sv') {
-    return `${streetNameSv} ${streetNumber}, ${postalCode}${citySv}`;
+
+  let addressApartmentStr = '';
+  if (options?.addressApartment) {
+    addressApartmentStr = ` ${options.addressApartment}`;
   }
-  return `${streetName} ${streetNumber}, ${postalCode}${city}`;
+  if (lang === 'sv') {
+    return `${streetNameSv} ${streetNumber}${addressApartmentStr}, ${postalCode}${citySv}`;
+  }
+  return `${streetName} ${streetNumber}${addressApartmentStr}, ${postalCode}${city}`;
+}
+
+export function isPermitAddress(
+  address: Address | undefined,
+  customerAddress: Address | undefined
+): boolean {
+  return (
+    !!customerAddress &&
+    !!address &&
+    customerAddress.streetName === address.streetName &&
+    customerAddress.streetNumber.substring(0, 2) ===
+      address.streetNumber.substring(0, 2)
+  );
 }
 
 export function getPermitAddresses(permits: Permit[]): Address[] {
@@ -68,6 +96,37 @@ export function formatDateDisplay(datetime: string | Date): string {
   return dt.toLocaleDateString('fi');
 }
 
+export function formatPermitOrder(
+  permit: PermitDetail,
+  firstPermit: string,
+  secondPermit: string
+): string {
+  if (!permit.id) {
+    const activePermitsCount = permit.customer.activePermits?.length;
+    if (activePermitsCount === 2) {
+      return '-';
+    }
+    const isSecondary = activePermitsCount === 1;
+    return !isSecondary ? firstPermit : secondPermit;
+  }
+  return permit.primaryVehicle ? firstPermit : secondPermit;
+}
+
+export function formatPermitMaxValidPeriodInMonths(
+  permit: PermitDetail,
+  editMode: boolean
+): number {
+  const defaultMaxValidPeriodInMonths = 12;
+  if (!editMode) {
+    const activePermits = permit.customer?.activePermits;
+    if (activePermits && activePermits.length > 0) {
+      const monthCount = activePermits[0]?.monthCount;
+      if (monthCount) return monthCount;
+    }
+  }
+  return defaultMaxValidPeriodInMonths;
+}
+
 export function formatDateTimeDisplay(
   datetime: string | Date,
   dtFormat = 'd.M.Y, HH:mm'
@@ -85,8 +144,8 @@ export function formatRegistrationNumbers(permits: Permit[]): string {
   return permits.map(permit => permit.vehicle.registrationNumber).join(', ');
 }
 
-export function formatParkingZone(permit: Permit): string {
-  return permit ? permit?.parkingZone.name : '-';
+export function formatParkingZone(orderItem: OrderItem): string {
+  return orderItem ? orderItem?.product.zone : '-';
 }
 
 export function formatVehicleName(vehicle: Vehicle): string {
@@ -95,12 +154,14 @@ export function formatVehicleName(vehicle: Vehicle): string {
 }
 
 export function formatPrice(price: number): string {
-  return parseFloat(price.toString()).toFixed(2);
+  // ensure accurate rounding e.g. 90.955 -> 90.96
+  return (Math.round(price * 100) / 100).toFixed(2);
 }
 
-export function formatMonthlyPrice(price: number): string {
-  return `${formatPrice(price)} €/kk`;
-}
+export const formatMonthlyPrice = (
+  price: number,
+  t: TranslateFunction
+): string => `${formatPrice(price)} ${t('components.common.price.perMonth')}`;
 
 export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
   const {
@@ -165,7 +226,9 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     lastName,
     nationalIdNumber,
     primaryAddress,
+    primaryAddressApartment,
     otherAddress,
+    otherAddressApartment,
     email,
     phoneNumber,
     addressSecurityBan,
@@ -182,7 +245,9 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
     lastName,
     nationalIdNumber,
     primaryAddress: primaryAddressInput,
+    primaryAddressApartment,
     otherAddress: otherAddressInput,
+    otherAddressApartment,
     email,
     phoneNumber,
     addressSecurityBan,
@@ -200,6 +265,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     monthCount,
     description,
     address,
+    addressApartment,
     parkingZone,
   } = permit;
   const vehicleInput = convertToVehicleInput(vehicle);
@@ -214,6 +280,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     description,
     zone: parkingZone?.name || address?.zone?.name,
     address: convertAddressToAddressInput(address),
+    addressApartment,
   };
 }
 
@@ -299,6 +366,9 @@ export function getPermitTotalPrice(
 }
 
 export function isValidIBAN(value: string): boolean {
+  if (!value || value.trim() === '') {
+    return false;
+  }
   const iban = extractIBAN(value);
   return iban.valid && iban.countryCode === 'FI';
 }

@@ -5,6 +5,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import i18n from '../i18n';
 import { getEnv } from '../utils';
 
 function getApiClient(token: string): ApolloClient<NormalizedCacheObject> {
@@ -16,6 +17,8 @@ function getApiClient(token: string): ApolloClient<NormalizedCacheObject> {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : '',
+      'Accept-Language': i18n.language,
+      'Content-Language': i18n.language,
     },
   }));
 

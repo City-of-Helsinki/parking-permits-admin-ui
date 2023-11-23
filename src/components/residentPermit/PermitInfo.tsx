@@ -3,7 +3,12 @@ import { DateInput, NumberInput, TextArea, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Language, ParkingPermitStatus, PermitDetail } from '../../types';
-import { formatDateDisplay, formatDateTimeDisplay } from '../../utils';
+import {
+  formatDateDisplay,
+  formatDateTimeDisplay,
+  formatPermitMaxValidPeriodInMonths,
+  formatPermitOrder,
+} from '../../utils';
 import Divider from '../common/Divider';
 import StatusSelect from '../permits/StatusSelect';
 import styles from './PermitInfo.module.scss';
@@ -41,6 +46,17 @@ const PermitInfo = ({
         <TextInput
           readOnly
           className={styles.fieldItem}
+          id="order"
+          label={t(`${T_PATH}.permitOrder`)}
+          value={formatPermitOrder(
+            permit,
+            t(`${T_PATH}.firstPermit`),
+            t(`${T_PATH}.secondPermit`)
+          )}
+        />
+        <TextInput
+          readOnly
+          className={styles.fieldItem}
           id="contractType"
           label={t(`${T_PATH}.contractType`)}
           value={contractTypeLabelMapping[permit.contractType] || '-'}
@@ -53,7 +69,7 @@ const PermitInfo = ({
           label={t(`${T_PATH}.validPeriodInMonths`)}
           step={1}
           min={1}
-          max={12}
+          max={formatPermitMaxValidPeriodInMonths(permit, editMode)}
           value={permit.monthCount}
           onChange={e =>
             onUpdatePermit({

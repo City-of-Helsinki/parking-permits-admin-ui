@@ -1,17 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Address, Order, OrderBy, PageInfo } from '../../types';
+import { Order, OrderBy, PageInfo } from '../../types';
 import {
   formatCustomerName,
   formatDateTimeDisplay,
-  formatParkingZone,
   formatPrice,
 } from '../../utils';
 import DataTable from '../common/DataTable';
 import { Column } from '../types';
 
 const T_PATH = 'components.orders.ordersDataTable';
-
 export interface OrdersDataTableProps {
   orders?: Order[];
   pageInfo?: PageInfo;
@@ -33,7 +31,19 @@ const OrdersDataTable = ({
   onRowClick,
   onExport,
 }: OrdersDataTableProps): React.ReactElement => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+
+  const getPermitType = (order: Order): string => {
+    switch (order.orderPermits[0]?.type) {
+      case 'RESIDENT':
+        return t(`${T_PATH}.residentPermit`);
+      case 'COMPANY':
+        return t(`${T_PATH}.companyPermit`);
+      default:
+        return '-';
+    }
+  };
+
   const columns: Column<Order>[] = [
     {
       name: t(`${T_PATH}.permits`),
@@ -42,9 +52,28 @@ const OrdersDataTable = ({
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {orderPermits.map((permit, index) => {
             const isLastItem = orderPermits.length === index + 1;
-            const { id, vehicle } = permit;
-            const { registrationNumber } = vehicle;
-            const label = `${id} (${registrationNumber})`;
+            const { id } = permit;
+            const label = `${id}`;
+            return (
+              <div key={id}>
+                {label}
+                {!isLastItem && ','}
+              </div>
+            );
+          })}
+        </div>
+      ),
+      sortable: true,
+    },
+    {
+      name: t(`${T_PATH}.registrationNumbers`),
+      field: 'vehicles',
+      selector: ({ vehicles }) => (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {vehicles.map((vehicle, index) => {
+            const isLastItem = vehicles.length === index + 1;
+            const id = `${vehicle}`;
+            const label = `${vehicle}`;
             return (
               <div key={id}>
                 {label}
@@ -64,59 +93,35 @@ const OrdersDataTable = ({
     },
     {
       name: t(`${T_PATH}.zone`),
-      field: 'parkingZone',
-      selector: ({ orderPermits }) => formatParkingZone(orderPermits[0]),
+      field: 'parkingZoneName',
+      selector: ({ parkingZoneName }) => parkingZoneName,
       sortable: true,
     },
     {
       name: t(`${T_PATH}.address`),
-      field: 'address',
-      selector: ({ orderPermits }) => {
-        const formatAddress = (address: Address) => {
-          if (i18n.language === 'sv') {
-            return `${address.streetNameSv} ${address.streetNumber}`;
-          }
-          return `${address.streetName} ${address.streetNumber}`;
-        };
-
-        // Get all unique addresses from permits.
-        const addresses = orderPermits
-          .map(permit => permit.address)
-          .filter(
-            (address, index, self) =>
-              self.findIndex(item => item.id === address.id) === index
-          );
-
-        return (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {addresses.map((address, index) => {
-              const isLastItem = addresses.length === index + 1;
-
-              return (
-                <div key={address.id}>
-                  {formatAddress(address)}
-                  {!isLastItem && ','}
-                </div>
-              );
-            })}
-          </div>
-        );
-      },
+      field: 'addressText',
+      selector: ({ addressText }) => addressText,
       sortable: true,
     },
     {
       name: t(`${T_PATH}.permitType`),
       field: 'permitType',
-      selector: ({ orderPermits }) =>
-        orderPermits[0]?.type === 'RESIDENT'
-          ? t(`${T_PATH}.residentPermit`)
-          : t(`${T_PATH}.companyPermit`),
+      selector: getPermitType,
       sortable: true,
     },
     {
       name: t(`${T_PATH}.orderNumber`),
       field: 'id',
       selector: ({ id }) => id,
+      sortable: true,
+    },
+    {
+      name: t(`${T_PATH}.paymentType`),
+      field: 'paymentType',
+      selector: ({ paymentType }) =>
+        paymentType === 'ONLINE_PAYMENT'
+          ? t(`enums.paymentType.onlinePayment`)
+          : t(`enums.paymentType.cashierPayment`),
       sortable: true,
     },
     {

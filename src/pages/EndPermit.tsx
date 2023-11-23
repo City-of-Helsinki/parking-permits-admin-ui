@@ -35,6 +35,7 @@ const PERMIT_DETAIL_QUERY = gql`
       monthCount
       monthsLeft
       totalRefundAmount
+      addressApartment
       customer {
         firstName
         lastName
@@ -49,6 +50,7 @@ const PERMIT_DETAIL_QUERY = gql`
           citySv
           postalCode
         }
+        primaryAddressApartment
         otherAddress {
           streetName
           streetNameSv
@@ -57,6 +59,7 @@ const PERMIT_DETAIL_QUERY = gql`
           citySv
           postalCode
         }
+        otherAddressApartment
       }
       vehicle {
         manufacturer

@@ -25,7 +25,7 @@
           "ONLINE_PAYMENT": "Verkkomaksu",
           "REFUND": "Palautus"
         },
-        "paidAt": "Maksupäivä",
+        "paidAt": "Maksuaika",
         "fieldNames": {
           "status": "Tila",
           "customer__email": "Sähköpostiosoite",
@@ -35,23 +35,25 @@
           "customer__primary_address": "Osoite",
           "customer__other_address": "Tilapäinen osoite",
           "customer__zone": "Pysäköintialue",
-          "vehicle__registration_number": "Rekisterinumero"
+          "parking_zone": "Pysäköintialue",
+          "vehicle": "Ajoneuvo",
+          "vehicle__registration_number": "Rekisteritunnus"
         },
         "events": {
-          "update_permit": "Muokkaus",
+          "update_permit": "Tunnus päivitetty",
           "create_permit": "Tunnus luotu",
           "end_permit": "Tunnus päätetty",
-          "renew_order": "Tunnus uusittu",
+          "renew_order": "Tilaus päivitetty",
           "create_order": "Tilaus luotu",
           "create_refund": "Palautus luotu",
-          "add_temporary_vehicle": "Muokkaus",
-          "remove_temporary_vehicle": "Muokkaus"
+          "add_temporary_vehicle": "Tunnus päivitetty",
+          "remove_temporary_vehicle": "Tunnus päivitetty"
         },
         "descriptions": {
-          "update_permit": "Tunnuksen tietoja muokattu",
+          "update_permit": "Tunnuksen tietoja päivitetty",
           "create_permit": "Tunnus luotu",
           "end_permit": "Tunnus päätetty",
-          "renew_order": "Tunnus uusittu",
+          "renew_order": "Tilaus päivitetty",
           "create_order": "Tilaus #{{relatedObject.id}} luotu tunnukselle",
           "create_refund": "Palautus #{{relatedObject.id}} luotu tunnukselle",
           "add_temporary_vehicle": "Tilapäinen ajoneuvo {{relatedObject.vehicle.registrationNumber}} lisätty tunnukseen",
@@ -68,6 +70,9 @@
         "bifuel": "Kaksoispolttoaine",
         "diesel": "Diesel",
         "electric": "Sähkö"
+      },
+      "price": {
+        "perMonth": "€/kk"
       },
       "table": {
         "initialText": "Syötä hakuehto",
@@ -98,19 +103,26 @@
       "refunds": "Palautukset",
       "skipToContent": "Siirry sisältöön"
     },
+    "footer": {
+      "parkingInfo": "Tietoa pysäköinnistä",
+      "copyright": "Helsinki kaupunki, Henkilötiedot - Digi- ja väestötietovirasto, Ajoneuvo- ja ajokorttitiedot - Liikenne- ja viestintävirasto Traficom",
+      "dataProtection": "Tietosuoja",
+      "registryDescription": "Rekisteriseloste"
+    },
     "orders": {
       "ordersDataTable": {
         "address": "Osoite",
         "companyPermit": "Yritystunnus",
         "name": "Asiakas",
         "orderNumber": "Tilausnumero",
-        "paidTime": "Maksupäivä",
+        "paidTime": "Maksuaika",
         "paidTimeFormat": "d.M.Y 'klo' H:mm",
-        "permits": "Tunnukset",
+        "permits": "Pysäköintitunnukset",
         "permitType": "Tunnustyyppi",
-        "registrationNumber": "Rekisterinro",
+        "registrationNumbers": "Rekisteritunnukset",
         "residentPermit": "Asukastunnus",
-        "totalPaymentPrice": "Summa",
+        "paymentType": "Maksutapa",
+        "totalPaymentPrice": "Määrä",
         "zone": "Alue"
       },
       "ordersSearch": {
@@ -130,7 +142,6 @@
       "customerInfo": {
         "email": "Sähköpostiosoite",
         "otherAddress": "Tilapäinen osoite",
-        "parkingZone": "Pysäköintialue",
         "personalID": "Henkilötunnus",
         "phoneNumber": "Puhelinnumero",
         "primaryAddress": "Vakituinen osoite",
@@ -146,6 +157,8 @@
         "title": "Tunnuksen päättäminen"
       },
       "permitInfo": {
+        "address": "Osoite",
+        "parkingZone": "Pysäköintialue",
         "additionalInfo": "Lisätiedot",
         "contractType": "Tunnuksen tyyppi",
         "endTime": "Viimeinen voimassaoloaika",
@@ -155,6 +168,7 @@
         "status": "Tila",
         "title": "Tunnuksen tiedot",
         "validPeriod": "Voimassaoloaika",
+        "periodUnit": "kuukautta",
         "permitOrder": "Järjestys",
         "firstPermit": "1. tunnus",
         "secondPermit": "2. tunnus"
@@ -192,7 +206,7 @@
         "infoMessage": "Valitun päättymispäivän jälkeen alkuperäisen ajoneuvon tiedot palautuvat tunnuksen tietoihin automaattisesti.",
         "registrationNumber": {
           "helpText": "Tilapäisyys voi olla voimassa enintään 14 vuorokautta.",
-          "label": "Tilapäisen ajoneuvon rekisterinumero"
+          "label": "Tilapäisen ajoneuvon rekisteritunnus"
         },
         "startDate": "Tilapäisyyden alkamispäivä",
         "startTime": "Alkamisaika",
@@ -205,7 +219,8 @@
         "invalid": "Ei voimassa",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
         "removeTemporaryVehicle": "Poista tilapäinen ajoneuvo",
-        "title": "Ajoneuvon tiedot"
+        "title": "Ajoneuvon tiedot",
+        "vehicleCopyright": "Ajoneuvon tiedot - Liikenneasioidenrekisteri, Traficom"
       }
     },
     "permits": {
@@ -213,14 +228,15 @@
         "customer": "Asiakas",
         "hetuOrBusinessId": "Hetu / Y-tunnus",
         "identifier": "Tunniste",
-        "registrationNumber": "Rekisterinumero"
+        "registrationNumber": "Rekisteritunnus"
       },
       "permitsDataTable": {
         "endTime": "Loppuaika",
         "name": "Nimi",
+        "nationalIdNumber": "Henkilötunnus",
         "otherAddress": "Tilapäinen osoite",
         "primaryAddress": "Vakituinen osoite",
-        "registrationNumber": "Rekisterinumero",
+        "registrationNumber": "Rekisteritunnus",
         "startTime": "Alkuaika",
         "status": "Tila",
         "zone": "Alue",
@@ -249,7 +265,7 @@
         "name": "Nimi",
         "orderNumber": "Tilausnumero",
         "refundNumber": "Palautusnumero",
-        "registrationNumber": "Rekisterinumero",
+        "registrationNumber": "Rekisteritunnus",
         "status": "Tila"
       },
       "refundsSearch": {
@@ -277,6 +293,9 @@
       "permitInfo": {
         "additionalInfo": "Lisätiedot",
         "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
+        "permitOrder": "Järjestys",
+        "firstPermit": "1. tunnus",
+        "secondPermit": "2. tunnus",
         "contractType": "Tunnuksen tyyppi",
         "effectiveFrom": "Voimassa alkaen",
         "expirationDate": "Viimeinen voimassaoloaika (toinen tunnus otetaan tallennuksen yhteydessä automaattisesti huomioon)",
@@ -295,24 +314,26 @@
         "personalInfo": "Henkilötiedot",
         "phoneNumber": "Puhelinnumero",
         "primaryAddress": "Vakituinen osoite",
+        "addressApartment": "Huoneisto",
         "search": "Hae",
         "zone": "Alue"
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
         "emission": "Hiilidioksidipäästöt (g/km)",
-        "emissionType": "Hiilidioksidin mittaustyyppi",
+        "emissionType": "Hiilidioksidin mittaustapa",
         "euroClass": "Euro-luokka",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
-        "manufacturer": "Valmistaja",
+        "manufacturer": "Merkki",
         "model": "Malli",
         "powerType": "Käyttövoima",
         "price": "Hinta",
-        "registrationNumber": "Rekisterinumero",
+        "registrationNumber": "Rekisteritunnus",
         "search": "Hae",
         "serialNumber": "Valmistenumero",
         "vehicleClass": "Ajoneuvoluokka",
-        "vehicleInfo": "Ajoneuvon tiedot"
+        "vehicleInfo": "Ajoneuvon tiedot",
+        "vehicleCopyright": "Ajoneuvon tiedot - Liikenneasioidenrekisteri, Traficom"
       }
     },
     "superAdmin": {
@@ -389,6 +410,7 @@
           "errorEnterPrice": "Anna hinta",
           "errorEnterStartDate": "Anna aloituspäivä",
           "errorEnterVAT": "Anna ALV-prosentti",
+          "errorEnterLowEmissionDiscount": "Anna vähäpäästöinen alennusprosentti",
           "errorSelectZone": "Valitse vyöhyke",
           "lowEmissionDiscount": "Vähäpäästöinen alennus",
           "price": "Hinta",
@@ -408,6 +430,7 @@
           "modifiedBy": "Muokkaaja",
           "price": "Hinta",
           "productType": "Tuotetyyppi",
+          "lowEmissionDiscount": "Vähäpäästöinen alennus",
           "validPeriod": "Voimassaoloaika",
           "vat": "ALV",
           "zone": "Alue"

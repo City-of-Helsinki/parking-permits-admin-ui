@@ -19,7 +19,7 @@ const CustomerInfo = ({
 }: CustomerInfoProps): React.ReactElement => {
   const userRole = useUserRole();
   const { t, i18n } = useTranslation();
-  const { customer, parkingZone } = permit;
+  const { customer } = permit;
   let fields = [
     {
       label: t(`${T_PATH}.personalID`),
@@ -31,20 +31,20 @@ const CustomerInfo = ({
           {
             label: t(`${T_PATH}.primaryAddress`),
             value: customer?.primaryAddress
-              ? formatAddress(customer.primaryAddress, i18n.language)
+              ? formatAddress(customer.primaryAddress, i18n.language, {
+                  addressApartment: customer.primaryAddressApartment,
+                })
               : '-',
           },
           {
             label: t(`${T_PATH}.otherAddress`),
             value: customer?.otherAddress
-              ? formatAddress(customer.otherAddress, i18n.language)
+              ? formatAddress(customer.otherAddress, i18n.language, {
+                  addressApartment: customer.otherAddressApartment,
+                })
               : '-',
           },
         ]),
-    {
-      label: t(`${T_PATH}.parkingZone`),
-      value: i18n.language === 'sv' ? parkingZone.labelSv : parkingZone.label,
-    },
     {
       label: t(`${T_PATH}.phoneNumber`),
       value: customer.phoneNumber || '-',
@@ -55,12 +55,7 @@ const CustomerInfo = ({
     },
   ];
   if (userRole <= UserRole.INSPECTORS) {
-    fields = [
-      {
-        label: t(`${T_PATH}.parkingZone`),
-        value: i18n.language === 'sv' ? parkingZone.labelSv : parkingZone.label,
-      },
-    ];
+    fields = [];
   }
   return (
     <div className={className}>

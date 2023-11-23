@@ -24,6 +24,7 @@ const PRODUCT_QUERY = gql`
       vatPercentage
       zone
       lowEmissionDiscount
+      lowEmissionDiscountPercentage
       secondaryVehicleIncreaseRate
       modifiedAt
       modifiedBy

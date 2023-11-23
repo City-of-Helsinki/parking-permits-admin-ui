@@ -1,7 +1,11 @@
 import { Button, IconCheckCircleFill } from 'hds-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitDetail, PermitPriceChange } from '../../types';
+import {
+  PermitDetail,
+  PermitPriceChange,
+  RefundAccountOption,
+} from '../../types';
 import { isValidIBAN } from '../../utils';
 import CustomerInfo from '../permitDetail/CustomerInfo';
 import PermitInfo from '../permitDetail/PermitInfo';
@@ -31,6 +35,9 @@ const EditResidentPermitPreview = ({
   onConfirm,
 }: EditResidentPermitPreviewProps): React.ReactElement => {
   const { t } = useTranslation();
+  const [refundAccountOption, setRefundAccountOption] = useState(
+    RefundAccountOption.KNOWN
+  );
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -47,26 +54,33 @@ const EditResidentPermitPreview = ({
             className={styles.permitPriceChange}
             priceChangeList={priceChangeList}
             refundAccountNumber={refundAccountNumber}
+            refundAccountOption={refundAccountOption}
             onChangeRefundAccountNumber={onChangeRefundAccountNumber}
+            onChangeRefundAccountOption={setRefundAccountOption}
           />
         </div>
       </div>
-      <div className={styles.actions}>
-        <Button
-          className={styles.actionButton}
-          variant="secondary"
-          onClick={() => onCancel()}>
-          {t(`${T_PATH}.goBack`)}
-        </Button>
-        <Button
-          disabled={
-            refundAccountNumber !== '' && isValidIBAN(refundAccountNumber)
-          }
-          className={styles.actionButton}
-          iconLeft={<IconCheckCircleFill />}
-          onClick={() => onConfirm()}>
-          {t(`${T_PATH}.save`)}
-        </Button>
+      <div className={styles.footer}>
+        <div className={styles.actions}>
+          <Button
+            className={styles.actionButton}
+            variant="secondary"
+            onClick={() => onCancel()}>
+            {t(`${T_PATH}.goBack`)}
+          </Button>
+          <Button
+            disabled={
+              !(
+                refundAccountOption === RefundAccountOption.UNKNOWN ||
+                isValidIBAN(refundAccountNumber)
+              )
+            }
+            className={styles.actionButton}
+            iconLeft={<IconCheckCircleFill />}
+            onClick={() => onConfirm()}>
+            {t(`${T_PATH}.save`)}
+          </Button>
+        </div>
       </div>
     </div>
   );

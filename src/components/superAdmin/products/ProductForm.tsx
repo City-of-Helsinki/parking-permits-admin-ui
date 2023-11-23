@@ -13,7 +13,6 @@ import {
   ProductUnit,
 } from '../../../types';
 import { formatDateDisplay } from '../../../utils';
-import LowEmissionDiscountSelect from './LowEmissionDiscountSelect';
 import styles from './ProductForm.module.scss';
 import ProductTypeSelect from './ProductTypeSelect';
 import ProductUnitSelect from './ProductUnitSelect';
@@ -57,7 +56,7 @@ const ProductForm = ({
         startDate: product.startDate,
         endDate: product.endDate,
         vatPercentage: product.vatPercentage,
-        lowEmissionDiscount: product.lowEmissionDiscount,
+        lowEmissionDiscountPercentage: product.lowEmissionDiscountPercentage,
       }
     : {
         type: ProductType.RESIDENT,
@@ -67,7 +66,7 @@ const ProductForm = ({
         startDate: currentDate.toISOString(),
         endDate: currentDate.toISOString(),
         vatPercentage: 24,
-        lowEmissionDiscount: 0.5,
+        lowEmissionDiscountPercentage: 50,
       };
   const validationSchema = Yup.object().shape({
     type: Yup.string(),
@@ -76,7 +75,9 @@ const ProductForm = ({
     startDate: Yup.string().required(t(`${T_PATH}.errorEnterStartDate`)),
     endDate: Yup.string().required(t(`${T_PATH}.errorEnterEndDate`)),
     vatPercentage: Yup.number().required(t(`${T_PATH}.errorEnterVAT`)),
-    lowEmissionDiscount: Yup.number(),
+    lowEmissionDiscountPercentage: Yup.number().required(
+      t(`${T_PATH}.errorEnterLowEmissionDiscount`)
+    ),
   });
 
   return (
@@ -174,16 +175,19 @@ const ProductForm = ({
                   />
                 )}
               </Field>
-              <Field name="lowEmissionDiscount">
+              <Field name="lowEmissionDiscountPercentage">
                 {({ field, form, meta }: FieldProps) => (
-                  <LowEmissionDiscountSelect
+                  <NumberInput
                     className={styles.field}
+                    id="lowEmissionDiscountPercentage"
+                    unit="%"
                     label={t(`${T_PATH}.lowEmissionDiscount`)}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
                     value={field.value}
-                    onChange={value =>
-                      form.setFieldValue('lowEmissionDiscount', value)
+                    errorText={
+                      meta.touched && meta.error ? meta.error : undefined
                     }
-                    error={meta.touched && meta.error ? meta.error : undefined}
                   />
                 )}
               </Field>

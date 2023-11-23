@@ -27,6 +27,7 @@ const PRODUCTS_QUERY = gql`
         vat
         vatPercentage
         lowEmissionDiscount
+        lowEmissionDiscountPercentage
         secondaryVehicleIncreaseRate
         modifiedAt
         modifiedBy
@@ -57,9 +58,9 @@ const Products = (): React.ReactElement => {
 
   const page = pageParam ? parseInt(pageParam, 10) : 1;
   const orderBy: OrderBy = {
-    orderField: orderFieldParam || '',
+    orderField: orderFieldParam || 'zone',
     orderDirection:
-      (orderDirectionParam as OrderDirection) || OrderDirection.DESC,
+      (orderDirectionParam as OrderDirection) || OrderDirection.ASC,
   };
   const variables = {
     pageInput: { page },

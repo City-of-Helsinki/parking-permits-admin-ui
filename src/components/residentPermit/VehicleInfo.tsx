@@ -56,7 +56,7 @@ const VehicleInfo = ({
           className={styles.fieldItem}
           id="registrationNumber"
           label={t(`${T_PATH}.registrationNumber`)}
-          value={registrationNumber}
+          value={registrationNumber?.toUpperCase()}
           onChange={e =>
             onUpdateVehicle({ ...vehicle, registrationNumber: e.target.value })
           }>
@@ -126,7 +126,7 @@ const VehicleInfo = ({
           id="emission"
           className={styles.fieldItem}
           label={t(`${T_PATH}.emission`)}
-          value={emission}
+          value={emission || 0}
           min={0}
           step={1}
           onChange={e =>
@@ -150,6 +150,9 @@ const VehicleInfo = ({
             })
           }
         />
+        <div className={styles.vehicleCopyright}>
+          © {t(`${T_PATH}.vehicleCopyright`)}
+        </div>
         {permitPrices.length > 0 && (
           <div className={styles.priceInfo}>
             <div className={styles.priceTitle}>{t(`${T_PATH}.price`)}</div>

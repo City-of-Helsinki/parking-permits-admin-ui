@@ -14,12 +14,20 @@ export interface Address {
   zone?: ParkingZone;
 }
 
-export type CustomerActivePermit = Pick<Permit, 'id' | 'primaryVehicle'>;
+export type CustomerActivePermit = Pick<
+  Permit,
+  'id' | 'primaryVehicle' | 'monthCount'
+>;
 
 export enum SelectedAddress {
   PRIMARY = 'primaryAddress',
   OTHER = 'otherAddress',
   NONE = 'none',
+}
+
+export enum RefundAccountOption {
+  KNOWN = 'known',
+  UNKNOWN = 'unknown',
 }
 
 export interface Customer {
@@ -29,7 +37,9 @@ export interface Customer {
   lastName: string;
   nationalIdNumber: string;
   primaryAddress?: Address;
+  primaryAddressApartment?: string;
   otherAddress?: Address;
+  otherAddressApartment?: string;
   email: string;
   phoneNumber: string;
   zone?: ParkingZone;
@@ -107,7 +117,7 @@ export interface ProductInput {
   startDate: string;
   endDate: string;
   vatPercentage: number;
-  lowEmissionDiscount: number;
+  lowEmissionDiscountPercentage: number;
 }
 
 export interface Product {
@@ -121,6 +131,7 @@ export interface Product {
   vat: number;
   vatPercentage: number;
   lowEmissionDiscount: number;
+  lowEmissionDiscountPercentage: number;
   secondaryVehicleIncreaseRate: number;
   modifiedAt: string;
   modifiedBy: string;
@@ -142,7 +153,6 @@ export interface Announcement {
 }
 
 export interface PermitPrice {
-  originalUnitPrice: number;
   unitPrice: number;
   startDate: string;
   endDate: string;
@@ -190,6 +200,12 @@ export interface Permit {
   startTime: string;
   primaryVehicle: boolean;
   endTime?: string;
+  monthCount: number;
+}
+
+export interface OrderItem {
+  id: string;
+  product: Product;
 }
 
 export enum ChangeLogEvent {
@@ -233,6 +249,7 @@ export interface TemporaryVehicle {
 export interface PermitDetail {
   id?: number;
   address: Address;
+  addressApartment: string;
   customer: Customer;
   vehicle: Vehicle;
   activeTemporaryVehicle: TemporaryVehicle;
@@ -264,7 +281,9 @@ export interface CustomerInput {
   lastName: string;
   nationalIdNumber: string;
   primaryAddress?: Address;
+  primaryAddressApartment?: string;
   otherAddress?: Address;
+  otherAddressApartment?: string;
   zone?: string;
   email: string;
   phoneNumber: string;
@@ -282,6 +301,7 @@ export interface PermitInput {
   description: string;
   zone: string | undefined;
   address: Address | undefined;
+  addressApartment: string;
 }
 
 export interface PageInfo {
@@ -406,7 +426,11 @@ export interface Order {
   customer: Customer;
   paidTime: string;
   orderPermits: [Permit];
+  orderItemsContent: [OrderItem];
   paymentType: string;
+  addressText: string;
+  parkingZoneName: string;
+  vehicles: [string];
 }
 
 export interface PagedOrders {

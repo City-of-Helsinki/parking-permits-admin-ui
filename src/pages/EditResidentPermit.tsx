@@ -7,6 +7,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import ConfirmDialog from '../components/common/ConfirmDialog';
+import {
+  getEmptyPermit,
+  initialVehicle,
+} from '../components/residentPermit/consts';
 import EditResidentPermitForm from '../components/residentPermit/EditResidentPermitForm';
 import EditResidentPermitPreview from '../components/residentPermit/EditResidentPermitPreview';
 import {
@@ -19,6 +23,7 @@ import {
 import {
   convertAddressToAddressInput,
   convertToPermitInput,
+  formatPrice,
   isValidForPriceCheck,
 } from '../utils';
 import styles from './EditResidentPermit.module.scss';
@@ -41,7 +46,6 @@ const PERMIT_DETAIL_QUERY = gql`
       monthCount
       description
       permitPrices {
-        originalUnitPrice
         unitPrice
         startDate
         endDate
@@ -53,6 +57,7 @@ const PERMIT_DETAIL_QUERY = gql`
           name
         }
       }
+      addressApartment
       customer {
         firstName
         lastName
@@ -76,6 +81,7 @@ const PERMIT_DETAIL_QUERY = gql`
             labelSv
           }
         }
+        primaryAddressApartment
         otherAddress {
           id
           streetName
@@ -91,6 +97,7 @@ const PERMIT_DETAIL_QUERY = gql`
             labelSv
           }
         }
+        otherAddressApartment
         activePermits {
           id
           primaryVehicle
@@ -139,7 +146,6 @@ const PERMIT_PRICE_CHANGE_QUERY = gql`
 const PERMIT_PRICES_QUERY = gql`
   query GetPermitPrices($permit: ResidentPermitInput!, $isSecondary: Boolean!) {
     permitPrices(permit: $permit, isSecondary: $isSecondary) {
-      originalUnitPrice
       unitPrice
       startDate
       endDate
@@ -241,6 +247,21 @@ const EditResidentPermit = (): React.ReactElement => {
     return <div>{t(`${T_PATH}.loading`)}</div>;
   }
 
+  const handleResetPermit = (nationalIdNumber: string) => {
+    const emptyPermit = getEmptyPermit();
+    setPermit({
+      ...emptyPermit,
+      customer: { ...emptyPermit.customer, nationalIdNumber },
+    });
+  };
+
+  const handleResetVehicle = (registrationNumber: string) => {
+    setPermit({
+      ...permit,
+      vehicle: { ...initialVehicle, registrationNumber },
+    });
+  };
+
   const handleUpdatePermit = () => {
     updateResidentPermit({
       variables: {
@@ -260,7 +281,7 @@ const EditResidentPermit = (): React.ReactElement => {
         (total, item) => total + item.priceChange * item.monthCount,
         0
       )
-    : null;
+    : 0;
 
   return (
     <div className={styles.container}>
@@ -273,6 +294,8 @@ const EditResidentPermit = (): React.ReactElement => {
         <EditResidentPermitForm
           permit={permit}
           permitPrices={permitPrices}
+          onResetPermit={handleResetPermit}
+          onResetVehicle={handleResetVehicle}
           onUpdatePermit={updatedPermit => {
             setPermit(updatedPermit);
             updatePermitPrices(updatedPermit, !updatedPermit.primaryVehicle);
@@ -316,7 +339,7 @@ const EditResidentPermit = (): React.ReactElement => {
         title={t(`${T_PATH}.confirmPaymentTitle`)}
         message={t(`${T_PATH}.confirmPaymentMessage`)}
         secondaryMessage={t(`${T_PATH}.confirmPaymentTotalAmount`, {
-          amount: totalPriceChange,
+          amount: formatPrice(totalPriceChange),
         })}
         confirmLabel={t(`${T_PATH}.confirmPayment`)}
         cancelLabel={t(`${T_PATH}.cancelPayment`)}

@@ -44,6 +44,15 @@ const PERMIT_DETAIL_QUERY = gql`
       monthCount
       description
       primaryVehicle
+      address {
+        streetName
+        streetNameSv
+        streetNumber
+        city
+        citySv
+        postalCode
+      }
+      addressApartment
       changeLogs {
         id
         key
@@ -64,7 +73,7 @@ const PERMIT_DETAIL_QUERY = gql`
             id
             paidTime
             paymentType
-            totalPrice
+            totalPaymentPrice
           }
           ... on TemporaryVehicleNode {
             id
@@ -88,6 +97,7 @@ const PERMIT_DETAIL_QUERY = gql`
           citySv
           postalCode
         }
+        primaryAddressApartment
         otherAddress {
           streetName
           streetNameSv
@@ -96,6 +106,7 @@ const PERMIT_DETAIL_QUERY = gql`
           citySv
           postalCode
         }
+        otherAddressApartment
       }
       activeTemporaryVehicle {
         id

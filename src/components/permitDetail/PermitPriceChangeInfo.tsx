@@ -1,10 +1,11 @@
 import { RadioButton, TextInput } from 'hds-react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitPriceChange } from '../../types';
+import { PermitPriceChange, RefundAccountOption } from '../../types';
 import {
   formatDateDisplay,
   formatMonthlyPrice,
+  formatPrice,
   isValidIBAN,
 } from '../../utils';
 import Divider from '../common/Divider';
@@ -20,22 +21,16 @@ enum PriceChangeType {
 
 interface PriceChangeItemProps {
   className?: string;
-  type: PriceChangeType;
   priceChangeItem: PermitPriceChange;
 }
 
 const PriceChangeItem = ({
   className,
-  type,
   priceChangeItem,
 }: PriceChangeItemProps): React.ReactElement => {
   const { t } = useTranslation();
-  const { product, newPrice, priceChange, startDate, endDate, monthCount } =
-    priceChangeItem;
-  const monthlyPriceLabel =
-    type === PriceChangeType.HIGHER_PRICE
-      ? `${formatMonthlyPrice(priceChange)} (${formatMonthlyPrice(newPrice)})`
-      : formatMonthlyPrice(newPrice);
+  const { product, newPrice, startDate, endDate, monthCount } = priceChangeItem;
+
   return (
     <div className={className}>
       <div className={styles.row}>
@@ -43,7 +38,7 @@ const PriceChangeItem = ({
           <b>{product}</b>
         </div>
         <div>
-          <span>{monthlyPriceLabel}</span>
+          <span>{formatMonthlyPrice(newPrice, t)}</span>
         </div>
       </div>
       <div className={styles.row}>
@@ -56,35 +51,44 @@ const PriceChangeItem = ({
           {t(`${T_PATH}.priceChangeItemTotalLabel`, { count: monthCount })}
         </div>
         <div>
-          <b>{formatMonthlyPrice(newPrice * monthCount)}</b>
+          <b>{formatPrice(newPrice * monthCount)} €</b>
         </div>
       </div>
     </div>
   );
 };
 
-enum RefundAccountOption {
-  KNOWN = 'known',
-  UNKNOWN = 'unknown',
-}
-
 export interface PermitPriceChangeInfoProps {
   className?: string;
   priceChangeList: PermitPriceChange[];
   refundAccountNumber: string;
+  refundAccountOption: string;
   onChangeRefundAccountNumber: (account: string) => void;
+  onChangeRefundAccountOption: (option: string) => void;
 }
+
+const getPriceChangeType = (priceChangeTotal: number): PriceChangeType => {
+  if (priceChangeTotal > 0) {
+    return PriceChangeType.HIGHER_PRICE;
+  }
+
+  if (priceChangeTotal < 0) {
+    return PriceChangeType.LOWER_PRICE;
+  }
+
+  return PriceChangeType.NO_CHANGE;
+};
 
 const PermitPriceChangeInfo = ({
   className,
   priceChangeList,
   refundAccountNumber,
+  refundAccountOption,
   onChangeRefundAccountNumber,
+  onChangeRefundAccountOption,
 }: PermitPriceChangeInfoProps): React.ReactElement => {
   const { t } = useTranslation();
-  const [refundAccountOption, setRefundAccountOption] = useState(
-    RefundAccountOption.KNOWN
-  );
+
   const newOrderTotal = priceChangeList.reduce(
     (total, item) => total + item.newPrice * item.monthCount,
     0
@@ -101,14 +105,8 @@ const PermitPriceChangeInfo = ({
     (total, item) => total + item.priceChangeVat * item.monthCount,
     0
   );
-  let priceChangeType = PriceChangeType.NO_CHANGE;
-  if (priceChangeTotal > 0) {
-    priceChangeType = PriceChangeType.HIGHER_PRICE;
-  } else if (priceChangeTotal < 0) {
-    priceChangeType = PriceChangeType.LOWER_PRICE;
-  } else {
-    priceChangeType = PriceChangeType.NO_CHANGE;
-  }
+  const priceChangeType = getPriceChangeType(priceChangeTotal);
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -129,16 +127,16 @@ const PermitPriceChangeInfo = ({
         <div className={styles.totalInfo}>
           <div className={styles.row}>
             <div>{t(`${T_PATH}.newOrderTotal`)}</div>
-            <div>{newOrderTotal} €</div>
+            <div>{formatPrice(newOrderTotal)} €</div>
           </div>
           <div className={styles.row}>
             <div>{t(`${T_PATH}.previousOrderRemaining`)}</div>
-            <div>{-previousOrderRemaining} €</div>
+            <div>{formatPrice(-previousOrderRemaining)} €</div>
           </div>
           <Divider />
           <div className={styles.row}>
             <div>{t(`${T_PATH}.priceDifference`)}</div>
-            <div>{priceChangeTotal} €</div>
+            <div>{formatPrice(priceChangeTotal)} €</div>
           </div>
           <div className={styles.row}>
             <div>{t(`${T_PATH}.priceCalcDescription`)}</div>
@@ -151,12 +149,12 @@ const PermitPriceChangeInfo = ({
                 <b>{t(`${T_PATH}.extraPaymentTotal`)}</b>
               </div>
               <div>
-                <b>{priceChangeTotal} €</b>
+                <b>{formatPrice(priceChangeTotal)} €</b>
               </div>
             </div>
             <div className={styles.row}>
               <div>{t(`${T_PATH}.extraPaymentVatTotal`)}</div>
-              <div>{priceChangeVatTotal} €</div>
+              <div>{formatPrice(priceChangeVatTotal)} €</div>
             </div>
           </div>
         )}
@@ -168,12 +166,12 @@ const PermitPriceChangeInfo = ({
                   <b>{t(`${T_PATH}.refundTotal`)}</b>
                 </div>
                 <div>
-                  <b>{-priceChangeTotal} €</b>
+                  <b>{formatPrice(-priceChangeTotal)} €</b>
                 </div>
               </div>
               <div className={styles.row}>
                 <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-                <div>{-priceChangeVatTotal} €</div>
+                <div>{formatPrice(-priceChangeVatTotal)} €</div>
               </div>
             </div>
             <div className={styles.ibanInfo}>
@@ -184,7 +182,9 @@ const PermitPriceChangeInfo = ({
                 value={RefundAccountOption.KNOWN}
                 checked={refundAccountOption === RefundAccountOption.KNOWN}
                 onChange={e =>
-                  setRefundAccountOption(e.target.value as RefundAccountOption)
+                  onChangeRefundAccountOption(
+                    e.target.value as RefundAccountOption
+                  )
                 }
               />
               <TextInput
@@ -196,6 +196,7 @@ const PermitPriceChangeInfo = ({
                 value={refundAccountNumber}
                 onChange={e => onChangeRefundAccountNumber(e.target.value)}
                 errorText={
+                  refundAccountOption === RefundAccountOption.UNKNOWN ||
                   isValidIBAN(refundAccountNumber)
                     ? undefined
                     : t('errors.invalidIBAN')
@@ -208,7 +209,9 @@ const PermitPriceChangeInfo = ({
                 value={RefundAccountOption.UNKNOWN}
                 checked={refundAccountOption === RefundAccountOption.UNKNOWN}
                 onChange={e => {
-                  setRefundAccountOption(e.target.value as RefundAccountOption);
+                  onChangeRefundAccountOption(
+                    e.target.value as RefundAccountOption
+                  );
                   onChangeRefundAccountNumber('');
                 }}
               />

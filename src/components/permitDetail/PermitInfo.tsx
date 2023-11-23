@@ -1,7 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail, PermitEndType } from '../../types';
-import { formatDateTimeDisplay } from '../../utils';
+import {
+  formatAddress,
+  formatDateTimeDisplay,
+  formatPeriod,
+} from '../../utils';
 import Divider from '../common/Divider';
 import StatusLabel from '../common/StatusLabel';
 import FieldItem from './FieldItem';
@@ -19,7 +23,7 @@ const PermitInfo = ({
   endType,
   permit,
 }: PermitInfoProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const {
     contractType,
     monthCount,
@@ -29,6 +33,9 @@ const PermitInfo = ({
     currentPeriodEndTime,
     description,
     primaryVehicle,
+    parkingZone,
+    address,
+    addressApartment,
   } = permit;
   let endTimeValue = '';
   if (endType === PermitEndType.IMMEDIATELY) {
@@ -59,7 +66,7 @@ const PermitInfo = ({
     },
     {
       label: t(`${T_PATH}.validPeriod`),
-      value: monthCount,
+      value: formatPeriod(monthCount, t(`${T_PATH}.periodUnit`)),
     },
     {
       label: t(`${T_PATH}.startTime`),
@@ -72,6 +79,16 @@ const PermitInfo = ({
     {
       label: t(`${T_PATH}.status`),
       value: <StatusLabel status={status} />,
+    },
+    {
+      label: t(`${T_PATH}.address`),
+      value: formatAddress(address, i18n.language, {
+        addressApartment,
+      }),
+    },
+    {
+      label: t(`${T_PATH}.parkingZone`),
+      value: i18n.language === 'sv' ? parkingZone.labelSv : parkingZone.label,
     },
     {
       label: t(`${T_PATH}.additionalInfo`),

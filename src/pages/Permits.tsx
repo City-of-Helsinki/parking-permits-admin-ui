@@ -14,7 +14,6 @@ import { useOrderByParam, usePageParam } from '../hooks/searchParam';
 import {
   LimitedPermitsQueryData,
   OrderBy,
-  ParkingPermitStatus,
   ParkingPermitStatusOrAll,
   Permit,
   PermitSearchParams,
@@ -42,6 +41,14 @@ const PERMITS_QUERY = gql`
         endTime
         status
         primaryVehicle
+        address {
+          streetName
+          streetNameSv
+          streetNumber
+          city
+          citySv
+          postalCode
+        }
         customer {
           firstName
           lastName
@@ -54,6 +61,7 @@ const PERMITS_QUERY = gql`
             citySv
             postalCode
           }
+          primaryAddressApartment
           otherAddress {
             streetName
             streetNameSv
@@ -62,6 +70,7 @@ const PERMITS_QUERY = gql`
             citySv
             postalCode
           }
+          otherAddressApartment
         }
         vehicle {
           manufacturer
@@ -136,9 +145,7 @@ const Permits = (): React.ReactElement => {
   const { orderByParam: orderBy, setOrderBy } = useOrderByParam();
 
   const permitSearchParams = {
-    status:
-      (statusParam as ParkingPermitStatusOrAll | null) ||
-      ParkingPermitStatus.VALID,
+    status: (statusParam as ParkingPermitStatusOrAll | null) || 'ALL',
     q: qParam || '',
   };
   const [errorMessage, setErrorMessage] = useState('');

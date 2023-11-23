@@ -6,7 +6,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import ConfirmDialog from '../components/common/ConfirmDialog';
-import { getEmptyPermit } from '../components/residentPermit/consts';
+import {
+  getEmptyPermit,
+  initialVehicle,
+} from '../components/residentPermit/consts';
 import PermitInfo from '../components/residentPermit/PermitInfo';
 import PersonalInfo from '../components/residentPermit/PersonalInfo';
 import VehicleInfo from '../components/residentPermit/VehicleInfo';
@@ -53,6 +56,7 @@ const CUSTOMER_QUERY = gql`
           labelSv
         }
       }
+      primaryAddressApartment
       otherAddress {
         id
         city
@@ -67,9 +71,11 @@ const CUSTOMER_QUERY = gql`
           labelSv
         }
       }
+      otherAddressApartment
       activePermits {
         id
         primaryVehicle
+        monthCount
       }
     }
   }
@@ -99,7 +105,6 @@ const VEHICLE_QUERY = gql`
 const PERMIT_PRICES_QUERY = gql`
   query GetPermitPrices($permit: ResidentPermitInput!, $isSecondary: Boolean!) {
     permitPrices(permit: $permit, isSecondary: $isSecondary) {
-      originalUnitPrice
       unitPrice
       startDate
       endDate
@@ -209,10 +214,15 @@ const CreateResidentPermit = (): React.ReactElement => {
       })
       .catch(error => setErrorMessage(error.message));
   };
+
   const handleSearchVehicle = (regNumber: string) => {
     if (!customer.nationalIdNumber) {
       return;
     }
+    setPermit({
+      ...permit,
+      vehicle: { ...initialVehicle, registrationNumber: regNumber },
+    });
     getVehicle({
       variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
@@ -225,7 +235,13 @@ const CreateResidentPermit = (): React.ReactElement => {
     setPermit(newPermit);
     updatePermitPrices(newPermit);
   };
+
   const handleSearchPerson = (nationalIdNumber: string) => {
+    const emptyPermit = getEmptyPermit();
+    setPermit({
+      ...emptyPermit,
+      customer: { ...emptyPermit.customer, nationalIdNumber },
+    });
     getCustomer({
       variables: { query: { nationalIdNumber } },
     });
@@ -281,28 +297,30 @@ const CreateResidentPermit = (): React.ReactElement => {
         />
       </div>
       <div className={styles.footer}>
-        <div className={styles.actions}>
-          <Button
-            disabled={
-              customer.activePermits && customer.activePermits.length >= 2
-            }
-            className={styles.actionButton}
-            iconLeft={<IconCheckCircleFill />}
-            onClick={() => setIsConfirmDialogOpen(true)}>
-            {t(`${T_PATH}.save`)}
-          </Button>
-          <Button
-            className={styles.actionButton}
-            variant="secondary"
-            onClick={() => navigate('/permits')}>
-            {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
-          </Button>
-        </div>
-        <div className={styles.priceInfo}>
-          <div className={styles.priceLabel}>{t(`${T_PATH}.totalPrice`)}</div>
-          <div className={styles.totalPrice}>
-            <span className={styles.totalPriceValue}>{totalPrice}</span>
-            <span className={styles.totalPriceCurrency}>€</span>
+        <div className={styles.inner}>
+          <div className={styles.actions}>
+            <Button
+              disabled={
+                customer.activePermits && customer.activePermits.length >= 2
+              }
+              className={styles.actionButton}
+              iconLeft={<IconCheckCircleFill />}
+              onClick={() => setIsConfirmDialogOpen(true)}>
+              {t(`${T_PATH}.save`)}
+            </Button>
+            <Button
+              className={styles.actionButton}
+              variant="secondary"
+              onClick={() => navigate('/permits')}>
+              {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
+            </Button>
+          </div>
+          <div className={styles.priceInfo}>
+            <div className={styles.priceLabel}>{t(`${T_PATH}.totalPrice`)}</div>
+            <div className={styles.totalPrice}>
+              <span className={styles.totalPriceValue}>{totalPrice}</span>
+              <span className={styles.totalPriceCurrency}>€</span>
+            </div>
           </div>
         </div>
       </div>

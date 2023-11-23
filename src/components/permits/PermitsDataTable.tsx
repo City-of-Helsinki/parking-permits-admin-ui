@@ -6,6 +6,7 @@ import {
   formatAddress,
   formatCustomerName,
   formatDateTimeDisplay,
+  isPermitAddress,
 } from '../../utils';
 import DataTable from '../common/DataTable';
 import StatusLabel from '../common/StatusLabel';
@@ -46,7 +47,7 @@ const PermitsDataTable = ({
             sortable: true,
           },
           {
-            name: 'Hetu',
+            name: t(`${T_PATH}.nationalIdNumber`),
             field: 'nationalIdNumber',
             selector: ({ customer }) => customer.nationalIdNumber,
             sortable: true,
@@ -64,18 +65,24 @@ const PermitsDataTable = ({
           {
             name: t(`${T_PATH}.primaryAddress`),
             field: 'primaryAddress',
-            selector: ({ customer }) =>
-              customer?.primaryAddress
-                ? formatAddress(customer.primaryAddress, i18n.language)
+            selector: ({ address, customer }) =>
+              isPermitAddress(address, customer?.primaryAddress)
+                ? formatAddress(address, i18n.language, {
+                    addressApartment: customer.primaryAddressApartment,
+                    withPostalCode: true,
+                  })
                 : '-',
             sortable: true,
           },
           {
             name: t(`${T_PATH}.otherAddress`),
             field: 'otherAddress',
-            selector: ({ customer }) =>
-              customer?.otherAddress
-                ? formatAddress(customer.otherAddress, i18n.language)
+            selector: ({ address, customer }) =>
+              isPermitAddress(address, customer?.otherAddress)
+                ? formatAddress(address, i18n.language, {
+                    addressApartment: customer.otherAddressApartment,
+                    withPostalCode: true,
+                  })
                 : '-',
             sortable: true,
           },

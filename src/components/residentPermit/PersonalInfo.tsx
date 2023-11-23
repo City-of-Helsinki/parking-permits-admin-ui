@@ -47,7 +47,9 @@ const PersonalInfo = ({
   const { t, i18n } = useTranslation();
   const {
     primaryAddress,
+    primaryAddressApartment,
     otherAddress,
+    otherAddressApartment,
     nationalIdNumber,
     addressSecurityBan,
     firstName,
@@ -92,6 +94,17 @@ const PersonalInfo = ({
       },
     });
   };
+
+  let isPrimaryAddressSelected = false;
+  let isOtherAddressSelected = false;
+
+  if (!addressSecurityBan) {
+    isOtherAddressSelected =
+      !!otherAddress && selectedAddress === SelectedAddress.OTHER;
+
+    isPrimaryAddressSelected = !isOtherAddressSelected && !!primaryAddress;
+  }
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.personalInfo`)}</div>
@@ -101,14 +114,12 @@ const PersonalInfo = ({
           className={styles.fieldItem}
           id="personalId"
           label={t(`${T_PATH}.personalId`)}
-          value={nationalIdNumber}
+          value={nationalIdNumber?.toUpperCase()}
           disabled={disableCustomerChange}
           onChange={e =>
             updateCustomer({ ...person, nationalIdNumber: e.target.value })
           }>
-          <Button
-            onClick={() => onSearchPerson(nationalIdNumber)}
-            disabled={disableCustomerChange}>
+          <Button onClick={() => onSearchPerson(nationalIdNumber)}>
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
@@ -150,7 +161,7 @@ const PersonalInfo = ({
             name="selectedAddress"
             label={t(`${T_PATH}.primaryAddress`)}
             value={addressSecurityBan ? '' : SelectedAddress.PRIMARY}
-            checked={selectedAddress === SelectedAddress.PRIMARY}
+            checked={isPrimaryAddressSelected}
             onChange={() => {
               setSelectedAddress(SelectedAddress.PRIMARY);
               onSelectAddress(
@@ -173,7 +184,7 @@ const PersonalInfo = ({
             name="selectedAddress"
             label={t(`${T_PATH}.otherAddress`)}
             value={addressSecurityBan ? '' : SelectedAddress.OTHER}
-            checked={selectedAddress === SelectedAddress.OTHER}
+            checked={isOtherAddressSelected}
             onChange={() => {
               setSelectedAddress(SelectedAddress.OTHER);
               onSelectAddress(SelectedAddress.OTHER, otherAddress as Address);
@@ -188,6 +199,35 @@ const PersonalInfo = ({
         <AddressSearch
           className={styles.addressSearch}
           onSelect={address => onSelectAddress(selectedAddress, address)}
+        />
+        <TextInput
+          className={styles.fieldItem}
+          id="addressApartment"
+          label={t(`${T_PATH}.addressApartment`)}
+          value={
+            selectedAddress === SelectedAddress.PRIMARY
+              ? primaryAddressApartment
+              : otherAddressApartment
+          }
+          onChange={e => {
+            if (selectedAddress === SelectedAddress.PRIMARY) {
+              onUpdatePermit({
+                addressApartment: e.target.value,
+                customer: {
+                  ...person,
+                  primaryAddressApartment: e.target.value,
+                },
+              });
+            } else {
+              onUpdatePermit({
+                addressApartment: e.target.value,
+                customer: {
+                  ...person,
+                  otherAddressApartment: e.target.value,
+                },
+              });
+            }
+          }}
         />
         <ZoneSelect
           required

@@ -49,13 +49,20 @@ const ProductsDataTable = ({
     {
       name: t(`${T_PATH}.price`),
       field: 'price',
-      selector: ({ unitPrice }) => formatMonthlyPrice(unitPrice),
+      selector: ({ unitPrice }) => formatMonthlyPrice(unitPrice, t),
       sortable: true,
     },
     {
       name: t(`${T_PATH}.vat`),
       field: 'vat',
       selector: ({ vatPercentage }) => `${vatPercentage}%`,
+      sortable: true,
+    },
+    {
+      name: t(`${T_PATH}.lowEmissionDiscount`),
+      field: 'lowEmissionDiscount',
+      selector: ({ lowEmissionDiscountPercentage }) =>
+        `${lowEmissionDiscountPercentage}%`,
       sortable: true,
     },
     {

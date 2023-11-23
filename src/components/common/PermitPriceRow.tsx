@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { PermitPrice } from '../../types';
 import { formatDateDisplay, formatMonthlyPrice } from '../../utils';
 import styles from './PermitPriceRow.module.scss';
@@ -12,25 +13,13 @@ const PermitPriceRow = ({
   className,
   permitPrice,
 }: PermitPriceRowProps): React.ReactElement => {
-  const { originalUnitPrice, unitPrice, startDate, endDate } = permitPrice;
-  const isPriceModified = originalUnitPrice !== unitPrice;
+  const { t } = useTranslation();
+  const { unitPrice, startDate, endDate } = permitPrice;
   return (
     <div className={className}>
-      {isPriceModified && (
-        <>
-          <span className={styles.modifiedPrice}>
-            <b>{formatMonthlyPrice(unitPrice)}</b>
-          </span>
-          <span className={styles.originalPrice}>
-            <s>{formatMonthlyPrice(originalUnitPrice)}</s>
-          </span>
-        </>
-      )}
-      {!isPriceModified && (
-        <span className={styles.originalPrice}>
-          {formatMonthlyPrice(unitPrice)}
-        </span>
-      )}
+      <span className={styles.modifiedPrice}>
+        {formatMonthlyPrice(unitPrice, t)}
+      </span>
       <span className={styles.dateRange}>
         {`(${formatDateDisplay(startDate)} - ${formatDateDisplay(endDate)})`}
       </span>
