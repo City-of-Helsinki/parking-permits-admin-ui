@@ -25,7 +25,13 @@ const useUserRole = (): UserRole => {
   const apiToken = useApiToken();
   const decodedToken = decode(apiToken);
   if (decodedToken) {
-    const adGroups = decodedToken.ad_groups;
+    const adGroups: string[] = [];
+    // Remove special ADFS-prefix
+    const adfsPrefix = 'helsinki1\\';
+    decodedToken.ad_groups.forEach((adGroup: string) => {
+      adGroups.push(adGroup.replace(adfsPrefix, ''));
+    });
+
     if (adGroups.includes(Groups.SUPER_ADMIN)) {
       return UserRole.SUPER_ADMIN;
     }
