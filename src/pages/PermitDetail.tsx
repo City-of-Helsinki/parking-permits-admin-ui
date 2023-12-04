@@ -17,14 +17,8 @@ import TemporaryVehicle from '../components/permitDetail/TemporaryVehicle';
 import VehicleInfo from '../components/permitDetail/VehicleInfo';
 import useExportData from '../export/useExportData';
 import { formatExportUrlPdf } from '../export/utils';
-import {
-  MutationResponse,
-  ParkingPermitStatus,
-  PermitContractType,
-  PermitDetailData,
-  PermitEndType,
-} from '../types';
-import { formatCustomerName } from '../utils';
+import { MutationResponse, PermitDetailData, PermitEndType } from '../types';
+import { formatCustomerName, isPermitEditable } from '../utils';
 import styles from './PermitDetail.module.scss';
 
 const T_PATH = 'pages.permitDetail';
@@ -217,12 +211,8 @@ const PermitDetail = (): React.ReactElement => {
       currentPeriodEndTime,
       canEndImmediately,
       canEndAfterCurrentPeriod,
-      startTime,
-      contractType,
     } = permitDetail;
-    const isOpenEndedPermitAndStarted =
-      contractType === PermitContractType.OPEN_ENDED &&
-      new Date(startTime) > new Date();
+
     content = (
       <>
         <Breadcrumbs>
@@ -283,10 +273,7 @@ const PermitDetail = (): React.ReactElement => {
                   <Button
                     className={styles.actionButton}
                     iconLeft={<IconPenLine />}
-                    disabled={
-                      status === ParkingPermitStatus.CLOSED ||
-                      !!isOpenEndedPermitAndStarted
-                    }
+                    disabled={!isPermitEditable(permitDetail)}
                     onClick={() => navigate('edit')}>
                     {t(`${T_PATH}.edit`)}
                   </Button>

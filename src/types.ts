@@ -92,6 +92,7 @@ export interface Vehicle {
   vehicleClass: VehicleClass;
   euroClass: number;
   emission: number;
+  restrictions: Array<string>;
   emissionType: EmissionType;
   powerType: PowerType;
 }
@@ -200,6 +201,8 @@ export interface Permit {
   startTime: string;
   primaryVehicle: boolean;
   endTime?: string;
+  currentPeriodEndTime?: string;
+  contractType: PermitContractType;
   monthCount: number;
 }
 

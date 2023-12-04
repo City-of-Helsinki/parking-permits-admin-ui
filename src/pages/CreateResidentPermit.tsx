@@ -94,6 +94,7 @@ const VEHICLE_QUERY = gql`
       euroClass
       emission
       emissionType
+      restrictions
       powerType {
         name
         identifier

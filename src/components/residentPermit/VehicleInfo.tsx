@@ -17,6 +17,24 @@ import VehicleClassSelect from '../common/VehicleClassSelect';
 import styles from './VehicleInfo.module.scss';
 
 const T_PATH = 'components.residentPermit.vehicleInfo';
+
+type Restrictions = {
+  [key: string]: string;
+};
+
+const RESTRICTIONS: Restrictions = {
+  '03': 'driving_ban',
+  '07': 'compulsory_inspection_neglected',
+  '10': 'periodic_inspection_rejected',
+  '11': 'vehicle_stolen',
+  '20': 'vehicle_deregistered',
+  '22': 'vehicle_tax_due',
+  '23': 'vehicle_prohibited_to_use_additional_tax',
+  '24': 'old_vehicle_diesel_due',
+  '25': 'registration_plates_confiscated',
+  '34': 'driving_ban_registration_plates_confiscated',
+};
+
 interface VehicleInfoProps {
   className?: string;
   vehicle: Vehicle;
@@ -46,7 +64,16 @@ const VehicleInfo = ({
     emission,
     emissionType,
     powerType,
+    restrictions,
   } = vehicle;
+
+  const availableRestrictions = (restrictions ?? [])
+    .map((code: string) => {
+      const translation = RESTRICTIONS[code] ?? null;
+      return translation ? t(`${T_PATH}.restrictions.${translation}`) : '';
+    })
+    .filter(Boolean);
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.vehicleInfo`)}</div>
@@ -68,6 +95,12 @@ const VehicleInfo = ({
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
+        {availableRestrictions.map(restriction => (
+          <Notification type="info" key={restriction}>
+            <div>{t(`${T_PATH}.restrictions.text`, { restriction })}</div>
+            <div>{t(`${T_PATH}.vehicleCopyright`)}</div>
+          </Notification>
+        ))}
         {searchError && <Notification type="error">{searchError}</Notification>}
         <TextInput
           className={styles.fieldItem}

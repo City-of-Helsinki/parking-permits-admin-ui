@@ -333,7 +333,20 @@
         "serialNumber": "Valmistenumero",
         "vehicleClass": "Ajoneuvoluokka",
         "vehicleInfo": "Ajoneuvon tiedot",
-        "vehicleCopyright": "Ajoneuvon tiedot - Liikenneasioidenrekisteri, Traficom"
+        "vehicleCopyright": "Ajoneuvon tiedot - Liikenneasioidenrekisteri, Traficom",
+        "restrictions": {
+          "text": "Traficom ilmoittaa ajoneuvolle seuraavan rajoitustiedon: {{restriction}}.",
+          "driving_ban": "Ajokielto",
+          "compulsory_inspection_neglected": "Valvontakatsastusvelvollisuus laiminlyöty",
+          "periodic_inspection_rejected": "Määräaikaiskatsastus suorittamatta/hylätty",
+          "vehicle_stolen": "Ajoneuvo anastettu",
+          "vehicle_deregistered": "Rekisteristä poisto",
+          "vehicle_tax_due": "Ajoneuvovero erääntynyt",
+          "probited_to_use_additional_tax": "Ajoneuvo käyttökiellossa/lisävero",
+          "old_vehicle_diesel_due": "Vanha ajoneuvo-/dieselvero erääntynyt",
+          "registration_plates_confiscated": "Kilpien haltuunotto",
+          "driving_ban_registration_plates_confiscated": "Ajokielto kilpien haltuunotosta"
+        }
       }
     },
     "superAdmin": {
