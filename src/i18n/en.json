@@ -290,7 +290,20 @@
         "serialNumber": "Serial number",
         "vehicleClass": "Vehicle class",
         "vehicleInfo": "Vehicle information",
-        "vehicleCopyright": "Vehicle information - Transport register, Traficom"
+        "vehicleCopyright": "Vehicle information - Transport register, Traficom",
+        "restrictions": {
+          "text": "Traficom has the following restriction notification for this vehicle: {{restriction}}. You may still continue with the purchase of this parking permit.",
+          "driving_ban": "Driving ban",
+          "compulsory_inspection_neglected": "Compulsory inspection neglected",
+          "periodic_inspection_rejected": "Periodic inpection rejected",
+          "vehicle_stolen": "Vehicle stolen",
+          "vehicle_deregistered": "Vehicle deregistered",
+          "vehicle_tax_due": "Vehicle tax due",
+          "probited_to_use_additional_tax": "Prohibited to use/additional tax",
+          "old_vehicle_diesel_due": "Old vehicle/diesel tax due",
+          "registration_plates_confiscated": "Registration plates confiscated",
+          "driving_ban_registration_plates_confiscated": "Driving ban/registration plates confiscated"
+        }
       }
     },
     "superAdmin": {

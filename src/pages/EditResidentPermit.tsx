@@ -114,6 +114,7 @@ const PERMIT_DETAIL_QUERY = gql`
         euroClass
         emission
         emissionType
+        restrictions
         powerType {
           name
           identifier
