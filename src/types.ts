@@ -92,6 +92,7 @@ export interface Vehicle {
   vehicleClass: VehicleClass;
   euroClass: number;
   emission: number;
+  restrictions: Array<string>;
   emissionType: EmissionType;
   powerType: PowerType;
 }
