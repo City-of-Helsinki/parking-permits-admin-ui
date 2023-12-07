@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  IconTrash,
   Notification,
   NumberInput,
   TextInput,
@@ -40,8 +41,10 @@ interface VehicleInfoProps {
   vehicle: Vehicle;
   searchError?: string;
   permitPrices: PermitPrice[];
+  disableVehicleFields: boolean;
   onSearchRegistrationNumber: (regNumber: string) => void;
   onUpdateVehicle: (vehicle: Vehicle) => void;
+  onClearVehicle: () => void;
 }
 
 const VehicleInfo = ({
@@ -49,8 +52,10 @@ const VehicleInfo = ({
   vehicle,
   searchError,
   permitPrices,
+  disableVehicleFields,
   onSearchRegistrationNumber,
   onUpdateVehicle,
+  onClearVehicle,
 }: VehicleInfoProps): React.ReactElement => {
   const { t } = useTranslation();
   const {
@@ -95,6 +100,13 @@ const VehicleInfo = ({
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
+        <Button
+          variant="supplementary"
+          onClick={onClearVehicle}
+          size="small"
+          iconLeft={<IconTrash size="s" />}>
+          {t(`${T_PATH}.clear`)}
+        </Button>
         {availableRestrictions.map(restriction => (
           <Notification type="info" key={restriction}>
             <div>{t(`${T_PATH}.restrictions.text`, { restriction })}</div>
@@ -107,6 +119,7 @@ const VehicleInfo = ({
           id="manufacturer"
           label={t(`${T_PATH}.manufacturer`)}
           value={manufacturer}
+          disabled={!!disableVehicleFields}
           onChange={e =>
             onUpdateVehicle({ ...vehicle, manufacturer: e.target.value })
           }
@@ -116,12 +129,14 @@ const VehicleInfo = ({
           id="model"
           label={t(`${T_PATH}.model`)}
           value={model}
+          disabled={!!disableVehicleFields}
           onChange={e => onUpdateVehicle({ ...vehicle, model: e.target.value })}
         />
         <VehicleClassSelect
           className={styles.fieldItem}
           label={t(`${T_PATH}.vehicleClass`)}
           value={vehicleClass}
+          disabled={!!disableVehicleFields}
           onChange={value =>
             onUpdateVehicle({ ...vehicle, vehicleClass: value })
           }
@@ -131,6 +146,7 @@ const VehicleInfo = ({
           id="serialNumber"
           label={t(`${T_PATH}.serialNumber`)}
           value={serialNumber}
+          disabled={!!disableVehicleFields}
           onChange={e =>
             onUpdateVehicle({ ...vehicle, serialNumber: e.target.value })
           }
@@ -139,18 +155,21 @@ const VehicleInfo = ({
           className={styles.fieldItem}
           label={t(`${T_PATH}.euroClass`)}
           value={euroClass}
+          disabled={!!disableVehicleFields}
           onChange={value => onUpdateVehicle({ ...vehicle, euroClass: value })}
         />
         <PowerTypeSelect
           className={styles.fieldItem}
           label={t(`${T_PATH}.powerType`)}
           powerType={powerType}
+          disabled={!!disableVehicleFields}
           onChange={pType => onUpdateVehicle({ ...vehicle, powerType: pType })}
         />
         <EmissionTypeSelect
           className={styles.fieldItem}
           label={t(`${T_PATH}.emissionType`)}
           value={emissionType}
+          disabled={!!disableVehicleFields}
           onChange={value =>
             onUpdateVehicle({ ...vehicle, emissionType: value })
           }
@@ -160,6 +179,7 @@ const VehicleInfo = ({
           className={styles.fieldItem}
           label={t(`${T_PATH}.emission`)}
           value={emission || 0}
+          disabled={!!disableVehicleFields}
           min={0}
           step={1}
           onChange={e =>

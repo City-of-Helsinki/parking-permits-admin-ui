@@ -137,7 +137,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
-  const { vehicle, customer } = permit;
+  const { vehicle, customer, disableVehicleFields } = permit;
 
   // graphql queries and mutations
   const [getCustomer] = useLazyQuery<{
@@ -168,9 +168,16 @@ const CreateResidentPermit = (): React.ReactElement => {
       setPermit({
         ...permit,
         vehicle: data.vehicle,
+        disableVehicleFields: true,
       });
     },
-    onError: error => setVehicleSearchError(error.message),
+    onError: error => {
+      setVehicleSearchError(error.message);
+      setPermit({
+        ...permit,
+        disableVehicleFields: false,
+      });
+    },
   });
   const [getPermitPrices] = useLazyQuery<{ permitPrices: PermitPrice[] }>(
     PERMIT_PRICES_QUERY,
@@ -237,6 +244,20 @@ const CreateResidentPermit = (): React.ReactElement => {
     updatePermitPrices(newPermit);
   };
 
+  const handleClearVehicle = () => {
+    setVehicleSearchError('');
+    const newPermit = {
+      ...permit,
+      vehicle: initialVehicle,
+    };
+    setPermit({
+      ...permit,
+      vehicle: initialVehicle,
+      disableVehicleFields: false,
+    });
+    updatePermitPrices(newPermit);
+  };
+
   const handleSearchPerson = (nationalIdNumber: string) => {
     const emptyPermit = getEmptyPermit();
     setPermit({
@@ -285,11 +306,13 @@ const CreateResidentPermit = (): React.ReactElement => {
         />
         <VehicleInfo
           vehicle={vehicle}
+          disableVehicleFields={disableVehicleFields}
           permitPrices={permitPrices}
           className={styles.vehicleInfo}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
           onUpdateVehicle={handleUpdateVehicle}
+          onClearVehicle={handleClearVehicle}
         />
         <PermitInfo
           permit={permit}

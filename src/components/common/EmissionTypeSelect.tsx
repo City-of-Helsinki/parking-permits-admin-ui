@@ -11,6 +11,7 @@ interface EmissionTypeSelectProps {
   className?: string;
   label: string;
   value: EmissionType;
+  disabled: boolean;
   onChange: (value: EmissionType) => void;
 }
 
@@ -21,6 +22,7 @@ const EMISSION_TYPE_OPTIONS: EmissionTypeOption[] = Object.values(
 const EmissionTypeSelect = ({
   label,
   value,
+  disabled,
   className,
   onChange,
 }: EmissionTypeSelectProps): React.ReactElement => (
@@ -29,6 +31,7 @@ const EmissionTypeSelect = ({
     label={label}
     options={EMISSION_TYPE_OPTIONS}
     value={{ label: value, value }}
+    disabled={disabled}
     onChange={(option: EmissionTypeOption) => onChange(option.value)}
   />
 );
