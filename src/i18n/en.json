@@ -291,6 +291,7 @@
         "vehicleClass": "Vehicle class",
         "vehicleInfo": "Vehicle information",
         "vehicleCopyright": "Vehicle information - Transport register, Traficom",
+        "clear": "Clear",
         "restrictions": {
           "text": "Traficom has the following restriction notification for this vehicle: {{restriction}}. You may still continue with the purchase of this parking permit.",
           "driving_ban": "Driving ban",

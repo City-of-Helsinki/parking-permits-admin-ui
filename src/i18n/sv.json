@@ -260,7 +260,8 @@
         "serialNumber": "Serienummer",
         "vehicleClass": "Fordonsklass",
         "vehicleInfo": "Fordonsinformation",
-        "vehicleCopyright": "Fordonsuppgifter - Trafik- och transportregistret, Traficom"
+        "vehicleCopyright": "Fordonsuppgifter - Trafik- och transportregistret, Traficom",
+        "clear": "Rensa"
       }
     },
     "superAdmin": {
