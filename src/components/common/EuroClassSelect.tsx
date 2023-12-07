@@ -10,6 +10,7 @@ interface EuroClassSelectProps {
   className?: string;
   label: string;
   value: number;
+  disabled: boolean;
   onChange: (value: number) => void;
 }
 
@@ -43,6 +44,7 @@ const EURO_CLASS_OPTIONS: EuroClassOption[] = [
 const EuroClassSelect = ({
   label,
   value,
+  disabled,
   className,
   onChange,
 }: EuroClassSelectProps): React.ReactElement => (
@@ -51,6 +53,7 @@ const EuroClassSelect = ({
     label={label}
     options={EURO_CLASS_OPTIONS}
     value={{ label: `Euro ${value}`, value }}
+    disabled={disabled}
     onChange={(option: EuroClassOption) => onChange(option.value)}
   />
 );

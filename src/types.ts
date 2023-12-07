@@ -273,6 +273,7 @@ export interface PermitDetail {
   monthsLeft: number;
   changeLogs: ChangeLog[];
   permitPrices: PermitPrice[];
+  disableVehicleFields: boolean;
 }
 
 export interface PermitDetailData {

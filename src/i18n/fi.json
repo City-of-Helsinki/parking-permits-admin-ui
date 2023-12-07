@@ -334,6 +334,7 @@
         "vehicleClass": "Ajoneuvoluokka",
         "vehicleInfo": "Ajoneuvon tiedot",
         "vehicleCopyright": "Ajoneuvon tiedot - Liikenneasioidenrekisteri, Traficom",
+        "clear": "Tyhjennä",
         "restrictions": {
           "text": "Traficom ilmoittaa ajoneuvolle seuraavan rajoitustiedon: {{restriction}}.",
           "driving_ban": "Ajokielto",

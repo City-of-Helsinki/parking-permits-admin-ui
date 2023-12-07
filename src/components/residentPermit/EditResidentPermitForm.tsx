@@ -84,6 +84,7 @@ interface EditResidentPermitFormProps {
   permitPrices: PermitPrice[];
   onResetPermit: (nationalIdNumber: string) => void;
   onResetVehicle: (regNumber: string) => void;
+  onClearVehicle: () => void;
   onUpdatePermit: (permit: PermitDetail) => void;
   onCancel: () => void;
   onConfirm: () => void;
@@ -95,6 +96,7 @@ const EditResidentPermitForm = ({
   permitPrices,
   onResetPermit,
   onResetVehicle,
+  onClearVehicle,
   onUpdatePermit,
   onCancel,
   onConfirm,
@@ -102,8 +104,12 @@ const EditResidentPermitForm = ({
   const { t } = useTranslation();
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
-  const { customer, vehicle, address: permitAddress } = permit;
-
+  const {
+    customer,
+    vehicle,
+    address: permitAddress,
+    disableVehicleFields,
+  } = permit;
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
   }>(CUSTOMER_QUERY, {
@@ -124,6 +130,7 @@ const EditResidentPermitForm = ({
       onUpdatePermit({
         ...permit,
         vehicle: data.vehicle,
+        disableVehicleFields: true,
       });
     },
     onError: error => setVehicleSearchError(error.message),
@@ -137,6 +144,11 @@ const EditResidentPermitForm = ({
     getVehicle({
       variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
+  };
+
+  const handleClearVehicle = () => {
+    setVehicleSearchError('');
+    onClearVehicle();
   };
 
   const handleUpdatePermit = (newPermit: PermitDetail) =>
@@ -224,10 +236,12 @@ const EditResidentPermitForm = ({
         <VehicleInfo
           className={styles.column}
           vehicle={vehicle}
+          disableVehicleFields={disableVehicleFields}
           permitPrices={permitPrices}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
           onUpdateVehicle={handleUpdateVehicle}
+          onClearVehicle={handleClearVehicle}
         />
         <PermitInfo
           className={styles.column}

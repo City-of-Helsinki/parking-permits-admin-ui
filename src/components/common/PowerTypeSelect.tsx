@@ -15,6 +15,7 @@ interface PowerTypeSelectProps {
   className?: string;
   label: string;
   powerType: PowerType;
+  disabled: boolean;
   onChange: (powerType: PowerType) => void;
 }
 
@@ -22,6 +23,7 @@ const PowerTypeSelect = ({
   label,
   powerType,
   className,
+  disabled,
   onChange,
 }: PowerTypeSelectProps): React.ReactElement => {
   const { t } = useTranslation();
@@ -57,6 +59,7 @@ const PowerTypeSelect = ({
         name: powerType.name,
         value: powerType.identifier,
       }}
+      disabled={disabled}
       onChange={(option: PowerTypeOption) =>
         onChange({
           name: option.name,

@@ -202,6 +202,7 @@ const EditResidentPermit = (): React.ReactElement => {
       setPermit({
         ...permitDetail,
         customer: newCustomer,
+        disableVehicleFields: true,
       });
       setPermitPrices(permitDetail.permitPrices);
     },
@@ -263,6 +264,14 @@ const EditResidentPermit = (): React.ReactElement => {
     });
   };
 
+  const handleClearVehicle = () => {
+    setPermit({
+      ...permit,
+      vehicle: initialVehicle,
+      disableVehicleFields: false,
+    });
+  };
+
   const handleUpdatePermit = () => {
     updateResidentPermit({
       variables: {
@@ -297,6 +306,7 @@ const EditResidentPermit = (): React.ReactElement => {
           permitPrices={permitPrices}
           onResetPermit={handleResetPermit}
           onResetVehicle={handleResetVehicle}
+          onClearVehicle={handleClearVehicle}
           onUpdatePermit={updatedPermit => {
             setPermit(updatedPermit);
             updatePermitPrices(updatedPermit, !updatedPermit.primaryVehicle);

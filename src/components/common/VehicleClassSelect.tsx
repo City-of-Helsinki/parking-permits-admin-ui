@@ -11,6 +11,7 @@ interface VehicleClassSelectProps {
   className?: string;
   label: string;
   value: VehicleClass;
+  disabled: boolean;
   onChange: (value: VehicleClass) => void;
 }
 
@@ -22,6 +23,7 @@ const VehicleClassSelect = ({
   label,
   value,
   className,
+  disabled,
   onChange,
 }: VehicleClassSelectProps): React.ReactElement => (
   <Select
@@ -29,6 +31,7 @@ const VehicleClassSelect = ({
     label={label}
     options={VEHICLE_CLASS_OPTIONS}
     value={{ label: value, value }}
+    disabled={disabled}
     onChange={(option: VehicleClassOption) => onChange(option.value)}
   />
 );
