@@ -6,7 +6,6 @@ import {
   PermitPriceChange,
   RefundAccountOption,
 } from '../../types';
-import { isValidIBAN } from '../../utils';
 import CustomerInfo from '../permitDetail/CustomerInfo';
 import PermitInfo from '../permitDetail/PermitInfo';
 import PermitPriceChangeInfo from '../permitDetail/PermitPriceChangeInfo';
@@ -69,12 +68,6 @@ const EditResidentPermitPreview = ({
             {t(`${T_PATH}.goBack`)}
           </Button>
           <Button
-            disabled={
-              !(
-                refundAccountOption === RefundAccountOption.UNKNOWN ||
-                isValidIBAN(refundAccountNumber)
-              )
-            }
             className={styles.actionButton}
             iconLeft={<IconCheckCircleFill />}
             onClick={() => onConfirm()}>
