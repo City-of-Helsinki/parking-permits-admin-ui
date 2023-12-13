@@ -113,7 +113,11 @@ const VehicleInfo = ({
             <div>{t(`${T_PATH}.vehicleCopyright`)}</div>
           </Notification>
         ))}
-        {searchError && <Notification type="error">{searchError}</Notification>}
+        {searchError && (
+          <Notification type="error" style={{ whiteSpace: 'pre-wrap' }}>
+            {searchError}
+          </Notification>
+        )}
         <TextInput
           className={styles.fieldItem}
           id="manufacturer"
@@ -204,7 +208,7 @@ const VehicleInfo = ({
           }
         />
         <div className={styles.vehicleCopyright}>
-          © {t(`${T_PATH}.vehicleCopyright`)}
+          {t(`${T_PATH}.vehicleCopyright`)}
         </div>
         {permitPrices.length > 0 && (
           <div className={styles.priceInfo}>

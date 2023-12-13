@@ -62,7 +62,7 @@ const VehicleInfo = ({
           checked={consentLowEmissionAccepted}
         />
         <div className={styles.vehicleCopyright}>
-          © {t(`${T_PATH}.vehicleCopyright`)}
+          {t(`${T_PATH}.vehicleCopyright`)}
         </div>
       </div>
 

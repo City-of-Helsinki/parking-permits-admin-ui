@@ -149,7 +149,7 @@
         "lowEmissionVehicle": "Fordon med låga utsläpp",
         "removeTemporaryVehicle": "Ta bort det tillfälliga fordonet",
         "title": "Fordonsinformation",
-        "vehicleCopyright": "Fordonsuppgifter - Trafik- och transportregistret, Traficom"
+        "vehicleCopyright": "Källä: Trafik- och transportregistret, Traficom"
       }
     },
     "permits": {
@@ -260,7 +260,7 @@
         "serialNumber": "Serienummer",
         "vehicleClass": "Fordonsklass",
         "vehicleInfo": "Fordonsinformation",
-        "vehicleCopyright": "Fordonsuppgifter - Trafik- och transportregistret, Traficom",
+        "vehicleCopyright": "Källä: Trafik- och transportregistret, Traficom",
         "clear": "Rensa"
       }
     },
