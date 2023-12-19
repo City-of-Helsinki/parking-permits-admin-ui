@@ -105,7 +105,7 @@
     },
     "footer": {
       "parkingInfo": "Tietoa pysäköinnistä",
-      "copyright": "Helsinki kaupunki, Henkilötiedot - Digi- ja väestötietovirasto, Ajoneuvo- ja ajokorttitiedot - Liikenne- ja viestintävirasto Traficom",
+      "copyright": "Helsinki kaupunki, Henkilötiedot - Digi- ja väestötietovirasto",
       "dataProtection": "Tietosuoja",
       "registryDescription": "Rekisteriseloste"
     },
@@ -163,7 +163,7 @@
         "contractType": "Tunnuksen tyyppi",
         "endTime": "Viimeinen voimassaoloaika",
         "monthsLeft": "Tilausta jäljellä",
-        "now": "",
+        "now": "Nyt",
         "startTime": "Voimassa alkaen",
         "status": "Tila",
         "title": "Tunnuksen tiedot",
