@@ -16,12 +16,53 @@
         "createdAt": "Created at",
         "createdBy": "Created by",
         "description": "Description",
-        "event": "Event"
+        "event": "Event",
+        "validityPeriod": "Validity period",
+        "sum": "Sum, €",
+        "paymentType": "Payment method",
+        "paymentTypes": {
+          "CASHIER_PAYMENT": "Cashier payment",
+          "ONLINE_PAYMENT": "Online payment",
+          "REFUND": "Refund"
+        },
+        "paidAt": "Paid at",
+        "fieldNames": {
+          "status": "Status",
+          "customer__email": "Email",
+          "customer__first_name": "First name",
+          "customer__last_name": "Last name",
+          "customer__phone_number": "Phone number",
+          "customer__primary_address": "Address",
+          "customer__other_address": "Temporary address",
+          "customer__zone": "Parking zone",
+          "parking_zone": "Parking zone",
+          "vehicle": "Vehicle",
+          "vehicle__registration_number": "Registration number"
+        },
+        "events": {
+          "update_permit": "Permit updated",
+          "create_permit": "Permit created",
+          "end_permit": "Permit cancelled",
+          "renew_order": "Order renewed",
+          "create_order": "Order created",
+          "create_refund": "Refund created",
+          "add_temporary_vehicle": "Permit updated",
+          "remove_temporary_vehicle": "Permit updated"
+        },
+        "descriptions": {
+          "update_permit": "Permit updated",
+          "create_permit": "Permit created",
+          "end_permit": "Permit cancelled",
+          "renew_order": "Order renewed",
+          "create_order": "Order #{{relatedObject.id}} has been created for permit",
+          "create_refund": "Refund #{{relatedObject.id}} has been created for permit",
+          "add_temporary_vehicle": "Temporary vehicle {{relatedObject.vehicle.registrationNumber}} has been added to the permit",
+          "remove_temporary_vehicle": "Temporary vehicle {{relatedObject.vehicle.registrationNumber}} has been removed from the permit"
+        }
       },
       "dataTable": {
         "downloadCsv": "Download the results as a csv file",
-        "results_other": "Found {{count}} results",
-        "results_one": "Found {{count}} result",
+        "results": "Found {{count}} result",
         "selectAll": "Select all from the list"
       },
       "powerTypeSelect": {
@@ -40,6 +81,9 @@
       "zoneSelect": {
         "zone": "Zone",
         "placeholder": "Select..."
+      },
+      "checkboxGroup": {
+        "selectAll": "Select all"
       }
     },
     "createPermit": {
@@ -61,7 +105,7 @@
     },
     "footer": {
       "parkingInfo": "Information about parking",
-      "copyright": "City of Helsinki, Personal data - Digital and population data services agency, Vehicle and driving licence data - Traficom",
+      "copyright": "City of Helsinki, Personal data - Digital and population data services agency",
       "dataProtection": "Data protection",
       "registryDescription": "Registry description"
     },
@@ -77,6 +121,7 @@
         "permitType": "Permit type",
         "registrationNumbers": "Registration numbers",
         "residentPermit": "Resident permit",
+        "paymentType": "Payment method",
         "totalPaymentPrice": "Price",
         "zone": "Zone"
       },
@@ -105,11 +150,10 @@
       },
       "endPermitDialog": {
         "cancel": "Cancel",
-        "choosePermitEndType": "Choose when the permit is ended",
+        "choosePermitEndType": "Choose when to cancel the permit",
         "continue": "Continue",
         "endAfterCurrentPeriod": "End permit after current period",
         "endImmediately": "End permit immediately",
-        "refund": "Refund",
         "title": "End permit"
       },
       "permitInfo": {
@@ -119,6 +163,7 @@
         "contractType": "Contract type",
         "endTime": "End time",
         "monthsLeft": "Months left",
+        "now": "Now",
         "startTime": "Start time",
         "status": "Status",
         "title": "Permit information",
@@ -129,30 +174,26 @@
         "secondPermit": "2. permit"
       },
       "permitPriceChangeInfo": {
-        "customerAccountKnown": "Customer account number for refund",
-        "customerAccountUnknown": "Customer account number unknown",
+        "customerAccountKnown": "Customer's IBAN number for refund",
+        "customerAccountUnknown": "Customer's IBAN number unknown",
         "extraPaymentTotal": "Total additional payment",
         "extraPaymentVatTotal": "Incl. VAT (24%)",
         "newOrderTotal": "New order, total price",
         "previousOrderRemaining": "Previous order, total price",
         "priceCalcDescription": "Prices take into account the remaining full months of the order.",
         "priceChangeItemTotalLabel": "{{count}} months total (incl. VAT 24%)",
-        "priceDifference": "PriceDifference",
+        "priceDifference": "Price difference",
         "refundTotal": "Total amount to be refunded",
         "refundTotalVat": "Incl. VAT (24%)",
-        "title": "New Order"
+        "title": "New order"
       },
       "refundInfo": {
         "monthCount_one": "{{count}} month",
         "monthCount_other": "{{count}} months",
         "orderRemaingDescription": "The price only accounts for remaining full months of the order",
         "orderRemaining": "Paid order remaining",
-        "refunded": "Refunded",
-        "title": "Price"
-      },
-      "refundInfoOpenEnded": {
-        "monthlyPrice": "Monthly price",
         "refund": "Refund",
+        "refunded": "Refunded",
         "title": "Price"
       },
       "temporaryVehicle": {
@@ -185,7 +226,7 @@
     "permits": {
       "filterItems": {
         "customer": "Customer",
-        "hetuOrBusinessId": "Hetu / Business ID",
+        "hetuOrBusinessId": "Personal ID / Business ID",
         "identifier": "Identifier",
         "registrationNumber": "Registration number"
       },
@@ -230,7 +271,9 @@
       "refundsSearch": {
         "cash": "Cash",
         "searchPlaceholder": "Name, registration number or order number",
-        "webshop": "Webshop"
+        "webshop": "Webshop",
+        "searchButton": "Search",
+        "paymentType": "Payment"
       },
       "refundStatusSelect": {
         "status": "Status"
@@ -409,9 +452,53 @@
       },
       "sideNav": {
         "addresses": "Addresses",
-        "lowEmissionCriteria": "Low-emission criteria",
+        "announcements": "Announcements",
+        "lowEmissionCriteria": "Low emission criteria",
         "menu": "Menu",
-        "products": "Products"
+        "products": "Products",
+        "customers": "Customers"
+      },
+      "announcements": {
+        "announcementForm": {
+          "announcementInFinnish": "Announcement in Finnish",
+          "announcementInEnglish": "Announcement in English",
+          "announcementInSwedish": "Announcements in Swedish",
+          "subjectEn": "Subject header (en)",
+          "subjectFi": "Subject header (fi)",
+          "subjectSv": "Subject header (sv)",
+          "contentEn": "Content (en)",
+          "contentFi": "Content (fi)",
+          "contentSv": "Content (sv)",
+          "submit": "Submit",
+          "cancel": "Cancel",
+          "enterSubject": "Enter subject",
+          "enterContent": "Enter Content",
+          "selectZone": "Select zone",
+          "recipientZones": "Recipients' zone(s)"
+        }
+      },
+      "customers": {
+        "customersSearch": {
+          "name": "Name",
+          "nationalIdNumber": "Personal ID",
+          "searchButton": "Search",
+          "clearButton": "Clear"
+        },
+        "customerCard": {
+          "firstName": "First name",
+          "lastName": "Last name",
+          "phoneNumber": "Phone number",
+          "nationalIdNumber": "Personal ID",
+          "email": "Email",
+          "address": "Address",
+          "otherAddress": "Temporary address",
+          "language": "Language",
+          "languages": {
+            "fi": "Finnish",
+            "en": "English",
+            "sv": "Swedish"
+          }
+        }
       }
     }
   },
@@ -507,7 +594,7 @@
       "refunds": "Refunds",
       "save": "Save",
       "downloadPdf": "Download redund details as PDF",
-      "title": "Edit Refund",
+      "title": "Edit refund",
       "ibanIsRequired": "IBAN number is required"
     },
     "refunds": {
@@ -557,6 +644,38 @@
       "products": {
         "addNewPrice": "Add new price",
         "title": "Product price list"
+      },
+      "announcements": {
+        "title": "Announcements",
+        "createNewAnnouncement": "Create new announcement",
+        "subject": "Subject header",
+        "zones": "Parking zones",
+        "sender": "Sender",
+        "sentAt": "Sent at"
+      },
+      "announcement": {
+        "announcementInFinnish": "Announcement in Finnish",
+        "announcementInSwedish": "Announcement in Swedish",
+        "announcementInEnglish": "Announcement in English",
+        "returnToList": "Return to list",
+        "zone": "Zone",
+        "sender": "Sender",
+        "sentAt": "Sent at"
+      },
+      "createAnnouncement": {
+        "title": "Create new announcement"
+      },
+      "customers": {
+        "title": "Customers",
+        "name": "Name",
+        "email": "Email",
+        "phoneNumber": "Phone number",
+        "nationalIdNumber": "Personal ID"
+      },
+      "viewCustomer": {
+        "personalInfo": "Personal information",
+        "returnToList": "Return to list",
+        "downloadCustomerData": "Download customer data"
       }
     }
   },

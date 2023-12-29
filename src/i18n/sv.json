@@ -1,6 +1,6 @@
 {
   "changelogEvent": {
-    "CHANGED": "Uppdaterad",
+    "CHANGED": "Modifierad",
     "CREATED": "Skapat"
   },
   "components": {
@@ -13,21 +13,77 @@
         "placeholder": "Sök adress..."
       },
       "changeLogs": {
-        "createdAt": "Skapade vid",
-        "createdBy": "Skapad av",
+        "createdAt": "Gjort",
+        "createdBy": "Skapat av",
         "description": "Beskrivning",
-        "event": "Event"
+        "event": "Evenemang",
+        "validityPeriod": "Orderintervall",
+        "sum": "Belopp, €",
+        "paymentType": "Betalningsmetod",
+        "paymentTypes": {
+          "CASHIER_PAYMENT": "Betalning till kassan",
+          "ONLINE_PAYMENT": "Online betalning",
+          "REFUND": "Återbetalning "
+        },
+        "paidAt": "Betalt",
+        "fieldNames": {
+          "status": "Status",
+          "customer__email": "E-post",
+          "customer__first_name": "Förnamn",
+          "customer__last_name": "Efternamn",
+          "customer__phone_number": "Telefonnummer",
+          "customer__primary_address": "Adress",
+          "customer__other_address": "Temporär adress",
+          "customer__zone": "Boendeparkeringsområde",
+          "parking_zone": "Boendeparkeringsområde",
+          "vehicle": "Fordon",
+          "vehicle__registration_number": "Registreringsnummer"
+        },
+        "events": {
+          "update_permit": "Tillstånd uppdaterat",
+          "create_permit": "Tillstånd gjort",
+          "end_permit": "Tillstånd  slutet",
+          "renew_order": "Beställning uppdaterad",
+          "create_order": "Beställning gjort",
+          "create_refund": "Återbetalning gjord",
+          "add_temporary_vehicle": "Tillstånd uppdaterat",
+          "remove_temporary_vehicle": "Tillstånd uppdaterat"
+        },
+        "descriptions": {
+          "update_permit": "Tillstånd uppdaterat",
+          "create_permit": "Tillstånd gjort",
+          "end_permit": "Tillstånd  slutet",
+          "renew_order": "Beställning uppdaterad",
+          "create_order": "Tillstånd #{{relatedObject.id}} gjort",
+          "create_refund": "Återbetalning #{{relatedObject.id}} gjordt",
+          "add_temporary_vehicle": "Tillfälligt fordon {{relatedObject.vehicle.registrationNumber}} har lagts till",
+          "remove_temporary_vehicle": "Tillfälligt fordon {{relatedObject.vehicle.registrationNumber}} borttaget"
+        }
       },
       "dataTable": {
         "downloadCsv": "Ladda ner resultaten som en csv-fil",
         "results": "Resultat: {{count}}",
         "selectAll": "Välj alla från listan"
       },
+      "powerTypeSelect": {
+        "bensin": "Bensin",
+        "bifuel": "Dubbelbränsle",
+        "diesel": "Diesel",
+        "electric": "Elektrisk"
+      },
       "price": {
-        "perMonth": "€/pm"
+        "perMonth": "€/månad"
+      },
+      "table": {
+        "initialText": "Ange sökkriterier",
+        "noResults": "Inga resultat."
       },
       "zoneSelect": {
-        "zone": "Område"
+        "zone": "Området",
+        "placeholder": "Välja..."
+      },
+      "checkboxGroup": {
+        "selectAll": "Välja alla"
       }
     },
     "createPermit": {
@@ -45,11 +101,11 @@
       "orders": "Beställningar",
       "permits": "Tillstånd",
       "refunds": "Återbetalningar",
-      "skipToContent": "Hoppa till innehållet"
+      "skipToContent": "Till innehållet"
     },
     "footer": {
       "parkingInfo": "Information om parkering",
-      "copyright": "Helsingfors stad, Personuppgifter - Digital- och befolkningsdatatjänstbyrå, Fordons- och körkortsdata - Traficom",
+      "copyright": "Helsingfors stad, Personuppgifter - Digital- och befolkningsdatatjänstbyrå",
       "dataProtection": "Dataskydd",
       "registryDescription": "Registerbeskrivning"
     },
@@ -60,12 +116,26 @@
         "name": "Kund",
         "orderNumber": "Ordernummer",
         "paidTime": "Betalt datum",
+        "paidTimeFormat": "d.M.Y 'klo' H",
         "permits": "Parkeringstillstånd",
         "permitType": "Typ av tillstånd",
         "registrationNumbers": "Registreringsnummer",
         "residentPermit": "Boendeparkering",
+        "paymentType": "Betalningsmetod",
         "totalPaymentPrice": "Totalpris",
-        "zone": "Zon"
+        "zone": "Området"
+      },
+      "ordersSearch": {
+        "startDate": "Start datum",
+        "endDate": "Utgångsdatum",
+        "zone": "Området",
+        "placeholder": "Ange ett sökord, t.ex. registreringsnummer",
+        "contractType": "Giltighet",
+        "paymentType": "Betalning",
+        "priceDiscount": "Rabatterat pris",
+        "textSearch": "Textsökning",
+        "searchButton": "Sök",
+        "clearButton": "Klart"
       }
     },
     "permitDetail": {
@@ -93,6 +163,7 @@
         "contractType": "Kontraktstyp",
         "endTime": "Sluttid",
         "monthsLeft": "Månader kvar",
+        "now": "Nu",
         "startTime": "Starttid",
         "status": "Status",
         "title": "Tillståndsinformation",
@@ -149,7 +220,7 @@
         "lowEmissionVehicle": "Fordon med låga utsläpp",
         "removeTemporaryVehicle": "Ta bort det tillfälliga fordonet",
         "title": "Fordonsinformation",
-        "vehicleCopyright": "Källä: Trafik- och transportregistret, Traficom"
+        "vehicleCopyright": "Källa: Trafik- och transportregistret, Traficom"
       }
     },
     "permits": {
@@ -175,7 +246,7 @@
       },
       "permitsSearch": {
         "placeholder": "Sök",
-        "search": "Sök"
+        "searchButton": "Sök"
       },
       "permitsSearchFilters": {
         "filterList": "Filterlista"
@@ -198,9 +269,11 @@
         "status": "Status"
       },
       "refundsSearch": {
-        "cash": "Kontanter",
+        "cash": "Kassa",
         "searchPlaceholder": "Namn, registreringsnummer eller ordernummer",
-        "webshop": "Webbshop"
+        "webshop": "Webshop",
+        "searchButton": "Sök",
+        "paymentType": "Betalning"
       },
       "refundStatusSelect": {
         "status": "Status"
@@ -231,7 +304,7 @@
         "validPeriodInMonths": "Giltig period i månader"
       },
       "personalInfo": {
-        "addressSecurityBan": "Säkerhetsförbud: Adress och namn kommer inte att registreras",
+        "addressSecurityBan": "Säkerhetsförbud",
         "driverLicenseChecked": "Förarlicensen är kontrollerad",
         "email": "E-post",
         "firstName": "Förnamn",
@@ -243,7 +316,7 @@
         "primaryAddress": "Permanent adress",
         "addressApartment": "Lägenhet",
         "search": "Sök",
-        "zone": "Zon"
+        "zone": "Området"
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
@@ -260,8 +333,21 @@
         "serialNumber": "Serienummer",
         "vehicleClass": "Fordonsklass",
         "vehicleInfo": "Fordonsinformation",
-        "vehicleCopyright": "Källä: Trafik- och transportregistret, Traficom",
-        "clear": "Rensa"
+        "vehicleCopyright": "Källa: Trafik- och transportregistret, Traficom",
+        "clear": "Rensa",
+        "restrictions": {
+          "text": "Traficom har följande restriktionsnotifikation för detta fordon: {{restriction}}.",
+          "driving_ban": "Körförbud",
+          "compulsory_inspection_neglected": "Besiktningsbesiktningsplikt eftersatt",
+          "periodic_inspection_rejected": "Periodisk inspektion utestående/övergiven",
+          "vehicle_stolen": "Fordon stulen",
+          "vehicle_deregistered": "Fordon avställas tillfälligt",
+          "vehicle_tax_due": "Fordonsskattens försenad",
+          "probited_to_use_additional_tax": "Förbjudet att använda/tilläggsavgift",
+          "old_vehicle_diesel_due": "Gammalt fordon/diesel skatt förfaller",
+          "registration_plates_confiscated": "Innehav av registreringsskyltarna",
+          "driving_ban_registration_plates_confiscated": "Körförbud för innehav av registreringsskyltarna"
+        }
       }
     },
     "superAdmin": {
@@ -366,9 +452,53 @@
       },
       "sideNav": {
         "addresses": "Adresser",
-        "lowEmissionCriteria": "Lågutsläppskriterier",
+        "announcements": "Meddelanden",
+        "lowEmissionCriteria": "Kriterier för lågemission",
         "menu": "Meny",
-        "products": "Produkter"
+        "products": "Tillstånder",
+        "customers": "Kunder"
+      },
+      "announcements": {
+        "announcementForm": {
+          "announcementInFinnish": "Meddelande på finska",
+          "announcementInEnglish": "Meddelande på engelska",
+          "announcementInSwedish": "Meddelande på svenska",
+          "subjectEn": "Meddelandets titel (en)",
+          "subjectFi": "Meddelandets titel (fi)",
+          "subjectSv": "Meddelandets titel (sv)",
+          "contentEn": "Meddelande (en)",
+          "contentFi": "Meddelande (fi)",
+          "contentSv": "Meddelande (sv)",
+          "submit": "Skicka ett meddelande",
+          "cancel": "Ångra",
+          "enterSubject": "Title",
+          "enterContent": "Meddelande",
+          "selectZone": "Välj ett område",
+          "recipientZones": "Mottagande område"
+        }
+      },
+      "customers": {
+        "customersSearch": {
+          "name": "Namn",
+          "nationalIdNumber": "Personnummer",
+          "searchButton": "Sök",
+          "clearButton": "Rensa sökkriterierna"
+        },
+        "customerCard": {
+          "firstName": "Förnamn",
+          "lastName": "Efternamn",
+          "phoneNumber": "Telefonnummer",
+          "nationalIdNumber": "Personnummer",
+          "email": "E-post",
+          "address": "Adress",
+          "otherAddress": "Annan adress",
+          "language": "Språk",
+          "languages": {
+            "fi": "Finska",
+            "en": "Engelska",
+            "sv": "Svenska"
+          }
+        }
       }
     }
   },
@@ -382,7 +512,7 @@
       "onlinePayment": "Online betalning"
     },
     "priceDiscount": {
-      "lowEmission": "Lågtutsläpp"
+      "lowEmission": "Lågemission"
     }
   },
   "contractType": {
@@ -407,7 +537,7 @@
       "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
       "cancelPayment": "Avbryt betalning",
       "confirmPayment": "Betalning slutförd",
-      "confirmPaymentMessage": "Kunden måste göra en betalning innan ID:t kan träda i kraft.",
+      "confirmPaymentMessage": "Kunden måste göra en betalning innan ID",
       "confirmPaymentTitle": "Bekräfta betalning",
       "confirmPaymentTotalAmount": "Det totala beloppet för beställningen är {{amount}} €.",
       "createNewPermit": "Skapa nytt tillstånd",
@@ -422,7 +552,7 @@
     "editResidentPermit": {
       "cancelPayment": "Avbryt betalning",
       "confirmPayment": "Betalning slutförd",
-      "confirmPaymentMessage": "Kunden måste göra en betalning innan ID:t kan träda i kraft.",
+      "confirmPaymentMessage": "Kunden måste göra en betalning innan ID",
       "confirmPaymentTitle": "Bekräfta betalning",
       "confirmPaymentTotalAmount": "Det totala beloppet för beställningen är {{amount}} €.",
       "edit": "Redigera",
@@ -512,8 +642,40 @@
         "title": "Lågutsläppskriterier"
       },
       "products": {
-        "addNewPrice": "Skapa ett nytt produkt",
-        "title": "Produktslista"
+        "addNewPrice": "Gör ny produkt",
+        "title": "Produkt"
+      },
+      "announcements": {
+        "title": "Meddelanden",
+        "createNewAnnouncement": "Gör ett nytt meddelande",
+        "subject": "Title",
+        "zones": "Parkeringsområde",
+        "sender": "Avsändare",
+        "sentAt": "Skickat"
+      },
+      "announcement": {
+        "announcementInFinnish": "Meddelande på finska",
+        "announcementInSwedish": "Meddelande på svenska",
+        "announcementInEnglish": "Meddelande på engelska",
+        "returnToList": "Återgå till listvyn",
+        "zone": "Område",
+        "sender": "Avsändare",
+        "sentAt": "Skickat"
+      },
+      "createAnnouncement": {
+        "title": "Gör ett nytt meddelande"
+      },
+      "customers": {
+        "title": "Kunder",
+        "name": "Namn",
+        "email": "E-post",
+        "phoneNumber": "Telefonnummer",
+        "nationalIdNumber": "Personligt ID"
+      },
+      "viewCustomer": {
+        "personalInfo": "Personlig information",
+        "returnToList": "Återgå till listvy",
+        "downloadCustomerData": "Ladda kundinformation"
       }
     }
   },
