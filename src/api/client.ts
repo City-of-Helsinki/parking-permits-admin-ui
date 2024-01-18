@@ -10,7 +10,7 @@ import { getEnv } from '../utils';
 
 function getApiClient(token: string): ApolloClient<NormalizedCacheObject> {
   const httpLink = createHttpLink({
-    uri: getEnv('REACT_APP_PARKING_PERMIT_ADMIN_API'),
+    uri: `${getEnv('REACT_APP_PARKING_PERMITS_BACKEND_URL')}/admin-graphql/`,
   });
 
   const authLink = setContext((_, { headers }) => ({
