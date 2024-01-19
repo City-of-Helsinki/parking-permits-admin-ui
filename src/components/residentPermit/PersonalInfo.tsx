@@ -91,7 +91,6 @@ const PersonalInfo = ({
       customer: {
         ...person,
         ...customer,
-        nationalIdNumber: nationalIdNumber?.toUpperCase(),
       },
     });
   };
