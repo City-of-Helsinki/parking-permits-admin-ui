@@ -288,7 +288,9 @@ const CreateResidentPermit = (): React.ReactElement => {
   if (activePermits && activePermits.length > 0) {
     const startTime = new Date(activePermits[0].startTime);
     minStartDate = startTime > minStartDate ? startTime : minStartDate;
+    permit.startTime = minStartDate.toISOString();
   }
+
   return (
     <div className={styles.container}>
       <Breadcrumbs>
