@@ -19,6 +19,7 @@ interface PermitInfoProps {
   className?: string;
   editMode?: boolean;
   permit: PermitDetail;
+  minStartDate?: Date;
   onUpdatePermit: (permit: PermitDetail) => void;
 }
 
@@ -26,6 +27,7 @@ const PermitInfo = ({
   className,
   editMode = false,
   permit,
+  minStartDate,
   onUpdatePermit,
 }: PermitInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
@@ -38,6 +40,7 @@ const PermitInfo = ({
     FIXED_PERIOD: t('contractType.fixedPeriod'),
     OPEN_ENDED: t('contractType.openEnded'),
   };
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.permitInfo`)}</div>
@@ -84,6 +87,7 @@ const PermitInfo = ({
           className={styles.fieldItem}
           id="startDate"
           initialMonth={new Date()}
+          minDate={minStartDate}
           label={t(`${T_PATH}.startDate`)}
           language={i18n.language as Language}
           value={formatDateDisplay(permit.startTime)}

@@ -16,7 +16,7 @@ export interface Address {
 
 export type CustomerActivePermit = Pick<
   Permit,
-  'id' | 'primaryVehicle' | 'monthCount'
+  'id' | 'primaryVehicle' | 'monthCount' | 'startTime'
 >;
 
 export enum SelectedAddress {
