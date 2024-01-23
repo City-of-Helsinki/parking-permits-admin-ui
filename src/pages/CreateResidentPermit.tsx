@@ -76,6 +76,7 @@ const CUSTOMER_QUERY = gql`
         id
         primaryVehicle
         monthCount
+        startTime
       }
     }
   }
@@ -281,6 +282,15 @@ const CreateResidentPermit = (): React.ReactElement => {
       0
     )
   );
+
+  const { activePermits } = customer;
+  let minStartDate = new Date();
+  if (activePermits && activePermits.length > 0) {
+    const startTime = new Date(activePermits[0].startTime);
+    minStartDate = startTime > minStartDate ? startTime : minStartDate;
+    permit.startTime = minStartDate.toISOString();
+  }
+
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -318,6 +328,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           permit={permit}
           className={styles.permitInfo}
           onUpdatePermit={handleUpdatePermit}
+          minStartDate={minStartDate}
         />
       </div>
       <div className={styles.footer}>
