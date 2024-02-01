@@ -131,7 +131,7 @@ export function formatPermitMaxValidPeriodInMonths(
 
 export function formatDateTimeDisplay(
   datetime: string | Date,
-  dtFormat = 'd.M.Y, HH:mm'
+  dtFormat = 'd.M.y, HH:mm'
 ): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
   return dt ? format(dt, dtFormat) : '';

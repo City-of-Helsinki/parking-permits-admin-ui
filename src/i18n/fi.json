@@ -160,7 +160,7 @@
         "address": "Osoite",
         "parkingZone": "Pysäköintialue",
         "additionalInfo": "Lisätiedot",
-        "bypassTraficomValidation": "Traficomin validointi",
+        "bypassTraficomValidation": "Traficomin tarkistus",
         "yes": "Kyllä",
         "no": "Ei",
         "contractType": "Tunnuksen tyyppi",
@@ -296,7 +296,7 @@
       "permitInfo": {
         "additionalInfo": "Lisätiedot",
         "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
-        "bypassTraficomValidationText": "Ohita Traficomin validointi",
+        "bypassTraficomValidationText": "Ohita Traficomin tarkistus",
         "permitOrder": "Järjestys",
         "firstPermit": "1. tunnus",
         "secondPermit": "2. tunnus",
