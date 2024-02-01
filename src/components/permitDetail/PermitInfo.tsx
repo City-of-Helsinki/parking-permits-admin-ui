@@ -31,6 +31,7 @@ const PermitInfo = ({
     endTime,
     status,
     currentPeriodEndTime,
+    bypassTraficomValidation,
     description,
     primaryVehicle,
     parkingZone,
@@ -63,6 +64,10 @@ const PermitInfo = ({
     {
       label: t(`${T_PATH}.contractType`),
       value: contractTypeLabelMapping[contractType] || '-',
+    },
+    {
+      label: t(`${T_PATH}.bypassTraficomValidation`),
+      value: bypassTraficomValidation ? t(`${T_PATH}.yes`) : t(`${T_PATH}.no`),
     },
     {
       label: t(`${T_PATH}.validPeriod`),
