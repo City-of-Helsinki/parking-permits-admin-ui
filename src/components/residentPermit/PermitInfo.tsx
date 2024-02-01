@@ -1,5 +1,11 @@
 import { addDays, addMonths, endOfDay } from 'date-fns';
-import { DateInput, NumberInput, TextArea, TextInput } from 'hds-react';
+import {
+  Checkbox,
+  DateInput,
+  NumberInput,
+  TextArea,
+  TextInput,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Language, ParkingPermitStatus, PermitDetail } from '../../types';
@@ -56,6 +62,19 @@ const PermitInfo = ({
             t(`${T_PATH}.firstPermit`),
             t(`${T_PATH}.secondPermit`)
           )}
+        />
+        <Checkbox
+          className={styles.fieldItem}
+          id="bypassTraficomValidation"
+          name="bypassTraficomValidation"
+          label={t(`${T_PATH}.bypassTraficomValidationText`)}
+          checked={permit.bypassTraficomValidation}
+          onChange={e =>
+            onUpdatePermit({
+              ...permit,
+              bypassTraficomValidation: e.target.checked,
+            })
+          }
         />
         <TextInput
           readOnly
