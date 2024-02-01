@@ -268,6 +268,7 @@ export interface PermitDetail {
   canEndAfterCurrentPeriod: boolean;
   canBeRefunded: boolean;
   consentLowEmissionAccepted: boolean;
+  bypassTraficomValidation: boolean;
   contractType: PermitContractType;
   monthCount: number;
   monthsLeft: number;
