@@ -268,6 +268,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     description,
     address,
     addressApartment,
+    bypassTraficomValidation,
     parkingZone,
   } = permit;
   const vehicleInput = convertToVehicleInput(vehicle);
@@ -280,6 +281,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     startTime,
     monthCount,
     description,
+    bypassTraficomValidation,
     zone: parkingZone?.name || address?.zone?.name,
     address: convertAddressToAddressInput(address),
     addressApartment,

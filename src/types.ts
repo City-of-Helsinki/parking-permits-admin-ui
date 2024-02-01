@@ -307,6 +307,7 @@ export interface PermitInput {
   zone: string | undefined;
   address: Address | undefined;
   addressApartment: string;
+  bypassTraficomValidation: boolean;
 }
 
 export interface PageInfo {
