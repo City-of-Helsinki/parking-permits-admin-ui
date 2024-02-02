@@ -56,9 +56,12 @@ export enum EmissionType {
 
 export enum VehicleClass {
   M1 = 'M1',
+  M1G = 'M1G',
   M2 = 'M2',
   N1 = 'N1',
+  N1G = 'N1G',
   N2 = 'N2',
+  N2G = 'N2G',
   L3eA1 = 'L3e-A1',
   L3eA2 = 'L3e-A2',
   L3eA3 = 'L3e-A3',
