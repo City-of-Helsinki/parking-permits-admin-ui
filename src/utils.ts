@@ -131,7 +131,7 @@ export function formatPermitMaxValidPeriodInMonths(
 
 export function formatDateTimeDisplay(
   datetime: string | Date,
-  dtFormat = 'd.M.Y, HH:mm'
+  dtFormat = 'd.M.y, HH:mm'
 ): string {
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
   return dt ? format(dt, dtFormat) : '';
@@ -268,6 +268,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     description,
     address,
     addressApartment,
+    bypassTraficomValidation,
     parkingZone,
   } = permit;
   const vehicleInput = convertToVehicleInput(vehicle);
@@ -280,6 +281,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
     startTime,
     monthCount,
     description,
+    bypassTraficomValidation,
     zone: parkingZone?.name || address?.zone?.name,
     address: convertAddressToAddressInput(address),
     addressApartment,

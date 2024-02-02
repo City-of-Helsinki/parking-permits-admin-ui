@@ -160,6 +160,9 @@
         "address": "Address",
         "parkingZone": "Parking zone",
         "additionalInfo": "Additional information",
+        "bypassTraficomValidation": "Traficom checking",
+        "yes": "Yes",
+        "no": "No",
         "contractType": "Contract type",
         "endTime": "End time",
         "monthsLeft": "Months left",
@@ -293,6 +296,7 @@
       "permitInfo": {
         "additionalInfo": "Additional information",
         "additionalInfoPlaceholder": "Additional information, e.g. information about moped",
+        "bypassTraficomValidationText": "Bypass Traficom checking",
         "permitOrder": "Order",
         "firstPermit": "1. permit",
         "secondPermit": "2. permit",
