@@ -41,6 +41,10 @@ const StatusSelect = ({
       value: ParkingPermitStatus.PAYMENT_IN_PROGRESS,
     },
     {
+      label: <StatusLabel status={ParkingPermitStatus.CANCELLED} />,
+      value: ParkingPermitStatus.CANCELLED,
+    },
+    {
       label: <StatusLabel status={ParkingPermitStatus.CLOSED} />,
       value: ParkingPermitStatus.CLOSED,
     },

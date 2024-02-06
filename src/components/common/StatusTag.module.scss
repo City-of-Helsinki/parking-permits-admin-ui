@@ -13,14 +13,14 @@ $size: 32px;
   padding: 0 $spacing-s;
 }
 
-.closed {
-  border: 1px solid $color-closed-border;
-  background-color: $color-closed-fill;
-}
-
 .draft {
   border: 1px solid $color-draft-border;
   background-color: $color-draft-fill;
+}
+
+.paymentInProgress {
+  border: 1px solid $color-payment-in-progress-border;
+  background-color: $color-payment-in-progress-fill;
 }
 
 .valid {
@@ -28,7 +28,12 @@ $size: 32px;
   background-color: $color-valid-fill;
 }
 
-.paymentInProgress {
-  border: 1px solid $color-payment-in-progress-border;
-  background-color: $color-payment-in-progress-fill;
+.cancelled {
+  border: 1px solid $color-cancelled-border;
+  background-color: $color-cancelled-fill;
+}
+
+.closed {
+  border: 1px solid $color-closed-border;
+  background-color: $color-closed-fill;
 }
