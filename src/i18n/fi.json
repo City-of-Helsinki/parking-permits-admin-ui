@@ -160,7 +160,7 @@
         "address": "Osoite",
         "parkingZone": "Pysäköintialue",
         "additionalInfo": "Lisätiedot",
-        "bypassTraficomValidation": "Traficomin tarkistus",
+        "bypassTraficomValidation": "Ohita Traficomin tarkistus",
         "yes": "Kyllä",
         "no": "Ei",
         "contractType": "Tunnuksen tyyppi",
@@ -684,10 +684,11 @@
     }
   },
   "permitStatus": {
-    "closed": "Suljettu",
     "draft": "Luonnos",
     "paymentInProgress": "Maksussa",
-    "valid": "Voimassa"
+    "valid": "Voimassa",
+    "cancelled": "Peruutettu",
+    "closed": "Suljettu"
   },
   "productType": {
     "company": "Yrityspysäköinti",
