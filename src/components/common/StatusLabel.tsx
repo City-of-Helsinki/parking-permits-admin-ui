@@ -15,12 +15,14 @@ const StatusLabel = ({ status }: StatusLabeProps): React.ReactElement => {
       'permitStatus.paymentInProgress'
     ),
     [ParkingPermitStatus.VALID]: t('permitStatus.valid'),
+    [ParkingPermitStatus.CANCELLED]: t('permitStatus.cancelled'),
     [ParkingPermitStatus.CLOSED]: t('permitStatus.closed'),
   };
   const statusStyleMapping = {
     [ParkingPermitStatus.DRAFT]: styles.draft,
     [ParkingPermitStatus.PAYMENT_IN_PROGRESS]: styles.paymentInProgress,
     [ParkingPermitStatus.VALID]: styles.valid,
+    [ParkingPermitStatus.CANCELLED]: styles.cancelled,
     [ParkingPermitStatus.CLOSED]: styles.closed,
   };
   return (

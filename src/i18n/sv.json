@@ -160,6 +160,7 @@
         "address": "Adress",
         "parkingZone": "Parkeringszon",
         "additionalInfo": "Ytterligare information",
+        "bypassTraficomValidation": "Bypass Traficom-validering",
         "contractType": "Kontraktstyp",
         "endTime": "Sluttid",
         "monthsLeft": "Månader kvar",
@@ -293,6 +294,7 @@
       "permitInfo": {
         "additionalInfo": "Ytterligare information",
         "additionalInfoPlaceholder": "För ytterligare information, t.ex. information om mopeden",
+        "bypassTraficomValidationText": "Bypass Traficom-validering",
         "permitOrder": "Ordning",
         "firstPermit": "1. tillstånd",
         "secondPermit": "2. tillstånd",
@@ -680,10 +682,11 @@
     }
   },
   "permitStatus": {
-    "closed": "Stängt",
     "draft": "Utkast",
     "paymentInProgress": "Betalning pågår",
-    "valid": "Giltigt"
+    "valid": "Giltigt",
+    "cancelled": "Inställt",
+    "closed": "Stängt"
   },
   "productType": {
     "company": "Företagsparkering",

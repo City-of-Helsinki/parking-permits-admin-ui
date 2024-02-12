@@ -160,7 +160,7 @@
         "address": "Address",
         "parkingZone": "Parking zone",
         "additionalInfo": "Additional information",
-        "bypassTraficomValidation": "Traficom checking",
+        "bypassTraficomValidation": "Bypass Traficom checking",
         "yes": "Yes",
         "no": "No",
         "contractType": "Contract type",
@@ -684,10 +684,11 @@
     }
   },
   "permitStatus": {
-    "closed": "Closed",
     "draft": "Draft",
     "paymentInProgress": "Payment in progress",
-    "valid": "Valid"
+    "valid": "Valid",
+    "cancelled": "Cancelled",
+    "closed": "Closed"
   },
   "productType": {
     "company": "Company parking",
