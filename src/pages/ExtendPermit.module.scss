@@ -1,0 +1,35 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.permitInfo {
+  margin: $spacing-m 0;
+}
+.priceList {
+  margin-top: $spacing-m;
+  width: 100%;
+}
+
+.footer {
+  padding: $spacing-m $spacing-s;
+  box-shadow: 0 -5px 5px -5px $color-black-30;
+  position: fixed;
+  width: 99%;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 20;
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: $breakpoint-xl;
+    .actionButton {
+      &:not(:last-child) {
+        margin-right: $spacing-s;
+      }
+    }
+  }
+}

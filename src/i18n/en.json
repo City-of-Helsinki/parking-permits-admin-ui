@@ -293,6 +293,24 @@
         "save": "Save",
         "title": "Summary"
       },
+      "extendPermit": {
+        "monthCount": "Number of months",
+        "price": "Price",
+        "totalPrice": "Total price",
+        "cancelAndCloseWithoutSaving": "Cancel and close without saving",
+        "continue": "Continue",
+        "cancelPayment": "Cancel payment",
+        "confirmPayment": "Payment completed",
+        "confirmPaymentMessage": "Before the permit becomes valid, the customer must make the payment.",
+        "confirmPaymentTitle": "Confirm payment",
+        "confirmPaymentTotalAmount": "Total price of order: {{totalPrice}} €.",
+        "extendPermit": "Extend permit",
+        "permits": "Permits",
+        "period": "Period",
+        "pricePerMonth": "Price per month",
+        "includingVAT": "Incl. VAT %",
+        "totalPriceForPeriod": "Total"
+      },
       "permitInfo": {
         "additionalInfo": "Additional information",
         "additionalInfoPlaceholder": "Additional information, e.g. information about moped",

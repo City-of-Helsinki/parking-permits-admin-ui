@@ -206,6 +206,7 @@ export interface Permit {
   primaryVehicle: boolean;
   endTime?: string;
   currentPeriodEndTime?: string;
+  canAdminExtendPermit: boolean;
   contractType: PermitContractType;
   monthCount: number;
 }
@@ -271,6 +272,8 @@ export interface PermitDetail {
   canEndImmediately: boolean;
   canEndAfterCurrentPeriod: boolean;
   canBeRefunded: boolean;
+  canAdminExtendPermit: boolean;
+  maxExtensionMonthCount: number;
   consentLowEmissionAccepted: boolean;
   bypassTraficomValidation: boolean;
   contractType: PermitContractType;
@@ -555,4 +558,18 @@ export interface AddressSearchParams {
   streetNumber: string;
   postalCode: string;
   parkingZone: string;
+}
+
+export interface ExtendedPriceListItem {
+  startDate: string;
+  endDate: string;
+  vat: number;
+  unitPrice: number;
+  price: number;
+  netPrice: number;
+  vatPrice: number;
+}
+
+export interface ExtendedPriceListItemData {
+  getExtendedPriceList: ExtendedPriceListItem[];
 }

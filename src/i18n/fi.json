@@ -293,6 +293,24 @@
         "save": "Tallenna",
         "title": "Yhteenveto"
       },
+      "extendPermit": {
+        "extendPermit": "Jatka tunnusta",
+        "permits": "Tunnukset",
+        "monthCount": "Kuukausimäärä",
+        "price": "Hinta",
+        "totalPrice": "Kokonaissumma",
+        "period": "Voimassaoloaika",
+        "pricePerMonth": "Kuukausihinta",
+        "includingVAT": "Sis. ALV %",
+        "totalPriceForPeriod": "Yhteensä",
+        "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
+        "continue": "Jatka",
+        "cancelPayment": "Peruuta maksu",
+        "confirmPayment": "Maksu on suoritettu",
+        "confirmPaymentMessage": "Ennen tunnuksen voimaan asettamista, asiakkaan tulee suorittaa maksu.",
+        "confirmPaymentTitle": "Vahvista maksu",
+        "confirmPaymentTotalAmount": "Tilauksen kokonaissumma on {{totalPrice}} €."
+      },
       "permitInfo": {
         "additionalInfo": "Lisätiedot",
         "additionalInfoPlaceholder": "Lisätietoihin esim. tieto mopoautosta",
@@ -582,6 +600,7 @@
       "changeHistory": "Käsittelyhistoria",
       "downloadPdf": "Lataa tunnuksen tiedot PDF:nä",
       "edit": "Muokkaa",
+      "extend": "Jatka tunnusta",
       "endPermit": "Päätä tunnus",
       "now": "Nyt",
       "permitId": "Tunnus ID",

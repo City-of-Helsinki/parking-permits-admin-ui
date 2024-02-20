@@ -8,6 +8,7 @@ import CreatePermit from './pages/CreatePermit';
 import CreateResidentPermit from './pages/CreateResidentPermit';
 import EditResidentPermit from './pages/EditResidentPermit';
 import EndPermit from './pages/EndPermit';
+import ExtendPermit from './pages/ExtendPermit';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Orders from './pages/Orders';
@@ -67,6 +68,7 @@ const routes = [
       { path: 'permits/:id', element: <PermitDetail /> },
       { path: 'permits/:id/end/:endType', element: <EndPermit /> },
       { path: 'permits/:id/edit/', element: <EditResidentPermit /> },
+      { path: 'permits/:id/extend/', element: <ExtendPermit /> },
       { path: 'permits/create', element: <CreatePermit /> },
       { path: 'permits/create/resident', element: <CreateResidentPermit /> },
       { path: 'permits/create/company', element: <CreateCompanyPermit /> },
