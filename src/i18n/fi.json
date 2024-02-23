@@ -47,7 +47,11 @@
           "create_order": "Tilaus luotu",
           "create_refund": "Palautus luotu",
           "add_temporary_vehicle": "Tunnus päivitetty",
-          "remove_temporary_vehicle": "Tunnus päivitetty"
+          "remove_temporary_vehicle": "Tunnus päivitetty",
+          "create_admin_permit_extension_request": "Admin luonut tunnuksen jatkon",
+          "create_customer_permit_extension_request": "Asiakas luonut tunnuksen jatkon",
+          "approve_permit_extension_request": "Tunnuksen jatko hyväksytty",
+          "cancel_permit_extension_request": "Tunnuksen jatko peruutettu"
         },
         "descriptions": {
           "update_permit": "Tunnuksen tietoja päivitetty",
@@ -57,7 +61,11 @@
           "create_order": "Tilaus #{{relatedObject.id}} luotu tunnukselle",
           "create_refund": "Palautus #{{relatedObject.id}} luotu tunnukselle",
           "add_temporary_vehicle": "Tilapäinen ajoneuvo {{relatedObject.vehicle.registrationNumber}} lisätty tunnukseen",
-          "remove_temporary_vehicle": "Tilapäinen ajoneuvo {{relatedObject.vehicle.registrationNumber}} poistettu tunnuksesta"
+          "remove_temporary_vehicle": "Tilapäinen ajoneuvo {{relatedObject.vehicle.registrationNumber}} poistettu tunnuksesta",
+          "create_admin_permit_extension_request": "Admin luonut tunnuksen jatkon #{{relatedObject.id}}",
+          "create_customer_permit_extension_request": "Asiakas luonut tunnuksen jatkon #{{relatedObject.id}}",
+          "approve_permit_extension_request": "Tunnuksen jatko {{relatedObject.id}} hyväksytty",
+          "cancel_permit_extension_request": "Tunnuksen jatko {{relatedObject.id}} peruutettu"
         }
       },
       "dataTable": {

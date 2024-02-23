@@ -78,6 +78,11 @@ const PERMIT_DETAIL_QUERY = gql`
               registrationNumber
             }
           }
+          ... on ParkingPermitExtensionRequestNode {
+            id
+            monthCount
+            status
+          }
         }
       }
       customer {

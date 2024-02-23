@@ -47,7 +47,11 @@
           "create_order": "Beställning gjort",
           "create_refund": "Återbetalning gjord",
           "add_temporary_vehicle": "Tillstånd uppdaterat",
-          "remove_temporary_vehicle": "Tillstånd uppdaterat"
+          "remove_temporary_vehicle": "Tillstånd uppdaterat",
+          "create_admin_permit_extension_request": "Begäran om förlängning av tillstånd skapad av admin",
+          "create_customer_permit_extension_request": "Begäran om förlängning av tillstånd skapad av kund",
+          "approve_permit_extension_request": "Begäran om förlängning av tillstånd godkänd",
+          "cancel_permit_extension_request": "Begäran om förlängning av tillstånd avbruten"
         },
         "descriptions": {
           "update_permit": "Tillstånd uppdaterat",
@@ -57,7 +61,11 @@
           "create_order": "Tillstånd #{{relatedObject.id}} gjort",
           "create_refund": "Återbetalning #{{relatedObject.id}} gjordt",
           "add_temporary_vehicle": "Tillfälligt fordon {{relatedObject.vehicle.registrationNumber}} har lagts till",
-          "remove_temporary_vehicle": "Tillfälligt fordon {{relatedObject.vehicle.registrationNumber}} borttaget"
+          "remove_temporary_vehicle": "Tillfälligt fordon {{relatedObject.vehicle.registrationNumber}} borttaget",
+          "create_admin_permit_extension_request": "Begäran om förlängning av tillstånd #{{relatedObject.id}} skapad av admin",
+          "create_customer_permit_extension_request": "Begäran om förlängning av tillstånd #{{relatedObject.id}} skapad av kund",
+          "approve_permit_extension_request": "Begäran om förlängning av tillstånd #{{relatedObject.id}} godkänd",
+          "cancel_permit_extension_request": "Begäran om förlängning av tillstånd #{{relatedObject.id}} avbruten"
         }
       },
       "dataTable": {
@@ -304,6 +312,24 @@
         "permitInfo": "Tillståndsinformation",
         "startDate": "Startdatum",
         "validPeriodInMonths": "Giltig period i månader"
+      },
+      "extendPermit": {
+        "monthCount": "Antal månader",
+        "price": "Pris",
+        "totalPrice": "Totalpris",
+        "cancelAndCloseWithoutSaving": "Avbryt och stäng utan att spara",
+        "continue": "Fortsätt",
+        "cancelPayment": "Avbryt betalning",
+        "confirmPayment": "Betalning slutförd",
+        "confirmPaymentMessage": "Kunden måste göra en betalning innan tillstånd kan träda i kraft.",
+        "confirmPaymentTitle": "Bekräfta betalning",
+        "confirmPaymentTotalAmount": "Det totala beloppet för beställningen: {{totalPrice}} €.",
+        "extendPermit": "Förlänga tillstånd",
+        "permits": "Tillstånd",
+        "period": "Period",
+        "pricePerMonth": "Pris per månad",
+        "includingVAT": "Inkl. moms %",
+        "totalPriceForPeriod": "Total"
       },
       "personalInfo": {
         "addressSecurityBan": "Säkerhetsförbud",
