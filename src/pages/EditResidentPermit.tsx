@@ -42,7 +42,7 @@ const PERMIT_DETAIL_QUERY = gql`
       canEndAfterCurrentPeriod
       status
       consentLowEmissionAccepted
-      canExtendPermit
+      canAdminExtendPermit
       bypassTraficomValidation
       contractType
       monthCount
