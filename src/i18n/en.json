@@ -47,7 +47,11 @@
           "create_order": "Order created",
           "create_refund": "Refund created",
           "add_temporary_vehicle": "Permit updated",
-          "remove_temporary_vehicle": "Permit updated"
+          "remove_temporary_vehicle": "Permit updated",
+          "create_admin_permit_extension_request": "Permit extension created by admin",
+          "create_customer_permit_extension_request": "Permit extension created by customer",
+          "approve_permit_extension_request": "Permit extension approved",
+          "cancel_permit_extension_request": "Permit extension cancelled"
         },
         "descriptions": {
           "update_permit": "Permit updated",
@@ -57,7 +61,11 @@
           "create_order": "Order #{{relatedObject.id}} has been created for permit",
           "create_refund": "Refund #{{relatedObject.id}} has been created for permit",
           "add_temporary_vehicle": "Temporary vehicle {{relatedObject.vehicle.registrationNumber}} has been added to the permit",
-          "remove_temporary_vehicle": "Temporary vehicle {{relatedObject.vehicle.registrationNumber}} has been removed from the permit"
+          "remove_temporary_vehicle": "Temporary vehicle {{relatedObject.vehicle.registrationNumber}} has been removed from the permit",
+          "create_admin_permit_extension_request": "Permit extension #{{relatedObject.id}} created by admin",
+          "create_customer_permit_extension_request": "Permit extension #{{relatedObject.id}} created by customer",
+          "approve_permit_extension_request": "Permit extension #{{relatedObject.id}} approved",
+          "cancel_permit_extension_request": "Permit extension #{{relatedObject.id}} cancelled"
         }
       },
       "dataTable": {
@@ -292,6 +300,24 @@
         "goBack": "Go back",
         "save": "Save",
         "title": "Summary"
+      },
+      "extendPermit": {
+        "monthCount": "Number of months",
+        "price": "Price",
+        "totalPrice": "Total price",
+        "cancelAndCloseWithoutSaving": "Cancel and close without saving",
+        "continue": "Continue",
+        "cancelPayment": "Cancel payment",
+        "confirmPayment": "Payment completed",
+        "confirmPaymentMessage": "Before the permit becomes valid, the customer must make the payment.",
+        "confirmPaymentTitle": "Confirm payment",
+        "confirmPaymentTotalAmount": "Total price of order: {{totalPrice}} €.",
+        "extendPermit": "Extend permit",
+        "permits": "Permits",
+        "period": "Period",
+        "pricePerMonth": "Price per month",
+        "includingVAT": "Incl. VAT %",
+        "totalPriceForPeriod": "Total"
       },
       "permitInfo": {
         "additionalInfo": "Additional information",

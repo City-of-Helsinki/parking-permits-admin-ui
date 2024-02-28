@@ -35,6 +35,8 @@ const PERMIT_DETAIL_QUERY = gql`
       status
       consentLowEmissionAccepted
       bypassTraficomValidation
+      canAdminExtendPermit
+      maxExtensionMonthCount
       contractType
       monthCount
       description
@@ -75,6 +77,11 @@ const PERMIT_DETAIL_QUERY = gql`
             vehicle {
               registrationNumber
             }
+          }
+          ... on ParkingPermitExtensionRequestNode {
+            id
+            monthCount
+            status
           }
         }
       }
@@ -209,11 +216,14 @@ const PermitDetail = (): React.ReactElement => {
       customer,
       parkingZone,
       changeLogs,
+      canAdminExtendPermit,
       currentPeriodEndTime,
       canEndImmediately,
       canEndAfterCurrentPeriod,
+      maxExtensionMonthCount,
     } = permitDetail;
 
+    const showExtendButton = canAdminExtendPermit && maxExtensionMonthCount > 0;
     content = (
       <>
         <Breadcrumbs>
@@ -279,7 +289,20 @@ const PermitDetail = (): React.ReactElement => {
                     {t(`${T_PATH}.edit`)}
                   </Button>
                 )}
-                <div className={styles.spacer} />
+                {userRole > UserRole.PREPARATORS && (
+                  <div className={styles.spacer} />
+                )}
+                {userRole > UserRole.PREPARATORS && showExtendButton && (
+                  <Button
+                    className={styles.actionButton}
+                    variant="secondary"
+                    onClick={() => navigate('extend')}>
+                    {t(`${T_PATH}.extend`)}
+                  </Button>
+                )}
+                {userRole > UserRole.PREPARATORS && showExtendButton && (
+                  <div className={styles.spacer} />
+                )}
                 <Button
                   className={styles.actionButton}
                   variant="secondary"
