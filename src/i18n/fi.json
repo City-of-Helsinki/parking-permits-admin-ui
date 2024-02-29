@@ -231,7 +231,8 @@
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
         "removeTemporaryVehicle": "Poista tilapäinen ajoneuvo",
         "title": "Ajoneuvon tiedot",
-        "vehicleCopyright": "Lähde: Liikenneasioidenrekisteri, Traficom"
+        "vehicleCopyright": "Lähde: Liikenneasioidenrekisteri, Traficom",
+        "temporaryVehicle": "Tilapäinen ajoneuvo"
       }
     },
     "permits": {
