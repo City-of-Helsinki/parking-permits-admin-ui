@@ -231,7 +231,8 @@
         "lowEmissionVehicle": "Low emission vehicle",
         "removeTemporaryVehicle": "Remove temporary vehicle",
         "title": "Vehicle information",
-        "vehicleCopyright": "Source: Transport register, Traficom"
+        "vehicleCopyright": "Source: Transport register, Traficom",
+        "temporaryVehicle": "Temporary vehicle"
       }
     },
     "permits": {
