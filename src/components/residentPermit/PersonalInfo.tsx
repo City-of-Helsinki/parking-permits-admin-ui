@@ -72,12 +72,17 @@ const PersonalInfo = ({
   const [selectedAddress, setSelectedAddress] = useState<SelectedAddress>(
     getSelectedAddress()
   );
-  const onSelectAddress = (addressField: SelectedAddress, address: Address) => {
+  const onSelectAddress = (
+    addressField: SelectedAddress,
+    address: Address,
+    addressApartment: string | undefined = undefined
+  ) => {
     if (!address || !address.zone) {
       return;
     }
     onUpdatePermit({
       address,
+      addressApartment,
       parkingZone: address.zone,
       customer: {
         ...person,
@@ -166,7 +171,8 @@ const PersonalInfo = ({
               setSelectedAddress(SelectedAddress.PRIMARY);
               onSelectAddress(
                 SelectedAddress.PRIMARY,
-                primaryAddress as Address
+                primaryAddress as Address,
+                primaryAddressApartment
               );
             }}
           />
@@ -187,7 +193,11 @@ const PersonalInfo = ({
             checked={isOtherAddressSelected}
             onChange={() => {
               setSelectedAddress(SelectedAddress.OTHER);
-              onSelectAddress(SelectedAddress.OTHER, otherAddress as Address);
+              onSelectAddress(
+                SelectedAddress.OTHER,
+                otherAddress as Address,
+                otherAddressApartment
+              );
             }}
           />
           <div className={styles.radioGroupAddress}>
