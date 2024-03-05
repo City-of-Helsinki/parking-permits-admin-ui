@@ -63,10 +63,8 @@ const PersonalInfo = ({
     if (otherAddress && otherAddress?.id === permitAddress?.id) {
       return SelectedAddress.OTHER;
     }
-    if (primaryAddress && primaryAddress?.id === permitAddress?.id) {
-      return SelectedAddress.PRIMARY;
-    }
-    return SelectedAddress.NONE;
+
+    return SelectedAddress.PRIMARY;
   };
 
   const [selectedAddress, setSelectedAddress] = useState<SelectedAddress>(
@@ -77,7 +75,7 @@ const PersonalInfo = ({
     address: Address,
     addressApartment: string | undefined = undefined
   ) => {
-    if (!address || !address.zone) {
+    if (!address?.zone || addressField === SelectedAddress.NONE) {
       return;
     }
     onUpdatePermit({
@@ -99,16 +97,6 @@ const PersonalInfo = ({
       },
     });
   };
-
-  let isPrimaryAddressSelected = false;
-  let isOtherAddressSelected = false;
-
-  if (!addressSecurityBan) {
-    isOtherAddressSelected =
-      !!otherAddress && selectedAddress === SelectedAddress.OTHER;
-
-    isPrimaryAddressSelected = !isOtherAddressSelected && !!primaryAddress;
-  }
 
   return (
     <div className={className}>
@@ -166,7 +154,7 @@ const PersonalInfo = ({
             name="selectedAddress"
             label={t(`${T_PATH}.primaryAddress`)}
             value={addressSecurityBan ? '' : SelectedAddress.PRIMARY}
-            checked={isPrimaryAddressSelected}
+            checked={selectedAddress === SelectedAddress.PRIMARY}
             onChange={() => {
               setSelectedAddress(SelectedAddress.PRIMARY);
               onSelectAddress(
@@ -190,7 +178,7 @@ const PersonalInfo = ({
             name="selectedAddress"
             label={t(`${T_PATH}.otherAddress`)}
             value={addressSecurityBan ? '' : SelectedAddress.OTHER}
-            checked={isOtherAddressSelected}
+            checked={selectedAddress === SelectedAddress.OTHER}
             onChange={() => {
               setSelectedAddress(SelectedAddress.OTHER);
               onSelectAddress(
