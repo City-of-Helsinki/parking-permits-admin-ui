@@ -22,16 +22,19 @@ const CUSTOMER_QUERY = gql`
       firstName
       lastName
       nationalIdNumber
+      addressSecurityBan
       email
       phoneNumber
       zone
       driverLicenseChecked
       primaryAddress {
+        id
         city
         citySv
         streetName
         streetNumber
         postalCode
+        location
         zone {
           name
           label
@@ -40,11 +43,13 @@ const CUSTOMER_QUERY = gql`
       }
       primaryAddressApartment
       otherAddress {
+        id
         city
         citySv
         streetName
         streetNumber
         postalCode
+        location
         zone {
           name
           label
