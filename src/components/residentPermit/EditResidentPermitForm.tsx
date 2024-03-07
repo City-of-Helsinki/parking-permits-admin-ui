@@ -22,16 +22,19 @@ const CUSTOMER_QUERY = gql`
       firstName
       lastName
       nationalIdNumber
+      addressSecurityBan
       email
       phoneNumber
       zone
       driverLicenseChecked
       primaryAddress {
+        id
         city
         citySv
         streetName
         streetNumber
         postalCode
+        location
         zone {
           name
           label
@@ -40,11 +43,13 @@ const CUSTOMER_QUERY = gql`
       }
       primaryAddressApartment
       otherAddress {
+        id
         city
         citySv
         streetName
         streetNumber
         postalCode
+        location
         zone {
           name
           label
@@ -155,15 +160,56 @@ const EditResidentPermitForm = ({
     onUpdatePermit(newPermit);
 
   const handleSearchPerson = (nationalIdNumber: string) => {
+    const { address: originalAddress } = permit;
+
     onResetPermit(nationalIdNumber);
     getCustomer({
       variables: { query: { nationalIdNumber } },
     }).then(response => {
       if (response.data?.customer) {
-        handleUpdatePermit({
+        const {
+          primaryAddress,
+          primaryAddressApartment,
+          otherAddress,
+          otherAddressApartment,
+        } = response.data?.customer;
+
+        let address = null;
+        let addressApartment = '';
+
+        if (
+          !!otherAddress &&
+          !!originalAddress &&
+          otherAddress.id === originalAddress.id
+        ) {
+          address = otherAddress;
+          addressApartment = otherAddressApartment ?? '';
+        } else {
+          address = primaryAddress;
+          addressApartment = primaryAddressApartment ?? '';
+        }
+
+        let fields = {
           ...permit,
           customer: response.data?.customer,
-        });
+        };
+
+        if (address) {
+          const parkingZone = address.zone ?? {
+            name: '',
+            label: '',
+            labelSv: '',
+          };
+
+          fields = {
+            ...fields,
+            address,
+            addressApartment,
+            parkingZone,
+          };
+        }
+
+        handleUpdatePermit(fields);
       }
     });
   };

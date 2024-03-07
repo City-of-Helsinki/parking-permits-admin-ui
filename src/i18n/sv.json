@@ -229,7 +229,8 @@
         "lowEmissionVehicle": "Fordon med låga utsläpp",
         "removeTemporaryVehicle": "Ta bort det tillfälliga fordonet",
         "title": "Fordonsinformation",
-        "vehicleCopyright": "Källa: Trafik- och transportregistret, Traficom"
+        "vehicleCopyright": "Källa: Trafik- och transportregistret, Traficom",
+        "temporaryVehicle": "Fordonet är tillfälligt"
       }
     },
     "permits": {

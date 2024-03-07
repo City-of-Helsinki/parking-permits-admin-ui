@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useUserRole, { UserRole } from '../../api/useUserRole';
 import { ParkingPermitStatus, PermitDetail, PermitPrice } from '../../types';
-import { formatVehicleName } from '../../utils';
+import { formatDateTimeDisplay, formatVehicleName } from '../../utils';
 import PermitPriceRow from '../common/PermitPriceRow';
 import styles from './VehicleInfo.module.scss';
 
@@ -36,6 +36,7 @@ const VehicleInfo = ({
         <div className={styles.vehicle}>
           {formatVehicleName(activeTemporaryVehicle?.vehicle || vehicle)}
         </div>
+
         <div className={styles.emissionInfo}>
           {t(
             `${T_PATH}.${
@@ -43,6 +44,17 @@ const VehicleInfo = ({
             }`
           )}
         </div>
+        {activeTemporaryVehicle && (
+          <>
+            <div className={styles.temporaryVehicle}>
+              {t(`${T_PATH}.temporaryVehicle`)}
+            </div>
+            <div>
+              {formatDateTimeDisplay(activeTemporaryVehicle.startTime)} -{' '}
+              {formatDateTimeDisplay(activeTemporaryVehicle.endTime ?? '')}{' '}
+            </div>
+          </>
+        )}
         {permitPrices && permitPrices.length > 0 && (
           <div className={styles.priceList}>
             {permitPrices.map(permitPrice => (

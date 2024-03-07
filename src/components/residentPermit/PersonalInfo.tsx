@@ -63,21 +63,24 @@ const PersonalInfo = ({
     if (otherAddress && otherAddress?.id === permitAddress?.id) {
       return SelectedAddress.OTHER;
     }
-    if (primaryAddress && primaryAddress?.id === permitAddress?.id) {
-      return SelectedAddress.PRIMARY;
-    }
-    return SelectedAddress.NONE;
+
+    return SelectedAddress.PRIMARY;
   };
 
   const [selectedAddress, setSelectedAddress] = useState<SelectedAddress>(
     getSelectedAddress()
   );
-  const onSelectAddress = (addressField: SelectedAddress, address: Address) => {
-    if (!address || !address.zone) {
+  const onSelectAddress = (
+    addressField: SelectedAddress,
+    address: Address,
+    addressApartment: string | undefined = undefined
+  ) => {
+    if (!address?.zone || addressField === SelectedAddress.NONE) {
       return;
     }
     onUpdatePermit({
       address,
+      addressApartment,
       parkingZone: address.zone,
       customer: {
         ...person,
@@ -94,16 +97,6 @@ const PersonalInfo = ({
       },
     });
   };
-
-  let isPrimaryAddressSelected = false;
-  let isOtherAddressSelected = false;
-
-  if (!addressSecurityBan) {
-    isOtherAddressSelected =
-      !!otherAddress && selectedAddress === SelectedAddress.OTHER;
-
-    isPrimaryAddressSelected = !isOtherAddressSelected && !!primaryAddress;
-  }
 
   return (
     <div className={className}>
@@ -161,12 +154,13 @@ const PersonalInfo = ({
             name="selectedAddress"
             label={t(`${T_PATH}.primaryAddress`)}
             value={addressSecurityBan ? '' : SelectedAddress.PRIMARY}
-            checked={isPrimaryAddressSelected}
+            checked={selectedAddress === SelectedAddress.PRIMARY}
             onChange={() => {
               setSelectedAddress(SelectedAddress.PRIMARY);
               onSelectAddress(
                 SelectedAddress.PRIMARY,
-                primaryAddress as Address
+                primaryAddress as Address,
+                primaryAddressApartment
               );
             }}
           />
@@ -184,10 +178,14 @@ const PersonalInfo = ({
             name="selectedAddress"
             label={t(`${T_PATH}.otherAddress`)}
             value={addressSecurityBan ? '' : SelectedAddress.OTHER}
-            checked={isOtherAddressSelected}
+            checked={selectedAddress === SelectedAddress.OTHER}
             onChange={() => {
               setSelectedAddress(SelectedAddress.OTHER);
-              onSelectAddress(SelectedAddress.OTHER, otherAddress as Address);
+              onSelectAddress(
+                SelectedAddress.OTHER,
+                otherAddress as Address,
+                otherAddressApartment
+              );
             }}
           />
           <div className={styles.radioGroupAddress}>
