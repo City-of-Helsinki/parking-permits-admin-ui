@@ -114,7 +114,7 @@ const TemporaryVehicle = ({
                     <DateInput
                       id="startDate"
                       className="date-input"
-                      minDate={addDays(new Date(), 1)}
+                      minDate={new Date()}
                       maxDate={addWeeks(new Date(), 2)}
                       initialMonth={new Date()}
                       value={format(field.value, 'd.M.yyyy')}
