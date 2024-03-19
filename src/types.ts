@@ -209,6 +209,7 @@ export interface Permit {
   canAdminExtendPermit: boolean;
   contractType: PermitContractType;
   monthCount: number;
+  activeTemporaryVehicleRegistrationNumber?: string;
 }
 
 export interface OrderItem {
