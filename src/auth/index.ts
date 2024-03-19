@@ -336,6 +336,7 @@ const config: ClientConfig = {
   responseType: getEnv('REACT_APP_OIDC_RESPONSE_TYPE'),
   scope: getEnv('REACT_APP_OIDC_SCOPE'),
   tokenExchangePath: getEnv('REACT_APP_OIDC_TOKEN_EXCHANGE_PATH'),
+  automaticSilentRenew: true,
   autoSignIn: false,
   hasApiTokenSupport: true,
   enableLogging: getBooleanEnv('REACT_APP_OIDC_ENABLE_LOGGING'),
