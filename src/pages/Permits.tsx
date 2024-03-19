@@ -80,6 +80,7 @@ const PERMITS_QUERY = gql`
         parkingZone {
           name
         }
+        activeTemporaryVehicleRegistrationNumber
       }
       pageInfo {
         numPages
@@ -118,6 +119,7 @@ const LIMITED_PERMITS_QUERY = gql`
         parkingZone {
           name
         }
+        activeTemporaryVehicleRegistrationNumber
       }
       pageInfo {
         numPages

@@ -249,6 +249,7 @@
         "otherAddress": "Temporary address",
         "primaryAddress": "Primary address",
         "registrationNumber": "Registration number",
+        "tempRegistrationNumber": "Temporary registration number",
         "startTime": "Start time",
         "status": "Status",
         "zone": "Zone",

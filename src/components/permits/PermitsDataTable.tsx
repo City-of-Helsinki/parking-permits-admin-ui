@@ -60,6 +60,12 @@ const PermitsDataTable = ({
       selector: row => row.vehicle.registrationNumber,
       sortable: true,
     },
+    {
+      name: t(`${T_PATH}.tempRegistrationNumber`),
+      field: 'tempRegistrationNumber',
+      selector: row => row.activeTemporaryVehicleRegistrationNumber ?? '-',
+      sortable: true,
+    },
     ...(userRole > UserRole.INSPECTORS
       ? [
           {
