@@ -249,6 +249,7 @@
         "otherAddress": "Tilapäinen osoite",
         "primaryAddress": "Vakituinen osoite",
         "registrationNumber": "Rekisteritunnus",
+        "tempRegistrationNumber": "Tilapäinen rekisteritunnus",
         "startTime": "Alkuaika",
         "status": "Tila",
         "zone": "Alue",

@@ -247,6 +247,7 @@
         "otherAddress": "Temporär adress",
         "primaryAddress": "Permanent adress",
         "registrationNumber": "Registreringsnummer",
+        "tempRegistrationNumber": "Temporär registreringsnummer",
         "startTime": "Starttid",
         "status": "Status",
         "zone": "Zon",
