@@ -131,6 +131,7 @@
         "residentPermit": "Asukastunnus",
         "paymentType": "Maksutapa",
         "totalPaymentPrice": "Määrä",
+        "talpaOrderId": "Talpan tilauksen tunniste",
         "zone": "Alue"
       },
       "ordersSearch": {

@@ -67,6 +67,7 @@ const ORDERS_QUERY = gql`
         addressText
         parkingZoneName
         vehicles
+        talpaOrderId
       }
       pageInfo {
         numPages
