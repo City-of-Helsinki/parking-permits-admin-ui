@@ -143,6 +143,12 @@ const OrdersDataTable = ({
       ),
       sortable: true,
     },
+    {
+      name: t(`${T_PATH}.talpaOrderId`),
+      field: 'talpaOrderId',
+      selector: ({ talpaOrderId }) => talpaOrderId,
+      sortable: false,
+    },
   ];
 
   return (

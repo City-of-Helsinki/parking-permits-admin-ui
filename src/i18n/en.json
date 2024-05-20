@@ -131,6 +131,7 @@
         "residentPermit": "Resident permit",
         "paymentType": "Payment method",
         "totalPaymentPrice": "Price",
+        "talpaOrderId": "Talpa order ID",
         "zone": "Zone"
       },
       "ordersSearch": {

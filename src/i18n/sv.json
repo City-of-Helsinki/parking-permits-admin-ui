@@ -131,6 +131,7 @@
         "residentPermit": "Boendeparkering",
         "paymentType": "Betalningsmetod",
         "totalPaymentPrice": "Totalpris",
+        "talpaOrderId": "Talpa beställning ID",
         "zone": "Området"
       },
       "ordersSearch": {

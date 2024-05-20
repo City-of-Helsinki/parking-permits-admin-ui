@@ -445,6 +445,7 @@ export interface Order {
   addressText: string;
   parkingZoneName: string;
   vehicles: [string];
+  talpaOrderId: string;
 }
 
 export interface PagedOrders {
