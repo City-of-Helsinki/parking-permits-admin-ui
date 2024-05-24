@@ -135,8 +135,8 @@
         "zone": "Zone"
       },
       "ordersSearch": {
-        "startDate": "Permit valid from",
-        "endDate": "Permit valid until",
+        "startDate": "Order created from",
+        "endDate": "Order created until",
         "zone": "Parking zone",
         "placeholder": "Type the query, e.g. name, identity number or a registration number",
         "contractType": "Contract type",
