@@ -90,7 +90,7 @@ const RefundDetail = (): React.ReactElement => {
       .required(t(`${T_PATH}.ibanIsRequired`))
       .test({
         name: 'isValidIBAN',
-        test: value => isValidIBAN(value as string),
+        test: value => isValidIBAN(value),
         message: t('errors.invalidIBAN'),
       }),
   });
