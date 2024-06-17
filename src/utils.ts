@@ -1,4 +1,4 @@
-import { addMonths, format, intervalToDuration } from 'date-fns';
+import { addMonths, format } from 'date-fns';
 import { extractIBAN } from 'ibantools';
 import {
   Address,
@@ -7,7 +7,6 @@ import {
   OrderItem,
   ParkingPermitStatus,
   Permit,
-  PermitContractType,
   PermitDetail,
   PermitInput,
   PriceModifiers,
@@ -393,22 +392,11 @@ export function mapValues<V>(
 
 // checks that permit vehicle, address etc can be edited by admin
 export function isPermitEditable(permit: Permit | PermitDetail): boolean {
-  const { currentPeriodEndTime, status, contractType } = permit;
+  const { status } = permit;
   // if closed, cannot be edited (all permit types)
   if (status === ParkingPermitStatus.CLOSED) {
     return false;
   }
-
-  // all non-closed fixed period permits can be edited
-  if (contractType === PermitContractType.FIXED_PERIOD) {
-    return true;
-  }
-
-  // cannot edit an open ended permit if < 3 days from end of current period
-  const interval = intervalToDuration({
-    start: new Date(),
-    end: currentPeriodEndTime ? new Date(currentPeriodEndTime) : new Date(),
-  });
-
-  return (interval.days ?? 0) > 3;
+  // allow editing for all other cases
+  return true;
 }
