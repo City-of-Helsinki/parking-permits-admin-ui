@@ -53,7 +53,7 @@
     "lint:fix": "eslint --fix --ext js,ts,tsx src",
     "format": "prettier --write \"**/*.+(tsx|ts|json|scss|md)\"",
     "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts build",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
