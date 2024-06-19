@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-06-19
+
+### Added
+
+- Add changelog to project
+
+### Changed
+
+- Allow permit editing for all cases except closed
+- Update application packages
+- Use calc-function for border-radius calculation
+- Update Azure CI-settings
+- Update README
+
+### Removed
+
+- Remove obsolete Docker Compose version
+
 ## [1.0.0] - 2024-06-12
 
 * A starting layout for the admin ui app by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-admin-ui/pull/1
