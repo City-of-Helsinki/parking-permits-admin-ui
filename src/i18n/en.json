@@ -626,7 +626,7 @@
       "name": "Name",
       "refunds": "Refunds",
       "save": "Save",
-      "downloadPdf": "Download redund details as PDF",
+      "downloadPdf": "Download refund details as PDF",
       "title": "Edit refund",
       "ibanIsRequired": "IBAN number is required"
     },
