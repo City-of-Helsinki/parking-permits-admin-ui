@@ -16,7 +16,7 @@ Related repositories:
 
 Prerequisites:
 
-- Node.js: 14.x or higher
+- Node.js: 18.x or higher
 - yarn: 1.22.x or higher
 
 The application requires a running parking-permits backend, you can find more details in [this repo](https://github.com/City-of-Helsinki/parking-permits) on how to set up the backend.
