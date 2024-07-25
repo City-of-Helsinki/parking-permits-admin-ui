@@ -1,4 +1,11 @@
-import { Navigation } from 'hds-react';
+import {
+  Header as HDSHeader,
+  IconSignin,
+  IconSignout,
+  LanguageOption,
+  Logo,
+  logoFi,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { matchPath, useLocation, useNavigate } from 'react-router-dom';
@@ -7,12 +14,6 @@ import { useClient } from '../auth/hooks';
 
 const T_PATH = 'components.header';
 
-const LANGUAGES = [
-  ['fi', 'Suomeksi'],
-  ['sv', 'På Svenska'],
-  ['en', 'In English'],
-];
-
 const isActiveLink = (path: string, currentPath: string): boolean =>
   !!matchPath({ path, end: false }, currentPath);
 
@@ -20,11 +21,13 @@ const Header = (): React.ReactElement => {
   const navigate = useNavigate();
   const client = useClient();
   const userRole = useUserRole();
-  const user = client.getUser();
-  const userName = user ? `${user.given_name} ${user.family_name}` : '';
   const { t, i18n } = useTranslation();
   const title = t(`${T_PATH}.appTitle`);
   const location = useLocation();
+
+  const authenticated = client?.isAuthenticated();
+  const initialized = client?.isInitialized();
+
   const navLinks = [
     {
       path: '/permits',
@@ -52,49 +55,64 @@ const Header = (): React.ReactElement => {
       : []),
   ];
 
+  const languages: LanguageOption[] = [
+    { label: 'Suomi', value: 'fi', isPrimary: true },
+    { label: 'Svenska', value: 'sv', isPrimary: true },
+    { label: 'English', value: 'en', isPrimary: true },
+  ];
+
+  const languageChangedStateAction = (code: string) => {
+    i18n.changeLanguage(code).then(() => undefined);
+  };
+
   return (
-    <Navigation
-      title={title}
-      logoLanguage={i18n.language === 'sv' ? 'sv' : 'fi'}
-      menuToggleAriaLabel="menu"
-      skipTo="#content"
-      skipToContentLabel={t(`${T_PATH}.skipToContent`)}>
-      <Navigation.Actions>
-        <Navigation.LanguageSelector label={i18n.language.toUpperCase()}>
-          {LANGUAGES.map(([lang, label]) => (
-            <Navigation.Item
-              key={lang}
-              lang={lang}
-              label={label}
-              onClick={() => i18n.changeLanguage(lang)}
-            />
-          ))}
-        </Navigation.LanguageSelector>
-        <Navigation.User
-          authenticated={client.isAuthenticated()}
-          label={t(`${T_PATH}.login`)}
-          onSignIn={(): void => client.login()}
-          userName={userName}>
-          <Navigation.Item
-            onClick={(): void => client.logout()}
-            variant="secondary"
-            label={t(`${T_PATH}.logout`)}
+    <>
+      <HDSHeader
+        title={title}
+        onDidChangeLanguage={languageChangedStateAction}
+        languages={languages}>
+        <HDSHeader.ActionBar
+          frontPageLabel={t(`${T_PATH}.appTitle`)}
+          title={t(`${T_PATH}.appTitle`)}
+          titleAriaLabel={t(`${T_PATH}.appTitle`)}
+          titleHref="https://hel.fi"
+          logo={<Logo src={logoFi} alt="City of Helsinki" />}
+          logoAriaLabel={t(`${T_PATH}.appTitle`)}>
+          <HDSHeader.SimpleLanguageOptions
+            languages={[languages[0], languages[1], languages[2]]}
           />
-        </Navigation.User>
-      </Navigation.Actions>
-      {client.isAuthenticated() && userRole > UserRole.NON_AD_GROUPS && (
-        <Navigation.Row>
-          {navLinks.map(({ path, label }) => (
-            <Navigation.Item
-              key={path}
-              label={label}
-              onClick={() => navigate(path)}
-              active={isActiveLink(path, location.pathname)}
+          {initialized && !authenticated && (
+            <HDSHeader.ActionBarButton
+              label={t(`${T_PATH}.login`)}
+              fixedRightPosition
+              icon={<IconSignin />}
+              onClick={(): void => client?.login()}
             />
-          ))}
-        </Navigation.Row>
-      )}
-    </Navigation>
+          )}
+
+          {initialized && authenticated && (
+            <HDSHeader.ActionBarButton
+              label={t(`${T_PATH}.logout`)}
+              fixedRightPosition
+              icon={<IconSignout />}
+              onClick={(): void => client?.logout()}
+            />
+          )}
+        </HDSHeader.ActionBar>
+        {authenticated && userRole > UserRole.NON_AD_GROUPS && (
+          <HDSHeader.NavigationMenu>
+            {navLinks.map(({ path, label }) => (
+              <HDSHeader.Link
+                key={path}
+                label={label}
+                onClick={() => navigate(path)}
+                active={isActiveLink(path, location.pathname)}
+              />
+            ))}
+          </HDSHeader.NavigationMenu>
+        )}
+      </HDSHeader>
+    </>
   );
 };
 
