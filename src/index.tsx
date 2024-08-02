@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ApiClientProvider } from './api/ApiClientProvider';
 import App from './App';
@@ -26,7 +26,11 @@ if (
   });
 }
 
-ReactDOM.render(
+const container = document.getElementById('root');
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const root = createRoot(container!);
+
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <HandleCallback>
@@ -39,8 +43,7 @@ ReactDOM.render(
         </ClientProvider>
       </HandleCallback>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
