@@ -1,4 +1,4 @@
-import { addDays, addWeeks, format } from 'date-fns';
+import { addWeeks, format } from 'date-fns';
 import { Field, FieldProps, Formik } from 'formik';
 import {
   Button,
@@ -144,8 +144,7 @@ const TemporaryVehicle = ({
                     <DateInput
                       id="endDate"
                       className="date-input"
-                      minDate={form.getFieldProps('startDate').value
-                      }
+                      minDate={form.getFieldProps('startDate').value}
                       maxDate={addWeeks(
                         form.getFieldProps('startDate').value,
                         2
