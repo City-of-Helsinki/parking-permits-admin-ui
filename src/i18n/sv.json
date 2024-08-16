@@ -188,14 +188,14 @@
         "customerAccountKnown": "Kundkontonummer för återbetalning",
         "customerAccountUnknown": "Kundkontonummer okänt",
         "extraPaymentTotal": "Total extra kostnad",
-        "extraPaymentVatTotal": "Inkl. moms (24%)",
+        "extraPaymentVatTotal": "Inkl. moms",
         "newOrderTotal": "Ny order, totalpris",
         "previousOrderRemaining": "föregående beställning, totalpris",
         "priceCalcDescription": "Priserna tar hänsyn till de återstående hela månaderna av beställningen.",
-        "priceChangeItemTotalLabel": "{{count}} månader totalt (inkl. moms 24%)",
+        "priceChangeItemTotalLabel": "{{count}} månader totalt (inkl. moms)",
         "priceDifference": "PriceDifference",
         "refundTotal": "Totalt belopp som ska återbetalas",
-        "refundTotalVat": "Inkl. moms (24%)",
+        "refundTotalVat": "Inkl. moms",
         "title": "Ny prenumeration"
       },
       "refundInfo": {

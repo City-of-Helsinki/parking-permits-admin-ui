@@ -190,14 +190,14 @@
         "customerAccountKnown": "Customer's IBAN number for refund",
         "customerAccountUnknown": "Customer's IBAN number unknown",
         "extraPaymentTotal": "Total additional payment",
-        "extraPaymentVatTotal": "Incl. VAT (24%)",
+        "extraPaymentVatTotal": "Incl. vat",
         "newOrderTotal": "New order, total price",
         "previousOrderRemaining": "Previous order, total price",
         "priceCalcDescription": "Prices take into account the remaining full months of the order.",
-        "priceChangeItemTotalLabel": "{{count}} months total (incl. VAT 24%)",
+        "priceChangeItemTotalLabel": "{{count}} months total (incl. vat)",
         "priceDifference": "Price difference",
         "refundTotal": "Total amount to be refunded",
-        "refundTotalVat": "Incl. VAT (24%)",
+        "refundTotalVat": "Incl. vat",
         "title": "New order"
       },
       "refundInfo": {
@@ -320,7 +320,7 @@
         "permits": "Permits",
         "period": "Period",
         "pricePerMonth": "Price per month",
-        "includingVAT": "Incl. VAT %",
+        "includingVAT": "Incl. vat %",
         "totalPriceForPeriod": "Total"
       },
       "permitInfo": {
@@ -457,7 +457,7 @@
           "errorEnterEndDate": "Please enter a end date",
           "errorEnterPrice": "Please enter a price",
           "errorEnterStartDate": "Please enter a start date",
-          "errorEnterVAT": "Please enter a VAT percentage",
+          "errorEnterVAT": "Please enter a vat percentage",
           "errorEnterLowEmissionDiscount": "Please enter a low emission discount percentage",
           "errorSelectZone": "Please select a zone",
           "lowEmissionDiscount": "Low emission discount",
@@ -470,7 +470,7 @@
           "startDate": "Start date",
           "unit": "Unit",
           "validPeriod": "Valid period",
-          "vat": "VAT",
+          "vat": "Vat",
           "zone": "Zone"
         },
         "productsDataTable": {
@@ -480,7 +480,7 @@
           "productType": "Product type",
           "lowEmissionDiscount": "Low emission discount",
           "validPeriod": "Valid period",
-          "vat": "VAT",
+          "vat": "Vat",
           "zone": "Zone"
         }
       },
