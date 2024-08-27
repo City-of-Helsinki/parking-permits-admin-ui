@@ -110,7 +110,7 @@ const buildPriceListTable = (
     ({ startDate, endDate, unitPrice, price, vat }) => ({
       dates: `${formatDateDisplay(startDate)}-${formatDateDisplay(endDate)}`,
       unitPrice: `${formatPrice(unitPrice)} €`,
-      vat: `${formatPrice(vat)} %`,
+      vat: `${formatPrice(vat * 100)} %`,
       price: `${formatPrice(price)} €`,
     })
   );
