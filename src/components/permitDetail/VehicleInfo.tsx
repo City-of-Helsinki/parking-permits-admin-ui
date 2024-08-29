@@ -14,7 +14,7 @@ export interface VehicleInfoProps {
   permit: PermitDetail;
   permitPrices?: PermitPrice[];
   openAddTempVehicle?: (state: boolean) => void;
-  removeTemporaryVehicle: (data: { variables: { permitId: string } }) => void;
+  removeTemporaryVehicle?: (data: { variables: { permitId: string } }) => void;
 }
 
 const VehicleInfo = ({

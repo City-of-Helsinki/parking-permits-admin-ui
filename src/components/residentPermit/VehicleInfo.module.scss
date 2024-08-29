@@ -13,19 +13,6 @@
   .fieldItem {
     margin: $spacing-2-xs 0;
   }
-
-  .priceInfo {
-    margin: $spacing-m 0;
-
-    .priceTitle {
-      font-size: $fontsize-body-l;
-    }
-
-    .priceList {
-      display: flex;
-      flex-direction: column;
-    }
-  }
 }
 
 .vehicleCopyright {

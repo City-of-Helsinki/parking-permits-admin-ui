@@ -335,7 +335,9 @@
         "expirationDate": "Expiration date (other permit will be taken into account automatically upon saving)",
         "permitInfo": "Permit information",
         "startDate": "Start date",
-        "validPeriodInMonths": "Valid period in months"
+        "validPeriodInMonths": "Valid period in months",
+        "price": "Price *",
+        "priceLegend": "* the price of the permit is determined by the start date of the period"
       },
       "personalInfo": {
         "addressSecurityBan": "Non-disclosure for personal safety",
@@ -361,7 +363,6 @@
         "manufacturer": "Manufacturer",
         "model": "Model",
         "powerType": "Power type",
-        "price": "Price",
         "registrationNumber": "Registration number",
         "search": "Search",
         "serialNumber": "Serial number",

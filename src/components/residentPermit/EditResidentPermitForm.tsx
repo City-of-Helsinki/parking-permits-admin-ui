@@ -291,7 +291,6 @@ const EditResidentPermitForm = ({
           className={styles.column}
           vehicle={vehicle}
           disableVehicleFields={disableVehicleFields}
-          permitPrices={permitPrices}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
           onUpdateVehicle={handleUpdateVehicle}
@@ -301,6 +300,7 @@ const EditResidentPermitForm = ({
           className={styles.column}
           editMode
           permit={permit}
+          permitPrices={permitPrices}
           onUpdatePermit={handleUpdatePermit}
         />
       </div>

@@ -315,7 +315,9 @@
         "expirationDate": "Utgångsdatum (annat tillstånd kommer att beaktas automatiskt vid lagring)",
         "permitInfo": "Tillståndsinformation",
         "startDate": "Startdatum",
-        "validPeriodInMonths": "Giltig period i månader"
+        "validPeriodInMonths": "Giltig period i månader",
+        "price": "Pris *",
+        "priceLegend": "* priset på tillståndet bestäms av periodens startdatum"
       },
       "extendPermit": {
         "monthCount": "Antal månader",
@@ -359,7 +361,6 @@
         "manufacturer": "Tillverkare",
         "model": "Modell",
         "powerType": "Ström",
-        "price": "Pris",
         "registrationNumber": "Registreringsnummer",
         "search": "Sök",
         "serialNumber": "Serienummer",

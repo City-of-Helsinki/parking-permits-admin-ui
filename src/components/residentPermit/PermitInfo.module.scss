@@ -11,10 +11,29 @@
   padding: $spacing-s;
 
   .fieldItem {
-    margin: $spacing-2-xs 0;
+    margin: $spacing-2-xs 0 0 0;
   }
 
   .fieldDivider {
     margin: $spacing-2-xs 0;
   }
+
+  .priceInfo {
+
+    .priceTitle {
+      margin-top: $spacing-s;
+      font-size: $fontsize-body-l;
+    }
+
+    .priceList {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
+
+.priceLegend {
+  margin-top: $spacing-xs;
+  font-size: $fontsize-body-s;
+}
+
