@@ -335,7 +335,9 @@
         "expirationDate": "Viimeinen voimassaoloaika (toinen tunnus otetaan tallennuksen yhteydessä automaattisesti huomioon)",
         "permitInfo": "Tunnuksen tiedot",
         "startDate": "Alkamispäivämäärä",
-        "validPeriodInMonths": "Voimassaoloaika, kuukautta"
+        "validPeriodInMonths": "Voimassaoloaika, kuukautta",
+        "price": "Hinta *",
+        "priceLegend": "* tunnuksen hinta määräytyy jakson alkamispäivämäärän mukaan"
       },
       "personalInfo": {
         "addressSecurityBan": "Turvakielto: Osoitetta ja nimeä ei kirjata",
@@ -361,7 +363,6 @@
         "manufacturer": "Merkki",
         "model": "Malli",
         "powerType": "Käyttövoima",
-        "price": "Hinta",
         "registrationNumber": "Rekisteritunnus",
         "search": "Hae",
         "serialNumber": "Valmistenumero",

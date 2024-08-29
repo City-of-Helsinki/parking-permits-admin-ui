@@ -317,7 +317,6 @@ const CreateResidentPermit = (): React.ReactElement => {
         <VehicleInfo
           vehicle={vehicle}
           disableVehicleFields={disableVehicleFields}
-          permitPrices={permitPrices}
           className={styles.vehicleInfo}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
@@ -326,6 +325,7 @@ const CreateResidentPermit = (): React.ReactElement => {
         />
         <PermitInfo
           permit={permit}
+          permitPrices={permitPrices}
           className={styles.permitInfo}
           onUpdatePermit={handleUpdatePermit}
           minStartDate={minStartDate}

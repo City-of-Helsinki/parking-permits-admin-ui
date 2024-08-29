@@ -8,11 +8,10 @@ import {
 } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitPrice, Vehicle } from '../../types';
+import { Vehicle } from '../../types';
 import Divider from '../common/Divider';
 import EmissionTypeSelect from '../common/EmissionTypeSelect';
 import EuroClassSelect from '../common/EuroClassSelect';
-import PermitPriceRow from '../common/PermitPriceRow';
 import PowerTypeSelect from '../common/PowerTypeSelect';
 import VehicleClassSelect from '../common/VehicleClassSelect';
 import styles from './VehicleInfo.module.scss';
@@ -40,7 +39,6 @@ interface VehicleInfoProps {
   className?: string;
   vehicle: Vehicle;
   searchError?: string;
-  permitPrices: PermitPrice[];
   disableVehicleFields: boolean;
   onSearchRegistrationNumber: (regNumber: string) => void;
   onUpdateVehicle: (vehicle: Vehicle) => void;
@@ -51,7 +49,6 @@ const VehicleInfo = ({
   className,
   vehicle,
   searchError,
-  permitPrices,
   disableVehicleFields,
   onSearchRegistrationNumber,
   onUpdateVehicle,
@@ -210,20 +207,6 @@ const VehicleInfo = ({
         <div className={styles.vehicleCopyright}>
           {t(`${T_PATH}.vehicleCopyright`)}
         </div>
-        {permitPrices.length > 0 && (
-          <div className={styles.priceInfo}>
-            <div className={styles.priceTitle}>{t(`${T_PATH}.price`)}</div>
-            <div className={styles.priceList}>
-              {permitPrices.map(permitPrice => (
-                <PermitPriceRow
-                  key={permitPrice.startDate}
-                  className={styles.productPriceRow}
-                  permitPrice={permitPrice}
-                />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
