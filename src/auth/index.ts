@@ -1,4 +1,5 @@
 import to from 'await-to-js';
+import React from 'react';
 import { getBooleanEnv, getEnv } from '../utils';
 
 export type User = Record<string, string | number | boolean>;
@@ -150,6 +151,7 @@ export interface ClientConfig {
    * does the server, this config is for, provide api tokens
    */
   hasApiTokenSupport: boolean;
+  children?: React.ReactNode;
 }
 
 type EventHandlers = {
@@ -340,6 +342,7 @@ const config: ClientConfig = {
   autoSignIn: false,
   hasApiTokenSupport: true,
   enableLogging: getBooleanEnv('REACT_APP_OIDC_ENABLE_LOGGING'),
+  children: undefined,
 };
 
 export function isCallbackUrl(url: string): boolean {

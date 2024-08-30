@@ -8,7 +8,12 @@ import {
 } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Language, ParkingPermitStatus, PermitDetail } from '../../types';
+import {
+  Language,
+  ParkingPermitStatus,
+  PermitDetail,
+  PermitPrice,
+} from '../../types';
 import {
   formatDateDisplay,
   formatDateTimeDisplay,
@@ -16,6 +21,7 @@ import {
   formatPermitOrder,
 } from '../../utils';
 import Divider from '../common/Divider';
+import PermitPriceRow from '../common/PermitPriceRow';
 import StatusSelect from '../permits/StatusSelect';
 import styles from './PermitInfo.module.scss';
 
@@ -25,6 +31,7 @@ interface PermitInfoProps {
   className?: string;
   editMode?: boolean;
   permit: PermitDetail;
+  permitPrices: PermitPrice[];
   minStartDate?: Date;
   onUpdatePermit: (permit: PermitDetail) => void;
 }
@@ -33,6 +40,7 @@ const PermitInfo = ({
   className,
   editMode = false,
   permit,
+  permitPrices,
   minStartDate,
   onUpdatePermit,
 }: PermitInfoProps): React.ReactElement => {
@@ -135,6 +143,24 @@ const PermitInfo = ({
           label={t(`${T_PATH}.expirationDate`)}
           value={formatDateTimeDisplay(expirationDate)}
         />
+        {permitPrices.length > 0 && (
+          <div className={styles.priceInfo}>
+            <Divider className={styles.fieldDivider} />
+            <div className={styles.priceTitle}>{t(`${T_PATH}.price`)}</div>
+            <div className={styles.priceList}>
+              {permitPrices.map(permitPrice => (
+                <PermitPriceRow
+                  key={permitPrice.startDate}
+                  className={styles.productPriceRow}
+                  permitPrice={permitPrice}
+                />
+              ))}
+            </div>
+            <div className={styles.priceLegend}>
+              {t(`${T_PATH}.priceLegend`)}
+            </div>
+          </div>
+        )}
         <Divider className={styles.fieldDivider} />
         <TextArea
           className={styles.fieldItem}

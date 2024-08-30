@@ -115,6 +115,7 @@
       "parkingInfo": "Tietoa pysäköinnistä",
       "copyright": "Helsinki kaupunki, Henkilötiedot - Digi- ja väestötietovirasto",
       "dataProtection": "Tietosuoja",
+      "accessibility": "Saavutettavuus",
       "registryDescription": "Rekisteriseloste"
     },
     "orders": {
@@ -189,14 +190,14 @@
         "customerAccountKnown": "Asiakkaan tilinumero hyvitystä varten",
         "customerAccountUnknown": "Asiakkaan tilinumero ei tiedossa",
         "extraPaymentTotal": "Lisäveloitus yhteensä",
-        "extraPaymentVatTotal": "Sis. alv (24%)",
+        "extraPaymentVatTotal": "Sis. alv",
         "newOrderTotal": "Uusi tilaus, kokonaishinta",
         "previousOrderRemaining": "Edellinen tilaus, kokonaishinta",
         "priceCalcDescription": "Hinnoissa huomioidaan tilauksen jäljellä olevat täydet kuukaudet.",
-        "priceChangeItemTotalLabel": "{{count}} kk yhteensä (sis. alv 24%)",
+        "priceChangeItemTotalLabel": "{{count}} kk yhteensä (sis. alv)",
         "priceDifference": "Hintaero",
         "refundTotal": "Palautettava summa yhteensä",
-        "refundTotalVat": "Sis. alv (24%)",
+        "refundTotalVat": "Sis. alv",
         "title": "Uusi tilaus"
       },
       "refundInfo": {
@@ -312,7 +313,7 @@
         "totalPrice": "Kokonaissumma",
         "period": "Voimassaoloaika",
         "pricePerMonth": "Kuukausihinta",
-        "includingVAT": "Sis. ALV %",
+        "includingVAT": "Sis. alv %",
         "totalPriceForPeriod": "Yhteensä",
         "cancelAndCloseWithoutSaving": "Peruuta ja sulje tallentamatta",
         "continue": "Jatka",
@@ -334,7 +335,9 @@
         "expirationDate": "Viimeinen voimassaoloaika (toinen tunnus otetaan tallennuksen yhteydessä automaattisesti huomioon)",
         "permitInfo": "Tunnuksen tiedot",
         "startDate": "Alkamispäivämäärä",
-        "validPeriodInMonths": "Voimassaoloaika, kuukautta"
+        "validPeriodInMonths": "Voimassaoloaika, kuukautta",
+        "price": "Hinta *",
+        "priceLegend": "* tunnuksen hinta määräytyy jakson alkamispäivämäärän mukaan"
       },
       "personalInfo": {
         "addressSecurityBan": "Turvakielto: Osoitetta ja nimeä ei kirjata",
@@ -360,7 +363,6 @@
         "manufacturer": "Merkki",
         "model": "Malli",
         "powerType": "Käyttövoima",
-        "price": "Hinta",
         "registrationNumber": "Rekisteritunnus",
         "search": "Hae",
         "serialNumber": "Valmistenumero",
@@ -456,7 +458,7 @@
           "errorEnterEndDate": "Anna aloituspäivä",
           "errorEnterPrice": "Anna hinta",
           "errorEnterStartDate": "Anna aloituspäivä",
-          "errorEnterVAT": "Anna ALV-prosentti",
+          "errorEnterVAT": "Anna alv-prosentti",
           "errorEnterLowEmissionDiscount": "Anna vähäpäästöinen alennusprosentti",
           "errorSelectZone": "Valitse vyöhyke",
           "lowEmissionDiscount": "Vähäpäästöinen alennus",
@@ -469,7 +471,7 @@
           "startDate": "Pvm alkaen",
           "unit": "Jakso",
           "validPeriod": "Voimassaoloaika",
-          "vat": "ALV",
+          "vat": "Alv",
           "zone": "Alue"
         },
         "productsDataTable": {
@@ -479,7 +481,7 @@
           "productType": "Tuotetyyppi",
           "lowEmissionDiscount": "Vähäpäästöinen alennus",
           "validPeriod": "Voimassaoloaika",
-          "vat": "ALV",
+          "vat": "Alv",
           "zone": "Alue"
         }
       },

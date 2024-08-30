@@ -115,6 +115,7 @@
       "parkingInfo": "Information about parking",
       "copyright": "City of Helsinki, Personal data - Digital and population data services agency",
       "dataProtection": "Data protection",
+      "accessibility": "Accessibility",
       "registryDescription": "Registry description"
     },
     "orders": {
@@ -189,14 +190,14 @@
         "customerAccountKnown": "Customer's IBAN number for refund",
         "customerAccountUnknown": "Customer's IBAN number unknown",
         "extraPaymentTotal": "Total additional payment",
-        "extraPaymentVatTotal": "Incl. VAT (24%)",
+        "extraPaymentVatTotal": "Incl. vat",
         "newOrderTotal": "New order, total price",
         "previousOrderRemaining": "Previous order, total price",
         "priceCalcDescription": "Prices take into account the remaining full months of the order.",
-        "priceChangeItemTotalLabel": "{{count}} months total (incl. VAT 24%)",
+        "priceChangeItemTotalLabel": "{{count}} months total (incl. vat)",
         "priceDifference": "Price difference",
         "refundTotal": "Total amount to be refunded",
-        "refundTotalVat": "Incl. VAT (24%)",
+        "refundTotalVat": "Incl. vat",
         "title": "New order"
       },
       "refundInfo": {
@@ -319,7 +320,7 @@
         "permits": "Permits",
         "period": "Period",
         "pricePerMonth": "Price per month",
-        "includingVAT": "Incl. VAT %",
+        "includingVAT": "Incl. vat %",
         "totalPriceForPeriod": "Total"
       },
       "permitInfo": {
@@ -334,7 +335,9 @@
         "expirationDate": "Expiration date (other permit will be taken into account automatically upon saving)",
         "permitInfo": "Permit information",
         "startDate": "Start date",
-        "validPeriodInMonths": "Valid period in months"
+        "validPeriodInMonths": "Valid period in months",
+        "price": "Price *",
+        "priceLegend": "* the price of the permit is determined by the start date of the period"
       },
       "personalInfo": {
         "addressSecurityBan": "Non-disclosure for personal safety",
@@ -360,7 +363,6 @@
         "manufacturer": "Manufacturer",
         "model": "Model",
         "powerType": "Power type",
-        "price": "Price",
         "registrationNumber": "Registration number",
         "search": "Search",
         "serialNumber": "Serial number",
@@ -456,7 +458,7 @@
           "errorEnterEndDate": "Please enter a end date",
           "errorEnterPrice": "Please enter a price",
           "errorEnterStartDate": "Please enter a start date",
-          "errorEnterVAT": "Please enter a VAT percentage",
+          "errorEnterVAT": "Please enter a vat percentage",
           "errorEnterLowEmissionDiscount": "Please enter a low emission discount percentage",
           "errorSelectZone": "Please select a zone",
           "lowEmissionDiscount": "Low emission discount",
@@ -469,7 +471,7 @@
           "startDate": "Start date",
           "unit": "Unit",
           "validPeriod": "Valid period",
-          "vat": "VAT",
+          "vat": "Vat",
           "zone": "Zone"
         },
         "productsDataTable": {
@@ -479,7 +481,7 @@
           "productType": "Product type",
           "lowEmissionDiscount": "Low emission discount",
           "validPeriod": "Valid period",
-          "vat": "VAT",
+          "vat": "Vat",
           "zone": "Zone"
         }
       },

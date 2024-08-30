@@ -7,23 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-08-30
+
+### Added
+
+- Add accessibility report to footer ([f31cfdc](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/f31cfdce471caff6337b7f42503518ba7ab5667e))
+
+### Changed
+
+- Update hds-react ([d399f7e](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/d399f7e28e2159a4aa3c1335f4d08543d1b5581f))
+- Update react to version 18 ([2a0d79c](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/2a0d79c29597ab357b83592df7bed6176829f682))
+- Update packages ([e816696](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e81669697c5f6859850d84b09fff3b77ea123318))
+- Use AWS ECR Docker image repository ([aae00bb](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/aae00bb28c4b5614f8baf03ac8923f7e4b162918))
+- Allow one day selection with Admin UI temporary vehicles ([aae00bb](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/2aa05af609d1d11f1d494276c999810024e733a2))
+- Update VAT-texts ([2b6a105](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/2b6a10513bc15e261ece6b4298464c8aea8e2f01))
+- Update permit prices layout ([74ff198](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/74ff198beb208761807c4f5a62118cac86095280))
+
+### Fixed
+
+- No longer remove customer email or phone when re-fetching customer data from DVV ([d22ee04](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/d22ee04063f8b2fc7319f8376e827f581fabc09a))
+- Update VAT-format ([315e675](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/315e675ebf34cf4835edb58d7ce2c83199f7330b))
+
 ## [1.1.0] - 2024-06-19
 
 ### Added
 
-- Add changelog to project
+- Add changelog to project ([4cf3911](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/4cf3911311b9dad051d8fde51cbc167d1fbeef82))
 
 ### Changed
 
-- Allow permit editing for all cases except closed
-- Update application packages
-- Use calc-function for border-radius calculation
-- Update Azure CI-settings
-- Update README
+- Allow permit editing for all cases except closed ([c4ca6f5](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/c4ca6f584b7e9efa26c97e69211a16fccdae666a))
+- Update application packages ([0761628](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/076162817b03a7a00bab29ce02b87524cc8da90c))
+- Use calc-function for border-radius calculation ([047981d](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/047981dae165c3b23512793da5805a87a9f910ce))
+- Update Azure CI-settings ([ddac505](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/ddac5059d1218398a89ceed827cacf13ebeb7790))
+- Update README ([8d5bfec](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/8d5bfec2d8a2248514704168c89a93b9b6c964c9))
 
 ### Removed
 
-- Remove obsolete Docker Compose version
+- Remove obsolete Docker Compose version ([d34dc3c](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/d34dc3c0464d2df45d94a3ad29b15ea45ada77bd))
 
 ## [1.0.0] - 2024-06-12
 

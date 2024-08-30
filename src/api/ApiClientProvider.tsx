@@ -16,7 +16,11 @@ export interface ApiClientContextProps {
 export const ApiClientContext =
   React.createContext<ApiClientContextProps | null>(null);
 
-export const ApiClientProvider: FC<unknown> = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+export const ApiClientProvider: FC<Props> = ({ children }) => {
   const { getTokens } = useContext(
     ApiAccessTokenContext
   ) as ApiAccessTokenActions;

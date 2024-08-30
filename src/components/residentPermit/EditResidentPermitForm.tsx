@@ -159,7 +159,11 @@ const EditResidentPermitForm = ({
   const handleUpdatePermit = (newPermit: PermitDetail) =>
     onUpdatePermit(newPermit);
 
-  const handleSearchPerson = (nationalIdNumber: string) => {
+  const handleSearchPerson = (
+    nationalIdNumber: string,
+    email: string,
+    phoneNumber: string
+  ) => {
     const { address: originalAddress } = permit;
 
     onResetPermit(nationalIdNumber);
@@ -191,7 +195,11 @@ const EditResidentPermitForm = ({
 
         let fields = {
           ...permit,
-          customer: response.data?.customer,
+          customer: {
+            ...response.data?.customer,
+            email,
+            phoneNumber,
+          },
         };
 
         if (address) {
@@ -283,7 +291,6 @@ const EditResidentPermitForm = ({
           className={styles.column}
           vehicle={vehicle}
           disableVehicleFields={disableVehicleFields}
-          permitPrices={permitPrices}
           searchError={vehicleSearchError}
           onSearchRegistrationNumber={handleSearchVehicle}
           onUpdateVehicle={handleUpdateVehicle}
@@ -293,6 +300,7 @@ const EditResidentPermitForm = ({
           className={styles.column}
           editMode
           permit={permit}
+          permitPrices={permitPrices}
           onUpdatePermit={handleUpdatePermit}
         />
       </div>

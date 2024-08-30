@@ -30,7 +30,11 @@ interface PersonalInfoProps {
   parkingZone: ParkingZone;
   searchError?: string;
   disableCustomerChange?: boolean;
-  onSearchPerson: (nationalIdNumber: string) => void;
+  onSearchPerson: (
+    nationalIdNumber: string,
+    email: string,
+    phoneNumber: string
+  ) => void;
   onUpdatePermit: (permit: Partial<PermitDetail>) => void;
 }
 
@@ -112,7 +116,10 @@ const PersonalInfo = ({
           onChange={e =>
             updateCustomer({ ...person, nationalIdNumber: e.target.value })
           }>
-          <Button onClick={() => onSearchPerson(nationalIdNumber)}>
+          <Button
+            onClick={() =>
+              onSearchPerson(nationalIdNumber, email, phoneNumber)
+            }>
             {t(`${T_PATH}.search`)}
           </Button>
         </TextInput>
