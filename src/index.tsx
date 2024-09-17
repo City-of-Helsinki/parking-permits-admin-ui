@@ -4,9 +4,8 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ApiClientProvider } from './api/ApiClientProvider';
 import App from './App';
-import { ApiAccessTokenProvider } from './auth/ApiAccessTokenProvider';
-import { ClientProvider } from './auth/ClientProvider';
 import HandleCallback from './auth/HandleCallback';
+import HDSLoginProvider from './auth/LoginProvider';
 import './i18n';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
@@ -33,15 +32,13 @@ const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <HandleCallback>
-        <ClientProvider>
-          <ApiAccessTokenProvider>
-            <ApiClientProvider>
-              <App />
-            </ApiClientProvider>
-          </ApiAccessTokenProvider>
-        </ClientProvider>
-      </HandleCallback>
+      <HDSLoginProvider>
+        <HandleCallback>
+          <ApiClientProvider>
+            <App />
+          </ApiClientProvider>
+        </HandleCallback>
+      </HDSLoginProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
