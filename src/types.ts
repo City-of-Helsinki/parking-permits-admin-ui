@@ -488,7 +488,8 @@ export interface Refund {
   modifiedBy: string;
   acceptedAt: string;
   acceptedBy: string;
-  order: Order;
+  refundPermits: [Permit];
+  refundOrders: [Order];
 }
 export interface PagedRefunds {
   objects: Refund[];
