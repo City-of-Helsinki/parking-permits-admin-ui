@@ -52,14 +52,15 @@ const RefundsDataTable = ({
     {
       name: t(`${T_PATH}.orderNumber`),
       field: 'orderId',
-      selector: ({ order }) => order.id,
+      selector: ({ refundOrders }) =>
+        refundOrders.map(order => order.id).join(', '),
       sortable: true,
     },
     {
       name: t(`${T_PATH}.registrationNumber`),
       field: 'registrationNumber',
-      selector: ({ order }) =>
-        order.orderPermits
+      selector: ({ refundPermits }) =>
+        refundPermits
           .map(permit => permit.vehicle.registrationNumber)
           .join(', '),
       sortable: true,

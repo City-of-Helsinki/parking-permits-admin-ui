@@ -52,13 +52,14 @@ const REFUNDS_QUERY = gql`
         modifiedBy
         acceptedAt
         acceptedBy
-        order {
+        refundPermits {
           id
-          orderPermits {
-            vehicle {
-              registrationNumber
-            }
+          vehicle {
+            registrationNumber
           }
+        }
+        refundOrders {
+          id
         }
       }
       pageInfo {
