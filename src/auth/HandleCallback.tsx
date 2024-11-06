@@ -2,6 +2,7 @@ import * as Sentry from '@sentry/react';
 import {
   LoginCallbackHandler,
   OidcClientError,
+  useApiTokensClient,
   useOidcClient,
   User,
 } from 'hds-react';
@@ -15,11 +16,13 @@ const HandleCallback = (
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated } = useOidcClient();
+  const { fetch } = useApiTokensClient();
   const { children } = props;
   const isCallback = isCallbackUrl(location.pathname);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, arrow-body-style
   const onSuccess = (user: User) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const tokens = fetch(user);
     navigate('/permits', { replace: true });
   };
 

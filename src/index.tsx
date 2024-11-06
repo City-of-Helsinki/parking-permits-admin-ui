@@ -2,6 +2,7 @@ import * as Sentry from '@sentry/react';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { ApiAccessTokenProvider } from './api/ApiAccessTokenProvider';
 import { ApiClientProvider } from './api/ApiClientProvider';
 import App from './App';
 import HandleCallback from './auth/HandleCallback';
@@ -34,9 +35,11 @@ root.render(
     <BrowserRouter>
       <HDSLoginProvider>
         <HandleCallback>
-          <ApiClientProvider>
-            <App />
-          </ApiClientProvider>
+          <ApiAccessTokenProvider>
+            <ApiClientProvider>
+              <App />
+            </ApiClientProvider>
+          </ApiAccessTokenProvider>
         </HandleCallback>
       </HDSLoginProvider>
     </BrowserRouter>
