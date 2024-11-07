@@ -29,7 +29,7 @@ const useUserRole = (): UserRole => {
     // Remove special ADFS-prefix
     const adfsPrefix = 'helsinki1\\';
     decodedToken.ad_groups.forEach((adGroup: string) => {
-      adGroups.push(adGroup.replace(adfsPrefix, ''));
+      adGroups.push(adGroup.replace(adfsPrefix, '').toLowerCase());
     });
 
     if (adGroups.includes(Groups.SUPER_ADMIN)) {
