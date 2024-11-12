@@ -21,9 +21,9 @@ const HandleCallback = (
   const isCallback = isCallbackUrl(location.pathname);
 
   const onSuccess = (user: User) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const tokens = fetch(user);
+    fetch(user);
     navigate('/permits', { replace: true });
+    window.location.reload();
   };
 
   const onError = (error: OidcClientError | undefined) => {
