@@ -12,6 +12,20 @@
         "editAddress": "Muokkaa",
         "placeholder": "Hae osoite..."
       },
+      "auth": {
+        "login": {
+          "login": "Kirjaudu sisään",
+          "loggingIn": "Kirjaudutaan sisään",
+          "error": {
+            "label": "Kirjautuminen epäonnistui!",
+            "text": "Uudelleenohjaus OIDC-palvelimelle epäonnistui. Yritä uudelleen!",
+            "close": "Sulje tämä virheilmoitus"
+          }
+        },
+        "logout": {
+          "logout": "Kirjaudu ulos"
+        }
+      },
       "changeLogs": {
         "createdAt": "Muutosaika",
         "createdBy": "Muokkaaja",

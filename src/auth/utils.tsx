@@ -1,25 +1,20 @@
-import React, { useContext } from 'react';
+import { useOidcClient } from 'hds-react';
+import React from 'react';
 import { Navigate } from 'react-router';
-import { ApiAccessTokenContext } from './ApiAccessTokenProvider';
-import { ApiAccessTokenActions, useClient } from './hooks';
+import { useIsAuthorizationReady } from './useIsAuthReady';
 
 // eslint-disable-next-line import/prefer-default-export
 export function makePrivate<T>(
   Component: React.ComponentType<T>
 ): React.ComponentType<T> {
   return function PrivateComponent(props: T) {
-    const client = useClient();
-    const { getStatus } = useContext(
-      ApiAccessTokenContext
-    ) as ApiAccessTokenActions;
-    const apiStatus = getStatus();
-    if (!client.isInitialized()) {
-      return <div>Initializing...</div>;
-    }
-    if (!client.isAuthenticated()) {
+    const { isAuthenticated } = useOidcClient();
+    const [isReady, loading] = useIsAuthorizationReady();
+
+    if (!isAuthenticated()) {
       return <Navigate to="/login" />;
     }
-    if (apiStatus !== 'loaded') {
+    if (!isReady && loading) {
       return <div>Loading...</div>;
     }
     return <Component {...props} />;

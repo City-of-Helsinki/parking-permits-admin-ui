@@ -1,16 +1,17 @@
 import {
   Header as HDSHeader,
-  IconSignin,
-  IconSignout,
   LanguageOption,
   Logo,
   logoFi,
+  useOidcClient,
+  WithAuthentication,
 } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import useUserRole, { UserRole } from '../api/useUserRole';
-import { useClient } from '../auth/hooks';
+import Login from './auth/Login';
+import Logout from './auth/Logout';
 
 const T_PATH = 'components.header';
 
@@ -19,14 +20,11 @@ const isActiveLink = (path: string, currentPath: string): boolean =>
 
 const Header = (): React.ReactElement => {
   const navigate = useNavigate();
-  const client = useClient();
   const userRole = useUserRole();
   const { t, i18n } = useTranslation();
   const title = t(`${T_PATH}.appTitle`);
   const location = useLocation();
-
-  const authenticated = client?.isAuthenticated();
-  const initialized = client?.isInitialized();
+  const { isAuthenticated } = useOidcClient();
 
   const navLinks = [
     {
@@ -81,25 +79,12 @@ const Header = (): React.ReactElement => {
           <HDSHeader.SimpleLanguageOptions
             languages={[languages[0], languages[1], languages[2]]}
           />
-          {initialized && !authenticated && (
-            <HDSHeader.ActionBarButton
-              label={t(`${T_PATH}.login`)}
-              fixedRightPosition
-              icon={<IconSignin />}
-              onClick={(): void => client?.login()}
-            />
-          )}
-
-          {initialized && authenticated && (
-            <HDSHeader.ActionBarButton
-              label={t(`${T_PATH}.logout`)}
-              fixedRightPosition
-              icon={<IconSignout />}
-              onClick={(): void => client?.logout()}
-            />
-          )}
+          <WithAuthentication
+            AuthorisedComponent={Logout}
+            UnauthorisedComponent={Login}
+          />
         </HDSHeader.ActionBar>
-        {authenticated && userRole > UserRole.NON_AD_GROUPS && (
+        {isAuthenticated() && userRole > UserRole.NON_AD_GROUPS && (
           <HDSHeader.NavigationMenu>
             {navLinks.map(({ path, label }) => (
               <HDSHeader.Link

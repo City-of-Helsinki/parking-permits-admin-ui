@@ -12,6 +12,20 @@
         "editAddress": "Edit",
         "placeholder": "Search address..."
       },
+      "auth": {
+        "login": {
+          "login": "Login",
+          "loggingIn": "Logging in",
+          "error": {
+            "label": "Login failed!",
+            "text": "Redirection to the OIDC server failed. Try again!",
+            "close": "Close this error notification"
+          }
+        },
+        "logout": {
+          "logout": "Logout"
+        }
+      },
       "changeLogs": {
         "createdAt": "Created at",
         "createdBy": "Created by",

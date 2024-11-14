@@ -32,13 +32,14 @@ const REFUND_DETAIL_QUERY = gql`
       createdBy
       modifiedAt
       modifiedBy
-      order {
+      refundPermits {
         id
-        orderPermits {
-          vehicle {
-            registrationNumber
-          }
+        vehicle {
+          registrationNumber
         }
+      }
+      refundOrders {
+        id
       }
     }
   }
