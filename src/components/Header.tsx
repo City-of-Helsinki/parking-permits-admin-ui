@@ -84,7 +84,7 @@ const Header = (): React.ReactElement => {
             UnauthorisedComponent={Login}
           />
         </HDSHeader.ActionBar>
-        {isAuthenticated() && (
+        {isAuthenticated() && userRole > UserRole.NON_AD_GROUPS && (
           <HDSHeader.NavigationMenu>
             {navLinks.map(({ path, label }) => (
               <HDSHeader.Link
