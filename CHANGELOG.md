@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2024-11-14
+
+### Added
+
+- Update refunds to support multiple orders ([7e9460a](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/7e9460a3741d56a070dfc666ca56f92627ac64c3))
+
+### Changed
+
+- Convert to use HDS login component ([b34ee90](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/b34ee902d2a6092cab49017c2757be372f96ca48))
+- Update hds-react to 3.11.0 ([3d71b63](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/3d71b63bba980a38c350c1f433ac45818662dfbd))
+
+### Fixed
+
+- Fix bug where api tokens are not available on first page load ([29fca4a](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/29fca4a5b6c361b768d6db9624f1c268da033844))
+- Reload page after login ([c7bbd93](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/c7bbd938fea793ebee6ff221e6680fddf34ad36b))
+
 ## [1.2.0] - 2024-08-30
 
 ### Added
