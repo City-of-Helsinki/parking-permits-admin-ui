@@ -1,5 +1,5 @@
 import { LoginProviderProps } from 'hds-react';
-import { getBooleanEnv, getEnv } from '../utils';
+import { getEnv } from '../utils';
 
 export function getLocationBasedUri(
   property: string | undefined
@@ -22,7 +22,7 @@ const HDSLoginConfig: LoginProviderProps = {
     silent_redirect_uri: getLocationBasedUri(
       getEnv('REACT_APP_OIDC_SILENT_AUTH_PATH')
     ),
-    automaticSilentRenew: getBooleanEnv('REACT_APP_OIDC_AUTO_SILENT_RENEW'),
+    automaticSilentRenew: true,
     response_type: getEnv('REACT_APP_OIDC_RESPONSE_TYPE'),
     post_logout_redirect_uri: getLocationBasedUri(
       getEnv('REACT_APP_OIDC_LOGOUT_PATH')
