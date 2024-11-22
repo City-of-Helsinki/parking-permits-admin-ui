@@ -1,4 +1,3 @@
-import { useOidcClient } from 'hds-react';
 import React from 'react';
 import { Navigate } from 'react-router';
 import { useIsAuthorizationReady } from './useIsAuthReady';
@@ -8,10 +7,9 @@ export function makePrivate<T>(
   Component: React.ComponentType<T>
 ): React.ComponentType<T> {
   return function PrivateComponent(props: T) {
-    const { isAuthenticated } = useOidcClient();
-    const [isReady, loading] = useIsAuthorizationReady();
+    const [isReady, loading, isAuthenticated] = useIsAuthorizationReady();
 
-    if (!isAuthenticated()) {
+    if (!isAuthenticated) {
       return <Navigate to="/login" />;
     }
     if (!isReady && loading) {
