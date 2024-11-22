@@ -14,16 +14,16 @@
       },
       "auth": {
         "login": {
-          "login": "Login",
-          "loggingIn": "Logging in",
+          "login": "Inloggning",
+          "loggingIn": "Loggar in",
           "error": {
-            "label": "Login failed!",
-            "text": "Redirection to the OIDC server failed. Try again!",
-            "close": "Close this error notification"
+            "label": "Inloggning misslyckades!",
+            "text": "Omdirigering till OIDC-servern misslyckades. Försök igen!",
+            "close": "Stäng detta felmeddelande"
           }
         },
         "logout": {
-          "logout": "Logout"
+          "logout": "Loggar ut"
         }
       },
       "changeLogs": {
