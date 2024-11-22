@@ -5,7 +5,7 @@ import {
 } from 'hds-react';
 
 // eslint-disable-next-line import/prefer-default-export
-export function useIsAuthorizationReady(): [boolean, boolean] {
+export function useIsAuthorizationReady(): [boolean, boolean, boolean] {
   const { isAuthenticated, isRenewing: isRenewingSession } = useOidcClient();
   const { getTokens, isRenewing: isRenewingApiToken } = useApiTokensClient();
 
@@ -20,5 +20,5 @@ export function useIsAuthorizationReady(): [boolean, boolean] {
   const loading = isRenewingSession() || isRenewingApiToken();
   const isReady = isLoggedIn && hasTokens;
 
-  return [isReady, loading];
+  return [isReady, loading, isLoggedIn];
 }
