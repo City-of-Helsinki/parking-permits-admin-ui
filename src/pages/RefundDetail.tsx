@@ -83,11 +83,11 @@ const RefundDetail = (): React.ReactElement => {
   };
 
   if (loading) {
-    return <div>Loading..</div>;
+    return <div>{t(`${T_PATH}.loading`)}</div>;
   }
 
   if (!data) {
-    return <div>No data</div>;
+    return <div>{t(`${T_PATH}.noData`)}</div>;
   }
 
   const { name, iban } = data.refund;

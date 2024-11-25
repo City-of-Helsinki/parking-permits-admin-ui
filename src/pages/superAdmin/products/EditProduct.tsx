@@ -79,7 +79,7 @@ const Products = (): React.ReactElement => {
     deleteProduct({ variables: { productId } });
   };
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>{t(`${T_PATH}.loading`)}</div>;
   }
   return (
     <div className={styles.container}>
