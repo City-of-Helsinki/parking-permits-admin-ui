@@ -11,6 +11,7 @@ const StatusLabel = ({ status }: StatusLabeProps): React.ReactElement => {
   const { t } = useTranslation();
   const statusLabelMapping: { [key in ParkingPermitStatus]: string } = {
     [ParkingPermitStatus.DRAFT]: t('permitStatus.draft'),
+    [ParkingPermitStatus.PRELIMINARY]: t('permitStatus.preliminary'),
     [ParkingPermitStatus.PAYMENT_IN_PROGRESS]: t(
       'permitStatus.paymentInProgress'
     ),
@@ -20,6 +21,7 @@ const StatusLabel = ({ status }: StatusLabeProps): React.ReactElement => {
   };
   const statusStyleMapping = {
     [ParkingPermitStatus.DRAFT]: styles.draft,
+    [ParkingPermitStatus.PRELIMINARY]: styles.preliminary,
     [ParkingPermitStatus.PAYMENT_IN_PROGRESS]: styles.paymentInProgress,
     [ParkingPermitStatus.VALID]: styles.valid,
     [ParkingPermitStatus.CANCELLED]: styles.cancelled,

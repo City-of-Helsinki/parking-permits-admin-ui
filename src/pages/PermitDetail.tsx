@@ -24,7 +24,12 @@ import TemporaryVehicle from '../components/permitDetail/TemporaryVehicle';
 import VehicleInfo from '../components/permitDetail/VehicleInfo';
 import useExportData from '../export/useExportData';
 import { formatExportUrlPdf } from '../export/utils';
-import { MutationResponse, PermitDetailData, PermitEndType } from '../types';
+import {
+  MutationResponse,
+  ParkingPermitStatus,
+  PermitDetailData,
+  PermitEndType,
+} from '../types';
 import { formatCustomerName, isPermitEditable } from '../utils';
 import styles from './PermitDetail.module.scss';
 
@@ -208,6 +213,18 @@ const PermitDetail = (): React.ReactElement => {
     }
   );
 
+  const handleEdit = () => {
+    const permit = data?.permitDetail;
+    if (
+      permit?.status === ParkingPermitStatus.DRAFT ||
+      permit?.status === ParkingPermitStatus.PRELIMINARY
+    ) {
+      navigate('create');
+    } else {
+      navigate('edit');
+    }
+  };
+
   const handleExport = () => {
     const url = formatExportUrlPdf('permit', id || '');
     exportData(url);
@@ -292,7 +309,7 @@ const PermitDetail = (): React.ReactElement => {
                     className={styles.actionButton}
                     iconLeft={<IconPenLine />}
                     disabled={!isPermitEditable(permitDetail)}
-                    onClick={() => navigate('edit')}>
+                    onClick={handleEdit}>
                     {t(`${T_PATH}.edit`)}
                   </Button>
                 )}
