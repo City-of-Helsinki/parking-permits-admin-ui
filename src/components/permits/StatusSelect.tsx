@@ -15,22 +15,24 @@ interface StatusSelectProps {
   className?: string;
   value: ParkingPermitStatusOrAll;
   onChange: (value: ParkingPermitStatusOrAll) => void;
+  showAllOption?: boolean;
 }
 
 const StatusSelect = ({
   value,
   onChange,
+  showAllOption = true,
   ...otherProps
 }: StatusSelectProps): React.ReactElement => {
   const { t } = useTranslation();
   const statusOptions: StatusOption[] = [
     {
-      label: t(`${T_PATH}.all`),
-      value: 'ALL',
-    },
-    {
       label: <StatusLabel status={ParkingPermitStatus.DRAFT} />,
       value: ParkingPermitStatus.DRAFT,
+    },
+    {
+      label: <StatusLabel status={ParkingPermitStatus.PRELIMINARY} />,
+      value: ParkingPermitStatus.PRELIMINARY,
     },
     {
       label: <StatusLabel status={ParkingPermitStatus.VALID} />,
@@ -49,6 +51,12 @@ const StatusSelect = ({
       value: ParkingPermitStatus.CLOSED,
     },
   ];
+  if (showAllOption) {
+    statusOptions.unshift({
+      label: t(`${T_PATH}.all`),
+      value: 'ALL',
+    });
+  }
   return (
     <Select
       {...otherProps}

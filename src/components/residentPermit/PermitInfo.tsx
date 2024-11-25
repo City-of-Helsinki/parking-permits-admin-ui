@@ -132,6 +132,7 @@ const PermitInfo = ({
         <StatusSelect
           className={styles.fieldItem}
           value={permit.status}
+          showAllOption={false}
           onChange={status =>
             onUpdatePermit({ ...permit, status: status as ParkingPermitStatus })
           }
