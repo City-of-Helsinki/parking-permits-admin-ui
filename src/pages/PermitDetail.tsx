@@ -1,5 +1,12 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { Button, IconDownload, IconPenLine, Notification } from 'hds-react';
+import {
+  Button,
+  IconArrowRightDashed,
+  IconCrossCircle,
+  IconDownload,
+  IconPenLine,
+  Notification,
+} from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -296,6 +303,7 @@ const PermitDetail = (): React.ReactElement => {
                   <Button
                     className={styles.actionButton}
                     variant="secondary"
+                    iconLeft={<IconArrowRightDashed />}
                     onClick={() => navigate('extend')}>
                     {t(`${T_PATH}.extend`)}
                   </Button>
@@ -315,6 +323,7 @@ const PermitDetail = (): React.ReactElement => {
                   <Button
                     className={styles.cancelButton}
                     variant="secondary"
+                    iconLeft={<IconCrossCircle />}
                     disabled={!canEndImmediately}
                     onClick={() => setOpenEndPermitDialog(true)}>
                     {t(`${T_PATH}.endPermit`)}

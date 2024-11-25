@@ -196,7 +196,7 @@ const EditResidentPermit = (): React.ReactElement => {
     fetchPolicy: 'no-cache',
     onCompleted: ({ permitDetail }) => {
       // permit parking zone should override customer
-      // zone as pre-selected vaule
+      // zone as pre-selected value
       const newCustomer = {
         ...permitDetail.customer,
         zone: permitDetail.parkingZone,

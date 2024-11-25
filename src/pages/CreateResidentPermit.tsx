@@ -1,7 +1,14 @@
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
-import { Button, IconCheckCircleFill, Notification } from 'hds-react';
-import React, { useState } from 'react';
+import {
+  Button,
+  IconArrowUndo,
+  IconBox,
+  IconPlusCircleFill,
+  Notification,
+} from 'hds-react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { makePrivate } from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
@@ -17,8 +24,10 @@ import {
   Address,
   CreatePermitResponse,
   Customer,
+  ParkingPermitStatus,
   ParkingZone,
   PermitDetail,
+  PermitDetailData,
   PermitPrice,
   Vehicle,
 } from '../types';
@@ -126,9 +135,112 @@ const CREATE_RESIDENT_PERMIT_MUTATION = gql`
   }
 `;
 
+const PERMIT_DETAIL_QUERY = gql`
+  query GetPermitDetail($permitId: ID!) {
+    permitDetail(permitId: $permitId) {
+      id
+      startTime
+      endTime
+      primaryVehicle
+      currentPeriodEndTime
+      canEndImmediately
+      canEndAfterCurrentPeriod
+      status
+      consentLowEmissionAccepted
+      canAdminExtendPermit
+      bypassTraficomValidation
+      contractType
+      monthCount
+      description
+      permitPrices {
+        unitPrice
+        startDate
+        endDate
+        quantity
+      }
+      address {
+        id
+        zone {
+          name
+        }
+      }
+      addressApartment
+      customer {
+        firstName
+        lastName
+        nationalIdNumber
+        email
+        phoneNumber
+        addressSecurityBan
+        driverLicenseChecked
+        primaryAddress {
+          id
+          streetName
+          streetNameSv
+          streetNumber
+          city
+          citySv
+          postalCode
+          location
+          zone {
+            name
+            label
+            labelSv
+          }
+        }
+        primaryAddressApartment
+        otherAddress {
+          id
+          streetName
+          streetNameSv
+          streetNumber
+          city
+          citySv
+          postalCode
+          location
+          zone {
+            name
+            label
+            labelSv
+          }
+        }
+        otherAddressApartment
+        activePermits {
+          id
+          primaryVehicle
+        }
+      }
+      vehicle {
+        manufacturer
+        model
+        registrationNumber
+        isLowEmission
+        consentLowEmissionAccepted
+        serialNumber
+        vehicleClass
+        euroClass
+        emission
+        emissionType
+        restrictions
+        powerType {
+          name
+          identifier
+        }
+      }
+      parkingZone {
+        name
+        label
+        labelSv
+      }
+    }
+  }
+`;
+
 const CreateResidentPermit = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const params = useParams();
+  const { id: permitId } = params;
   // states
   const initialPermit = getEmptyPermit();
   const [permit, setPermit] = useState<PermitDetail>(initialPermit);
@@ -136,11 +248,38 @@ const CreateResidentPermit = (): React.ReactElement => {
   const [personSearchError, setPersonSearchError] = useState('');
   const [vehicleSearchError, setVehicleSearchError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [infoMessage, setInfoMessage] = useState('');
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
   const { vehicle, customer, disableVehicleFields } = permit;
 
   // graphql queries and mutations
+  const [getPermit] = useLazyQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
+    variables: { permitId },
+    fetchPolicy: 'no-cache',
+    onCompleted: ({ permitDetail }) => {
+      // permit parking zone should override customer
+      // zone as pre-selected value
+      const newCustomer = {
+        ...permitDetail.customer,
+        zone: permitDetail.parkingZone,
+      };
+      setPermit({
+        ...permitDetail,
+        customer: newCustomer,
+        disableVehicleFields: true,
+      });
+      setPermitPrices(permitDetail.permitPrices);
+    },
+    onError: error => setErrorMessage(error.message),
+  });
+
+  useEffect(() => {
+    if (permitId) {
+      getPermit({ variables: { permitId } });
+    }
+  }, [permitId, getPermit]);
+
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
   }>(CUSTOMER_QUERY, {
@@ -207,18 +346,58 @@ const CreateResidentPermit = (): React.ReactElement => {
 
   // event handlers
   const handleCreateResidentPermit = () => {
+    setPermit({
+      ...permit,
+      status: ParkingPermitStatus.VALID,
+    });
     createResidentPermit({
-      variables: { permit: convertToPermitInput(permit) },
+      variables: {
+        permit: convertToPermitInput({
+          ...permit,
+          status: ParkingPermitStatus.VALID,
+        }),
+      },
     })
       .then(response => {
-        const permitId = response.data?.createResidentPermit.permit.id;
-        if (permitId) {
+        const id = response.data?.createResidentPermit.permit.id;
+        if (id) {
           navigate(`/permits/${permitId}`);
         }
         if (response.errors && response.errors.message) {
           setErrorMessage(response.errors.message);
         } else {
           setErrorMessage(t(`${T_PATH}.createPermitError`));
+        }
+      })
+      .catch(error => setErrorMessage(error.message));
+  };
+
+  const handleCreateDraftResidentPermit = () => {
+    if (
+      !(
+        permit.status === ParkingPermitStatus.DRAFT ||
+        permit.status === ParkingPermitStatus.PRELIMINARY
+      )
+    ) {
+      setPermit({
+        ...permit,
+        status: ParkingPermitStatus.DRAFT,
+      });
+      permit.status = ParkingPermitStatus.DRAFT;
+    }
+    createResidentPermit({
+      variables: {
+        permit: convertToPermitInput(permit),
+      },
+    })
+      .then(response => {
+        const id = response.data?.createResidentPermit.permit.id;
+        if (id) {
+          setInfoMessage(
+            t(`${T_PATH}.draftPermitSaved`, {
+              permitId: id,
+            })
+          );
         }
       })
       .catch(error => setErrorMessage(error.message));
@@ -339,13 +518,24 @@ const CreateResidentPermit = (): React.ReactElement => {
                 customer.activePermits && customer.activePermits.length >= 2
               }
               className={styles.actionButton}
-              iconLeft={<IconCheckCircleFill />}
+              iconLeft={<IconPlusCircleFill />}
               onClick={() => setIsConfirmDialogOpen(true)}>
               {t(`${T_PATH}.save`)}
             </Button>
             <Button
+              disabled={
+                customer.activePermits && customer.activePermits.length >= 2
+              }
               className={styles.actionButton}
               variant="secondary"
+              iconLeft={<IconBox />}
+              onClick={handleCreateDraftResidentPermit}>
+              {t(`${T_PATH}.saveAsDraft`)}
+            </Button>
+            <Button
+              className={styles.actionButton}
+              variant="secondary"
+              iconLeft={<IconArrowUndo />}
               onClick={() => navigate('/permits')}>
               {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
             </Button>
@@ -384,6 +574,18 @@ const CreateResidentPermit = (): React.ReactElement => {
           onClose={() => setErrorMessage('')}
           style={{ zIndex: 100, opacity: 1 }}>
           {errorMessage}
+        </Notification>
+      )}
+      {infoMessage && (
+        <Notification
+          type="success"
+          label={t('message.info')}
+          position="bottom-center"
+          dismissible
+          closeButtonLabelText={t('message.close')}
+          onClose={() => setInfoMessage('')}
+          style={{ zIndex: 100, opacity: 1 }}>
+          {infoMessage}
         </Notification>
       )}
     </div>

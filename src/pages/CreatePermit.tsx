@@ -1,4 +1,4 @@
-import { Button } from 'hds-react';
+import { Button, IconPlusCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -27,6 +27,7 @@ const CreatePermit = (): React.ReactElement => {
       />
       <Button
         className={styles.createButton}
+        iconLeft={<IconPlusCircleFill />}
         onClick={() => navigate(permitType)}>
         {t(`${T_PATH}.createPermit`)}
       </Button>
