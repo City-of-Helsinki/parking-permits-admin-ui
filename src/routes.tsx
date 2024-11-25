@@ -69,6 +69,7 @@ const routes = [
       { path: 'permits/:id/end/:endType', element: <EndPermit /> },
       { path: 'permits/:id/edit/', element: <EditResidentPermit /> },
       { path: 'permits/:id/extend/', element: <ExtendPermit /> },
+      { path: 'permits/:id/create/', element: <CreateResidentPermit /> },
       { path: 'permits/create', element: <CreatePermit /> },
       { path: 'permits/create/resident', element: <CreateResidentPermit /> },
       { path: 'permits/create/company', element: <CreateCompanyPermit /> },

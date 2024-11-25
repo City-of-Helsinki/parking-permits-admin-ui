@@ -305,6 +305,7 @@ export interface CustomerInput {
 }
 
 export interface PermitInput {
+  id?: number;
   contractType: string;
   customer: CustomerInput;
   vehicle: VehicleInput;

@@ -1,6 +1,13 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Formik } from 'formik';
-import { Button, IconDownload, Notification, TextInput } from 'hds-react';
+import {
+  Button,
+  IconArrowUndo,
+  IconCheckCircle,
+  IconDownload,
+  Notification,
+  TextInput,
+} from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -181,6 +188,7 @@ const RefundDetail = (): React.ReactElement => {
                 {userRole > UserRole.PREPARATORS && (
                   <Button
                     className={styles.save}
+                    iconLeft={<IconCheckCircle />}
                     disabled={!(dirty && isValid)}
                     type="submit">
                     {t(`${T_PATH}.save`)}
@@ -197,6 +205,7 @@ const RefundDetail = (): React.ReactElement => {
                   <Button
                     variant="secondary"
                     className={styles.cancel}
+                    iconLeft={<IconArrowUndo />}
                     onClick={() => navigate('/refunds')}>
                     {t(`${T_PATH}.cancel`)}
                   </Button>

@@ -258,6 +258,7 @@ export function convertToCustomerInput(customer: Customer): CustomerInput {
 
 export function convertToPermitInput(permit: PermitDetail): PermitInput {
   const {
+    id,
     contractType,
     customer,
     vehicle,
@@ -273,6 +274,7 @@ export function convertToPermitInput(permit: PermitDetail): PermitInput {
   const vehicleInput = convertToVehicleInput(vehicle);
   const customerInput = convertToCustomerInput(customer);
   return {
+    id,
     contractType,
     customer: customerInput,
     vehicle: vehicleInput,
