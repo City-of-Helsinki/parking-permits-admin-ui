@@ -26,6 +26,9 @@
           "logout": "Logout"
         }
       },
+      "utils": {
+        "loading": "Ladataan..."
+      },
       "changeLogs": {
         "createdAt": "Created at",
         "createdBy": "Created by",
@@ -65,7 +68,9 @@
           "create_admin_permit_extension_request": "Permit extension created by admin",
           "create_customer_permit_extension_request": "Permit extension created by customer",
           "approve_permit_extension_request": "Permit extension approved",
-          "cancel_permit_extension_request": "Permit extension cancelled"
+          "cancel_permit_extension_request": "Permit extension cancelled",
+          "create_draft_permit": "Draft created",
+          "update_draft_permit": "Draft updated"
         },
         "descriptions": {
           "update_permit": "Permit updated",
@@ -79,7 +84,9 @@
           "create_admin_permit_extension_request": "Permit extension #{{relatedObject.id}} created by admin",
           "create_customer_permit_extension_request": "Permit extension #{{relatedObject.id}} created by customer",
           "approve_permit_extension_request": "Permit extension #{{relatedObject.id}} approved",
-          "cancel_permit_extension_request": "Permit extension #{{relatedObject.id}} cancelled"
+          "cancel_permit_extension_request": "Permit extension #{{relatedObject.id}} cancelled",
+          "create_draft_permit": "Draft created",
+          "update_draft_permit": "Draft updated"
         }
       },
       "dataTable": {
@@ -574,6 +581,7 @@
   "message": {
     "close": "Close",
     "error": "Error",
+    "info": "Info",
     "unauthorized": "You are not authorized to view this page"
   },
   "pages": {
@@ -595,8 +603,10 @@
       "permits": "Permits",
       "residentPermit": "Resident parking permit",
       "save": "Save",
+      "saveAsDraft": "Save as draft",
       "totalPrice": "Total price",
-      "createPermitError": "Permit creation failed"
+      "createPermitError": "Permit creation failed",
+      "draftPermitSaved": "Permit {{permitId}} draft saved"
     },
     "editResidentPermit": {
       "cancelPayment": "Cancel payment",
@@ -615,7 +625,8 @@
       "permitId": "Permit ID",
       "permits": "Permits",
       "residentParkingPermit": "Resident parking permit",
-      "title": "Summary"
+      "title": "Summary",
+      "loading": "Loading..."
     },
     "login": {
       "login": "Login"
@@ -644,7 +655,9 @@
       "save": "Save",
       "downloadPdf": "Download refund details as PDF",
       "title": "Edit refund",
-      "ibanIsRequired": "IBAN number is required"
+      "ibanIsRequired": "IBAN number is required",
+      "loading": "Loading...",
+      "noData": "No data"
     },
     "refunds": {
       "acceptRefunds": "Accept refunds",
@@ -670,7 +683,8 @@
         "confirmTitle": "Confirm delete",
         "confirmMessage": "Address will be permanently deleted. Do you want to proceed?",
         "confirm": "Delete",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "loading": "Loading..."
       },
       "editLowEmissionCriterion": {
         "title": "Edit low emission criterion",
@@ -684,7 +698,8 @@
         "confirmTitle": "Confirm delete",
         "confirmMessage": "Product will be permanently deleted. Do you want to proceed?",
         "confirm": "Delete",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "loading": "Loading..."
       },
       "lowEmissionCriteria": {
         "addNewCriterion": "Add new low emission criterion",
@@ -730,6 +745,7 @@
   },
   "permitStatus": {
     "draft": "Draft",
+    "preliminary": "Preliminary",
     "paymentInProgress": "Payment in progress",
     "valid": "Valid",
     "cancelled": "Cancelled",

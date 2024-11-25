@@ -26,6 +26,9 @@
           "logout": "Loggar ut"
         }
       },
+      "utils": {
+        "loading": "Läser in..."
+      },
       "changeLogs": {
         "createdAt": "Gjort",
         "createdBy": "Skapat av",
@@ -65,7 +68,9 @@
           "create_admin_permit_extension_request": "Begäran om förlängning av tillstånd skapad av admin",
           "create_customer_permit_extension_request": "Begäran om förlängning av tillstånd skapad av kund",
           "approve_permit_extension_request": "Begäran om förlängning av tillstånd godkänd",
-          "cancel_permit_extension_request": "Begäran om förlängning av tillstånd avbruten"
+          "cancel_permit_extension_request": "Begäran om förlängning av tillstånd avbruten",
+          "create_draft_permit": "Tillståndet utkast skapat",
+          "update_draft_permit": "Tillståndet utkast uppdaterat"
         },
         "descriptions": {
           "update_permit": "Tillstånd uppdaterat",
@@ -79,7 +84,9 @@
           "create_admin_permit_extension_request": "Begäran om förlängning av tillstånd #{{relatedObject.id}} skapad av admin",
           "create_customer_permit_extension_request": "Begäran om förlängning av tillstånd #{{relatedObject.id}} skapad av kund",
           "approve_permit_extension_request": "Begäran om förlängning av tillstånd #{{relatedObject.id}} godkänd",
-          "cancel_permit_extension_request": "Begäran om förlängning av tillstånd #{{relatedObject.id}} avbruten"
+          "cancel_permit_extension_request": "Begäran om förlängning av tillstånd #{{relatedObject.id}} avbruten",
+          "create_draft_permit": "Tillståndet utkast skapat",
+          "update_draft_permit": "Tillståndet utkast uppdaterat"
         }
       },
       "dataTable": {
@@ -572,6 +579,7 @@
   "message": {
     "close": "Stänga",
     "error": "Fel",
+    "info": "Information",
     "unauthorized": "Du är inte behörig att se den här sidan"
   },
   "pages": {
@@ -593,8 +601,10 @@
       "permits": "Tillstånd",
       "residentPermit": "Parkeringstillstånd för boende",
       "save": "Spara",
+      "saveAsDraft": "Spara som utkast",
       "totalPrice": "Totalpris",
-      "createPermitError": "Det gick inte att skapa tillstånd"
+      "createPermitError": "Det gick inte att skapa tillstånd",
+      "draftPermitSaved": "Tillståndet {{permitId}} har sparats som utkast"
     },
     "editResidentPermit": {
       "cancelPayment": "Avbryt betalning",
@@ -613,7 +623,8 @@
       "permitId": "Tillstånds-ID",
       "permits": "Tillstånd",
       "residentParkingPermit": "Parkeringstillstånd för boende",
-      "title": "Sammanfattning"
+      "title": "Sammanfattning",
+      "loading": "Läser in..."
     },
     "login": {
       "login": "Logga in"
@@ -642,7 +653,9 @@
       "save": "Spara",
       "downloadPdf": "Ladda ner returnsinformation som PDF",
       "title": "Redigera Retur",
-      "ibanIsRequired": "IBAN-nummer krävs"
+      "ibanIsRequired": "IBAN-nummer krävs",
+      "loading": "Läser in...",
+      "noData": "Inga data"
     },
     "refunds": {
       "acceptRefunds": "Acceptera återbetalningar",
@@ -668,7 +681,8 @@
         "confirmTitle": "Bekräfta radering",
         "confirmMessage": "Adressen kommer att raderas permanent. Vill du fortsätta?",
         "confirm": "Radera",
-        "cancel": "Avbryt"
+        "cancel": "Avbryt",
+        "loading": "Läser in..."
       },
       "editLowEmissionCriterion": {
         "title": "Redigera kriterium för låga utsläpp",
@@ -682,7 +696,8 @@
         "confirmTitle": "Bekräfta radering",
         "confirmMessage": "Produkten kommer att raderas permanent. Vill du fortsätta?",
         "confirm": "Radera",
-        "cancel": "Avbryt"
+        "cancel": "Avbryt",
+        "loading": "Läser in..."
       },
       "lowEmissionCriteria": {
         "addNewCriterion": "Lägg till ett nytt kriterium för låga utsläpp",
@@ -728,6 +743,7 @@
   },
   "permitStatus": {
     "draft": "Utkast",
+    "preliminary": "Preliminär",
     "paymentInProgress": "Betalning pågår",
     "valid": "Giltigt",
     "cancelled": "Inställt",

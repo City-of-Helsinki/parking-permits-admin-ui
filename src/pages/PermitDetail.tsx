@@ -215,7 +215,7 @@ const PermitDetail = (): React.ReactElement => {
 
   let content = null;
   if (loading || !data) {
-    content = <div>loading...</div>;
+    content = <div>{t(`${T_PATH}.loading`)}</div>;
   } else {
     const { permitDetail } = data;
     const {
