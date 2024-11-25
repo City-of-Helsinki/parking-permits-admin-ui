@@ -1,6 +1,7 @@
 import { gql, useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import {
   Button,
+  IconArrowUndo,
   IconCheckCircleFill,
   Notification,
   NumberInput,
@@ -191,7 +192,7 @@ const ExtendResidentPermit = (): React.ReactElement => {
           dismissible
           closeButtonLabelText={t('message.close')}
           onClose={() => setErrorMessage('')}
-          style={{ zIndex: 100 }}>
+          style={{ zIndex: 100, opacity: 1 }}>
           {errorMessage}
         </Notification>
       )}
@@ -231,6 +232,7 @@ const ExtendResidentPermit = (): React.ReactElement => {
           <Button
             className={styles.actionButton}
             variant="secondary"
+            iconLeft={<IconArrowUndo />}
             onClick={navigateToDetailPage}>
             {t('cancelAndCloseWithoutSaving')}
           </Button>

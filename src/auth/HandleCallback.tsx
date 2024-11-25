@@ -2,9 +2,7 @@ import * as Sentry from '@sentry/react';
 import {
   LoginCallbackHandler,
   OidcClientError,
-  useApiTokensClient,
   useOidcClient,
-  User,
 } from 'hds-react';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router';
@@ -16,14 +14,11 @@ const HandleCallback = (
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated } = useOidcClient();
-  const { fetch } = useApiTokensClient();
   const { children } = props;
   const isCallback = isCallbackUrl(location.pathname);
 
-  const onSuccess = (user: User) => {
-    fetch(user);
+  const onSuccess = () => {
     navigate('/permits', { replace: true });
-    window.location.reload();
   };
 
   const onError = (error: OidcClientError | undefined) => {

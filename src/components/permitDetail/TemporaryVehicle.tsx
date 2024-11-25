@@ -53,7 +53,7 @@ const TemporaryVehicle = ({
   const initialValues: FormProps = {
     registrationNumber: '',
     startDate: new Date(),
-    startTime: `${new Date().getHours() + 1}:${new Date().getMinutes()}`,
+    startTime: `${new Date().getHours()}:${new Date().getMinutes()}`,
     endDate: addWeeks(new Date(), 2),
     endTime: '23:59',
   };
@@ -206,7 +206,7 @@ const TemporaryVehicle = ({
           dismissible
           closeButtonLabelText={t('message.close')}
           onClose={() => setErrorMessage('')}
-          style={{ zIndex: 100 }}>
+          style={{ zIndex: 100, opacity: 1 }}>
           {errorMessage}
         </Notification>
       )}

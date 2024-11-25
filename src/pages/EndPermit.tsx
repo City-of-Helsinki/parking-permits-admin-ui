@@ -99,7 +99,7 @@ const EndPermit = (): React.ReactElement => {
   });
   const [endPermit] = useMutation<MutationResponse>(END_PERMIT_MUTATION);
   if (loading || !data) {
-    return <div>loading...</div>;
+    return <div>{t(`${T_PATH}.loading`)}</div>;
   }
   const { permitDetail } = data;
   const {
@@ -184,7 +184,7 @@ const EndPermit = (): React.ReactElement => {
           dismissible
           closeButtonLabelText={t('message.close')}
           onClose={() => setErrorMessage('')}
-          style={{ zIndex: 100 }}>
+          style={{ zIndex: 100, opacity: 1 }}>
           {errorMessage}
         </Notification>
       )}

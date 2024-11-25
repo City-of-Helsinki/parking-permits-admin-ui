@@ -176,6 +176,7 @@ export interface ParkingZone {
 
 export enum ParkingPermitStatus {
   DRAFT = 'DRAFT',
+  PRELIMINARY = 'PRELIMINARY',
   PAYMENT_IN_PROGRESS = 'PAYMENT_IN_PROGRESS',
   VALID = 'VALID',
   CANCELLED = 'CANCELLED',
@@ -305,6 +306,7 @@ export interface CustomerInput {
 }
 
 export interface PermitInput {
+  id?: number;
   contractType: string;
   customer: CustomerInput;
   vehicle: VehicleInput;

@@ -79,7 +79,7 @@ const Products = (): React.ReactElement => {
     deleteProduct({ variables: { productId } });
   };
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>{t(`${T_PATH}.loading`)}</div>;
   }
   return (
     <div className={styles.container}>
@@ -118,7 +118,7 @@ const Products = (): React.ReactElement => {
           dismissible
           closeButtonLabelText={t('message.close')}
           onClose={() => setErrorMessage('')}
-          style={{ zIndex: 100 }}>
+          style={{ zIndex: 100, opacity: 1 }}>
           {errorMessage}
         </Notification>
       )}

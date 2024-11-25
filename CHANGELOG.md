@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2024-11-25
+
+### Added
+
+- Allow draft-permit creation ([4943a22](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/4943a228a34f1737abcd5622eaf08a1f99f43efc))
+- Add silent_renewal-template ([e90cb48](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e90cb487b2ba7884583d8b5473a9751dbec34d46))
+- Add support for permit preliminary-status ([e90cb48](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/12adc867ef05f593f46d3c1004f15476efbffe12))
+
+### Changed
+
+- Switch order of radio buttons ([5b52516](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/5b52516caf701326c98be0a1f76e1f291e8f353d))
+- Switch to keycloak authentication ([43dd9b4](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/43dd9b42ac599abd7021da786028d6b6fa7e9679))
+- Set automaticSilentRenew always true ([9d90965](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/9d90965dbf1b937896fca1e27a7394dc118de9609))
+- Track if api tokens have been fetched once ([eef8f5a](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/eef8f5a16c40d81894657ca44f769dcea87ecc34))
+- Hide ALL-status from permit forms ([4304194](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/4304194e121d6429b3be1d47d7c4fcc8756e4df7))
+- Update fi/sv/en-translations ([eb89290](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/eb89290ee824910f2a0ee6d9ad15990a1b67383f))
+
+### Fixed
+
+- Fix wrong timestamp ([bd2b0df](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/bd2b0df96123df4ccde7a9669c8214e04a09e6a5))
+- Fix HDS Notification dialog layout ([e0d77a9](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e0d77a912bb8b11cf4dbd2a439b5f6086b4ed95c))
+
+### Removed
+
+- Remove unnecessary api token fetch ([01dae43](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/01dae43b77b8bd68acc898afa14c32913b2a52f5))
+- Remove renewal checks ([e3c36f7](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e3c36f710b7644af5e450f826763be8c5f9fd889))
+- Remove StrictMode ([1b167cc](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/1b167cc700bf55123047b3dd80f339d684d87d61))
+
 ## [1.3.0] - 2024-11-14
 
 ### Added

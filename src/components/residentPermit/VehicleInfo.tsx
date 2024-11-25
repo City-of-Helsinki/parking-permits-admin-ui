@@ -111,7 +111,9 @@ const VehicleInfo = ({
           </Notification>
         ))}
         {searchError && (
-          <Notification type="error" style={{ whiteSpace: 'pre-wrap' }}>
+          <Notification
+            type="error"
+            style={{ whiteSpace: 'pre-wrap', opacity: 1 }}>
             {searchError}
           </Notification>
         )}

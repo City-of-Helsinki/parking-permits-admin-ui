@@ -26,6 +26,9 @@
           "logout": "Kirjaudu ulos"
         }
       },
+      "utils": {
+        "loading": "Ladataan..."
+      },
       "changeLogs": {
         "createdAt": "Muutosaika",
         "createdBy": "Muokkaaja",
@@ -65,7 +68,9 @@
           "create_admin_permit_extension_request": "Admin luonut tunnuksen jatkon",
           "create_customer_permit_extension_request": "Asiakas luonut tunnuksen jatkon",
           "approve_permit_extension_request": "Tunnuksen jatko hyväksytty",
-          "cancel_permit_extension_request": "Tunnuksen jatko peruutettu"
+          "cancel_permit_extension_request": "Tunnuksen jatko peruutettu",
+          "create_draft_permit": "Luonnos luotu",
+          "update_draft_permit": "Luonnos päivitetty"
         },
         "descriptions": {
           "update_permit": "Tunnuksen tietoja päivitetty",
@@ -79,7 +84,9 @@
           "create_admin_permit_extension_request": "Admin luonut tunnuksen jatkon #{{relatedObject.id}}",
           "create_customer_permit_extension_request": "Asiakas luonut tunnuksen jatkon #{{relatedObject.id}}",
           "approve_permit_extension_request": "Tunnuksen jatko {{relatedObject.id}} hyväksytty",
-          "cancel_permit_extension_request": "Tunnuksen jatko {{relatedObject.id}} peruutettu"
+          "cancel_permit_extension_request": "Tunnuksen jatko {{relatedObject.id}} peruutettu",
+          "create_draft_permit": "Luonnos luotu",
+          "update_draft_permit": "Luonnos päivitetty"
         }
       },
       "dataTable": {
@@ -574,6 +581,7 @@
   "message": {
     "close": "Sulje",
     "error": "Virhe",
+    "info": "Tieto",
     "unauthorized": "Sinulla ei ole lupaa tarkastella tätä sivua"
   },
   "pages": {
@@ -594,9 +602,11 @@
       "monthCount_other": "{{count}} kuukautta",
       "permits": "Tunnukset",
       "residentPermit": "Asukaspysäköintitunnus",
-      "save": "Tallenna",
+      "save": "Luo tunnus",
+      "saveAsDraft": "Tallenna luonnoksena",
       "totalPrice": "Tunnuksen yhteissumma",
-      "createPermitError": "Tunnuksen luonti epäonnistui"
+      "createPermitError": "Tunnuksen luonti epäonnistui",
+      "draftPermitSaved": "Tunnus {{permitId}} tallennettu luonnoksena"
     },
     "editResidentPermit": {
       "cancelPayment": "Peruuta maksu",
@@ -615,7 +625,8 @@
       "permitId": "Tunnus ID",
       "permits": "Tunnukset",
       "residentParkingPermit": "Asukaspysäköintitunnus",
-      "title": "Yhteenveto"
+      "title": "Yhteenveto",
+      "loading": "Ladataan..."
     },
     "login": {
       "login": "Kirjaudu sisään"
@@ -632,7 +643,8 @@
       "now": "Nyt",
       "permitId": "Tunnus ID",
       "permits": "Tunnukset",
-      "residentParkingPermit": "Asukaspysäköintitunnus"
+      "residentParkingPermit": "Asukaspysäköintitunnus",
+      "loading": "Ladataan..."
     },
     "permits": {
       "createNewPermit": "Luo uusi tunnus",
@@ -645,7 +657,9 @@
       "save": "Tallenna",
       "downloadPdf": "Lataa palautuksen tiedot PDF:nä",
       "title": "Muokkaa Palautusta",
-      "ibanIsRequired": "IBAN-numero vaaditaan"
+      "ibanIsRequired": "IBAN-numero vaaditaan",
+      "loading": "Ladataan...",
+      "noData": "Ei tietoja"
     },
     "refunds": {
       "acceptRefunds": "Hyväksy palautukset",
@@ -671,7 +685,8 @@
         "confirmTitle": "Vahvista poisto",
         "confirmMessage": "Osoite poistetaan pysyvästi. Haluatko jatkaa?",
         "confirm": "Poista",
-        "cancel": "Peruuta"
+        "cancel": "Peruuta",
+        "loading": "Ladataan..."
       },
       "editLowEmissionCriterion": {
         "title": "Muokkaa vähäpäästöisyyskriteeriä",
@@ -685,7 +700,8 @@
         "confirmTitle": "Vahvista poisto",
         "confirmMessage": "Tuote poistetaan pysyvästi. Haluatko jatkaa?",
         "confirm": "Poista",
-        "cancel": "Peruuta"
+        "cancel": "Peruuta",
+        "loading": "Ladataan..."
       },
       "lowEmissionCriteria": {
         "addNewCriterion": "Lisää uusi vähäpäästöisyyskriteeri",
@@ -731,6 +747,7 @@
   },
   "permitStatus": {
     "draft": "Luonnos",
+    "preliminary": "Alustava",
     "paymentInProgress": "Maksussa",
     "valid": "Voimassa",
     "cancelled": "Peruutettu",

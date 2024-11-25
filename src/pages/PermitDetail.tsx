@@ -1,5 +1,12 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { Button, IconDownload, IconPenLine, Notification } from 'hds-react';
+import {
+  Button,
+  IconArrowRightDashed,
+  IconCrossCircle,
+  IconDownload,
+  IconPenLine,
+  Notification,
+} from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -17,7 +24,12 @@ import TemporaryVehicle from '../components/permitDetail/TemporaryVehicle';
 import VehicleInfo from '../components/permitDetail/VehicleInfo';
 import useExportData from '../export/useExportData';
 import { formatExportUrlPdf } from '../export/utils';
-import { MutationResponse, PermitDetailData, PermitEndType } from '../types';
+import {
+  MutationResponse,
+  ParkingPermitStatus,
+  PermitDetailData,
+  PermitEndType,
+} from '../types';
 import { formatCustomerName, isPermitEditable } from '../utils';
 import styles from './PermitDetail.module.scss';
 
@@ -201,6 +213,18 @@ const PermitDetail = (): React.ReactElement => {
     }
   );
 
+  const handleEdit = () => {
+    const permit = data?.permitDetail;
+    if (
+      permit?.status === ParkingPermitStatus.DRAFT ||
+      permit?.status === ParkingPermitStatus.PRELIMINARY
+    ) {
+      navigate('create');
+    } else {
+      navigate('edit');
+    }
+  };
+
   const handleExport = () => {
     const url = formatExportUrlPdf('permit', id || '');
     exportData(url);
@@ -208,7 +232,7 @@ const PermitDetail = (): React.ReactElement => {
 
   let content = null;
   if (loading || !data) {
-    content = <div>loading...</div>;
+    content = <div>{t(`${T_PATH}.loading`)}</div>;
   } else {
     const { permitDetail } = data;
     const {
@@ -285,7 +309,7 @@ const PermitDetail = (): React.ReactElement => {
                     className={styles.actionButton}
                     iconLeft={<IconPenLine />}
                     disabled={!isPermitEditable(permitDetail)}
-                    onClick={() => navigate('edit')}>
+                    onClick={handleEdit}>
                     {t(`${T_PATH}.edit`)}
                   </Button>
                 )}
@@ -296,6 +320,7 @@ const PermitDetail = (): React.ReactElement => {
                   <Button
                     className={styles.actionButton}
                     variant="secondary"
+                    iconLeft={<IconArrowRightDashed />}
                     onClick={() => navigate('extend')}>
                     {t(`${T_PATH}.extend`)}
                   </Button>
@@ -315,6 +340,7 @@ const PermitDetail = (): React.ReactElement => {
                   <Button
                     className={styles.cancelButton}
                     variant="secondary"
+                    iconLeft={<IconCrossCircle />}
                     disabled={!canEndImmediately}
                     onClick={() => setOpenEndPermitDialog(true)}>
                     {t(`${T_PATH}.endPermit`)}
@@ -348,7 +374,7 @@ const PermitDetail = (): React.ReactElement => {
           dismissible
           closeButtonLabelText={t('message.close')}
           onClose={() => setErrorMessage('')}
-          style={{ zIndex: 100 }}>
+          style={{ zIndex: 100, opacity: 1 }}>
           {errorMessage}
         </Notification>
       )}

@@ -196,7 +196,7 @@ const EditResidentPermit = (): React.ReactElement => {
     fetchPolicy: 'no-cache',
     onCompleted: ({ permitDetail }) => {
       // permit parking zone should override customer
-      // zone as pre-selected vaule
+      // zone as pre-selected value
       const newCustomer = {
         ...permitDetail.customer,
         zone: permitDetail.parkingZone,
@@ -370,7 +370,7 @@ const EditResidentPermit = (): React.ReactElement => {
           dismissible
           closeButtonLabelText={t('message.close')}
           onClose={() => setErrorMessage('')}
-          style={{ zIndex: 100 }}>
+          style={{ zIndex: 100, opacity: 1 }}>
           {errorMessage}
         </Notification>
       )}
