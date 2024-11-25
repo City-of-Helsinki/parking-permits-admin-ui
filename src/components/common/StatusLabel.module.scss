@@ -17,6 +17,11 @@
       background-color: $color-draft-fill;
     }
 
+    &.preliminary {
+      border: 1px solid $color-preliminary-border;
+      background-color: $color-preliminary-fill;
+    }
+
     &.paymentInProgress {
       border: 1px solid $color-payment-in-progress-border;
       background-color: $color-payment-in-progress-fill;
