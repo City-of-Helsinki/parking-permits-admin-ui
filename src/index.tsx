@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { ApiAccessTokenProvider } from './api/ApiAccessTokenProvider';
 import { ApiClientProvider } from './api/ApiClientProvider';
 import App from './App';
-import HandleCallback from './auth/HandleCallback';
 import HDSLoginProvider from './auth/LoginProvider';
 import './i18n';
 import './index.scss';
@@ -33,13 +32,11 @@ const root = createRoot(container!);
 root.render(
   <BrowserRouter>
     <HDSLoginProvider>
-      <HandleCallback>
-        <ApiAccessTokenProvider>
-          <ApiClientProvider>
-            <App />
-          </ApiClientProvider>
-        </ApiAccessTokenProvider>
-      </HandleCallback>
+      <ApiAccessTokenProvider>
+        <ApiClientProvider>
+          <App />
+        </ApiClientProvider>
+      </ApiAccessTokenProvider>
     </HDSLoginProvider>
   </BrowserRouter>
 );
