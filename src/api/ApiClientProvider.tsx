@@ -3,10 +3,8 @@ import {
   ApolloProvider,
   NormalizedCacheObject,
 } from '@apollo/client';
-import { getApiTokensFromStorage, useApiTokensClientTracking } from 'hds-react';
 import React, { FC } from 'react';
-import { getEnv } from '../utils';
-import getApiClient from './client';
+import { useApolloClient } from '../hds/apolloClient/hooks';
 
 export interface ApiClientContextProps {
   readonly client: ApolloClient<NormalizedCacheObject>;
@@ -20,11 +18,6 @@ interface Props {
 }
 
 export const ApiClientProvider: FC<Props> = ({ children }) => {
-  useApiTokensClientTracking();
-  const tokens = getApiTokensFromStorage();
-  const apiToken = tokens
-    ? tokens[getEnv('REACT_APP_PARKING_PERMITS_AUDIENCE')]
-    : '';
-  const client = getApiClient(apiToken);
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  const clientInLogin = useApolloClient();
+  return <ApolloProvider client={clientInLogin}>{children}</ApolloProvider>;
 };
