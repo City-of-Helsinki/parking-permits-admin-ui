@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import HandleCallback from './auth/HandleCallback';
 import MainLayout from './components/MainLayout';
 import SuperAdminLayout from './components/SuperAdminLayout';
 import AuthError from './pages/AuthError';
@@ -81,6 +82,10 @@ const routes = [
       { path: '/', element: <Navigate to="/permits" /> },
       { path: '*', element: <Navigate to="/404" /> },
     ],
+  },
+  {
+    path: '/callback',
+    element: <HandleCallback />,
   },
 ];
 

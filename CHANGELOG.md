@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2024-12-09
+
+### Added
+
+- Copy HDS login module ([85b563e](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/85b563e539f0d9eee8415d50f71a0228fc15274f))
+- Use the ApolloClient module ([29ff2cf](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/29ff2cf748460b061eff131d8eee0267093b8a7d))
+
+### Changed
+
+- Move callback to routes ([a98f1fa](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/a98f1faf16d239a38a093f2b44bb9c9337968f69))
+- Use useApiTokensClientTracking to refresh client tokens when tokens are renewed ([b1b7e00](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/b1b7e0096ec257a8442662c2b0dec984ebc4d1b7))
+
+### Fixed
+
+- Fix page contents emptying when tokens are renewed ([8467c6f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/8467c6f1b60f291dc1c86fc96272f0854d180e8e))
+
 ## [1.4.0] - 2024-11-25
 
 ### Added
