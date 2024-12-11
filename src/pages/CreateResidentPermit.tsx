@@ -359,9 +359,9 @@ const CreateResidentPermit = (): React.ReactElement => {
       },
     })
       .then(response => {
-        const id = response.data?.createResidentPermit.permit.id;
+        const id = response.data?.createResidentPermit?.permit?.id;
         if (id) {
-          navigate(`/permits/${permitId}`);
+          navigate(`/permits/${id}`);
         }
         if (response.errors && response.errors.message) {
           setErrorMessage(response.errors.message);
@@ -391,7 +391,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       },
     })
       .then(response => {
-        const id = response.data?.createResidentPermit.permit.id;
+        const id = response.data?.createResidentPermit?.permit?.id;
         if (id) {
           setInfoMessage(
             t(`${T_PATH}.draftPermitSaved`, {
