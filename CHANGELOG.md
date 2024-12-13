@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.1] - 2024-12-13
+
+### Fixed
+
+- Use permit id from response ([42ac4d2](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/42ac4d2b914e75b870e8b040550133347f63573e))
+
 ## [1.5.0] - 2024-12-09
 
 ### Added
