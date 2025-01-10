@@ -111,7 +111,8 @@ const Announcements = (): React.ReactElement => {
     {
       name: t(`${T_PATH}.sentAt`),
       field: 'createdAt',
-      selector: ({ createdAt }) => createdAt,
+      selector: ({ createdAt }) =>
+        new Date(createdAt).toLocaleString(i18n.language),
       sortable: true,
     },
   ];
