@@ -128,9 +128,7 @@ const OrdersDataTable = ({
       name: t(`${T_PATH}.paidTime`),
       field: 'paidTime',
       selector: ({ paidTime }) =>
-        paidTime
-          ? formatDateTimeDisplay(paidTime, t(`${T_PATH}.paidTimeFormat`))
-          : '-',
+        paidTime ? formatDateTimeDisplay(paidTime) : '-',
       sortable: true,
     },
     {
