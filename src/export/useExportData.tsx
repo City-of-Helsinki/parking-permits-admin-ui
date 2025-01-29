@@ -1,16 +1,18 @@
 import { useTranslation } from 'react-i18next';
-import useApiToken from '../api/useApiToken';
+import waitForApiToken from '../api/waitForApiToken';
 
 const useExportData = (): ((url: string | URL) => void) => {
   const { i18n } = useTranslation();
-  const token = useApiToken();
   return (url: string | URL) => {
-    fetch(url, {
-      headers: {
-        authorization: token ? `Bearer ${token}` : '',
-        'Accept-Language': i18n.language,
-      },
-    })
+    waitForApiToken()
+      .then(apiToken =>
+        fetch(url, {
+          headers: {
+            authorization: apiToken ? `Bearer ${apiToken}` : '',
+            'Accept-Language': i18n.language,
+          },
+        })
+      )
       .then(response => response.blob())
       .then(blob => {
         const file = window.URL.createObjectURL(blob);
