@@ -1,5 +1,5 @@
+import { useAuthenticatedUser } from 'hds-react';
 import { decode } from 'jsonwebtoken';
-import useApiToken from './useApiToken';
 
 export enum Groups {
   SUPER_ADMIN = 'sg_kymp_pyva_asukpt_yllapito',
@@ -22,8 +22,8 @@ export enum UserRole {
 }
 
 const useUserRole = (): UserRole => {
-  const apiToken = useApiToken();
-  const decodedToken = decode(apiToken);
+  const user = useAuthenticatedUser();
+  const decodedToken = user && decode(user.id_token);
   if (decodedToken) {
     const adGroups: string[] = [];
     // Remove special ADFS-prefix
