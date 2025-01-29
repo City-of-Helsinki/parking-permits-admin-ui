@@ -1,10 +1,9 @@
 @import '~hds-design-tokens/lib/all.scss';
 
 .paginator-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: block;
   margin: $spacing-m 0;
+  text-align: center;
 
   button {
     width: 48px;
