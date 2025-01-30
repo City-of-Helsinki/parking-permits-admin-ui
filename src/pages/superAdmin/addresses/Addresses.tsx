@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import classNames from 'classnames';
 import { Button, Notification } from 'hds-react';
 import React, { useState } from 'react';
@@ -75,14 +75,12 @@ const Addresses = (): React.ReactElement => {
     orderBy,
   };
 
-  const { loading, data, refetch } = useQuery<AddressesQueryData>(
-    ADDRESSES_QUERY,
-    {
+  const [getAddresses, { loading, data, refetch }] =
+    useLazyQuery<AddressesQueryData>(ADDRESSES_QUERY, {
       variables,
       fetchPolicy: 'no-cache',
       onError: error => setErrorMessage(error.message),
-    }
-  );
+    });
 
   const handleSearch = (newSearchParams: AddressSearchParams) => {
     setSearchParams(
@@ -94,10 +92,12 @@ const Addresses = (): React.ReactElement => {
       { replace: true }
     );
 
-    refetch({
-      searchParams: newSearchParams,
-      pageInput: { page: 1 },
-      orderBy,
+    getAddresses({
+      variables: {
+        searchParams: newSearchParams,
+        pageInput: { page: 1 },
+        orderBy,
+      },
     });
   };
 
