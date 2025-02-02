@@ -22,3 +22,10 @@
     margin: $spacing-xs 0;
   }
 }
+
+.paginator-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: $spacing-m 0;
+}
