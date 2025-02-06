@@ -2,6 +2,7 @@
 
 .dataTable {
   margin: $spacing-m 0;
+  width: 1000px;
 
   .header {
     display: flex;
@@ -20,4 +21,11 @@
   .selectionActions {
     margin: $spacing-xs 0;
   }
+}
+
+.paginator-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: $spacing-m 0;
 }

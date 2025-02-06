@@ -1,5 +1,6 @@
-import { addMonths, format } from 'date-fns';
+import { addMonths } from 'date-fns';
 import { extractIBAN } from 'ibantools';
+import { getI18n } from 'react-i18next';
 import {
   Address,
   Customer,
@@ -128,12 +129,10 @@ export function formatPermitMaxValidPeriodInMonths(
   return defaultMaxValidPeriodInMonths;
 }
 
-export function formatDateTimeDisplay(
-  datetime: string | Date,
-  dtFormat = 'd.M.y, HH:mm'
-): string {
+export function formatDateTimeDisplay(datetime: string | Date): string {
+  const i18n = getI18n();
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
-  return dt ? format(dt, dtFormat) : '';
+  return dt ? dt.toLocaleString(i18n.language) : '';
 }
 
 export function formatCustomerName(customer: Customer): string {

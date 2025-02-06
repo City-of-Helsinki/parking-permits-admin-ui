@@ -1,10 +1,9 @@
-import { Button, Checkbox, IconDownload } from 'hds-react';
+import { Button, Checkbox, IconDownload, Pagination } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { OrderBy, PageInfo } from '../../types';
+import { Language, OrderBy, PageInfo } from '../../types';
 import { Column } from '../types';
 import styles from './DataTable.module.scss';
-import Paginator from './paginator/Paginator';
 import Table from './table/Table';
 
 export interface DataTableProps<T> {
@@ -42,7 +41,7 @@ const DataTable = <T,>({
   showAllSelection = true,
   showCheckbox = true,
 }: DataTableProps<T>): React.ReactElement => {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   return (
     <div className={styles.dataTable}>
       <div className={styles.header}>
@@ -91,7 +90,22 @@ const DataTable = <T,>({
         onSelectionChange={onSelectionChange}
         showCheckbox={showCheckbox}
       />
-      {pageInfo && onPage && <Paginator pageInfo={pageInfo} onPage={onPage} />}
+      {pageInfo && onPage && (
+        <div className={styles['paginator-container']}>
+          <Pagination
+            language={i18n.language as Language}
+            onChange={(event, index) => {
+              event.preventDefault();
+              onPage(index + 1);
+            }}
+            pageCount={pageInfo.numPages}
+            pageHref={() => '#'}
+            pageIndex={pageInfo.page - 1}
+            paginationAriaLabel="Pagination"
+            siblingCount={2}
+          />
+        </div>
+      )}
     </div>
   );
 };
