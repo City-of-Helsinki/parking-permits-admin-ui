@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.2] - 2025-02-06
+
+### Fixed
+
+- Use lazy query in address pagination ([09410c9](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/09410c95e6033ecdb76cb605a0820597a0f4a789))
+- Issues caused by API token renewal ([e73a4dd](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e73a4ddc13f40734bc42480b76e982f65ff4fb76))
+- Fix paginator and datatable layouts ([f2f0326](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/f2f0326805a7efacca746a5e91dbe0e4cef27a2b))
+- Fix date formatting which sometimes caused incorrect year to appear ([92ec33f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/92ec33ff7c85b9524f81102bd0be6e1db55d69ff))
+- Add localization to time so it is displayed in local time and with correct localization. ([3aae664](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/3aae664a91d094a14d4ab2d1e4f1080c44d36025))
+
+### Changed
+
+- Update to use nginx v1.24 ([8fdefbd](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/8fdefbd8b6b22cb26eb6dfeadbfc18dfa4ccc1b0))
+
 ## [1.5.1] - 2024-12-13
 
 ### Fixed
