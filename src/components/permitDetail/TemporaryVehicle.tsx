@@ -105,7 +105,6 @@ const TemporaryVehicle = ({
                       label={t(`${T_PATH}.registrationNumber.label`)}
                       onChange={handleChange}
                       className="registration-input"
-                      helperText={t(`${T_PATH}.registrationNumber.helpText`)}
                     />
                   )}
                 </Field>
@@ -145,10 +144,6 @@ const TemporaryVehicle = ({
                       id="endDate"
                       className="date-input"
                       minDate={form.getFieldProps('startDate').value}
-                      maxDate={addWeeks(
-                        form.getFieldProps('startDate').value,
-                        2
-                      )}
                       initialMonth={form.getFieldProps('startDate').value}
                       value={format(field.value, 'd.M.yyyy')}
                       onChange={(value: string, valueAsDate: Date) =>
