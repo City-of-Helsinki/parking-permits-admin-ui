@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.3] - 2025-03-06
+### Changed
+
+- Change button text when creating new resident permit ([3816d95](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/3816d959873c3db23649fe50c4c2d043c2dfef3c))
+- Remove 2 week limit for temporary vehicle ([285e281](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/285e28161ce2613c776e6110ba738ac35fe57647))
+
 ## [1.5.2] - 2025-02-06
 
 ### Fixed
