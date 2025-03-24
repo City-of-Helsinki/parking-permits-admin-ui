@@ -92,7 +92,7 @@ const TemporaryVehicle = ({
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={submitForm}>
-        {({ handleSubmit, handleChange }) => (
+        {({ handleSubmit, handleChange, isSubmitting }) => (
           <>
             <Card className={styles.formBox}>
               <form className={styles.forms} onSubmit={handleSubmit}>
@@ -185,6 +185,7 @@ const TemporaryVehicle = ({
               <Button
                 theme="black"
                 type="submit"
+                disabled={isSubmitting}
                 onClick={() => handleSubmit()}
                 iconRight={<IconArrowRight />}>
                 {t(`${T_PATH}.actionBtn.continue`)}
