@@ -2,7 +2,7 @@ import { formatISO, parse } from 'date-fns';
 import { Button, DateInput, IconSearch, SearchInput } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PaymentType, RefundSearchParams } from '../../types';
+import { Language, PaymentType, RefundSearchParams } from '../../types';
 import { joinSet } from '../../utils';
 import FilterOptions from '../orders/FilterOptions';
 import styles from './RefundsSearch.module.scss';
@@ -19,7 +19,7 @@ const RefundsSearch = ({
   searchParams,
   onSearch,
 }: RefundsSearchProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [status, setStatus] = useState(searchParams.status);
   const [query, setQuery] = useState(searchParams.q);
@@ -55,6 +55,7 @@ const RefundsSearch = ({
           <DateInput
             className={styles.startDate}
             id="startDate"
+            language={i18n.language as Language}
             value={startDate}
             onChange={setStartDate}
           />
@@ -62,6 +63,7 @@ const RefundsSearch = ({
           <DateInput
             className={styles.endDate}
             id="endDate"
+            language={i18n.language as Language}
             value={endDate}
             onChange={setEndDate}
           />
