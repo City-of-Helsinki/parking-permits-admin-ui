@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
 import {
+  Language,
   ParkingZone,
   ProductInput,
   ProductType,
@@ -201,6 +202,7 @@ const ProductForm = ({
                     className={styles.field}
                     id="startDate"
                     label={t(`${T_PATH}.startDate`)}
+                    language={i18n.language as Language}
                     value={formatDateDisplay(field.value)}
                     onChange={(_, date) =>
                       form.setFieldValue(
@@ -220,6 +222,7 @@ const ProductForm = ({
                     className={styles.field}
                     id="endDate"
                     label={t(`${T_PATH}.endDate`)}
+                    language={i18n.language as Language}
                     value={formatDateDisplay(field.value)}
                     onChange={(_, date) =>
                       form.setFieldValue(

@@ -10,6 +10,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Language,
   OrderSearchParams,
   PaymentType,
   PermitContractType,
@@ -31,7 +32,7 @@ const OrdersSearch = ({
   searchParams,
   onSubmit,
 }: OrdersSearchProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [query, setQuery] = useState(searchParams.q);
   const [startDate, setStartDate] = useState(searchParams.startDate);
@@ -93,6 +94,7 @@ const OrdersSearch = ({
             id="startDate"
             className={styles.startDate}
             label={t(`${T_PATH}.startDate`)}
+            language={i18n.language as Language}
             value={startDate}
             onChange={setStartDate}
           />
@@ -101,6 +103,7 @@ const OrdersSearch = ({
             id="endDate"
             className={styles.endDate}
             label={t(`${T_PATH}.endDate`)}
+            language={i18n.language as Language}
             value={endDate}
             onChange={setEndDate}
           />
