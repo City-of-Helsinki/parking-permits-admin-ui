@@ -135,6 +135,19 @@ export function formatDateTimeDisplay(datetime: string | Date): string {
   return dt ? dt.toLocaleString(i18n.language) : '';
 }
 
+export function formatDateTimeDisplayWithoutSeconds(
+  createdAt: string | Date
+): string {
+  const i18n = getI18n();
+  return new Date(createdAt).toLocaleString(i18n.language, {
+    hour: '2-digit',
+    minute: '2-digit',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  });
+}
+
 export function formatCustomerName(customer: Customer): string {
   const { firstName, lastName } = customer;
   return `${lastName}, ${firstName}`;

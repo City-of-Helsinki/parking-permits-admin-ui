@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { makePrivate } from '../../../auth/utils';
 import { Announcement } from '../../../types';
+import { formatDateTimeDisplayWithoutSeconds } from '../../../utils';
 import styles from './ViewAnnouncement.module.scss';
 
 const T_PATH = 'pages.superAdmin.announcement';
@@ -77,7 +78,11 @@ const ViewAnnouncement = (): React.ReactElement => {
             </div>
             <div className={styles.col}>
               <p className="text-medium">{t(`${T_PATH}.sentAt`)}</p>
-              <p>{data.announcement.createdAt}</p>
+              <p>
+                {formatDateTimeDisplayWithoutSeconds(
+                  data.announcement.createdAt
+                )}
+              </p>
             </div>
           </div>
 
