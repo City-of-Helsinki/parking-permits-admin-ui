@@ -181,7 +181,7 @@
       },
       "endPermitDialog": {
         "cancel": "Cancel",
-        "choosePermitEndType": "Choose when to cancel the permit",
+        "choosePermitEndType": "Choose when the permit is ended (refunds will be generated automatically for the remaining paid months of the permit):",
         "continue": "Continue",
         "endAfterCurrentPeriod": "End permit after current period",
         "endImmediately": "End permit immediately",

@@ -181,7 +181,7 @@
       },
       "endPermitDialog": {
         "cancel": "Avbryt",
-        "choosePermitEndType": "Välj när tillståndet upphör",
+        "choosePermitEndType": "Välj när tillståndet upphör (återbetalningar genereras automatiskt för de återstående betalda månaderna av tillståndet):",
         "continue": "Fortsätt",
         "endAfterCurrentPeriod": "Sluttillstånd efter aktuell period",
         "endImmediately": "Avsluta tillstånd omedelbart",
