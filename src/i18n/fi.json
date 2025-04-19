@@ -181,7 +181,7 @@
       },
       "endPermitDialog": {
         "cancel": "Peruuta",
-        "choosePermitEndType": "Valitsen milloin tunnuksen voimassaolo päättyy",
+        "choosePermitEndType": "Valitse milloin tunnuksen voimassaolo päättyy (kokonaisista tunnuksen jäljellä olevista maksetuista kuukausista muodostetaan palautukset automaattisesti):",
         "continue": "Jatka",
         "endAfterCurrentPeriod": "Päätä tunnus kuluvan tilausjakson päätteeksi",
         "endImmediately": "Päätä tunnus välittömästi",
