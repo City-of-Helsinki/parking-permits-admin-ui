@@ -1,4 +1,4 @@
-import { addMonths } from 'date-fns';
+import { addMonths, format } from 'date-fns';
 import { extractIBAN } from 'ibantools';
 import { getI18n } from 'react-i18next';
 import {
@@ -16,6 +16,8 @@ import {
   Vehicle,
   VehicleInput,
 } from './types';
+
+const dateFormat = 'd.M.yyyy HH:mm';
 
 type TranslateFunction = (name: string) => string;
 
@@ -130,9 +132,21 @@ export function formatPermitMaxValidPeriodInMonths(
 }
 
 export function formatDateTimeDisplay(datetime: string | Date): string {
-  const i18n = getI18n();
   const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
-  return dt ? dt.toLocaleString(i18n.language) : '';
+  return format(dt, dateFormat);
+}
+
+export function formatDateTimeDisplayWithoutSeconds(
+  createdAt: string | Date
+): string {
+  const i18n = getI18n();
+  return new Date(createdAt).toLocaleString(i18n.language, {
+    hour: '2-digit',
+    minute: '2-digit',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  });
 }
 
 export function formatCustomerName(customer: Customer): string {

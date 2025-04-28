@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.4] - 2025-04-28
+
+### Changed
+
+- Update permit end dialog fi/sv/en-messages ([b290fd8](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/b290fd83edc709f43ff578f644d3ce87782548c9))
+- Update date format ([b38e78c](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/b38e78c0233c58a29e24115b092d3b6e7b8e9102))
+
+### Fixed
+
+- Disable button until request complete ([9fb04c2](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/9fb04c20d5da5ed04222366ab7686be33e8ac219))
+- Add language-support for calendars ([6549873](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/654987378ae5ba1a277df3fff0aa2df2494ea8f0))
+- Fix announcement timestamp ([528a430](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/528a430822b42e20479f3a741f1de3b6347d417a))
+- Remove fixed positions ([8787cfe](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/8787cfe84ceda17f280e19dc85917c19b5019ca2))
+
+## [1.5.3] - 2025-03-06
+
+### Changed
+
+- Change button text when creating new resident permit ([3816d95](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/3816d959873c3db23649fe50c4c2d043c2dfef3c))
+- Remove 2 week limit for temporary vehicle ([285e281](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/285e28161ce2613c776e6110ba738ac35fe57647))
+
 ## [1.5.2] - 2025-02-06
 
 ### Fixed

@@ -14,7 +14,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { PermitDetail } from '../../types';
+import { Language, PermitDetail } from '../../types';
 import styles from './TemporaryVehicle.module.scss';
 
 const T_PATH = 'components.permitDetail.temporaryVehicle';
@@ -92,7 +92,7 @@ const TemporaryVehicle = ({
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={submitForm}>
-        {({ handleSubmit, handleChange }) => (
+        {({ handleSubmit, handleChange, isSubmitting }) => (
           <>
             <Card className={styles.formBox}>
               <form className={styles.forms} onSubmit={handleSubmit}>
@@ -121,7 +121,7 @@ const TemporaryVehicle = ({
                         form.setFieldValue('startDate', valueAsDate)
                       }
                       label={t(`${T_PATH}.startDate`)}
-                      language={(i18n?.language || 'fi') as 'fi' | 'sv' | 'en'}
+                      language={i18n.language as Language}
                     />
                   )}
                 </Field>
@@ -150,7 +150,7 @@ const TemporaryVehicle = ({
                         form.setFieldValue('endDate', valueAsDate)
                       }
                       label={t(`${T_PATH}.endDate`)}
-                      language={(i18n?.language || 'fi') as 'fi' | 'sv' | 'en'}
+                      language={i18n.language as Language}
                     />
                   )}
                 </Field>
@@ -185,6 +185,7 @@ const TemporaryVehicle = ({
               <Button
                 theme="black"
                 type="submit"
+                disabled={isSubmitting}
                 onClick={() => handleSubmit()}
                 iconRight={<IconArrowRight />}>
                 {t(`${T_PATH}.actionBtn.continue`)}

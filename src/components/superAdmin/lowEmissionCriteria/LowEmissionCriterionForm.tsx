@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
-import { LowEmissionCriterion } from '../../../types';
+import { Language, LowEmissionCriterion } from '../../../types';
 import { formatDateDisplay } from '../../../utils';
 import EuroClassSelect from '../../common/EuroClassSelect';
 import styles from './LowEmissionCriterionForm.module.scss';
@@ -28,7 +28,7 @@ const LowEmissionCriterionForm = ({
   onDelete,
   onCancel,
 }: LowEmissionCriterionFormProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const initialValues = criterion
     ? {
         nedcMaxEmissionLimit: criterion.nedcMaxEmissionLimit,
@@ -127,6 +127,7 @@ const LowEmissionCriterionForm = ({
                     id={field.name}
                     className={styles.field}
                     label={t(`${T_PATH}.startDate`)}
+                    language={i18n.language as Language}
                     value={field.value && formatDateDisplay(field.value)}
                     onChange={(_, date) => form.setFieldValue(field.name, date)}
                     errorText={
@@ -142,6 +143,7 @@ const LowEmissionCriterionForm = ({
                     id={field.name}
                     className={styles.field}
                     label={t(`${T_PATH}.endDate`)}
+                    language={i18n.language as Language}
                     value={field.value && formatDateDisplay(field.value)}
                     onChange={(_, date) => form.setFieldValue(field.name, date)}
                     errorText={

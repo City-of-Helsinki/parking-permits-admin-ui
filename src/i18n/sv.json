@@ -181,7 +181,8 @@
       },
       "endPermitDialog": {
         "cancel": "Avbryt",
-        "choosePermitEndType": "Välj när tillståndet upphör",
+        "choosePermitEndType": "Välj när tillståndet upphör.",
+        "choosePermitEndTypeInfo": "Vi krediterar betalda, oanvända hela månader.",
         "continue": "Fortsätt",
         "endAfterCurrentPeriod": "Sluttillstånd efter aktuell period",
         "endImmediately": "Avsluta tillstånd omedelbart",

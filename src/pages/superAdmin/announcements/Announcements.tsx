@@ -8,6 +8,7 @@ import DataTable from '../../../components/common/DataTable';
 import { Column } from '../../../components/types';
 import { useOrderByParam, usePageParam } from '../../../hooks/searchParam';
 import { Announcement, AnnouncementsQueryData, OrderBy } from '../../../types';
+import { formatDateTimeDisplayWithoutSeconds } from '../../../utils';
 import styles from './Announcements.module.scss';
 
 const T_PATH = 'pages.superAdmin.announcements';
@@ -112,7 +113,7 @@ const Announcements = (): React.ReactElement => {
       name: t(`${T_PATH}.sentAt`),
       field: 'createdAt',
       selector: ({ createdAt }) =>
-        new Date(createdAt).toLocaleString(i18n.language),
+        formatDateTimeDisplayWithoutSeconds(createdAt),
       sortable: true,
     },
   ];
