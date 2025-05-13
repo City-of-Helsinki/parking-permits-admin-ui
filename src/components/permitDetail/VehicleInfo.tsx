@@ -37,13 +37,15 @@ const VehicleInfo = ({
           {formatVehicleName(activeTemporaryVehicle?.vehicle || vehicle)}
         </div>
 
-        <div className={styles.emissionInfo}>
-          {t(
-            `${T_PATH}.${
-              isLowEmission ? 'lowEmissionVehicle' : 'highEmissionVehicle'
-            }`
-          )}
-        </div>
+        {!activeTemporaryVehicle && (
+          <div className={styles.emissionInfo}>
+            {t(
+              `${T_PATH}.${
+                isLowEmission ? 'lowEmissionVehicle' : 'highEmissionVehicle'
+              }`
+            )}
+          </div>
+        )}
         {activeTemporaryVehicle && (
           <>
             <div className={styles.temporaryVehicle}>
@@ -105,8 +107,8 @@ const VehicleInfo = ({
               {t(`${T_PATH}.removeTemporaryVehicle`)}
             </Button>
           )}
-          <div className={styles.invalidVehicle}>
-            <div className={styles.title}>{t(`${T_PATH}.invalid`)}</div>
+          <div className={styles.actualVehicle}>
+            <div className={styles.title}>{t(`${T_PATH}.actual`)}</div>
             <div className={styles.infoBox}>
               <div className={styles.vehicle}>{formatVehicleName(vehicle)}</div>
             </div>
