@@ -158,7 +158,7 @@ const EndPermit = (): React.ReactElement => {
             contractType === PermitContractType.FIXED_PERIOD &&
             canBeRefunded &&
             totalRefundAmount > 0 &&
-            !(iban && isValidIBAN(iban))
+            !(iban === '' || isValidIBAN(iban))
           }
           onClick={() => {
             endPermit({
