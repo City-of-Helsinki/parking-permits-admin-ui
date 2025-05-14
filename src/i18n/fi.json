@@ -229,7 +229,8 @@
         "orderRemaining": "Maksettua tilausta jäljellä",
         "refund": "Palautus",
         "refunded": "Palautetaan",
-        "title": "Hinta"
+        "title": "Hinta",
+        "refundIban": "Asiakkaan tilinumero hyvitystä varten (IBAN)"
       },
       "temporaryVehicle": {
         "actionBtn": {
@@ -577,7 +578,11 @@
     "openEnded": "Jatkuvaveloitteinen kuukausitunnus"
   },
   "errors": {
-    "invalidIBAN": "Virheellinen IBAN-numero"
+    "invalidIBAN": "IBAN ei ole oikeassa muodossa"
+  },
+  "info": {
+    "validIBAN": "IBAN tarkistettu",
+    "ibanDescription": "IBAN-numero on 18 merkkiä pitkä ja alkaa kirjaimilla FI. Esim. FI21 1234 5600 0007 85"
   },
   "message": {
     "close": "Sulje",

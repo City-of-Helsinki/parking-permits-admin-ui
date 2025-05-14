@@ -209,8 +209,8 @@
         "secondPermit": "2. permit"
       },
       "permitPriceChangeInfo": {
-        "customerAccountKnown": "Customer's IBAN number for refund",
-        "customerAccountUnknown": "Customer's IBAN number unknown",
+        "customerAccountKnown": "Customer's IBAN-number for refund",
+        "customerAccountUnknown": "Customer's IBAN-number unknown",
         "extraPaymentTotal": "Total additional payment",
         "extraPaymentVatTotal": "Incl. vat",
         "newOrderTotal": "New order, total price",
@@ -229,7 +229,8 @@
         "orderRemaining": "Paid order remaining",
         "refund": "Refund",
         "refunded": "Refunded",
-        "title": "Price"
+        "title": "Price",
+        "refundIban": "Customer's IBAN-number for refund"
       },
       "temporaryVehicle": {
         "actionBtn": {
@@ -577,7 +578,11 @@
     "openEnded": "Open ended"
   },
   "errors": {
-    "invalidIBAN": "Invalid IBAN number"
+    "invalidIBAN": "IBAN-number is not in valid format"
+  },
+  "info": {
+    "validIBAN": "IBAN checked and valid",
+    "ibanDescription": "IBAN-number is 18 characters long and starts with FI. For example: FI21 1234 5600 0007 85"
   },
   "message": {
     "close": "Close",
@@ -656,7 +661,7 @@
       "save": "Save",
       "downloadPdf": "Download refund details as PDF",
       "title": "Edit refund",
-      "ibanIsRequired": "IBAN number is required",
+      "ibanIsRequired": "IBAN-number is required",
       "loading": "Loading...",
       "noData": "No data"
     },

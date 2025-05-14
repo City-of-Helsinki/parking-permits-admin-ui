@@ -201,6 +201,10 @@ const PermitPriceChangeInfo = ({
                     ? undefined
                     : t('errors.invalidIBAN')
                 }
+                successText={
+                  isValidIBAN(refundAccountNumber) ? t('info.validIBAN') : ''
+                }
+                tooltipText={t('info.ibanDescription')}
               />
               <RadioButton
                 id="customerAccountUnknown"
