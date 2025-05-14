@@ -36,6 +36,7 @@ const PERMIT_DETAIL_QUERY = gql`
       monthsLeft
       totalRefundAmount
       addressApartment
+      primaryVehicle
       customer {
         firstName
         lastName
