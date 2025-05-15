@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2025-05-15
+
+### Added
+
+- Improve IBAN-handling ([fdfef9e](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/fdfef9e449f4c8af01d2ad28b9c5aae256b2419c))
+- Navigate to permit page after edit or cancel ([ebdb674](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/ebdb6741db8422e79426c5d3cecb9ac64a6f2fb4))
+
+### Changed
+
+- Update temporary vehicle title text ([545d0b7](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/545d0b7bebde88ad4edbe816c8cbf85d052c829a))
+
+### Fixed
+
+- Use permit end time as max dates ([132b159](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/132b159d9a410d11e21578d1a6e58ee140b7be84))
+- Query primaryVehicle in EndPermit ([ad40970](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/ad40970871c09a48ea0b3d90f521ef59955327c7))
+
 ## [1.5.4] - 2025-04-28
 
 ### Changed
