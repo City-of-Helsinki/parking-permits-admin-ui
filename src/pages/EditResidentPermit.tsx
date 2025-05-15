@@ -190,6 +190,10 @@ const EditResidentPermit = (): React.ReactElement => {
   const [refundAccountNumber, setRefundAccountNumber] = useState('');
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
+  const navigateToDetailPage = () => {
+    navigate(`/permits/${permitId}`);
+  };
+
   // graphql queries and mutations
   useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
     variables: { permitId },
@@ -232,7 +236,7 @@ const EditResidentPermit = (): React.ReactElement => {
   const [updateResidentPermit] = useMutation<MutationResponse>(
     UPDATE_RESIDENT_PERMIT_MUTATION,
     {
-      onCompleted: () => navigate('/permits'),
+      onCompleted: navigateToDetailPage,
       onError: error => setErrorMessage(error.message),
     }
   );
@@ -313,7 +317,7 @@ const EditResidentPermit = (): React.ReactElement => {
             setPermit(updatedPermit);
             updatePermitPrices(updatedPermit, !updatedPermit.primaryVehicle);
           }}
-          onCancel={() => navigate('/permits')}
+          onCancel={navigateToDetailPage}
           onConfirm={() => {
             getPermitPriceChangeList({
               variables: { permitId, permitInfo: convertToPermitInput(permit) },

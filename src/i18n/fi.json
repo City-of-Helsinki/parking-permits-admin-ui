@@ -229,7 +229,8 @@
         "orderRemaining": "Maksettua tilausta jäljellä",
         "refund": "Palautus",
         "refunded": "Palautetaan",
-        "title": "Hinta"
+        "title": "Hinta",
+        "refundIban": "Asiakkaan tilinumero hyvitystä varten (IBAN)"
       },
       "temporaryVehicle": {
         "actionBtn": {
@@ -251,7 +252,7 @@
         "addTemporaryVehicle": "Lisää tilapäinen ajoneuvo",
         "consentLowEmissionDiscountText": "Lupa 50% alennukseen myös muusta kadunvarsipysäköinnistä pysäkointisovelluksilla maksaessa",
         "highEmissionVehicle": "Normaalipäästöinen ajoneuvo",
-        "invalid": "Ei voimassa",
+        "actual": "Varsinainen ajoneuvo",
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
         "removeTemporaryVehicle": "Poista tilapäinen ajoneuvo",
         "title": "Ajoneuvon tiedot",
@@ -577,7 +578,11 @@
     "openEnded": "Jatkuvaveloitteinen kuukausitunnus"
   },
   "errors": {
-    "invalidIBAN": "Virheellinen IBAN-numero"
+    "invalidIBAN": "IBAN ei ole oikeassa muodossa"
+  },
+  "info": {
+    "validIBAN": "IBAN tarkistettu",
+    "ibanDescription": "IBAN-numero on 18 merkkiä pitkä ja alkaa kirjaimilla FI. Esim. FI21 1234 5600 0007 85"
   },
   "message": {
     "close": "Sulje",

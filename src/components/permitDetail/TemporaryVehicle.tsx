@@ -114,7 +114,9 @@ const TemporaryVehicle = ({
                       id="startDate"
                       className="date-input"
                       minDate={new Date()}
-                      maxDate={addWeeks(new Date(), 2)}
+                      maxDate={
+                        permit.endTime ? new Date(permit.endTime) : undefined
+                      }
                       initialMonth={new Date()}
                       value={format(field.value, 'd.M.yyyy')}
                       onChange={(value: string, valueAsDate: Date) =>
@@ -144,6 +146,9 @@ const TemporaryVehicle = ({
                       id="endDate"
                       className="date-input"
                       minDate={form.getFieldProps('startDate').value}
+                      maxDate={
+                        permit.endTime ? new Date(permit.endTime) : undefined
+                      }
                       initialMonth={form.getFieldProps('startDate').value}
                       value={format(field.value, 'd.M.yyyy')}
                       onChange={(value: string, valueAsDate: Date) =>

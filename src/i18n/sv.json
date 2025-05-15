@@ -227,7 +227,8 @@
         "orderRemaining": "Betald order återstår",
         "refund": "Återbetalning",
         "refunded": "Återbetalas",
-        "title": "Pris"
+        "title": "Pris",
+        "refundIban": "Kundkontonummer för återbetalning (IBAN)"
       },
       "temporaryVehicle": {
         "actionBtn": {
@@ -249,7 +250,7 @@
         "addTemporaryVehicle": "Lägg till ett tillfälligt fordon",
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
         "highEmissionVehicle": "Fordon med normalt utsläpp",
-        "invalid": "Inte giltig",
+        "actual": "Faktisk fördonet",
         "lowEmissionVehicle": "Fordon med låga utsläpp",
         "removeTemporaryVehicle": "Ta bort det tillfälliga fordonet",
         "title": "Fordonsinformation",
@@ -575,7 +576,11 @@
     "openEnded": "Kontinuerlig laddning"
   },
   "errors": {
-    "invalidIBAN": "Ogiltigt IBAN-nummer"
+    "invalidIBAN": "IBAN-numret är ogiltigt"
+  },
+  "info": {
+    "validIBAN": "IBAN-numret är giltigt",
+    "ibanDescription": "IBAN-number är 18 tecken långt och börjar med FI. Exempel: FI21 1234 5600 0007 85"
   },
   "message": {
     "close": "Stänga",

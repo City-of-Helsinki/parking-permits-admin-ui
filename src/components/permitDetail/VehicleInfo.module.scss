@@ -18,6 +18,7 @@
     font-weight: bold;
   }
   .temporaryVehicle {
+    margin-top: $spacing-xs;
     font-weight: bold;
   }
   .emissionInfo {
@@ -40,7 +41,7 @@
   }
 }
 
-.invalidVehicle {
+.actualVehicle {
   margin-top: $spacing-s;
   .infoBox {
     background-color: $color-black-10;
