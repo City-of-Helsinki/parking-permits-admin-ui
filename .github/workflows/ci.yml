@@ -28,5 +28,11 @@ jobs:
     - name: Lint code
       run: yarn lint
 
+    # NOTE: opted to copy the whole file for maintainability.
+    # If there are variables that must not be copied, this must be
+    # refactored to use repository variables.
+    - name: Set up .env 
+      run: cp .env.template .env
+
     - name: Run the tests
       run: yarn test
