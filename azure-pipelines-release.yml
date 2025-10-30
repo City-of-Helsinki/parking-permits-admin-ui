@@ -7,7 +7,7 @@ trigger:
   batch: true
   tags:
     include:
-    - release-*
+    - parking-permits-admin-ui-*
   paths:
     exclude:
     - README.md
