@@ -12,6 +12,9 @@
         "editAddress": "Edit",
         "placeholder": "Search address..."
       },
+      "locationPicker": {
+        "mapAttribution": "&copy; Cities of Helsinki, Espoo, Vantaa and Kauniainen"
+      },
       "auth": {
         "login": {
           "login": "Login",

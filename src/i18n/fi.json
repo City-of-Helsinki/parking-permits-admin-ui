@@ -12,6 +12,9 @@
         "editAddress": "Muokkaa",
         "placeholder": "Hae osoite..."
       },
+      "locationPicker": {
+        "mapAttribution": "&copy; Helsingin, Espoon, Vantaan ja Kauniaisen kaupungit"
+      },
       "auth": {
         "login": {
           "login": "Kirjaudu sisään",
