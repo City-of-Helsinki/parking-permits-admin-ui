@@ -12,6 +12,9 @@
         "editAddress": "Redigera",
         "placeholder": "Sök adress..."
       },
+      "locationPicker": {
+        "mapAttribution": "&copy; Helsingfors, Esbo, Vanda och Grankulla städer"
+      },
       "auth": {
         "login": {
           "login": "Inloggning",

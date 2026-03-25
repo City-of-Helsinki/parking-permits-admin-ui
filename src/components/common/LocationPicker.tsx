@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet';
 import marker from '../../assets/images/icon_poi_talo-sininen.svg';
+import { getEnv } from '../../utils';
 import styles from './LocationPicker.module.scss';
 
 const icon = new L.Icon({
@@ -12,14 +13,6 @@ const icon = new L.Icon({
   // eslint-disable-next-line no-magic-numbers
   iconSize: [25, 55],
 });
-
-const FI_ATTRIBUTION =
-  '&copy; Helsingin, Espoon, Vantaan ja Kauniaisen kaupungit';
-const SV_ATTRIBUTION = '&copy; Helsingfors, Esbo, Vanda och Grankulla städer';
-const FI_MAP_URL =
-  'https://tiles.hel.ninja/styles/hel-osm-bright/{z}/{x}/{y}.png';
-const SV_MAP_URL =
-  'https://tiles.hel.ninja/styles/hel-osm-bright/{z}/{x}/{y}sv.png';
 
 function flipLocation(location: [number, number]): [number, number] {
   const [lng, lat] = location;
@@ -48,7 +41,11 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
   onChange,
   errorText,
 }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
+  const template = getEnv('REACT_APP_MAP_URL_TEMPLATE');
+  const language = ['fi', 'sv'].includes(lang) ? lang : 'fi';
+  const mapUrl = template.replace('{language}', language);
   return (
     <div className={className}>
       <MapContainer
@@ -58,12 +55,10 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
         <MapComponent
           onMapClick={e => onChange([e.latlng.lng, e.latlng.lat])}
         />
-        {i18n.language === 'sv' && (
-          <TileLayer attribution={SV_ATTRIBUTION} url={SV_MAP_URL} />
-        )}
-        {i18n.language !== 'sv' && (
-          <TileLayer attribution={FI_ATTRIBUTION} url={FI_MAP_URL} />
-        )}
+        <TileLayer
+          attribution={t('components.common.locationPicker.mapAttribution')}
+          url={mapUrl}
+        />
         <Marker position={flipLocation(location)} icon={icon} />
       </MapContainer>
       <div className={styles.errorText}>{errorText}</div>
