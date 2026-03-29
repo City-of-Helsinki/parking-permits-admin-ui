@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0](https://github.com/City-of-Helsinki/parking-permits-admin-ui/compare/parking-permits-admin-ui-v1.6.1...parking-permits-admin-ui-v1.7.0) (2026-03-29)
+
+
+### Features
+
+* Use configurable map tile URL template for LocationPicker ([e28a220](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e28a220ed91eb9d326d98712ee6e202125736aca))
+
 ## [Unreleased]
 
 ## [1.6.1] - 2025-09-25
