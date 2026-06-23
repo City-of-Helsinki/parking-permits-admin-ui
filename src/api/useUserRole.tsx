@@ -1,5 +1,5 @@
 import { useAuthenticatedUser } from 'hds-react';
-import { decode } from 'jsonwebtoken';
+import { jwtDecode } from 'jwt-decode';
 
 export enum Groups {
   SUPER_ADMIN = 'sg_kymp_pyva_asukpt_yllapito',
@@ -23,7 +23,10 @@ export enum UserRole {
 
 const useUserRole = (): UserRole => {
   const user = useAuthenticatedUser();
-  const decodedToken = user && decode(user.id_token);
+  const decodedToken =
+    user &&
+    // eslint-disable-next-line
+    jwtDecode<{ ad_groups: string[] }>(user.id_token);
   if (decodedToken) {
     const adGroups: string[] = [];
     // Remove special ADFS-prefix
