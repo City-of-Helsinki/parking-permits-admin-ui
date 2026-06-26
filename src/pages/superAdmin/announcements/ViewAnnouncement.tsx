@@ -3,7 +3,7 @@ import { Button, Card, LoadingSpinner } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import { makePrivate } from '../../../auth/utils';
+import makePrivate from '../../../auth/utils';
 import { Announcement } from '../../../types';
 import { formatDateTimeDisplayWithoutSeconds } from '../../../utils';
 import styles from './ViewAnnouncement.module.scss';

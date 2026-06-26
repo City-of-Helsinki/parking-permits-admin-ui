@@ -25,6 +25,10 @@ export interface PermitsDataTableProps {
   onExport?: () => void;
 }
 
+const renderStatus = (row: Permit): React.ReactElement => (
+  <StatusLabel status={row.status} />
+);
+
 const PermitsDataTable = ({
   permits,
   pageInfo,
@@ -124,7 +128,7 @@ const PermitsDataTable = ({
     {
       name: t(`${T_PATH}.status`),
       field: 'status',
-      selector: row => <StatusLabel status={row.status} />,
+      selector: renderStatus,
       sortable: true,
     },
   ];
