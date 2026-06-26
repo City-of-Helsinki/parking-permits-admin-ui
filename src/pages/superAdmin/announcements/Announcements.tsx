@@ -3,7 +3,7 @@ import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { makePrivate } from '../../../auth/utils';
+import makePrivate from '../../../auth/utils';
 import DataTable from '../../../components/common/DataTable';
 import { Column } from '../../../components/types';
 import { useOrderByParam, usePageParam } from '../../../hooks/searchParam';

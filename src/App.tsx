@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useRoutes } from 'react-router-dom';
 import routes from './routes';
 
-function App(): React.ReactElement {
+const App = (): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const routing = useRoutes(routes);
   const contentSource = {
@@ -32,6 +32,6 @@ function App(): React.ReactElement {
       <CookieModal contentSource={contentSource} />
     </>
   );
-}
+};
 
 export default App;

@@ -133,8 +133,8 @@ export function createApiTokenClientTracker({
   };
 
   const updateTokens = (
-    tokens: TokenData | null = null,
-    changeTrigger: Signal
+    changeTrigger: Signal,
+    tokens: TokenData | null = null
   ) => {
     innerState.tokens = tokens || {};
     if (onChange) {

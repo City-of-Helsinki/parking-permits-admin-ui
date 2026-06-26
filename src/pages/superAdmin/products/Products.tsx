@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import { makePrivate } from '../../../auth/utils';
+import makePrivate from '../../../auth/utils';
 import ProductsDataTable from '../../../components/superAdmin/products/ProductsDataTable';
 import { OrderDirection } from '../../../components/types';
 import useExportData from '../../../export/useExportData';
