@@ -21,6 +21,44 @@ export interface OrdersDataTableProps {
   onExport?: () => void;
 }
 
+const renderPermits = ({ orderPermits }: Order): React.ReactElement => (
+  <div style={{ display: 'flex', flexDirection: 'column' }}>
+    {orderPermits.map((permit, index) => {
+      const isLastItem = orderPermits.length === index + 1;
+      const { id } = permit;
+      const label = `${id}`;
+      return (
+        <div key={id}>
+          {label}
+          {!isLastItem && ','}
+        </div>
+      );
+    })}
+  </div>
+);
+
+const renderVehicles = ({ vehicles }: Order): React.ReactElement => (
+  <div style={{ display: 'flex', flexDirection: 'column' }}>
+    {vehicles.map((vehicle, index) => {
+      const isLastItem = vehicles.length === index + 1;
+      const id = `${vehicle}`;
+      const label = `${vehicle}`;
+      return (
+        <div key={id}>
+          {label}
+          {!isLastItem && ','}
+        </div>
+      );
+    })}
+  </div>
+);
+
+const renderTotalPaymentPrice = ({
+  totalPaymentPrice,
+}: Order): React.ReactElement => (
+  <div style={{ textAlign: 'right' }}>{formatPrice(totalPaymentPrice)} €</div>
+);
+
 const OrdersDataTable = ({
   orders,
   pageInfo,
@@ -48,41 +86,13 @@ const OrdersDataTable = ({
     {
       name: t(`${T_PATH}.permits`),
       field: 'permits',
-      selector: ({ orderPermits }) => (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {orderPermits.map((permit, index) => {
-            const isLastItem = orderPermits.length === index + 1;
-            const { id } = permit;
-            const label = `${id}`;
-            return (
-              <div key={id}>
-                {label}
-                {!isLastItem && ','}
-              </div>
-            );
-          })}
-        </div>
-      ),
+      selector: renderPermits,
       sortable: true,
     },
     {
       name: t(`${T_PATH}.registrationNumbers`),
       field: 'vehicles',
-      selector: ({ vehicles }) => (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {vehicles.map((vehicle, index) => {
-            const isLastItem = vehicles.length === index + 1;
-            const id = `${vehicle}`;
-            const label = `${vehicle}`;
-            return (
-              <div key={id}>
-                {label}
-                {!isLastItem && ','}
-              </div>
-            );
-          })}
-        </div>
-      ),
+      selector: renderVehicles,
       sortable: true,
     },
     {
@@ -134,11 +144,7 @@ const OrdersDataTable = ({
     {
       name: t(`${T_PATH}.totalPaymentPrice`),
       field: 'totalPaymentPrice',
-      selector: ({ totalPaymentPrice }) => (
-        <div style={{ textAlign: 'right' }}>
-          {formatPrice(totalPaymentPrice)} €
-        </div>
-      ),
+      selector: renderTotalPaymentPrice,
       sortable: true,
     },
     {

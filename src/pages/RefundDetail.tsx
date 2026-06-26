@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 // eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
 import useUserRole, { UserRole } from '../api/useUserRole';
-import { makePrivate } from '../auth/utils';
+import makePrivate from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
 import useExportData from '../export/useExportData';

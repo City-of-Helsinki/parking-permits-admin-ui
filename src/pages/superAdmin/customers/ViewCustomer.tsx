@@ -3,7 +3,7 @@ import { Button, LoadingSpinner } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import { makePrivate } from '../../../auth/utils';
+import makePrivate from '../../../auth/utils';
 import CustomerCard from '../../../components/superAdmin/customers/CustomerCard';
 import useExportData from '../../../export/useExportData';
 import { formatGdprApiUrl } from '../../../export/utils';

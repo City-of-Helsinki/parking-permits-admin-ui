@@ -2,17 +2,19 @@ import React from 'react';
 import { Navigate } from 'react-router';
 import { useIsAuthorizationReady } from './useIsAuthReady';
 
-// eslint-disable-next-line import/prefer-default-export
-export function makePrivate<T>(
+const makePrivate = <T extends object>(
   Component: React.ComponentType<T>
-): React.ComponentType<T> {
-  return function PrivateComponent(props: T) {
+): React.ComponentType<T> => {
+  const PrivateComponent = (props: T) => {
     const [, , isAuthenticated] = useIsAuthorizationReady();
 
     if (!isAuthenticated) {
       return <Navigate to="/login" />;
     }
-
     return <Component {...props} />;
   };
-}
+  PrivateComponent.displayName = 'PrivateComponent';
+  return PrivateComponent;
+};
+
+export default makePrivate;

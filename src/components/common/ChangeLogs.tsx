@@ -8,6 +8,30 @@ import DataTable from './DataTable';
 
 const T_PATH = 'components.common.changeLogs';
 
+const PaymentTypeCell = ({
+  relatedObject,
+}: Pick<ChangeLog, 'relatedObject'>): React.ReactElement => {
+  const { t } = useTranslation('', { keyPrefix: T_PATH });
+  switch (relatedObject?.__typename) {
+    case 'OrderNode':
+      return <>{t(`paymentTypes.${(relatedObject as Order).paymentType}`)}</>;
+    case 'RefundNode':
+      return (
+        <Link to={`/refunds/${relatedObject.id}`}>
+          {t('paymentTypes.REFUND')}
+        </Link>
+      );
+    default:
+      return <></>;
+  }
+};
+
+const renderPaymentType = ({
+  relatedObject,
+}: ChangeLog): React.ReactElement => (
+  <PaymentTypeCell relatedObject={relatedObject} />
+);
+
 export interface ChangeLogsProps {
   changeLogs: ChangeLog[];
 }
@@ -84,20 +108,7 @@ const ChangeLogs = ({ changeLogs }: ChangeLogsProps): React.ReactElement => {
     {
       name: t('paymentType'),
       field: 'paymentType',
-      selector: ({ relatedObject }) => {
-        switch (relatedObject?.__typename) {
-          case 'OrderNode':
-            return t(`paymentTypes.${(relatedObject as Order).paymentType}`);
-          case 'RefundNode':
-            return (
-              <Link to={`/refunds/${relatedObject.id}`}>
-                {t('paymentTypes.REFUND')}
-              </Link>
-            );
-          default:
-            return '';
-        }
-      },
+      selector: renderPaymentType,
       sortable: false,
     },
     {
