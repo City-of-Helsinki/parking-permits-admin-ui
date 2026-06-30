@@ -94,19 +94,20 @@ const VehicleInfo = ({
 
       {activeTemporaryVehicle && (
         <>
-          {userRole >= UserRole.CUSTOMER_SERVICE && (
-            <Button
-              className={styles.addTemporaryVehicle}
-              variant="supplementary"
-              onClick={() =>
-                removeTemporaryVehicle({
-                  variables: { permitId: `${permit.id}` },
-                })
-              }
-              iconLeft={<IconTrash />}>
-              {t(`${T_PATH}.removeTemporaryVehicle`)}
-            </Button>
-          )}
+          {userRole >= UserRole.CUSTOMER_SERVICE &&
+            removeTemporaryVehicle !== undefined && (
+              <Button
+                className={styles.addTemporaryVehicle}
+                variant="supplementary"
+                onClick={() =>
+                  removeTemporaryVehicle({
+                    variables: { permitId: `${permit.id}` },
+                  })
+                }
+                iconLeft={<IconTrash />}>
+                {t(`${T_PATH}.removeTemporaryVehicle`)}
+              </Button>
+            )}
           <div className={styles.actualVehicle}>
             <div className={styles.title}>{t(`${T_PATH}.actual`)}</div>
             <div className={styles.infoBox}>

@@ -117,7 +117,6 @@ const PermitPriceChangeInfo = ({
               <PriceChangeItem
                 key={`${priceChange.product}-${priceChange.startDate}`}
                 className={styles.priceChangeItem}
-                type={priceChangeType}
                 priceChangeItem={priceChange}
               />
               {index < priceChangeList.length - 1 && <Divider />}

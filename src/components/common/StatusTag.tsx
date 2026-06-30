@@ -17,6 +17,7 @@ const StatusTag = ({ status }: StatusTagProps): React.ReactElement => {
     [ParkingPermitStatus.VALID]: t('permitStatus.valid'),
     [ParkingPermitStatus.CANCELLED]: t('permitStatus.cancelled'),
     [ParkingPermitStatus.CLOSED]: t('permitStatus.closed'),
+    [ParkingPermitStatus.PRELIMINARY]: t('permitStatus.preliminary'),
   };
   const statusStyleMapping = {
     [ParkingPermitStatus.DRAFT]: styles.draft,
@@ -24,6 +25,7 @@ const StatusTag = ({ status }: StatusTagProps): React.ReactElement => {
     [ParkingPermitStatus.VALID]: styles.valid,
     [ParkingPermitStatus.CANCELLED]: styles.cancelled,
     [ParkingPermitStatus.CLOSED]: styles.closed,
+    [ParkingPermitStatus.PRELIMINARY]: styles.preliminary,
   };
   return (
     <div className={`${styles.tag} ${statusStyleMapping[status]}`}>

@@ -17,7 +17,10 @@ const ZONES_QUERY = gql`
 `;
 
 interface ZoneSelectProps
-  extends Omit<SingleSelectProps<ParkingZone>, 'label' | 'options' | 'value'> {
+  extends Omit<
+    SingleSelectProps<ParkingZone>,
+    'label' | 'options' | 'value' | 'aria-labelledby'
+  > {
   value?: string | ParkingZone;
 }
 

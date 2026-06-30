@@ -249,7 +249,7 @@ const Permits = (): React.ReactElement => {
         onPage={handlePage}
         onOrderBy={handleOrderBy}
         onRowClick={handleRowClick}
-        onExport={userRole > UserRole.INSPECTORS && handleExport}
+        onExport={userRole > UserRole.INSPECTORS ? handleExport : undefined}
       />
       {errorMessage && (
         <Notification
