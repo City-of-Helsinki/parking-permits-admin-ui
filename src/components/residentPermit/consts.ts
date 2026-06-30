@@ -1,4 +1,5 @@
 import {
+  Address,
   Customer,
   EmissionType,
   ParkingPermitStatus,
@@ -10,6 +11,8 @@ import {
 } from '../../types';
 
 export const initialPerson: Customer = {
+  id: '',
+  sourceId: '',
   firstName: '',
   lastName: '',
   addressSecurityBan: false,
@@ -29,11 +32,21 @@ export const initialVehicle: Vehicle = {
   vehicleClass: VehicleClass.M1,
   euroClass: 1,
   emission: 0,
+  restrictions: [],
   emissionType: EmissionType.WLTP,
   powerType: {
     name: 'Bensin',
     identifier: '01',
   },
+};
+
+export const initialAddress: Address = {
+  streetName: '',
+  streetNameSv: '',
+  streetNumber: '',
+  city: '',
+  citySv: '',
+  postalCode: '',
 };
 
 export const initialParkingZone: ParkingZone = {
@@ -48,6 +61,7 @@ export function getEmptyPermit(): PermitDetail {
     customer: initialPerson,
     vehicle: initialVehicle,
     parkingZone: initialParkingZone,
+    address: initialAddress,
     status: ParkingPermitStatus.VALID,
     startTime: startTime.toISOString(),
     description: '',
@@ -60,5 +74,13 @@ export function getEmptyPermit(): PermitDetail {
     monthCount: 1,
     monthsLeft: 0,
     changeLogs: [],
+    addressApartment: '',
+    primaryVehicle: true,
+    totalRefundAmount: 0,
+    bypassTraficomValidation: false,
+    canAdminExtendPermit: false,
+    maxExtensionMonthCount: 0,
+    permitPrices: [],
+    disableVehicleFields: false,
   };
 }

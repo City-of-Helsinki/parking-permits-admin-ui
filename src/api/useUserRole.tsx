@@ -24,7 +24,7 @@ export enum UserRole {
 const useUserRole = (): UserRole => {
   const user = useAuthenticatedUser();
   const decodedToken =
-    user &&
+    user?.id_token &&
     // eslint-disable-next-line
     jwtDecode<{ ad_groups: string[] }>(user.id_token);
   if (decodedToken) {
