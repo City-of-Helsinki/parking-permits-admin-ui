@@ -19,7 +19,7 @@ export interface RefundsDataTableProps {
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (refund: Refund) => void;
   onExport?: () => void;
-  onSelectionChange: (refunds: Refund[] | undefined) => void;
+  onSelectionChange?: (refunds: Refund[] | undefined) => void;
 }
 
 const renderStatus = ({ status }: Refund): React.ReactElement => (

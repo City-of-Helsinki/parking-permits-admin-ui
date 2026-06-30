@@ -100,7 +100,7 @@ export interface Vehicle {
   powerType: PowerType;
 }
 
-export type VehicleInput = Omit<Vehicle, 'isLowEmission'>;
+export type VehicleInput = Omit<Vehicle, 'isLowEmission' | 'restrictions'>;
 
 export enum ProductType {
   COMPANY = 'COMPANY',
@@ -262,7 +262,7 @@ export interface PermitDetail {
   addressApartment: string;
   customer: Customer;
   vehicle: Vehicle;
-  activeTemporaryVehicle: TemporaryVehicle;
+  activeTemporaryVehicle?: TemporaryVehicle;
   primaryVehicle: boolean;
   parkingZone: ParkingZone;
   status: ParkingPermitStatus;
