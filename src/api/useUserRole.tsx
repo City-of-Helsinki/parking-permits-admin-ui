@@ -21,44 +21,39 @@ export enum UserRole {
   UNKNOWN = 0,
 }
 
+// eslint-disable-next-line
+type IdTokenClaims = { ad_groups: string[] };
+
+// Ordered from highest to lowest privilege; the first matching group wins.
+const ROLE_BY_GROUP: [Groups, UserRole][] = [
+  [Groups.SUPER_ADMIN, UserRole.SUPER_ADMIN],
+  [Groups.SANCTIONS_AND_REFUNDS, UserRole.SANCTIONS_AND_REFUNDS],
+  [Groups.SANCTIONS, UserRole.SANCTIONS],
+  [Groups.CUSTOMER_SERVICE, UserRole.CUSTOMER_SERVICE],
+  [Groups.PREPARATORS, UserRole.PREPARATORS],
+  [Groups.INSPECTORS, UserRole.INSPECTORS],
+];
+
 const useUserRole = (): UserRole => {
   const user = useAuthenticatedUser();
-  const decodedToken =
-    user?.id_token &&
-    // eslint-disable-next-line
-    jwtDecode<{ ad_groups: string[] }>(user.id_token);
+  let decodedToken: IdTokenClaims | undefined;
+  if (user?.id_token) {
+    try {
+      decodedToken = jwtDecode<IdTokenClaims>(user.id_token);
+    } catch {
+      // A malformed id_token makes jwtDecode throw InvalidTokenError; the old
+      // jsonwebtoken.decode() returned null here, so degrade to UNKNOWN.
+      return UserRole.UNKNOWN;
+    }
+  }
   if (decodedToken) {
-    const adGroups: string[] = [];
-    // Remove special ADFS-prefix
+    // Remove special ADFS-prefix and normalize case before matching.
     const adfsPrefix = 'helsinki1\\';
-    decodedToken.ad_groups.forEach((adGroup: string) => {
-      adGroups.push(adGroup.replace(adfsPrefix, '').toLowerCase());
-    });
-
-    if (adGroups.includes(Groups.SUPER_ADMIN)) {
-      return UserRole.SUPER_ADMIN;
-    }
-
-    if (adGroups.includes(Groups.SANCTIONS_AND_REFUNDS)) {
-      return UserRole.SANCTIONS_AND_REFUNDS;
-    }
-
-    if (adGroups.includes(Groups.SANCTIONS)) {
-      return UserRole.SANCTIONS;
-    }
-
-    if (adGroups.includes(Groups.CUSTOMER_SERVICE)) {
-      return UserRole.CUSTOMER_SERVICE;
-    }
-
-    if (adGroups.includes(Groups.PREPARATORS)) {
-      return UserRole.PREPARATORS;
-    }
-
-    if (adGroups.includes(Groups.INSPECTORS)) {
-      return UserRole.INSPECTORS;
-    }
-    return UserRole.NON_AD_GROUPS;
+    const adGroups = decodedToken.ad_groups.map((adGroup: string) =>
+      adGroup.replace(adfsPrefix, '').toLowerCase()
+    );
+    const matched = ROLE_BY_GROUP.find(([group]) => adGroups.includes(group));
+    return matched ? matched[1] : UserRole.NON_AD_GROUPS;
   }
   return UserRole.UNKNOWN;
 };
