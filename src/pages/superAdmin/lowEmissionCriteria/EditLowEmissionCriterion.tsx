@@ -7,6 +7,7 @@ import { makePrivate } from '../../../auth/utils';
 import ConfirmDialog from '../../../components/common/ConfirmDialog';
 import LowEmissionCriterionForm from '../../../components/superAdmin/lowEmissionCriteria/LowEmissionCriterionForm';
 import { LowEmissionCriterion, MutationResponse } from '../../../types';
+import { getApolloErrorMessage } from '../../../utils';
 import styles from './EditLowEmissionCriterion.module.scss';
 
 const T_PATH = 'pages.superAdmin.editLowEmissionCriterion';
@@ -59,7 +60,7 @@ const EditLowEmissionCriterion = (): React.ReactElement => {
   }>(LOW_EMISSION_CRITERION_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
   const [updateCriterion] = useMutation<MutationResponse>(
     UPDATE_LOW_EMISSION_CRITERION_MUTATION,

@@ -34,6 +34,7 @@ import {
 import {
   convertToPermitInput,
   formatPrice,
+  getApolloErrorMessage,
   isValidForPriceCheck,
 } from '../utils';
 import styles from './CreateResidentPermit.module.scss';
@@ -271,7 +272,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       });
       setPermitPrices(permitDetail.permitPrices);
     },
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
 
   useEffect(() => {
@@ -297,7 +298,7 @@ const CreateResidentPermit = (): React.ReactElement => {
         parkingZone: defaultAddress?.zone as ParkingZone,
       });
     },
-    onError: error => setPersonSearchError(error.message),
+    onError: error => setPersonSearchError(getApolloErrorMessage(error)),
   });
   const [getVehicle] = useLazyQuery<{
     vehicle: Vehicle;
@@ -312,7 +313,7 @@ const CreateResidentPermit = (): React.ReactElement => {
       });
     },
     onError: error => {
-      setVehicleSearchError(error.message);
+      setVehicleSearchError(getApolloErrorMessage(error));
       setPermit({
         ...permit,
         disableVehicleFields: false,
@@ -326,13 +327,13 @@ const CreateResidentPermit = (): React.ReactElement => {
       onCompleted: data => {
         setPermitPrices(data.permitPrices);
       },
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
   const [createResidentPermit] = useMutation<CreatePermitResponse>(
     CREATE_RESIDENT_PERMIT_MUTATION,
     {
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 
@@ -362,14 +363,13 @@ const CreateResidentPermit = (): React.ReactElement => {
         const id = response.data?.createResidentPermit?.permit?.id;
         if (id) {
           navigate(`/permits/${id}`);
-        }
-        if (response.errors && response.errors.message) {
-          setErrorMessage(response.errors.message);
+        } else if (response.errors && response.errors.length > 0) {
+          setErrorMessage(response.errors.map(e => e.message).join(', '));
         } else {
           setErrorMessage(t(`${T_PATH}.createPermitError`));
         }
       })
-      .catch(error => setErrorMessage(error.message));
+      .catch(error => setErrorMessage(getApolloErrorMessage(error)));
   };
 
   const handleCreateDraftResidentPermit = () => {
@@ -400,7 +400,7 @@ const CreateResidentPermit = (): React.ReactElement => {
           );
         }
       })
-      .catch(error => setErrorMessage(error.message));
+      .catch(error => setErrorMessage(getApolloErrorMessage(error)));
   };
 
   const handleSearchVehicle = (regNumber: string) => {

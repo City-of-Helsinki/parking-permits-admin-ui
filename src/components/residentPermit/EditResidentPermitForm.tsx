@@ -9,6 +9,7 @@ import {
   PermitPrice,
   Vehicle,
 } from '../../types';
+import { getApolloErrorMessage } from '../../utils';
 import styles from './EditResidentPermitForm.module.scss';
 import PermitInfo from './PermitInfo';
 import PersonalInfo from './PersonalInfo';
@@ -125,7 +126,7 @@ const EditResidentPermitForm = ({
         customer: data.customer,
       });
     },
-    onError: error => setPersonSearchError(error.message),
+    onError: error => setPersonSearchError(getApolloErrorMessage(error)),
   });
   const [getVehicle] = useLazyQuery<{
     vehicle: Vehicle;
@@ -138,7 +139,7 @@ const EditResidentPermitForm = ({
         disableVehicleFields: true,
       });
     },
-    onError: error => setVehicleSearchError(error.message),
+    onError: error => setVehicleSearchError(getApolloErrorMessage(error)),
   });
 
   const handleSearchVehicle = (regNumber: string) => {

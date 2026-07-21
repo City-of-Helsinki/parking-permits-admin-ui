@@ -24,6 +24,7 @@ import {
   convertAddressToAddressInput,
   convertToPermitInput,
   formatPrice,
+  getApolloErrorMessage,
   isValidForPriceCheck,
 } from '../utils';
 import styles from './EditResidentPermit.module.scss';
@@ -212,7 +213,7 @@ const EditResidentPermit = (): React.ReactElement => {
       });
       setPermitPrices(permitDetail.permitPrices);
     },
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
 
   const [getPermitPriceChangeList] = useLazyQuery<{
@@ -220,7 +221,7 @@ const EditResidentPermit = (): React.ReactElement => {
   }>(PERMIT_PRICE_CHANGE_QUERY, {
     fetchPolicy: 'no-cache',
     onCompleted: data => setPriceChangeList(data.permitPriceChangeList),
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
 
   const [getPermitPrices] = useLazyQuery<{ permitPrices: PermitPrice[] }>(
@@ -229,7 +230,7 @@ const EditResidentPermit = (): React.ReactElement => {
       onCompleted: data => {
         setPermitPrices(data.permitPrices);
       },
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 
@@ -237,7 +238,7 @@ const EditResidentPermit = (): React.ReactElement => {
     UPDATE_RESIDENT_PERMIT_MUTATION,
     {
       onCompleted: navigateToDetailPage,
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 

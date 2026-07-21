@@ -14,6 +14,7 @@ import {
   AddressSearchParams,
   OrderBy,
 } from '../../../types';
+import { getApolloErrorMessage } from '../../../utils';
 import styles from './Addresses.module.scss';
 
 const T_PATH = 'pages.superAdmin.addresses';
@@ -79,7 +80,7 @@ const Addresses = (): React.ReactElement => {
     useLazyQuery<AddressesQueryData>(ADDRESSES_QUERY, {
       variables,
       fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     });
 
   const handleSearch = (newSearchParams: AddressSearchParams) => {

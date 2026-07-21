@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { addMonths, format } from 'date-fns';
 import { extractIBAN } from 'ibantools';
 import { getI18n } from 'react-i18next';
@@ -27,6 +28,21 @@ export function getEnv(key: string): string {
     throw new Error(`No ${key} specified.`);
   }
   return variable;
+}
+
+export function getApolloErrorMessage(error: ApolloError): string {
+  if (error.graphQLErrors.length > 0) {
+    return error.graphQLErrors.map(e => e.message).join(', ');
+  }
+  // Apollo treats HTTP 4xx/5xx responses as networkError.
+  // The actual GraphQL errors are in networkError.result.errors.
+  const networkError = error.networkError as
+    | (Error & { result?: { errors?: Array<{ message: string }> } })
+    | null;
+  if (networkError?.result?.errors && networkError.result.errors.length > 0) {
+    return networkError.result.errors.map(e => e.message).join(', ');
+  }
+  return error.message;
 }
 
 export function getBooleanEnv(key: string): boolean {

@@ -7,6 +7,7 @@ import { makePrivate } from '../../../auth/utils';
 import ConfirmDialog from '../../../components/common/ConfirmDialog';
 import AddressForm from '../../../components/superAdmin/addresses/AddressForm';
 import { Address, MutationResponse } from '../../../types';
+import { getApolloErrorMessage } from '../../../utils';
 import styles from './EditAddress.module.scss';
 
 const T_PATH = 'pages.superAdmin.editAddress';
@@ -58,7 +59,7 @@ const EditAddress = (): React.ReactElement => {
   const { loading, data } = useQuery<{ address: Address }>(ADDRESS_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
   const [updateAddress] = useMutation<MutationResponse>(
     UPDATE_ADDRESS_MUTATION,

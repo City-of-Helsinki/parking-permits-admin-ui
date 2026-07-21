@@ -21,7 +21,7 @@ import RefundsDataTable from '../components/refunds/RefundsDataTable';
 import useExportData from '../export/useExportData';
 import { formatExportUrlPdf } from '../export/utils';
 import { MutationResponse, Refund, RefundInput } from '../types';
-import { isValidIBAN } from '../utils';
+import { getApolloErrorMessage, isValidIBAN } from '../utils';
 import styles from './RefundDetail.module.scss';
 
 const T_PATH = 'pages.refundDetail';
@@ -71,7 +71,7 @@ const RefundDetail = (): React.ReactElement => {
   const { loading, data } = useQuery<{ refund: Refund }>(REFUND_DETAIL_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
   const [updateRefund] = useMutation<MutationResponse>(UPDATE_REFUND_MUTATION, {
     onCompleted: () => navigate('/refunds'),

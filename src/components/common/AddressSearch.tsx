@@ -3,7 +3,7 @@ import { Notification, SearchInput } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Address, AddressSearchQueryData } from '../../types';
-import { formatAddress } from '../../utils';
+import { formatAddress, getApolloErrorMessage } from '../../utils';
 
 const T_PATH = 'components.common.addressSearch';
 const SEARCH_DEBOUNCE = 500;
@@ -55,7 +55,7 @@ const AddressSearch = ({
     {
       variables,
       fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 

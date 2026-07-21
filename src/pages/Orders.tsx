@@ -19,6 +19,7 @@ import {
   PermitContractType,
   PriceDiscount,
 } from '../types';
+import { getApolloErrorMessage } from '../utils';
 import styles from './Orders.module.scss';
 
 const T_PATH = 'pages.orders';
@@ -118,7 +119,7 @@ const Orders = (): React.ReactElement => {
     {
       variables,
       fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 

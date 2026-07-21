@@ -7,6 +7,7 @@ import { makePrivate } from '../../../auth/utils';
 import ConfirmDialog from '../../../components/common/ConfirmDialog';
 import ProductForm from '../../../components/superAdmin/products/ProductForm';
 import { MutationResponse, Product } from '../../../types';
+import { getApolloErrorMessage } from '../../../utils';
 import styles from './EditProduct.module.scss';
 
 const T_PATH = 'pages.superAdmin.editProduct';
@@ -59,7 +60,7 @@ const Products = (): React.ReactElement => {
   const { loading, data } = useQuery<{ product: Product }>(PRODUCT_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
   const [updateProduct] = useMutation<MutationResponse>(
     UPDATE_PRODUCT_MUTATION,
