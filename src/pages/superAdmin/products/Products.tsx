@@ -10,6 +10,7 @@ import { OrderDirection } from '../../../components/types';
 import useExportData from '../../../export/useExportData';
 import { formatExportUrl } from '../../../export/utils';
 import { OrderBy, ProductsQueryData } from '../../../types';
+import { getApolloErrorMessage } from '../../../utils';
 import styles from './Products.module.scss';
 
 const T_PATH = 'pages.superAdmin.products';
@@ -72,7 +73,7 @@ const Products = (): React.ReactElement => {
     {
       variables,
       fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 

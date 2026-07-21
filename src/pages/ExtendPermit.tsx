@@ -21,7 +21,11 @@ import {
   PermitDetail,
   PermitDetailData,
 } from '../types';
-import { formatDateDisplay, formatPrice } from '../utils';
+import {
+  formatDateDisplay,
+  formatPrice,
+  getApolloErrorMessage,
+} from '../utils';
 import styles from './ExtendPermit.module.scss';
 
 const PERMIT_DETAIL_QUERY = gql`
@@ -152,12 +156,12 @@ const ExtendResidentPermit = (): React.ReactElement => {
         setErrorMessage(t('permitNotExtendable'));
       }
     },
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
 
   const [extendPermit] = useMutation<MutationResponse>(EXTEND_PERMIT_MUTATION, {
     onCompleted: navigateToDetailPage,
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
 
   const [getExtendedPriceList] = useLazyQuery<ExtendedPriceListItemData>(
@@ -173,7 +177,7 @@ const ExtendResidentPermit = (): React.ReactElement => {
           )
         );
       },
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 

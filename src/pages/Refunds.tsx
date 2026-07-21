@@ -24,6 +24,7 @@ import {
   RefundStatus,
   RefundStatusOrAll,
 } from '../types';
+import { getApolloErrorMessage } from '../utils';
 import styles from './Refunds.module.scss';
 
 const T_PATH = 'pages.refunds';
@@ -122,7 +123,7 @@ const Refunds = (): React.ReactElement => {
     useLazyQuery<RefundsQueryData>(REFUNDS_QUERY, {
       variables,
       fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     });
 
   const [requestForApproval] = useMutation<{ requestForApproval: number }>(
@@ -132,7 +133,7 @@ const Refunds = (): React.ReactElement => {
         refetch();
         setSelectedRefunds([]);
       },
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 
@@ -143,7 +144,7 @@ const Refunds = (): React.ReactElement => {
         refetch();
         setSelectedRefunds([]);
       },
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 

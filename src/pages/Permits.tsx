@@ -20,6 +20,7 @@ import {
   PermitsQueryData,
   PermitsQueryVariables,
 } from '../types';
+import { getApolloErrorMessage } from '../utils';
 import styles from './Permits.module.scss';
 
 const T_PATH = 'pages.permits';
@@ -162,7 +163,7 @@ const Permits = (): React.ReactElement => {
   >(userRole > UserRole.INSPECTORS ? PERMITS_QUERY : LIMITED_PERMITS_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
 
   const handleSearch = (newSearchParams: PermitSearchParams) => {

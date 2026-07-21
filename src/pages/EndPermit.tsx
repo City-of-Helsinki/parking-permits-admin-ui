@@ -16,7 +16,7 @@ import {
   PermitDetailData,
   PermitEndType,
 } from '../types';
-import { isValidIBAN } from '../utils';
+import { getApolloErrorMessage, isValidIBAN } from '../utils';
 import styles from './EndPermit.module.scss';
 
 const T_PATH = 'pages.endPermit';
@@ -96,7 +96,7 @@ const EndPermit = (): React.ReactElement => {
   const { loading, data } = useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
-    onError: error => setErrorMessage(error.message),
+    onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
   const [endPermit] = useMutation<MutationResponse>(END_PERMIT_MUTATION);
   if (loading || !data) {

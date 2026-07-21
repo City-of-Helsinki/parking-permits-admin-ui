@@ -30,7 +30,11 @@ import {
   PermitDetailData,
   PermitEndType,
 } from '../types';
-import { formatCustomerName, isPermitEditable } from '../utils';
+import {
+  formatCustomerName,
+  getApolloErrorMessage,
+  isPermitEditable,
+} from '../utils';
 import styles from './PermitDetail.module.scss';
 
 const T_PATH = 'pages.permitDetail';
@@ -190,7 +194,7 @@ const PermitDetail = (): React.ReactElement => {
     {
       variables,
       fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 

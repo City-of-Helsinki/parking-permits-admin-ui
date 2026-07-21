@@ -8,6 +8,7 @@ import { makePrivate } from '../../../auth/utils';
 import LowEmissionCriteriaDataTable from '../../../components/superAdmin/lowEmissionCriteria/LowEmissionCriteriaDataTable';
 import { OrderDirection } from '../../../components/types';
 import { LowEmissionCriteriaQueryData, OrderBy } from '../../../types';
+import { getApolloErrorMessage } from '../../../utils';
 import styles from './LowEmissionCriteria.module.scss';
 
 const T_PATH = 'pages.superAdmin.lowEmissionCriteria';
@@ -62,7 +63,7 @@ const LowEmissionCriteria = (): React.ReactElement => {
     {
       variables,
       fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(error.message),
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
   );
 
