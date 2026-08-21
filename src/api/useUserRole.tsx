@@ -22,7 +22,10 @@ export enum UserRole {
 }
 
 // eslint-disable-next-line
-type IdTokenClaims = { ad_groups: string[] };
+type IdTokenClaims = { ad_groups: unknown };
+
+const isStringArray = (value: unknown): value is string[] =>
+  Array.isArray(value) && value.every(item => typeof item === 'string');
 
 // Ordered from highest to lowest privilege; the first matching group wins.
 const ROLE_BY_GROUP: [Groups, UserRole][] = [
@@ -47,9 +50,16 @@ const useUserRole = (): UserRole => {
     }
   }
   if (decodedToken) {
+    const { ad_groups: adGroupsClaim } = decodedToken;
+    // A syntactically valid token can still carry a missing, null, non-array,
+    // or non-string ad_groups claim; treat any of those as UNKNOWN instead of
+    // throwing during render.
+    if (!isStringArray(adGroupsClaim)) {
+      return UserRole.UNKNOWN;
+    }
     // Remove special ADFS-prefix and normalize case before matching.
     const adfsPrefix = 'helsinki1\\';
-    const adGroups = decodedToken.ad_groups.map((adGroup: string) =>
+    const adGroups = adGroupsClaim.map(adGroup =>
       adGroup.replace(adfsPrefix, '').toLowerCase()
     );
     const matched = ROLE_BY_GROUP.find(([group]) => adGroups.includes(group));
