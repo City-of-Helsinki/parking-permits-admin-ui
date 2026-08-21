@@ -20,7 +20,7 @@ const ZONES_QUERY = gql`
 `;
 
 interface AnnouncementInput {
-  parkingZones: ParkingZone[];
+  parkingZones: string[];
   subjectFi: string;
   contentFi: string;
   subjectSv: string;
