@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react';
 import { useAuthenticatedUser } from 'hds-react';
-import React from 'react';
 import useUserRole, { Groups, UserRole } from './useUserRole';
 
 jest.mock('hds-react', () => ({
@@ -36,42 +35,6 @@ const setAuthenticatedUserWithGroups = (adGroups: string[]): void => {
 const renderUserRole = (): UserRole =>
   renderHook(() => useUserRole()).result.current;
 
-type ErrorBoundaryProps = {
-  onError: (error: unknown) => void;
-  children: React.ReactNode;
-};
-
-type ErrorBoundaryState = {
-  hasError: boolean;
-};
-
-// Captures errors thrown during render so they can be asserted without React
-// re-dispatching them to jsdom as uncaught exceptions.
-class ErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(): ErrorBoundaryState {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: unknown): void {
-    const { onError } = this.props;
-    onError(error);
-  }
-
-  render(): React.ReactNode {
-    const { hasError } = this.state;
-    const { children } = this.props;
-    return hasError ? null : children;
-  }
-}
-
 afterEach(() => {
   jest.resetAllMocks();
 });
@@ -89,9 +52,8 @@ describe('useUserRole', () => {
     });
 
     // Locks in the pre-migration behavior: jsonwebtoken.decode() returned null
-    // for a malformed token, so the hook resolved to UNKNOWN. jwt-decode's
-    // jwtDecode() throws instead, so this test is EXPECTED TO FAIL until the
-    // decode call is guarded. That regression is the whole point of this test.
+    // for a malformed token, so the hook must continue to resolve to UNKNOWN
+    // even though jwtDecode() throws.
     it('returns UNKNOWN for a malformed id_token', () => {
       setAuthenticatedUser({ id_token: 'not-a-jwt' });
       expect(renderUserRole()).toBe(UserRole.UNKNOWN);
@@ -159,30 +121,29 @@ describe('useUserRole', () => {
     });
   });
 
-  describe('token payload without an ad_groups claim', () => {
-    // Both the old jsonwebtoken implementation and jwt-decode return a truthy
-    // payload here, then hit `.map` on the undefined ad_groups claim and throw.
-    // This locks in that pre-existing behavior; it is NOT a migration
-    // regression. The throw happens during render, so an error boundary
-    // captures it and keeps jsdom from flagging an uncaught exception.
-    it('throws when the ad_groups claim is missing', () => {
+  describe('token payload with an invalid ad_groups claim', () => {
+    it('returns UNKNOWN when the ad_groups claim is missing', () => {
       setAuthenticatedUser({ id_token: makeToken({}) });
-      const consoleErrorSpy = jest
-        .spyOn(console, 'error')
-        .mockImplementation(() => undefined);
-      let caughtError: unknown;
-      const handleError = (error: unknown): void => {
-        caughtError = error;
-      };
+      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
+    });
 
-      renderHook(() => useUserRole(), {
-        wrapper: ({ children }: { children: React.ReactNode }) => (
-          <ErrorBoundary onError={handleError}>{children}</ErrorBoundary>
-        ),
+    it('returns UNKNOWN when the ad_groups claim is null', () => {
+      setAuthenticatedUser({ id_token: makeToken({ ad_groups: null }) });
+      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
+    });
+
+    it('returns UNKNOWN when the ad_groups claim is not an array', () => {
+      setAuthenticatedUser({
+        id_token: makeToken({ ad_groups: 'sg_kymp_pyva_asukpt_yllapito' }),
       });
+      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
+    });
 
-      expect(caughtError).toBeInstanceOf(TypeError);
-      consoleErrorSpy.mockRestore();
+    it('returns UNKNOWN when ad_groups contains non-string entries', () => {
+      setAuthenticatedUser({
+        id_token: makeToken({ ad_groups: [true, null] }),
+      });
+      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
     });
   });
 });
