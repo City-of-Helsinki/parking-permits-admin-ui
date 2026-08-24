@@ -7,10 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.7.1](https://github.com/City-of-Helsinki/parking-permits-admin-ui/compare/parking-permits-admin-ui-v1.7.0...parking-permits-admin-ui-v1.7.1) (2026-07-21)
 
-
 ### Bug Fixes
 
-* Improve Apollo error handling ([e230d33](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e230d3321912726eb7ee4ffa118408abe53c3a3b))
+- Improve Apollo error handling ([e230d33](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e230d3321912726eb7ee4ffa118408abe53c3a3b))
 
 ## [1.7.0](https://github.com/City-of-Helsinki/parking-permits-admin-ui/compare/parking-permits-admin-ui-v1.6.1...parking-permits-admin-ui-v1.7.0) (2026-04-01)
 
