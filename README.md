@@ -76,8 +76,8 @@ Format code with prettier
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the Jest test suite once and exits.\
+Use `yarn test --watch` to run the tests in interactive watch mode instead.
 
 ### `yarn build`
 
