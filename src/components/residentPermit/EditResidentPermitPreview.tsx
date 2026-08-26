@@ -55,9 +55,7 @@ const EditResidentPermitPreview = ({
             refundAccountNumber={refundAccountNumber}
             refundAccountOption={refundAccountOption}
             onChangeRefundAccountNumber={onChangeRefundAccountNumber}
-            onChangeRefundAccountOption={value =>
-              setRefundAccountOption(value as RefundAccountOption)
-            }
+            onChangeRefundAccountOption={setRefundAccountOption}
           />
         </div>
       </div>
