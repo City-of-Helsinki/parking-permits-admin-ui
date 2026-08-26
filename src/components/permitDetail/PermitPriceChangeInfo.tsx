@@ -62,9 +62,9 @@ export interface PermitPriceChangeInfoProps {
   className?: string;
   priceChangeList: PermitPriceChange[];
   refundAccountNumber: string;
-  refundAccountOption: string;
+  refundAccountOption: RefundAccountOption;
   onChangeRefundAccountNumber: (account: string) => void;
-  onChangeRefundAccountOption: (option: string) => void;
+  onChangeRefundAccountOption: (option: RefundAccountOption) => void;
 }
 
 const getPriceChangeType = (priceChangeTotal: number): PriceChangeType => {
