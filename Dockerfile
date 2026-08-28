@@ -1,5 +1,5 @@
 # ===============================================
-FROM public.ecr.aws/docker/library/node:22.18.0-slim AS appbase
+FROM public.ecr.aws/docker/library/node:22-slim AS appbase
 # ===============================================
 
 # Yarn
@@ -16,7 +16,7 @@ RUN yarn install
 
 
 # =============================
-FROM appbase as development
+FROM appbase AS development
 # =============================
 # Copy all files
 COPY . .
@@ -24,7 +24,7 @@ CMD ["yarn", "start"]
 
 
 #==============================
-FROM appbase as staticbuilder
+FROM appbase AS staticbuilder
 #==============================
 COPY . /app
 
@@ -34,7 +34,7 @@ RUN yarn build
 
 
 # ============================================================
-FROM registry.access.redhat.com/ubi8/nginx-124 as production
+FROM registry.access.redhat.com/ubi8/nginx-124 AS production
 # =============================================================
 # Copy static build
 COPY --from=staticbuilder /app/build /usr/share/nginx/html
