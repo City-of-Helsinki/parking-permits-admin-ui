@@ -3,7 +3,7 @@ import { Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { makePrivate } from '../../../auth/utils';
+import makePrivate from '../../../auth/utils';
 import ProductForm from '../../../components/superAdmin/products/ProductForm';
 import { MutationResponse } from '../../../types';
 import styles from './CreateProduct.module.scss';

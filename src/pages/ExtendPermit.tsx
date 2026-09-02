@@ -8,7 +8,8 @@ import {
   Table,
 } from 'hds-react';
 import React, { useState } from 'react';
-import { TFunction, useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import Breadcrumbs from '../components/common/Breadcrumbs';

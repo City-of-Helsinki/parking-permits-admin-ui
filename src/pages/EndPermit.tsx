@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { makePrivate } from '../auth/utils';
+import makePrivate from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import CustomerInfo from '../components/permitDetail/CustomerInfo';
 import PermitInfo from '../components/permitDetail/PermitInfo';

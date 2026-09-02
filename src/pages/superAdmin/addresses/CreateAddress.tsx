@@ -3,7 +3,7 @@ import { Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { makePrivate } from '../../../auth/utils';
+import makePrivate from '../../../auth/utils';
 import AddressForm from '../../../components/superAdmin/addresses/AddressForm';
 import { MutationResponse } from '../../../types';
 import styles from './CreateAddress.module.scss';

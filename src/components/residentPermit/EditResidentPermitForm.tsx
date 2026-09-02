@@ -177,7 +177,7 @@ const EditResidentPermitForm = ({
           primaryAddressApartment,
           otherAddress,
           otherAddressApartment,
-        } = response.data?.customer;
+        } = response.data.customer;
 
         let address = null;
         let addressApartment = '';

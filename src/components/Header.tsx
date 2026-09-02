@@ -64,40 +64,38 @@ const Header = (): React.ReactElement => {
   };
 
   return (
-    <>
-      <HDSHeader
-        title={title}
-        onDidChangeLanguage={languageChangedStateAction}
-        languages={languages}>
-        <HDSHeader.ActionBar
-          frontPageLabel={t(`${T_PATH}.appTitle`)}
-          title={t(`${T_PATH}.appTitle`)}
-          titleAriaLabel={t(`${T_PATH}.appTitle`)}
-          titleHref="https://hel.fi"
-          logo={<Logo src={logoFi} alt="City of Helsinki" />}
-          logoAriaLabel={t(`${T_PATH}.appTitle`)}>
-          <HDSHeader.SimpleLanguageOptions
-            languages={[languages[0], languages[1], languages[2]]}
-          />
-          <WithAuthentication
-            AuthorisedComponent={Logout}
-            UnauthorisedComponent={Login}
-          />
-        </HDSHeader.ActionBar>
-        {isAuthenticated() && userRole > UserRole.NON_AD_GROUPS && (
-          <HDSHeader.NavigationMenu>
-            {navLinks.map(({ path, label }) => (
-              <HDSHeader.Link
-                key={path}
-                label={label}
-                onClick={() => navigate(path)}
-                active={isActiveLink(path, location.pathname)}
-              />
-            ))}
-          </HDSHeader.NavigationMenu>
-        )}
-      </HDSHeader>
-    </>
+    <HDSHeader
+      title={title}
+      onDidChangeLanguage={languageChangedStateAction}
+      languages={languages}>
+      <HDSHeader.ActionBar
+        frontPageLabel={t(`${T_PATH}.appTitle`)}
+        title={t(`${T_PATH}.appTitle`)}
+        titleAriaLabel={t(`${T_PATH}.appTitle`)}
+        titleHref="https://hel.fi"
+        logo={<Logo src={logoFi} alt="City of Helsinki" />}
+        logoAriaLabel={t(`${T_PATH}.appTitle`)}>
+        <HDSHeader.SimpleLanguageOptions
+          languages={[languages[0], languages[1], languages[2]]}
+        />
+        <WithAuthentication
+          AuthorisedComponent={Logout}
+          UnauthorisedComponent={Login}
+        />
+      </HDSHeader.ActionBar>
+      {isAuthenticated() && userRole > UserRole.NON_AD_GROUPS && (
+        <HDSHeader.NavigationMenu>
+          {navLinks.map(({ path, label }) => (
+            <HDSHeader.Link
+              key={path}
+              label={label}
+              onClick={() => navigate(path)}
+              active={isActiveLink(path, location.pathname)}
+            />
+          ))}
+        </HDSHeader.NavigationMenu>
+      )}
+    </HDSHeader>
   );
 };
 

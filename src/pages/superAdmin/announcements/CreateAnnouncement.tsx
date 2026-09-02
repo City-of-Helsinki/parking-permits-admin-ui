@@ -3,7 +3,7 @@ import { Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { makePrivate } from '../../../auth/utils';
+import makePrivate from '../../../auth/utils';
 import AnnouncementForm from '../../../components/superAdmin/announcements/AnnouncementForm';
 import { MutationResponse } from '../../../types';
 

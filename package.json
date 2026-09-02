@@ -4,36 +4,41 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.11.2",
-    "@sentry/react": "^8.22.0",
+    "@sentry/react": "^8.x",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@types/leaflet": "^1.9.12",
-    "@types/node": "^18.19.34",
+    "@types/node": "^22",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "await-to-js": "^3.0.0",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-typescript-prettier": "^4.2.0",
-    "eslint-config-prettier": "^8.10.0",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.x",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-sonarjs": "^0.25.1",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-sonarjs": "^4.2.0",
     "formik": "^2.4.6",
     "graphql": "^16.9.0",
     "hds-design-tokens": "^3.9.0",
-    "hds-react": "3.11.0",
+    "hds-react": "3.12.1",
     "http-status-typed": "^1.0.1",
     "husky": "^9.1.4",
     "i18next": "^23.12.2",
     "ibantools": "^4.5.1",
-    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
-    "oidc-client": "^1.11.5",
     "prettier": "2.7.1",
     "prettier-plugin-organize-imports": "^2.3.4",
     "react": "^18.3.1",
@@ -42,9 +47,8 @@
     "react-leaflet": "^4.0.0",
     "react-router": "^6.26.0",
     "react-router-dom": "^6.26.0",
-    "react-scripts": "4.0.3",
     "sass": "^1.77.8",
-    "typescript": "~4.4.4",
+    "typescript": "~5.5.4",
     "web-vitals": "^4.2.2",
     "yup": "^1.4.0"
   },
@@ -53,29 +57,43 @@
     "lint": "eslint --ext js,ts,tsx src",
     "lint:fix": "eslint --fix --ext js,ts,tsx src",
     "format": "prettier --write \"**/*.+(tsx|ts|json|scss|md)\"",
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
-    "test": "react-scripts test",
+    "start": "rsbuild dev",
+    "build": "rsbuild build",
+    "test": "jest",
     "test:coverage": "yarn test --coverage --watchAll=false",
-    "eject": "react-scripts eject"
+    "typecheck": "tsc --noEmit"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "engines": {
+    "node": ">=22"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not op_mini all"
   ],
-  "jest": {
-    "transformIgnorePatterns": [
-      "node_modules/(?!react-leaflet)/"
-    ]
-  },
   "devDependencies": {
+    "@babel/core": "^7",
+    "@babel/preset-env": "^7",
+    "@babel/preset-react": "^7",
+    "@babel/preset-typescript": "^7",
+    "@rsbuild/core": "^2.0.15",
+    "@rsbuild/plugin-react": "^2.1.0",
+    "@rsbuild/plugin-sass": "^2.0.0",
+    "babel-jest": "^29",
+    "dotenv": "^17.4.2",
+    "dotenv-expand": "^13.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29",
+    "jest-environment-jsdom": "^29",
     "resize-observer-polyfill": "^1.5.1"
+  },
+  "resolutions": {
+    "cookie": "^0.7.2",
+    "postcss": "8.5.25",
+    "immutable": "5.1.9",
+    "js-yaml": "4.3.1",
+    "brace-expansion": "2.1.4",
+    "nanoid": "3.3.18",
+    "browserslist": "4.28.7"
   }
 }

@@ -19,8 +19,16 @@ export interface RefundsDataTableProps {
   onOrderBy?: (orderBy: OrderBy) => void;
   onRowClick?: (refund: Refund) => void;
   onExport?: () => void;
-  onSelectionChange: (refunds: Refund[] | undefined) => void;
+  onSelectionChange?: (refunds: Refund[] | undefined) => void;
 }
+
+const renderStatus = ({ status }: Refund): React.ReactElement => (
+  <RefundStatusLabel status={status} />
+);
+
+const renderAmount = ({ amount }: Refund): React.ReactElement => (
+  <div style={{ textAlign: 'right' }}>{formatPrice(amount)} €</div>
+);
 
 const RefundsDataTable = ({
   selection = null,
@@ -87,15 +95,13 @@ const RefundsDataTable = ({
     {
       name: t(`${T_PATH}.status`),
       field: 'status',
-      selector: ({ status }) => <RefundStatusLabel status={status} />,
+      selector: renderStatus,
       sortable: true,
     },
     {
       name: t(`${T_PATH}.amount`),
       field: 'amount',
-      selector: ({ amount }) => (
-        <div style={{ textAlign: 'right' }}>{formatPrice(amount)} €</div>
-      ),
+      selector: renderAmount,
       sortable: true,
     },
   ];

@@ -3,7 +3,7 @@ import { LoadingSpinner, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import { makePrivate } from '../../../auth/utils';
+import makePrivate from '../../../auth/utils';
 import ConfirmDialog from '../../../components/common/ConfirmDialog';
 import LowEmissionCriterionForm from '../../../components/superAdmin/lowEmissionCriteria/LowEmissionCriterionForm';
 import { LowEmissionCriterion, MutationResponse } from '../../../types';

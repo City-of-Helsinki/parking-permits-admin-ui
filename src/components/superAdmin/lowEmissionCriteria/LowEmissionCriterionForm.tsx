@@ -83,6 +83,7 @@ const LowEmissionCriterionForm = ({
                 <EuroClassSelect
                   className={styles.field}
                   label={t(`${T_PATH}.euroMinClassLimit`)}
+                  disabled={false}
                   value={field.value}
                   onChange={value => form.setFieldValue(field.name, value)}
                 />
