@@ -38,6 +38,7 @@ export const initialVehicle: Vehicle = {
     name: 'Bensin',
     identifier: '01',
   },
+  updatedFromTraficomOn: '',
 };
 
 export const initialAddress: Address = {

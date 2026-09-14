@@ -259,7 +259,7 @@
         "lowEmissionVehicle": "Low emission vehicle",
         "removeTemporaryVehicle": "Remove temporary vehicle",
         "title": "Vehicle information",
-        "vehicleCopyright": "Source: Transport register, Traficom",
+        "vehicleCopyright": "Source: Transport register, Traficom (fetched {{datetime}})",
         "temporaryVehicle": "Temporary vehicle"
       }
     },
@@ -394,7 +394,7 @@
         "serialNumber": "Serial number",
         "vehicleClass": "Vehicle class",
         "vehicleInfo": "Vehicle information",
-        "vehicleCopyright": "Source: Transport register, Traficom",
+        "vehicleCopyright": "Source: Transport register, Traficom (fetched {{datetime}})",
         "clear": "Clear",
         "restrictions": {
           "text": "Traficom has the following restriction notification for this vehicle: {{restriction}}. You may still continue with the purchase of this parking permit.",

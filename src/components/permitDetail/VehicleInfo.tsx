@@ -28,7 +28,7 @@ const VehicleInfo = ({
   const { t } = useTranslation();
   const { vehicle, consentLowEmissionAccepted, activeTemporaryVehicle } =
     permit;
-  const { isLowEmission } = vehicle;
+  const { isLowEmission, updatedFromTraficomOn } = vehicle;
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -75,9 +75,13 @@ const VehicleInfo = ({
           label={t(`${T_PATH}.consentLowEmissionDiscountText`)}
           checked={consentLowEmissionAccepted}
         />
-        <div className={styles.vehicleCopyright}>
-          {t(`${T_PATH}.vehicleCopyright`)}
-        </div>
+        {updatedFromTraficomOn && (
+          <div className={styles.vehicleCopyright}>
+            {t(`${T_PATH}.vehicleCopyright`, {
+              datetime: formatDateTimeDisplay(updatedFromTraficomOn),
+            })}
+          </div>
+        )}
       </div>
 
       {!activeTemporaryVehicle &&

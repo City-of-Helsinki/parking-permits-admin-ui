@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Vehicle } from '../../types';
+import { formatDateTimeDisplay } from '../../utils';
 import Divider from '../common/Divider';
 import EmissionTypeSelect from '../common/EmissionTypeSelect';
 import EuroClassSelect from '../common/EuroClassSelect';
@@ -67,6 +68,7 @@ const VehicleInfo = ({
     emissionType,
     powerType,
     restrictions,
+    updatedFromTraficomOn,
   } = vehicle;
 
   const availableRestrictions = (restrictions ?? [])
@@ -107,7 +109,13 @@ const VehicleInfo = ({
         {availableRestrictions.map(restriction => (
           <Notification type="info" key={restriction}>
             <div>{t(`${T_PATH}.restrictions.text`, { restriction })}</div>
-            <div>{t(`${T_PATH}.vehicleCopyright`)}</div>
+            {updatedFromTraficomOn && (
+              <div>
+                {t(`${T_PATH}.vehicleCopyright`, {
+                  datetime: formatDateTimeDisplay(updatedFromTraficomOn),
+                })}
+              </div>
+            )}
           </Notification>
         ))}
         {searchError && (
@@ -206,9 +214,13 @@ const VehicleInfo = ({
             })
           }
         />
-        <div className={styles.vehicleCopyright}>
-          {t(`${T_PATH}.vehicleCopyright`)}
-        </div>
+        {updatedFromTraficomOn && (
+          <div className={styles.vehicleCopyright}>
+            {t(`${T_PATH}.vehicleCopyright`, {
+              datetime: formatDateTimeDisplay(updatedFromTraficomOn),
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
