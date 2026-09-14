@@ -118,6 +118,7 @@ const PERMIT_DETAIL_QUERY = gql`
         emission
         emissionType
         restrictions
+        updatedFromTraficomOn
         powerType {
           name
           identifier

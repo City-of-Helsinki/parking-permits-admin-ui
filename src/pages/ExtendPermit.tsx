@@ -54,6 +54,7 @@ const PERMIT_DETAIL_QUERY = gql`
         manufacturer
         model
         registrationNumber
+        updatedFromTraficomOn
       }
       parkingZone {
         name
