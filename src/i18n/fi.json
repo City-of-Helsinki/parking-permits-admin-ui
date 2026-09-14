@@ -259,7 +259,7 @@
         "lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
         "removeTemporaryVehicle": "Poista tilapäinen ajoneuvo",
         "title": "Ajoneuvon tiedot",
-        "vehicleCopyright": "Lähde: Liikenneasioidenrekisteri, Traficom",
+        "vehicleCopyright": "Lähde: Liikenneasioidenrekisteri, Traficom (haettu {{datetime}})",
         "temporaryVehicle": "Tilapäinen ajoneuvo"
       }
     },
@@ -394,7 +394,7 @@
         "serialNumber": "Valmistenumero",
         "vehicleClass": "Ajoneuvoluokka",
         "vehicleInfo": "Ajoneuvon tiedot",
-        "vehicleCopyright": "Lähde: Liikenneasioidenrekisteri, Traficom",
+        "vehicleCopyright": "Lähde: Liikenneasioidenrekisteri, Traficom (haettu {{datetime}})",
         "clear": "Tyhjennä",
         "restrictions": {
           "text": "Traficom ilmoittaa ajoneuvolle seuraavan rajoitustiedon: {{restriction}}.",
