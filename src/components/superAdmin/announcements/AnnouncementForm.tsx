@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/no-namespace
 import * as yup from 'yup';
-import { Announcement, ParkingZone } from '../../../types';
+import { ParkingZone } from '../../../types';
 import CheckboxGroup, { CheckboxGroupOption } from '../../common/CheckboxGroup';
 import styles from './AnnouncementForm.module.scss';
 
@@ -19,8 +19,18 @@ const ZONES_QUERY = gql`
   }
 `;
 
+interface AnnouncementInput {
+  parkingZones: string[];
+  subjectFi: string;
+  contentFi: string;
+  subjectSv: string;
+  contentSv: string;
+  subjectEn: string;
+  contentEn: string;
+}
+
 interface AnnouncementFormProps {
-  onSubmit: (address: Announcement) => void;
+  onSubmit: (announcement: AnnouncementInput) => void;
   onCancel: () => void;
 }
 
@@ -70,7 +80,7 @@ const AnnouncementForm = ({
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={values => onSubmit(values as Announcement)}>
+        onSubmit={values => onSubmit(values as AnnouncementInput)}>
         {props => (
           <form onSubmit={props.handleSubmit}>
             <Field name="parkingZones">

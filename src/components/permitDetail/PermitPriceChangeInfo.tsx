@@ -62,9 +62,9 @@ export interface PermitPriceChangeInfoProps {
   className?: string;
   priceChangeList: PermitPriceChange[];
   refundAccountNumber: string;
-  refundAccountOption: string;
+  refundAccountOption: RefundAccountOption;
   onChangeRefundAccountNumber: (account: string) => void;
-  onChangeRefundAccountOption: (option: string) => void;
+  onChangeRefundAccountOption: (option: RefundAccountOption) => void;
 }
 
 const getPriceChangeType = (priceChangeTotal: number): PriceChangeType => {
@@ -117,7 +117,6 @@ const PermitPriceChangeInfo = ({
               <PriceChangeItem
                 key={`${priceChange.product}-${priceChange.startDate}`}
                 className={styles.priceChangeItem}
-                type={priceChangeType}
                 priceChangeItem={priceChange}
               />
               {index < priceChangeList.length - 1 && <Divider />}

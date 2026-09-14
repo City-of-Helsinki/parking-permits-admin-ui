@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import useUserRole, { UserRole } from '../api/useUserRole';
-import { makePrivate } from '../auth/utils';
+import makePrivate from '../auth/utils';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
 import useExportData from '../export/useExportData';
@@ -249,7 +249,7 @@ const Permits = (): React.ReactElement => {
         onPage={handlePage}
         onOrderBy={handleOrderBy}
         onRowClick={handleRowClick}
-        onExport={userRole > UserRole.INSPECTORS && handleExport}
+        onExport={userRole > UserRole.INSPECTORS ? handleExport : undefined}
       />
       {errorMessage && (
         <Notification

@@ -25,6 +25,10 @@ export interface PermitsDataTableProps {
   onExport?: () => void;
 }
 
+const renderStatus = (row: Permit): React.ReactElement => (
+  <StatusLabel status={row.status} />
+);
+
 const PermitsDataTable = ({
   permits,
   pageInfo,
@@ -43,13 +47,15 @@ const PermitsDataTable = ({
           {
             name: t(`${T_PATH}.name`),
             field: 'name',
-            selector: ({ customer }) => formatCustomerName(customer),
+            selector: ({ customer }: { customer: Permit['customer'] }) =>
+              formatCustomerName(customer),
             sortable: true,
           },
           {
             name: t(`${T_PATH}.nationalIdNumber`),
             field: 'nationalIdNumber',
-            selector: ({ customer }) => customer.nationalIdNumber,
+            selector: ({ customer }: { customer: Permit['customer'] }) =>
+              customer.nationalIdNumber,
             sortable: true,
           },
         ]
@@ -71,7 +77,13 @@ const PermitsDataTable = ({
           {
             name: t(`${T_PATH}.primaryAddress`),
             field: 'primaryAddress',
-            selector: ({ address, customer }) =>
+            selector: ({
+              address,
+              customer,
+            }: {
+              address: Permit['address'];
+              customer: Permit['customer'];
+            }) =>
               isPermitAddress(address, customer?.primaryAddress)
                 ? formatAddress(address, i18n.language, {
                     addressApartment: customer.primaryAddressApartment,
@@ -83,7 +95,13 @@ const PermitsDataTable = ({
           {
             name: t(`${T_PATH}.otherAddress`),
             field: 'otherAddress',
-            selector: ({ address, customer }) =>
+            selector: ({
+              address,
+              customer,
+            }: {
+              address: Permit['address'];
+              customer: Permit['customer'];
+            }) =>
               isPermitAddress(address, customer?.otherAddress)
                 ? formatAddress(address, i18n.language, {
                     addressApartment: customer.otherAddressApartment,
@@ -124,7 +142,7 @@ const PermitsDataTable = ({
     {
       name: t(`${T_PATH}.status`),
       field: 'status',
-      selector: row => <StatusLabel status={row.status} />,
+      selector: renderStatus,
       sortable: true,
     },
   ];

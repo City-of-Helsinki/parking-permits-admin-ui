@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
-import { makePrivate } from '../auth/utils';
+import makePrivate from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import ConfirmDialog from '../components/common/ConfirmDialog';
 import {

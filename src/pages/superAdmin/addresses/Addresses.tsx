@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import { makePrivate } from '../../../auth/utils';
+import makePrivate from '../../../auth/utils';
 import AddressesDataTable from '../../../components/superAdmin/addresses/AddressesDataTable';
 import AddressesSearch from '../../../components/superAdmin/addresses/AddressesSearch';
 import { useOrderByParam, usePageParam } from '../../../hooks/searchParam';

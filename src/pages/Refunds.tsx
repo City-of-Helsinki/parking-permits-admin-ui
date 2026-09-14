@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import useUserRole, { UserRole } from '../api/useUserRole';
-import { makePrivate } from '../auth/utils';
+import makePrivate from '../auth/utils';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
 import RefundsSearch from '../components/refunds/RefundsSearch';
 import useExportData from '../export/useExportData';
