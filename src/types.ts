@@ -98,6 +98,7 @@ export interface Vehicle {
   restrictions: Array<string>;
   emissionType: EmissionType;
   powerType: PowerType;
+  updatedFromTraficomOn?: string;
 }
 
 export type VehicleInput = Omit<Vehicle, 'isLowEmission'>;
