@@ -400,7 +400,7 @@
           "text": "Traficom ilmoittaa ajoneuvolle seuraavan rajoitustiedon: {{restriction}}.",
           "driving_ban": "Ajokielto",
           "compulsory_inspection_neglected": "Valvontakatsastusvelvollisuus laiminlyöty",
-          "periodic_inspection_rejected": "Määräaikaiskatsastus suorittamatta/hylätty",
+          "periodic_inspection_rejected": "Määräaikaiskatsastus suorittamatta/hyväksymättä",
           "vehicle_stolen": "Ajoneuvo anastettu",
           "vehicle_deregistered": "Rekisteristä poisto",
           "vehicle_tax_due": "Ajoneuvovero erääntynyt",
