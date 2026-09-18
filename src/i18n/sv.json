@@ -398,7 +398,7 @@
           "text": "Traficom har följande restriktionsnotifikation för detta fordon: {{restriction}}.",
           "driving_ban": "Körförbud",
           "compulsory_inspection_neglected": "Besiktningsbesiktningsplikt eftersatt",
-          "periodic_inspection_rejected": "Periodisk inspektion utestående/övergiven",
+          "periodic_inspection_rejected": "Periodisk besiktning har inte utförts/godkänts",
           "vehicle_stolen": "Fordon stulen",
           "vehicle_deregistered": "Fordon avställas tillfälligt",
           "vehicle_tax_due": "Fordonsskattens försenad",

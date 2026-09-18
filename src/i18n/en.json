@@ -400,7 +400,7 @@
           "text": "Traficom has the following restriction notification for this vehicle: {{restriction}}. You may still continue with the purchase of this parking permit.",
           "driving_ban": "Driving ban",
           "compulsory_inspection_neglected": "Compulsory inspection neglected",
-          "periodic_inspection_rejected": "Periodic inpection rejected",
+          "periodic_inspection_rejected": "Periodic inspection not performed/approved",
           "vehicle_stolen": "Vehicle stolen",
           "vehicle_deregistered": "Vehicle deregistered",
           "vehicle_tax_due": "Vehicle tax due",
