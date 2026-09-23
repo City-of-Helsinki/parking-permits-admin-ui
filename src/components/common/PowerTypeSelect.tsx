@@ -27,37 +27,52 @@ const PowerTypeSelect = ({
   onChange,
 }: PowerTypeSelectProps): React.ReactElement => {
   const { t } = useTranslation();
+
+  const powerTypeElectric = {
+    label: t(`${T_PATH}.electric`),
+    name: 'Electric',
+    value: '04',
+  };
+  const powerTypeBensin = {
+    label: t(`${T_PATH}.bensin`),
+    name: 'Bensin',
+    value: '01',
+  };
+  const powerTypeDiesel = {
+    label: t(`${T_PATH}.diesel`),
+    name: 'Diesel',
+    value: '02',
+  };
+  const powerTypeBifuel = {
+    label: t(`${T_PATH}.bifuel`),
+    name: 'Bifuel',
+    value: '03',
+  };
+
   const options = [
-    {
-      label: t(`${T_PATH}.electric`),
-      name: 'Electric',
-      value: '04',
-    },
-    {
-      label: t(`${T_PATH}.bensin`),
-      name: 'Bensin',
-      value: '01',
-    },
-    {
-      label: t(`${T_PATH}.diesel`),
-      name: 'Diesel',
-      value: '02',
-    },
-    {
-      label: t(`${T_PATH}.bifuel`),
-      name: 'Bifuel',
-      value: '03',
-    },
+    powerTypeElectric,
+    powerTypeBensin,
+    powerTypeDiesel,
+    powerTypeBifuel,
   ];
+
+  const defaultPowerType = powerTypeBensin;
+  const safePowerType = powerType ?? defaultPowerType;
+  let powerTypeLabel = t(`${T_PATH}.other`);
+
+  if (safePowerType.name) {
+    powerTypeLabel = t(`${T_PATH}.${safePowerType.name?.toLowerCase()}`);
+  }
+
   return (
     <Select
       className={className}
       label={label}
       options={options}
       value={{
-        label: t(`${T_PATH}.${powerType.name?.toLowerCase()}`),
-        name: powerType.name,
-        value: powerType.identifier,
+        label: powerTypeLabel,
+        name: safePowerType.name,
+        value: safePowerType.identifier,
       }}
       disabled={disabled}
       onChange={(option: PowerTypeOption) =>

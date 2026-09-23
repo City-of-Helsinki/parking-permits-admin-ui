@@ -101,7 +101,8 @@
         "bensin": "Bensin",
         "bifuel": "Dubbelbränsle",
         "diesel": "Diesel",
-        "electric": "Elektrisk"
+        "electric": "Elektrisk",
+        "other": "Annat"
       },
       "price": {
         "perMonth": "€/månad"

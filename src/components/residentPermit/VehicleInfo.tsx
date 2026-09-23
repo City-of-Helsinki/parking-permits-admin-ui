@@ -78,6 +78,11 @@ const VehicleInfo = ({
     })
     .filter(Boolean);
 
+  const defaultPowerType = {
+    name: 'Bensin',
+    identifier: '01',
+  };
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.vehicleInfo`)}</div>
@@ -172,7 +177,7 @@ const VehicleInfo = ({
         <PowerTypeSelect
           className={styles.fieldItem}
           label={t(`${T_PATH}.powerType`)}
-          powerType={powerType}
+          powerType={powerType || defaultPowerType}
           disabled={!!disableVehicleFields}
           onChange={pType => onUpdateVehicle({ ...vehicle, powerType: pType })}
         />

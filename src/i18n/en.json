@@ -101,7 +101,8 @@
         "bensin": "Bensin",
         "bifuel": "Bifuel",
         "diesel": "Diesel",
-        "electric": "Electric"
+        "electric": "Electric",
+        "other": "Other"
       },
       "price": {
         "perMonth": "€/pm"
