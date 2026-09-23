@@ -97,7 +97,7 @@ export interface Vehicle {
   emission: number;
   restrictions: Array<string>;
   emissionType: EmissionType;
-  powerType: PowerType;
+  powerType: PowerType | null;
   updatedFromTraficomOn?: string;
 }
 

@@ -101,7 +101,8 @@
         "bensin": "Bensiini",
         "bifuel": "Kaksoispolttoaine",
         "diesel": "Diesel",
-        "electric": "Sähkö"
+        "electric": "Sähkö",
+        "other": "Muu"
       },
       "price": {
         "perMonth": "€/kk"
