@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.2](https://github.com/City-of-Helsinki/parking-permits-admin-ui/compare/parking-permits-admin-ui-v1.7.1...parking-permits-admin-ui-v1.7.2) (2026-09-24)
+
+
+### Bug Fixes
+
+* Adjust AnnouncementInput-type ([e18cd13](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e18cd135d0022aba1c80cbb9dc902a2bd18f04df))
+* Adjust outdated info in README.md ([d283a13](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/d283a134d34899712d2ee5ef8defb03dd63e3046))
+* Catch InvalidTokenError on malformed token ([f8516ad](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/f8516ad743841c8ad0c45b83c4c915889b314c35))
+* Fix type errors ([7eb3a58](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/7eb3a580e7b65577524767fb663fb4511575c5a9))
+* Remove unnecessary typecast ([e8978a8](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e8978a89a8f67bfdcd0a3a02f824398c73e9a563))
+* Update index.html meta-description ([6762318](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/676231816615de97e3a546dd0ef117ecb84ec902))
+* Update privacy statement text in adminUI ([a99d859](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/a99d85920d3d976c3bdde09edb5b2c49e19ddf4a))
+* Validate JWT payload shape ([c86969a](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/c86969a193f791aedfa5cb41d0d2b876ed5f4f09))
+
+
+### Dependencies
+
+* Adjust dependencies ([a288a8f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/a288a8fd6adf5921e4f9ce6e0c60c59c27eca3dd))
+* Adjust package versions ([58060e7](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/58060e7399344f197ebfe79f7e38a30a2f4576fb))
+* Pin browserslist to patched version ([cbf9ff4](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/cbf9ff432b3e243ac8cb4feea07ac846c739ec90))
+* Pin js-yaml to patched version ([3c69e50](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/3c69e50736f57499c4b08dfdd427281ba49c4e32))
+* Pin nanoid to patched version ([5d92c02](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/5d92c0216d697b54160858031a556002c6faabdf))
+* Pin patched transitive deps ([212c79a](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/212c79a16d6bb10833242bda45ef49ca9a5fe3eb))
+* Update TypeScript and ESLint ([509b99e](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/509b99ed462425fd8245e36aa3d1c3141d326899))
+
 ## [1.7.1](https://github.com/City-of-Helsinki/parking-permits-admin-ui/compare/parking-permits-admin-ui-v1.7.0...parking-permits-admin-ui-v1.7.1) (2026-07-21)
 
 ### Bug Fixes
