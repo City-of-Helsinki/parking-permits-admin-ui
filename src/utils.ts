@@ -206,6 +206,15 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
     emissionType,
     powerType,
   } = vehicle;
+
+  let powerTypeReturnValue = null;
+  if (powerType) {
+    powerTypeReturnValue = {
+      identifier: powerType.identifier,
+      name: powerType.name,
+    };
+  }
+
   return {
     manufacturer,
     model,
@@ -216,10 +225,7 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
     euroClass,
     emission,
     emissionType,
-    powerType: {
-      identifier: powerType.identifier,
-      name: powerType.name,
-    },
+    powerType: powerTypeReturnValue,
   };
 }
 
