@@ -532,24 +532,6 @@ export interface PermitPriceChange {
   monthCount: number;
 }
 
-export interface LowEmissionCriterion {
-  id?: string;
-  nedcMaxEmissionLimit: number;
-  wltpMaxEmissionLimit: number;
-  euroMinClassLimit: number;
-  startDate: string;
-  endDate: string;
-}
-
-export interface PagedLowEmissionCriteria {
-  objects: LowEmissionCriterion[];
-  pageInfo: PageInfo;
-}
-
-export interface LowEmissionCriteriaQueryData {
-  lowEmissionCriteria: PagedLowEmissionCriteria;
-}
-
 export enum PriceDiscount {
   LOW_EMISSION = 'LOW_EMISSION',
 }

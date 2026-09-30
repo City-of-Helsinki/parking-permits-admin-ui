@@ -451,30 +451,6 @@
           "clearButton": "Clear the search criteria"
         }
       },
-      "lowEmissionCriteria": {
-        "lowEmissionCriteriaDataTable": {
-          "euroMinClassLimit": "Euro minimum class limit",
-          "nedcMaxEmissionLimit": "NEDC maximum emission limit",
-          "powerType": "Power type",
-          "validPeriod": "Valid period",
-          "wltpMaxEmissionLimit": "WLTP maximum emission limit"
-        },
-        "lowEmissionCriterionForm": {
-          "delete": "Delete",
-          "endDate": "End date",
-          "enterNedcMaxEmissionLimit": "Please enter an NEDC maximum emission limit",
-          "enterStartDate": "Please enter a start date",
-          "enterWltpMaxEmissionLimit": "Please enter a WLTP maximum emission limit",
-          "euroMinClassLimit": "Euro minimum class limit",
-          "nedcMaxEmissionLimit": "NEDC maximum emission limit",
-          "powerType": "Power type",
-          "save": "Save",
-          "cancel": "Cancel",
-          "startDate": "Start date",
-          "validPeriod": "Valid period",
-          "wltpMaxEmissionLimit": "WLTP maximum emission limit"
-        }
-      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "No discount"
@@ -515,7 +491,6 @@
       "sideNav": {
         "addresses": "Addresses",
         "announcements": "Announcements",
-        "lowEmissionCriteria": "Low emission criteria",
         "menu": "Menu",
         "products": "Products",
         "customers": "Customers"
@@ -682,9 +657,6 @@
       "createAddress": {
         "title": "Add new address"
       },
-      "createLowEmissionCriterion": {
-        "title": "Add new low emission criterion"
-      },
       "createProduct": {
         "title": "Add new price"
       },
@@ -696,13 +668,6 @@
         "cancel": "Cancel",
         "loading": "Loading..."
       },
-      "editLowEmissionCriterion": {
-        "title": "Edit low emission criterion",
-        "confirmTitle": "Confirm delete",
-        "confirmMessage": "Low emission criterion will be permanently deleted. Do you want to proceed?",
-        "confirm": "Delete",
-        "cancel": "Cancel"
-      },
       "editProduct": {
         "title": "Edit product price",
         "confirmTitle": "Confirm delete",
@@ -710,10 +675,6 @@
         "confirm": "Delete",
         "cancel": "Cancel",
         "loading": "Loading..."
-      },
-      "lowEmissionCriteria": {
-        "addNewCriterion": "Add new low emission criterion",
-        "title": "Low-emission criteria"
       },
       "products": {
         "addNewPrice": "Add new price",

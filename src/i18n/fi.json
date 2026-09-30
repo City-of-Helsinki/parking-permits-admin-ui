@@ -451,30 +451,6 @@
           "clearButton": "Tyhjennä hakuehdot"
         }
       },
-      "lowEmissionCriteria": {
-        "lowEmissionCriteriaDataTable": {
-          "euroMinClassLimit": "EURO-minimiluokitus",
-          "nedcMaxEmissionLimit": "NEDC-maksimipäästöraja",
-          "powerType": "Käyttövoima",
-          "validPeriod": "Voimassaoloaika",
-          "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja"
-        },
-        "lowEmissionCriterionForm": {
-          "delete": "Poista",
-          "endDate": "Pvm asti",
-          "enterNedcMaxEmissionLimit": "Anna NEDC-maksimipäästöraja",
-          "enterStartDate": "Anna aloituspäivä",
-          "enterWltpMaxEmissionLimit": "Anna WLTP-maksimipäästöraja",
-          "euroMinClassLimit": "EURO-minimiluokitus",
-          "nedcMaxEmissionLimit": "NEDC-maksimipäästöraja",
-          "powerType": "Käyttövoima",
-          "save": "Tallenna",
-          "cancel": "Peruuta",
-          "startDate": "Pvm alkaen",
-          "validPeriod": "Voimassaoloaika",
-          "wltpMaxEmissionLimit": "WLTP-maksimipäästöraja"
-        }
-      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "Ei alennusta"
@@ -515,7 +491,6 @@
       "sideNav": {
         "addresses": "Osoitteet",
         "announcements": "Ilmoitukset",
-        "lowEmissionCriteria": "Vähäpäästöisyyskriteerit",
         "menu": "Valikko",
         "products": "Tuotteet",
         "customers": "Asiakkaat"
@@ -684,9 +659,6 @@
       "createAddress": {
         "title": "Lisää uusi osoite"
       },
-      "createLowEmissionCriterion": {
-        "title": "Lisää uusi vähäpäästöisyyskriteeri"
-      },
       "createProduct": {
         "title": "Luo uusi hinta"
       },
@@ -698,13 +670,6 @@
         "cancel": "Peruuta",
         "loading": "Ladataan..."
       },
-      "editLowEmissionCriterion": {
-        "title": "Muokkaa vähäpäästöisyyskriteeriä",
-        "confirmTitle": "Vahvista poisto",
-        "confirmMessage": "Vähäpäästöisyyskriteeri poistetaan pysyvästi. Haluatko jatkaa?",
-        "confirm": "Poista",
-        "cancel": "Peruuta"
-      },
       "editProduct": {
         "title": "Muokkaa tuotetta",
         "confirmTitle": "Vahvista poisto",
@@ -712,10 +677,6 @@
         "confirm": "Poista",
         "cancel": "Peruuta",
         "loading": "Ladataan..."
-      },
-      "lowEmissionCriteria": {
-        "addNewCriterion": "Lisää uusi vähäpäästöisyyskriteeri",
-        "title": "Vähäpäästöisyyskriteerit"
       },
       "products": {
         "addNewPrice": "Luo uusi tuote",
