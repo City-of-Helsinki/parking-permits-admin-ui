@@ -114,9 +114,6 @@ const PERMIT_DETAIL_QUERY = gql`
         consentLowEmissionAccepted
         serialNumber
         vehicleClass
-        euroClass
-        emission
-        emissionType
         restrictions
         updatedFromTraficomOn
         powerType {

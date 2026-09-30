@@ -3,7 +3,6 @@ import {
   Checkbox,
   IconTrash,
   Notification,
-  NumberInput,
   TextInput,
 } from 'hds-react';
 import React from 'react';
@@ -11,8 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { Vehicle } from '../../types';
 import { formatDateTimeDisplay } from '../../utils';
 import Divider from '../common/Divider';
-import EmissionTypeSelect from '../common/EmissionTypeSelect';
-import EuroClassSelect from '../common/EuroClassSelect';
 import PowerTypeSelect from '../common/PowerTypeSelect';
 import VehicleClassSelect from '../common/VehicleClassSelect';
 import styles from './VehicleInfo.module.scss';
@@ -63,9 +60,6 @@ const VehicleInfo = ({
     consentLowEmissionAccepted,
     serialNumber,
     vehicleClass,
-    euroClass,
-    emission,
-    emissionType,
     powerType,
     restrictions,
     updatedFromTraficomOn,
@@ -167,43 +161,12 @@ const VehicleInfo = ({
             onUpdateVehicle({ ...vehicle, serialNumber: e.target.value })
           }
         />
-        <EuroClassSelect
-          className={styles.fieldItem}
-          label={t(`${T_PATH}.euroClass`)}
-          value={euroClass}
-          disabled={!!disableVehicleFields}
-          onChange={value => onUpdateVehicle({ ...vehicle, euroClass: value })}
-        />
         <PowerTypeSelect
           className={styles.fieldItem}
           label={t(`${T_PATH}.powerType`)}
           powerType={powerType || defaultPowerType}
           disabled={!!disableVehicleFields}
           onChange={pType => onUpdateVehicle({ ...vehicle, powerType: pType })}
-        />
-        <EmissionTypeSelect
-          className={styles.fieldItem}
-          label={t(`${T_PATH}.emissionType`)}
-          value={emissionType}
-          disabled={!!disableVehicleFields}
-          onChange={value =>
-            onUpdateVehicle({ ...vehicle, emissionType: value })
-          }
-        />
-        <NumberInput
-          id="emission"
-          className={styles.fieldItem}
-          label={t(`${T_PATH}.emission`)}
-          value={emission || 0}
-          disabled={!!disableVehicleFields}
-          min={0}
-          step={1}
-          onChange={e =>
-            onUpdateVehicle({
-              ...vehicle,
-              emission: parseInt(e.target.value, 10),
-            })
-          }
         />
         <Divider />
         <Checkbox

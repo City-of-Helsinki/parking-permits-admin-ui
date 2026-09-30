@@ -381,9 +381,6 @@
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Tillstånd för 50 % rabatt på annan terrängparkering vid betalning med parkeringsansökan",
-        "emission": "CO2-utsläpp (g/km)",
-        "emissionType": "Typ av koldioxidmätning",
-        "euroClass": "Euroklass",
         "lowEmissionVehicle": "Fordon med låga utsläpp",
         "manufacturer": "Tillverkare",
         "model": "Modell",
