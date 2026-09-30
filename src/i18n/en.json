@@ -383,9 +383,6 @@
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
-        "emission": "CO2 emission (g/km)",
-        "emissionType": "Emission type",
-        "euroClass": "Euro class",
         "lowEmissionVehicle": "Low emission vehicle",
         "manufacturer": "Manufacturer",
         "model": "Model",

@@ -49,11 +49,6 @@ export interface Customer {
   language?: Language;
 }
 
-export enum EmissionType {
-  NEDC = 'NEDC',
-  WLTP = 'WLTP',
-}
-
 export enum VehicleClass {
   M1 = 'M1',
   M1G = 'M1G',
@@ -93,10 +88,7 @@ export interface Vehicle {
   consentLowEmissionAccepted: boolean;
   serialNumber: string;
   vehicleClass: VehicleClass;
-  euroClass: number;
-  emission: number;
   restrictions: Array<string>;
-  emissionType: EmissionType;
   powerType: PowerType | null;
   updatedFromTraficomOn?: string;
 }
