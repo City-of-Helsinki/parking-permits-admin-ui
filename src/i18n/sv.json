@@ -449,30 +449,6 @@
           "clearButton": "Rensa sökkriterierna"
         }
       },
-      "lowEmissionCriteria": {
-        "lowEmissionCriteriaDataTable": {
-          "euroMinClassLimit": "Minsta klassgräns för euro",
-          "nedcMaxEmissionLimit": "NEDC maximala utsläppsgräns",
-          "powerType": "Ström",
-          "validPeriod": "Giltighetsperiod",
-          "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
-        },
-        "lowEmissionCriterionForm": {
-          "delete": "Radera",
-          "endDate": "Slutdatum",
-          "enterNedcMaxEmissionLimit": "Ange en maximal NEDC-gräns för utsläpp",
-          "enterStartDate": "Ange ett startdatum",
-          "enterWltpMaxEmissionLimit": "Ange en maximal WLTP-gräns för utsläpp",
-          "euroMinClassLimit": "Minsta klassgräns för euro",
-          "nedcMaxEmissionLimit": "NEDC maximala utsläppsgräns",
-          "powerType": "Strömtyp",
-          "save": "Spara",
-          "cancel": "Avbryt",
-          "startDate": "Startdatum",
-          "validPeriod": "Giltighetsperiod",
-          "wltpMaxEmissionLimit": "WLTP maximala utsläppsgräns"
-        }
-      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "Ingen rabatt"
@@ -513,7 +489,6 @@
       "sideNav": {
         "addresses": "Adresser",
         "announcements": "Meddelanden",
-        "lowEmissionCriteria": "Kriterier för lågemission",
         "menu": "Meny",
         "products": "Tillstånder",
         "customers": "Kunder"
@@ -680,9 +655,6 @@
       "createAddress": {
         "title": "Lägg till ny adress"
       },
-      "createLowEmissionCriterion": {
-        "title": "Lägg till nytt kriterium för låga utsläpp"
-      },
       "createProduct": {
         "title": "Skapa ett nytt produkt"
       },
@@ -694,13 +666,6 @@
         "cancel": "Avbryt",
         "loading": "Läser in..."
       },
-      "editLowEmissionCriterion": {
-        "title": "Redigera kriterium för låga utsläpp",
-        "confirmTitle": "Bekräfta radering",
-        "confirmMessage": "Kriterium för låga utsläppen kommer att raderas permanent. Vill du fortsätta?",
-        "confirm": "Radera",
-        "cancel": "Avbryt"
-      },
       "editProduct": {
         "title": "Redigera produktpris",
         "confirmTitle": "Bekräfta radering",
@@ -708,10 +673,6 @@
         "confirm": "Radera",
         "cancel": "Avbryt",
         "loading": "Läser in..."
-      },
-      "lowEmissionCriteria": {
-        "addNewCriterion": "Lägg till ett nytt kriterium för låga utsläpp",
-        "title": "Lågutsläppskriterier"
       },
       "products": {
         "addNewPrice": "Gör ny produkt",
