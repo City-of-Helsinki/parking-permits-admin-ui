@@ -1,0 +1,7 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+// hds-react does not reliably gray out a disabled Select's shown value/icon
+.disabled,
+.disabled * {
+  color: $color-black-40 !important;
+}
