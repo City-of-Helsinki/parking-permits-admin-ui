@@ -1,7 +1,9 @@
+import classNames from 'classnames';
 import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PowerType } from '../../types';
+import styles from './PowerTypeSelect.module.scss';
 
 const T_PATH = 'components.common.powerTypeSelect';
 
@@ -66,7 +68,7 @@ const PowerTypeSelect = ({
 
   return (
     <Select
-      className={className}
+      className={classNames(className, disabled && styles.disabled)}
       label={label}
       options={options}
       value={{
