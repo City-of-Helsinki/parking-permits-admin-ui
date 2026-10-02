@@ -135,6 +135,7 @@ const PERMIT_DETAIL_QUERY = gql`
           model
           manufacturer
           registrationNumber
+          updatedFromTraficomOn
         }
       }
       vehicle {
