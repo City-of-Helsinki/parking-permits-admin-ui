@@ -29,6 +29,12 @@ const VehicleInfo = ({
   const { vehicle, consentLowEmissionAccepted, activeTemporaryVehicle } =
     permit;
   const { isLowEmission, updatedFromTraficomOn } = vehicle;
+  const temporaryVehicleUpdatedFromTraficomOn =
+    activeTemporaryVehicle?.vehicle?.updatedFromTraficomOn;
+
+  const traficomTimeStampToDisplay =
+    temporaryVehicleUpdatedFromTraficomOn ?? updatedFromTraficomOn;
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -75,10 +81,10 @@ const VehicleInfo = ({
           label={t(`${T_PATH}.consentLowEmissionDiscountText`)}
           checked={consentLowEmissionAccepted}
         />
-        {updatedFromTraficomOn && (
+        {traficomTimeStampToDisplay && (
           <div className={styles.vehicleCopyright}>
             {t(`${T_PATH}.vehicleCopyright`, {
-              datetime: formatDateTimeDisplay(updatedFromTraficomOn),
+              datetime: formatDateTimeDisplay(traficomTimeStampToDisplay),
             })}
           </div>
         )}
