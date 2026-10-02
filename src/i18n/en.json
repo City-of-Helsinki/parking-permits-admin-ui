@@ -101,7 +101,8 @@
         "bensin": "Bensin",
         "bifuel": "Bifuel",
         "diesel": "Diesel",
-        "electric": "Electric"
+        "electric": "Electric",
+        "other": "Other"
       },
       "price": {
         "perMonth": "€/pm"
@@ -259,7 +260,7 @@
         "lowEmissionVehicle": "Low emission vehicle",
         "removeTemporaryVehicle": "Remove temporary vehicle",
         "title": "Vehicle information",
-        "vehicleCopyright": "Source: Transport register, Traficom",
+        "vehicleCopyright": "Source: Transport register, Traficom (fetched {{datetime}})",
         "temporaryVehicle": "Temporary vehicle"
       }
     },
@@ -382,9 +383,6 @@
       },
       "vehicleInfo": {
         "consentLowEmissionDiscountText": "Permission for a 50% discount on other off-road parking when paying with parking applications",
-        "emission": "CO2 emission (g/km)",
-        "emissionType": "Emission type",
-        "euroClass": "Euro class",
         "lowEmissionVehicle": "Low emission vehicle",
         "manufacturer": "Manufacturer",
         "model": "Model",
@@ -394,13 +392,13 @@
         "serialNumber": "Serial number",
         "vehicleClass": "Vehicle class",
         "vehicleInfo": "Vehicle information",
-        "vehicleCopyright": "Source: Transport register, Traficom",
+        "vehicleCopyright": "Source: Transport register, Traficom (fetched {{datetime}})",
         "clear": "Clear",
         "restrictions": {
           "text": "Traficom has the following restriction notification for this vehicle: {{restriction}}. You may still continue with the purchase of this parking permit.",
           "driving_ban": "Driving ban",
           "compulsory_inspection_neglected": "Compulsory inspection neglected",
-          "periodic_inspection_rejected": "Periodic inpection rejected",
+          "periodic_inspection_rejected": "Periodic inspection not performed/approved",
           "vehicle_stolen": "Vehicle stolen",
           "vehicle_deregistered": "Vehicle deregistered",
           "vehicle_tax_due": "Vehicle tax due",
@@ -450,30 +448,6 @@
           "clearButton": "Clear the search criteria"
         }
       },
-      "lowEmissionCriteria": {
-        "lowEmissionCriteriaDataTable": {
-          "euroMinClassLimit": "Euro minimum class limit",
-          "nedcMaxEmissionLimit": "NEDC maximum emission limit",
-          "powerType": "Power type",
-          "validPeriod": "Valid period",
-          "wltpMaxEmissionLimit": "WLTP maximum emission limit"
-        },
-        "lowEmissionCriterionForm": {
-          "delete": "Delete",
-          "endDate": "End date",
-          "enterNedcMaxEmissionLimit": "Please enter an NEDC maximum emission limit",
-          "enterStartDate": "Please enter a start date",
-          "enterWltpMaxEmissionLimit": "Please enter a WLTP maximum emission limit",
-          "euroMinClassLimit": "Euro minimum class limit",
-          "nedcMaxEmissionLimit": "NEDC maximum emission limit",
-          "powerType": "Power type",
-          "save": "Save",
-          "cancel": "Cancel",
-          "startDate": "Start date",
-          "validPeriod": "Valid period",
-          "wltpMaxEmissionLimit": "WLTP maximum emission limit"
-        }
-      },
       "products": {
         "lowEmissionDiscountSelect": {
           "noDiscount": "No discount"
@@ -514,7 +488,6 @@
       "sideNav": {
         "addresses": "Addresses",
         "announcements": "Announcements",
-        "lowEmissionCriteria": "Low emission criteria",
         "menu": "Menu",
         "products": "Products",
         "customers": "Customers"
@@ -681,9 +654,6 @@
       "createAddress": {
         "title": "Add new address"
       },
-      "createLowEmissionCriterion": {
-        "title": "Add new low emission criterion"
-      },
       "createProduct": {
         "title": "Add new price"
       },
@@ -695,13 +665,6 @@
         "cancel": "Cancel",
         "loading": "Loading..."
       },
-      "editLowEmissionCriterion": {
-        "title": "Edit low emission criterion",
-        "confirmTitle": "Confirm delete",
-        "confirmMessage": "Low emission criterion will be permanently deleted. Do you want to proceed?",
-        "confirm": "Delete",
-        "cancel": "Cancel"
-      },
       "editProduct": {
         "title": "Edit product price",
         "confirmTitle": "Confirm delete",
@@ -709,10 +672,6 @@
         "confirm": "Delete",
         "cancel": "Cancel",
         "loading": "Loading..."
-      },
-      "lowEmissionCriteria": {
-        "addNewCriterion": "Add new low emission criterion",
-        "title": "Low-emission criteria"
       },
       "products": {
         "addNewPrice": "Add new price",

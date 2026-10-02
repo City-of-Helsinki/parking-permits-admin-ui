@@ -1,7 +1,6 @@
 import {
   Address,
   Customer,
-  EmissionType,
   ParkingPermitStatus,
   ParkingZone,
   PermitContractType,
@@ -30,14 +29,12 @@ export const initialVehicle: Vehicle = {
   consentLowEmissionAccepted: false,
   serialNumber: '',
   vehicleClass: VehicleClass.M1,
-  euroClass: 1,
-  emission: 0,
   restrictions: [],
-  emissionType: EmissionType.WLTP,
   powerType: {
     name: 'Bensin',
     identifier: '01',
   },
+  updatedFromTraficomOn: '',
 };
 
 export const initialAddress: Address = {

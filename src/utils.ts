@@ -201,11 +201,17 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
     consentLowEmissionAccepted,
     serialNumber,
     vehicleClass,
-    euroClass,
-    emission,
-    emissionType,
     powerType,
   } = vehicle;
+
+  let powerTypeReturnValue = null;
+  if (powerType) {
+    powerTypeReturnValue = {
+      identifier: powerType.identifier,
+      name: powerType.name,
+    };
+  }
+
   return {
     manufacturer,
     model,
@@ -213,13 +219,7 @@ export function convertToVehicleInput(vehicle: Vehicle): VehicleInput {
     consentLowEmissionAccepted,
     serialNumber,
     vehicleClass,
-    euroClass,
-    emission,
-    emissionType,
-    powerType: {
-      identifier: powerType.identifier,
-      name: powerType.name,
-    },
+    powerType: powerTypeReturnValue,
   };
 }
 
@@ -323,11 +323,7 @@ export function isValidForPriceCheck(permit: PermitInput): boolean {
   const hasRequiredZoneField = !!permit.zone;
   const hasRequiredPermitFields = !!(permit.startTime && permit.monthCount);
   const hasRequiredVehicleFields = !!(
-    vehicle.powerType &&
-    vehicle.euroClass &&
-    vehicle.emissionType &&
-    vehicle.registrationNumber?.length &&
-    Number.isInteger(vehicle.emission)
+    vehicle.powerType && vehicle.registrationNumber?.length
   );
   return (
     hasRequiredZoneField && hasRequiredPermitFields && hasRequiredVehicleFields
