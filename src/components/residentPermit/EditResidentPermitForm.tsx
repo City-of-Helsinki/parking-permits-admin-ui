@@ -72,10 +72,8 @@ const VEHICLE_QUERY = gql`
       consentLowEmissionAccepted
       serialNumber
       vehicleClass
-      euroClass
-      emission
-      emissionType
       restrictions
+      updatedFromTraficomOn
       powerType {
         name
         identifier

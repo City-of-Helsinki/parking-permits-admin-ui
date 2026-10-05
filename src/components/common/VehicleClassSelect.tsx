@@ -1,6 +1,8 @@
+import classNames from 'classnames';
 import { Select } from 'hds-react';
 import React from 'react';
 import { VehicleClass } from '../../types';
+import styles from './VehicleClassSelect.module.scss';
 
 interface VehicleClassOption {
   label: string;
@@ -27,7 +29,7 @@ const VehicleClassSelect = ({
   onChange,
 }: VehicleClassSelectProps): React.ReactElement => (
   <Select
-    className={className}
+    className={classNames(className, disabled && styles.disabled)}
     label={label}
     options={VEHICLE_CLASS_OPTIONS}
     value={{ label: value, value }}

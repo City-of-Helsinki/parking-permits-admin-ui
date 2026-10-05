@@ -49,11 +49,6 @@ export interface Customer {
   language?: Language;
 }
 
-export enum EmissionType {
-  NEDC = 'NEDC',
-  WLTP = 'WLTP',
-}
-
 export enum VehicleClass {
   M1 = 'M1',
   M1G = 'M1G',
@@ -93,11 +88,9 @@ export interface Vehicle {
   consentLowEmissionAccepted: boolean;
   serialNumber: string;
   vehicleClass: VehicleClass;
-  euroClass: number;
-  emission: number;
   restrictions: Array<string>;
-  emissionType: EmissionType;
-  powerType: PowerType;
+  powerType: PowerType | null;
+  updatedFromTraficomOn?: string;
 }
 
 export type VehicleInput = Omit<Vehicle, 'isLowEmission' | 'restrictions'>;
@@ -529,24 +522,6 @@ export interface PermitPriceChange {
   startDate: string;
   endDate: string;
   monthCount: number;
-}
-
-export interface LowEmissionCriterion {
-  id?: string;
-  nedcMaxEmissionLimit: number;
-  wltpMaxEmissionLimit: number;
-  euroMinClassLimit: number;
-  startDate: string;
-  endDate: string;
-}
-
-export interface PagedLowEmissionCriteria {
-  objects: LowEmissionCriterion[];
-  pageInfo: PageInfo;
-}
-
-export interface LowEmissionCriteriaQueryData {
-  lowEmissionCriteria: PagedLowEmissionCriteria;
 }
 
 export enum PriceDiscount {
