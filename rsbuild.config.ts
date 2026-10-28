@@ -1,11 +1,18 @@
+import { pluginThirdPartyLicenses } from '@city-of-helsinki/license-notices/rsbuild';
 import { defineConfig, loadEnv } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
 import { pluginSass } from '@rsbuild/plugin-sass';
 
+import { thirdPartyLicensesConfig } from './scripts/thirdPartyLicenses.config';
+
 const { rawPublicVars } = loadEnv({ prefixes: ['REACT_APP_'] });
 
 export default defineConfig({
-  plugins: [pluginReact(), pluginSass()],
+  plugins: [
+    pluginReact(),
+    pluginSass(),
+    pluginThirdPartyLicenses(thirdPartyLicensesConfig),
+  ],
   html: {
     template: './public/index.html',
   },
