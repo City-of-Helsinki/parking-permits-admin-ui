@@ -53,7 +53,7 @@
     "yup": "^1.4.0"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "lint": "eslint --ext js,ts,tsx src",
     "lint:fix": "eslint --fix --ext js,ts,tsx src",
     "format": "prettier --write \"**/*.+(tsx|ts|json|scss|md)\"",
@@ -76,6 +76,8 @@
     "@babel/preset-env": "^7",
     "@babel/preset-react": "^7",
     "@babel/preset-typescript": "^7",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
     "@rsbuild/core": "^2.0.15",
     "@rsbuild/plugin-react": "^2.1.0",
     "@rsbuild/plugin-sass": "^2.0.0",
