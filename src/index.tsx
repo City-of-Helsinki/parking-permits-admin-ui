@@ -9,19 +9,31 @@ import HDSLoginProvider from './auth/LoginProvider';
 import './i18n';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
-import { getEnv } from './utils';
 
-const ENVS_WITH_SENTRY = ['test', 'stage', 'prod'];
-
-if (
-  process.env.REACT_APP_SENTRY_ENVIRONMENT &&
-  ENVS_WITH_SENTRY.includes(process.env.REACT_APP_SENTRY_ENVIRONMENT)
-) {
+if (process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({
-    dsn: getEnv('REACT_APP_SENTRY_DSN'),
-    environment: getEnv('REACT_APP_SENTRY_ENVIRONMENT'),
-    integrations: [Sentry.browserTracingIntegration()],
-    tracesSampleRate: 1.0,
+    dsn: process.env.REACT_APP_SENTRY_DSN,
+    environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
+    release: process.env.REACT_APP_SENTRY_RELEASE,
+    integrations: [
+      Sentry.browserTracingIntegration(),
+      Sentry.replayIntegration(),
+    ],
+    tracesSampleRate: parseFloat(
+      process.env.REACT_APP_SENTRY_TRACES_SAMPLE_RATE || '0'
+    ),
+    tracePropagationTargets: (
+      process.env.REACT_APP_SENTRY_TRACE_PROPAGATION_TARGETS || ''
+    )
+      .split(',')
+      .map((target: string) => target.trim())
+      .filter(Boolean),
+    replaysSessionSampleRate: parseFloat(
+      process.env.REACT_APP_SENTRY_REPLAYS_SESSION_SAMPLE_RATE || '0'
+    ),
+    replaysOnErrorSampleRate: parseFloat(
+      process.env.REACT_APP_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE || '0'
+    ),
   });
 }
 
