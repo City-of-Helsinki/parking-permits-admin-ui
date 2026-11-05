@@ -76,7 +76,7 @@ jest.mock(
 );
 jest.mock('./pages/superAdmin/products/EditProduct', () => () => null);
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (str: string) => str,
     i18n: {

@@ -1,12 +1,13 @@
 import { renderHook } from '@testing-library/react';
 import { useAuthenticatedUser } from 'hds-react';
+import type { Mock } from 'vitest';
 import useUserRole, { Groups, UserRole } from './useUserRole';
 
-jest.mock('hds-react', () => ({
-  useAuthenticatedUser: jest.fn(),
+vi.mock('hds-react', () => ({
+  useAuthenticatedUser: vi.fn(),
 }));
 
-const mockUseAuthenticatedUser = useAuthenticatedUser as jest.Mock;
+const mockUseAuthenticatedUser = useAuthenticatedUser as Mock;
 
 // Encodes a value as a base64url JWT segment. Decoding never verifies the
 // signature, so an unsigned ("alg: none") token is enough for these tests.
@@ -36,7 +37,7 @@ const renderUserRole = (): UserRole =>
   renderHook(() => useUserRole()).result.current;
 
 afterEach(() => {
-  jest.resetAllMocks();
+  vi.resetAllMocks();
 });
 
 describe('useUserRole', () => {
