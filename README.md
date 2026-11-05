@@ -17,7 +17,7 @@ Related repositories:
 Prerequisites:
 
 - Node.js: 22.x or higher
-- yarn: 1.22.x or higher
+- pnpm 11.28.5 or higher
 
 The application requires a running parking-permits backend, you can find more details in [this repo](https://github.com/City-of-Helsinki/parking-permits) on how to set up the backend.
 
@@ -31,7 +31,7 @@ Install the project:
 
 ```bash
 $ cd parking-permits-admin-ui
-$ yarn install
+$ pnpm install
 ```
 
 Make a local `.env.template` copy:
@@ -43,18 +43,18 @@ $ cp .env.template .env.development.local
 Run the application in the development mode:
 
 ```bash
-$ yarn start
+$ pnpm start
 ```
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn prepare`
+### `pnpm prepare`
 
 Install pre-commit hooks with husky. You only need to run it once after installing the project.
 
-### `yarn start`
+### `pnpm start`
 
 Run the app in the development mode. Open [http://localhost:3000/](http://localhost:3000/) to view it in the browser.
 
@@ -62,24 +62,24 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.\
 If you make changes to the .env files., you need to re-start the development server
 
-### `yarn lint`
+### `pnpm lint`
 
 Lint code with ESLint
 
-### `yarn lint:fix`
+### `pnpm lint:fix`
 
 Lint code with ESLint and try to fix errors
 
-### `yarn format`
+### `pnpm format`
 
 Format code with prettier
 
-### `yarn test`
+### `pnpm test`
 
-Runs the Jest test suite once and exits.\
-Use `yarn test --watch` to run the tests in interactive watch mode instead.
+Runs the Vitest test suite in interactive watch mode (locally) or once and exits (in CI, detected automatically).\
+Use `pnpm test:coverage` to run the tests once with a coverage report instead.
 
-### `yarn build`
+### `pnpm build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.

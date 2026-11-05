@@ -14,8 +14,8 @@ import { getEnv } from './utils';
 const ENVS_WITH_SENTRY = ['test', 'stage', 'prod'];
 
 if (
-  process.env.REACT_APP_SENTRY_ENVIRONMENT &&
-  ENVS_WITH_SENTRY.includes(process.env.REACT_APP_SENTRY_ENVIRONMENT)
+  import.meta.env.REACT_APP_SENTRY_ENVIRONMENT &&
+  ENVS_WITH_SENTRY.includes(import.meta.env.REACT_APP_SENTRY_ENVIRONMENT)
 ) {
   Sentry.init({
     dsn: getEnv('REACT_APP_SENTRY_DSN'),

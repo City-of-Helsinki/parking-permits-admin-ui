@@ -10,6 +10,7 @@
 
 # testing
 /coverage
+jest-report.xml
 
 # production
 /build
@@ -26,3 +27,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# yarn – not used anymore
+yarn.lock
+.yarn/
+.yarnrc.yml
+
+# Copilot
+.agents
+.github/copilot-instructions.md

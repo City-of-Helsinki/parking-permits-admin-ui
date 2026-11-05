@@ -23,7 +23,7 @@ const dateFormat = 'd.M.yyyy HH:mm';
 type TranslateFunction = (name: string) => string;
 
 export function getEnv(key: string): string {
-  const variable = process.env[key];
+  const variable = import.meta.env[key];
   if (variable === undefined) {
     throw new Error(`No ${key} specified.`);
   }
