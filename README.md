@@ -86,3 +86,35 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
+
+## License
+
+The source code in this repository is licensed under the MIT License; see
+[LICENSE](./LICENSE). The licenses of the third-party code included in the
+production build are listed in `third-party-licenses.txt`, which is generated
+during the build and served from the root of the deployed application. The
+same information is emitted alongside it as `oss-licenses.json`, for license
+audit tooling.
+
+The MIT License covers source code only. The following files are **not**
+covered by it and remain with their respective rights holders:
+
+| Files                                         | Rights holder and terms                                                                                         |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `public/favicon.ico`                          | City of Helsinki. The City of Helsinki logo, a registered trademark.                                            |
+| `src/assets/images/icon_poi_talo-sininen.svg` | Map marker icon created for the City of Helsinki parking services; not offered for reuse under the MIT License. |
+
+The map tiles shown by the location picker are loaded at runtime from the tile
+service configured in `REACT_APP_MAP_URL_TEMPLATE`, and remain with the Cities
+of Helsinki, Espoo, Vantaa and Kauniainen, as attributed on the map.
+
+The copy of [oidc-client-ts](https://github.com/authts/oidc-client-ts)
+(Apache-2.0) used by [silent_renew.html](./public/silent_renew.html) is loaded
+at runtime from cdnjs with a subresource integrity hash, and is not part of the
+build output. The copy bundled into the application is listed in the generated
+files.
+
+The Helsinki Grotesk typeface used by the user interface is proprietary and
+licensed by Camelot Typefaces. No font files are stored in this repository;
+they are loaded at runtime from a City of Helsinki service. See
+[index.scss](./src/index.scss).
