@@ -13,8 +13,7 @@
     "project": "./tsconfig.json"
   },
   "env": {
-    "browser": true,
-    "jest": true
+    "browser": true
   },
   "plugins": [
     "sonarjs",
