@@ -76,8 +76,8 @@ Format code with prettier
 
 ### `pnpm test`
 
-Runs the Jest test suite once and exits.\
-Use `pnpm test --watch` to run the tests in interactive watch mode instead.
+Runs the Vitest test suite in interactive watch mode (locally) or once and exits (in CI, detected automatically).\
+Use `pnpm test:coverage` to run the tests once with a coverage report instead.
 
 ### `pnpm build`
 
