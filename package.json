@@ -2,6 +2,7 @@
   "name": "parking-permits-admin-ui",
   "version": "1.7.2",
   "private": true,
+  "packageManager": "pnpm@11.28.5",
   "dependencies": {
     "@apollo/client": "^3.11.2",
     "@sentry/react": "^11.10.0",
@@ -60,11 +61,12 @@
     "start": "rsbuild dev",
     "build": "rsbuild build",
     "test": "jest",
-    "test:coverage": "yarn test --coverage --watchAll=false",
+    "test:coverage": "pnpm test --coverage --watchAll=false",
     "typecheck": "tsc --noEmit"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22",
+    "pnpm": ">=11.28.5"
   },
   "browserslist": [
     ">0.2%",
