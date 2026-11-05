@@ -1,11 +1,11 @@
-/// <reference types="vitest/config" />
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import eslint from '@nabla/vite-plugin-eslint';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: '/',
   envPrefix: 'REACT_APP_',
-  plugins: [react()],
+  plugins: [react(), mode !== 'test' && eslint()],
   server: {
     // Bind to all interfaces so the dev server is reachable through the
     // container's published port mapping.
@@ -36,4 +36,4 @@ export default defineConfig({
       include: ['src/**/*'],
     },
   },
-});
+}));
