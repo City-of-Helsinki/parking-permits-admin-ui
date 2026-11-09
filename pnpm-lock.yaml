@@ -7,6 +7,7 @@ settings:
 overrides:
   minimatch@>=9 <11: '>=11.0.1'
   cookie@<0.7.0: ^0.7.2
+  uuid@9.0.1: '>=11.1.1'
 
 importers:
 
@@ -3095,9 +3096,8 @@ packages:
   util-arity@1.1.0:
     resolution: {integrity: sha512-kkyIsXKwemfSy8ZEoaIz06ApApnWsk5hQO0vLjZS6UkBiGiW++Jsyb8vSBoc0WKlffGoGs5yYy/j5pp8zckrFA==}
 
-  uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
-    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+  uuid@14.0.3:
+    resolution: {integrity: sha512-Sc5u1VVln93y1Xnz4R+CunOZc7R9LUcTmhj7Rc7Eg3HVcf7rVn2FOoa812fe0W8p3jD7xeoGSYbfqCGGH2B6xw==}
     hasBin: true
 
   varint@6.0.0:
@@ -5241,7 +5241,7 @@ snapshots:
       react-popper: 2.2.5(@popperjs/core@2.11.5)(react@18.3.1)
       react-use-measure: 2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-virtual: 2.10.4(react@18.3.1)
-      uuid: 9.0.1
+      uuid: 14.0.3
       yup: 1.4.0
     transitivePeerDependencies:
       - '@types/react'
@@ -6397,7 +6397,7 @@ snapshots:
 
   util-arity@1.1.0: {}
 
-  uuid@9.0.1: {}
+  uuid@14.0.3: {}
 
   varint@6.0.0:
     optional: true
