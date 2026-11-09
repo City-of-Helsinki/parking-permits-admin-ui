@@ -21,7 +21,6 @@ export enum UserRole {
   UNKNOWN = 0,
 }
 
-// eslint-disable-next-line
 type IdTokenClaims = { ad_groups: unknown };
 
 const isStringArray = (value: unknown): value is string[] =>

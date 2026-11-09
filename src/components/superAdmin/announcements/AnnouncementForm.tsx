@@ -3,7 +3,6 @@ import { Field, FieldProps, Formik } from 'formik';
 import { Button, Card, LoadingSpinner, TextArea, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-// eslint-disable-next-line import/no-namespace
 import * as yup from 'yup';
 import { ParkingZone } from '../../../types';
 import CheckboxGroup, { CheckboxGroupOption } from '../../common/CheckboxGroup';
@@ -80,7 +79,7 @@ const AnnouncementForm = ({
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={values => onSubmit(values as AnnouncementInput)}>
+        onSubmit={values => onSubmit(values)}>
         {props => (
           <form onSubmit={props.handleSubmit}>
             <Field name="parkingZones">

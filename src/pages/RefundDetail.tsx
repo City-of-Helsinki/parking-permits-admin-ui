@@ -11,7 +11,6 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, Link } from 'react-router';
-// eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import makePrivate from '../auth/utils';

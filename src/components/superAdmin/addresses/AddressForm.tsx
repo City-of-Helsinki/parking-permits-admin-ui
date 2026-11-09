@@ -3,7 +3,6 @@ import { Field, FieldProps, Formik } from 'formik';
 import { Button, TextInput } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-// eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
 import { Address, ParkingZone } from '../../../types';
 import LocationPicker from '../../common/LocationPicker';

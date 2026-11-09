@@ -1,6 +1,7 @@
 # Don't allow dependencies to be used before they have been released for at least 1 week
 minimumReleaseAge: 10080
-#minimumReleaseAgeExclude: 
+minimumReleaseAgeExclude:
+  - eslint-plugin-import-x@4.18.1
 
 # Don't warn about ignored build scripts
 ignoredBuiltDependencies: []
@@ -11,4 +12,7 @@ shamefullyHoist: true
 allowBuilds:
   '@parcel/watcher': true
 
-#overrides:
+overrides:
+  'minimatch@>=9 <11': '>=11.0.1'
+  # hds-react pins cookie 0.4.2 (GHSA-pxg6-pf52-xh8x, fixed in 0.7.0)
+  'cookie@<0.7.0': '^0.7.2'

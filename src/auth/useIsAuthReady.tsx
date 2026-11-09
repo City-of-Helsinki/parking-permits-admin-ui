@@ -5,7 +5,6 @@ import {
 } from 'hds-react';
 import { useRef } from 'react';
 
-// eslint-disable-next-line import/prefer-default-export
 export function useIsAuthorizationReady(): [
   boolean,
   boolean,
