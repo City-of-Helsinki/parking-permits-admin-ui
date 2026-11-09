@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import Login from '../pages/Login';
 import Footer from './footer/Footer';

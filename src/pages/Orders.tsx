@@ -3,7 +3,7 @@ import { format, parse } from 'date-fns';
 import { Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import makePrivate from '../auth/utils';
 import OrdersDataTable from '../components/orders/OrdersDataTable';

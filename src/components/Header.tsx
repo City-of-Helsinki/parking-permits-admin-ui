@@ -8,7 +8,7 @@ import {
 } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { matchPath, useLocation, useNavigate } from 'react-router-dom';
+import { matchPath, useLocation, useNavigate } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import Login from './auth/Login';
 import Logout from './auth/Logout';

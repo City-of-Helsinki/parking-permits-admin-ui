@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/react';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import { ApiAccessTokenProvider } from './api/ApiAccessTokenProvider';
 import { ApiClientProvider } from './api/ApiClientProvider';
 import App from './App';

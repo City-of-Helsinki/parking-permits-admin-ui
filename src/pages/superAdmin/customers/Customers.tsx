@@ -1,8 +1,7 @@
 import { gql, useLazyQuery } from '@apollo/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 import makePrivate from '../../../auth/utils';
 import DataTable from '../../../components/common/DataTable';
 import Divider from '../../../components/common/Divider';

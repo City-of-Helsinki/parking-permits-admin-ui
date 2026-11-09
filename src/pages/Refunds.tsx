@@ -7,8 +7,7 @@ import {
 } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, Navigate, useSearchParams } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import makePrivate from '../auth/utils';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';

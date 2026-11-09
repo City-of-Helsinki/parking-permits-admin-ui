@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { MemoryRouter, useLocation } from 'react-router-dom';
+import { MemoryRouter, useLocation } from 'react-router';
 import useUserRole, { UserRole } from './api/useUserRole';
 import App from './App';
 import { useIsAuthorizationReady } from './auth/useIsAuthReady';
@@ -13,68 +13,91 @@ const mockPageLabels = {
 const currentPathLabel = 'Current path';
 const adminProductsPath = '/admin/products';
 
-jest.mock('./api/useUserRole', () => ({
-  ...jest.requireActual('./api/useUserRole'),
-  __esModule: true,
-  default: jest.fn(),
+vi.mock('./api/useUserRole', async importOriginal => ({
+  ...(await importOriginal<typeof import('./api/useUserRole')>()),
+  default: vi.fn(),
 }));
-jest.mock('./auth/useIsAuthReady', () => ({
-  useIsAuthorizationReady: jest.fn(),
+vi.mock('./auth/useIsAuthReady', () => ({
+  useIsAuthorizationReady: vi.fn(),
 }));
-jest.mock('hds-react', () => ({ LoadingSpinner: () => 'Loading' }));
-jest.mock('hds-react/components', () => ({ CookieModal: () => null }));
-jest.mock('./components/Header', () => () => null);
-jest.mock('./components/footer/Footer', () => () => null);
-jest.mock('./components/superAdmin/SideNav', () => () => null);
-jest.mock('./auth/HandleCallback', () => () => 'Callback page');
-jest.mock('./pages/Login', () => () => mockPageLabels.login);
-jest.mock('./pages/NotFound', () => () => 'Not found page');
-jest.mock('./pages/AuthError', () => () => 'Authentication error page');
-jest.mock('./pages/Permits', () => {
-  const makePrivate = jest.requireActual('./auth/utils').default;
-  return makePrivate(() => mockPageLabels.permits);
+vi.mock('hds-react', () => ({ LoadingSpinner: () => 'Loading' }));
+vi.mock('hds-react/components', () => ({ CookieModal: () => null }));
+vi.mock('./components/Header', () => ({ default: () => null }));
+vi.mock('./components/footer/Footer', () => ({ default: () => null }));
+vi.mock('./components/superAdmin/SideNav', () => ({ default: () => null }));
+vi.mock('./auth/HandleCallback', () => ({ default: () => 'Callback page' }));
+vi.mock('./pages/Login', () => ({ default: () => mockPageLabels.login }));
+vi.mock('./pages/NotFound', () => ({ default: () => 'Not found page' }));
+vi.mock('./pages/AuthError', () => ({
+  default: () => 'Authentication error page',
+}));
+vi.mock('./pages/Permits', async () => {
+  const { default: makePrivate } = await vi.importActual<
+    typeof import('./auth/utils')
+  >('./auth/utils');
+  return { default: makePrivate(() => mockPageLabels.permits) };
 });
-jest.mock('./pages/PermitDetail', () => () => {
-  const { useParams } = jest.requireActual('react-router');
-  const { id } = useParams();
-  return `Permit ${id}`;
+vi.mock('./pages/PermitDetail', async () => {
+  const { useParams } = await import('react-router');
+  return {
+    default: function PermitDetail() {
+      const { id } = useParams();
+      return `Permit ${id}`;
+    },
+  };
 });
-jest.mock('./pages/EndPermit', () => () => {
-  const { useParams } = jest.requireActual('react-router');
-  const { id, endType } = useParams();
-  return `End permit ${id}: ${endType}`;
+vi.mock('./pages/EndPermit', async () => {
+  const { useParams } = await import('react-router');
+  return {
+    default: function EndPermit() {
+      const { id, endType } = useParams();
+      return `End permit ${id}: ${endType}`;
+    },
+  };
 });
-jest.mock('./pages/CreatePermit', () => () => 'Create permit page');
-jest.mock('./pages/CreateCompanyPermit', () => () => null);
-jest.mock('./pages/CreateResidentPermit', () => () => null);
-jest.mock('./pages/EditResidentPermit', () => () => null);
-jest.mock('./pages/ExtendPermit', () => () => null);
-jest.mock('./pages/Orders', () => () => null);
-jest.mock('./pages/RefundDetail', () => () => null);
-jest.mock('./pages/Refunds', () => () => null);
-jest.mock('./pages/superAdmin/addresses/Addresses', () => () => null);
-jest.mock('./pages/superAdmin/addresses/CreateAddress', () => () => null);
-jest.mock('./pages/superAdmin/addresses/EditAddress', () => () => null);
-jest.mock('./pages/superAdmin/announcements/Announcements', () => () => null);
-jest.mock(
-  './pages/superAdmin/announcements/CreateAnnouncement',
-  () => () => null
-);
-jest.mock(
-  './pages/superAdmin/announcements/ViewAnnouncement',
-  () => () => null
-);
-jest.mock('./pages/superAdmin/customers/Customers', () => () => null);
-jest.mock('./pages/superAdmin/customers/ViewCustomer', () => () => null);
-jest.mock(
-  './pages/superAdmin/products/Products',
-  () => () => mockPageLabels.products
-);
-jest.mock(
-  './pages/superAdmin/products/CreateProduct',
-  () => () => 'Create product page'
-);
-jest.mock('./pages/superAdmin/products/EditProduct', () => () => null);
+vi.mock('./pages/CreatePermit', () => ({
+  default: () => 'Create permit page',
+}));
+vi.mock('./pages/CreateCompanyPermit', () => ({ default: () => null }));
+vi.mock('./pages/CreateResidentPermit', () => ({ default: () => null }));
+vi.mock('./pages/EditResidentPermit', () => ({ default: () => null }));
+vi.mock('./pages/ExtendPermit', () => ({ default: () => null }));
+vi.mock('./pages/Orders', () => ({ default: () => null }));
+vi.mock('./pages/RefundDetail', () => ({ default: () => null }));
+vi.mock('./pages/Refunds', () => ({ default: () => null }));
+vi.mock('./pages/superAdmin/addresses/Addresses', () => ({
+  default: () => null,
+}));
+vi.mock('./pages/superAdmin/addresses/CreateAddress', () => ({
+  default: () => null,
+}));
+vi.mock('./pages/superAdmin/addresses/EditAddress', () => ({
+  default: () => null,
+}));
+vi.mock('./pages/superAdmin/announcements/Announcements', () => ({
+  default: () => null,
+}));
+vi.mock('./pages/superAdmin/announcements/CreateAnnouncement', () => ({
+  default: () => null,
+}));
+vi.mock('./pages/superAdmin/announcements/ViewAnnouncement', () => ({
+  default: () => null,
+}));
+vi.mock('./pages/superAdmin/customers/Customers', () => ({
+  default: () => null,
+}));
+vi.mock('./pages/superAdmin/customers/ViewCustomer', () => ({
+  default: () => null,
+}));
+vi.mock('./pages/superAdmin/products/Products', () => ({
+  default: () => mockPageLabels.products,
+}));
+vi.mock('./pages/superAdmin/products/CreateProduct', () => ({
+  default: () => 'Create product page',
+}));
+vi.mock('./pages/superAdmin/products/EditProduct', () => ({
+  default: () => null,
+}));
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -103,10 +126,8 @@ const renderRoute = (path: string) =>
   );
 
 beforeEach(() => {
-  jest.mocked(useUserRole).mockReturnValue(UserRole.SUPER_ADMIN);
-  jest
-    .mocked(useIsAuthorizationReady)
-    .mockReturnValue([true, false, true, true]);
+  vi.mocked(useUserRole).mockReturnValue(UserRole.SUPER_ADMIN);
+  vi.mocked(useIsAuthorizationReady).mockReturnValue([true, false, true, true]);
 });
 
 describe('routing', () => {
@@ -127,9 +148,12 @@ describe('routing', () => {
   });
 
   it('redirects an unauthenticated protected route to login', async () => {
-    jest
-      .mocked(useIsAuthorizationReady)
-      .mockReturnValue([false, false, false, false]);
+    vi.mocked(useIsAuthorizationReady).mockReturnValue([
+      false,
+      false,
+      false,
+      false,
+    ]);
     renderRoute('/permits');
 
     expect(await screen.findByText(mockPageLabels.login)).toBeInTheDocument();
@@ -138,7 +162,7 @@ describe('routing', () => {
   });
 
   it('shows login instead of protected content while the role is unknown', () => {
-    jest.mocked(useUserRole).mockReturnValue(UserRole.UNKNOWN);
+    vi.mocked(useUserRole).mockReturnValue(UserRole.UNKNOWN);
     renderRoute('/permits');
 
     expect(screen.getByText(mockPageLabels.login)).toBeInTheDocument();
@@ -146,7 +170,7 @@ describe('routing', () => {
   });
 
   it('denies access to users without an authorized group', () => {
-    jest.mocked(useUserRole).mockReturnValue(UserRole.NON_AD_GROUPS);
+    vi.mocked(useUserRole).mockReturnValue(UserRole.NON_AD_GROUPS);
     renderRoute('/permits');
 
     expect(screen.getByText('message.unauthorized')).toBeInTheDocument();
@@ -164,10 +188,10 @@ describe('routing', () => {
     );
   });
 
-  it('matches the static admin create route instead of a product ID', () => {
+  it('matches the static admin create route instead of a product ID', async () => {
     renderRoute('/admin/products/create');
 
-    expect(screen.getByText('Create product page')).toBeInTheDocument();
+    expect(await screen.findByText('Create product page')).toBeInTheDocument();
   });
 
   it.each([
@@ -177,7 +201,7 @@ describe('routing', () => {
     UserRole.PREPARATORS,
     UserRole.INSPECTORS,
   ])('redirects non-super-admin role %s away from admin pages', async role => {
-    jest.mocked(useUserRole).mockReturnValue(role);
+    vi.mocked(useUserRole).mockReturnValue(role);
     renderRoute(adminProductsPath);
 
     expect(await screen.findByText(mockPageLabels.permits)).toBeInTheDocument();
@@ -188,7 +212,7 @@ describe('routing', () => {
   });
 
   it('does not render admin content while the role is unknown', () => {
-    jest.mocked(useUserRole).mockReturnValue(UserRole.UNKNOWN);
+    vi.mocked(useUserRole).mockReturnValue(UserRole.UNKNOWN);
     renderRoute(adminProductsPath);
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
