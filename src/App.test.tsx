@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import { MemoryRouter, useLocation } from 'react-router';
 import useUserRole, { UserRole } from './api/useUserRole';
 import App from './App';

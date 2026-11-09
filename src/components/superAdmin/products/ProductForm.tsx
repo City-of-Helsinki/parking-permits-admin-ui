@@ -4,7 +4,6 @@ import { Field, FieldProps, Formik } from 'formik';
 import { Button, DateInput, Fieldset, NumberInput, Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-// eslint-disable-next-line import/no-namespace
 import * as Yup from 'yup';
 import {
   Language,

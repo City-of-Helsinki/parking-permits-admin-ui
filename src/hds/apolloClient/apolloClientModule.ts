@@ -27,7 +27,6 @@ import { createAuthLink } from './authLink';
  * Example: new HttpLink({ uri, preserveHeaderCase: true }
  *
  */
-// eslint-disable-next-line import/prefer-default-export
 export function createApolloClientModule<T = InMemoryCache>(
   props: ApolloClientModuleProps<T>
 ): ApolloClientModule<T> {

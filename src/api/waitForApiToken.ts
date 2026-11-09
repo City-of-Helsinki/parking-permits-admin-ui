@@ -23,7 +23,6 @@ const waitForApiToken = async (): Promise<string> => {
     if (apiToken) {
       return apiToken;
     }
-    // eslint-disable-next-line no-await-in-loop
     await wait(RETRY_TIME_MS);
   }
   throw new Error('Failed to get API token');
