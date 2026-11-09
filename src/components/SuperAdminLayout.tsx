@@ -1,7 +1,6 @@
 import { LoadingSpinner } from 'hds-react';
 import React from 'react';
-import { Outlet } from 'react-router';
-import { Navigate } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import Divider from './common/Divider';
 import Footer from './footer/Footer';

@@ -1,7 +1,7 @@
 import { CookieModal } from 'hds-react/components';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router';
 import routes from './routes';
 
 const App = (): React.ReactElement => {

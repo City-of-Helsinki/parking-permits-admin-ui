@@ -1,7 +1,7 @@
 import { Button, IconPlusCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import makePrivate from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import PermitTypeSelect from '../components/createPermit/PermitTypeSelect';

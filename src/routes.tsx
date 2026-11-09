@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import HandleCallback from './auth/HandleCallback';
 import MainLayout from './components/MainLayout';
 import SuperAdminLayout from './components/SuperAdminLayout';

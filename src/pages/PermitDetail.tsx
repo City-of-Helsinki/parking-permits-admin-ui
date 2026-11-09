@@ -9,8 +9,7 @@ import {
 } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import makePrivate from '../auth/utils';
 import Breadcrumbs from '../components/common/Breadcrumbs';
