@@ -55,7 +55,7 @@ COPY .env .
 # 2. Setup Runtime Env Injection
 # env.sh is provided by the base image
 WORKDIR /usr/share/nginx/html
-COPY .env .
+#COPY .env .
 
 # 3. Inject Versioning for the /readiness endpoint from package.json using base image
 COPY package.json .
