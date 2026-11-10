@@ -30,11 +30,20 @@ EXPOSE 8080
 
 CMD pnpm exec vite --port 8080
 
+#==============================
+FROM appbase AS staticbuilder
+#==============================
+ARG REACT_APP_MAP_URL_TEMPLATE
+RUN pnpm build
+
 # ============================================================
 # STAGE 4: Production Runtime
 # ============================================================
 FROM helsinki.azurecr.io/ubi9/nginx-126-spa-standard AS production
 # =============================================================
+ARG REACT_APP_SENTRY_RELEASE
+ENV APP_RELEASE=${REACT_APP_SENTRY_RELEASE:-""}
+
 # 1. Copy the compiled assets
 COPY --from=staticbuilder /app/build /usr/share/nginx/html
 
