@@ -4,5 +4,8 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/vitest';
 import { default as RO } from 'resize-observer-polyfill';
+// Load generated runtime configuration to be available in tests
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+require('../public/test-env-config.js');
 
 global.ResizeObserver = RO;
