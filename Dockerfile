@@ -50,11 +50,6 @@ COPY --from=staticbuilder /app/build /usr/share/nginx/html
 # 2. Setup Runtime Env Injection
 # env.sh is provided by the base image
 WORKDIR /usr/share/nginx/html
-COPY .env .
-
-# 2. Setup Runtime Env Injection
-# env.sh is provided by the base image
-WORKDIR /usr/share/nginx/html
 #COPY .env .
 
 # 3. Inject Versioning for the /readiness endpoint from package.json using base image
