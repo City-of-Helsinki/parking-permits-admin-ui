@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet';
 import marker from '../../assets/images/icon_poi_talo-sininen.svg';
-import { getEnv } from '../../utils';
+import { getEnvValue } from '../../utils';
 import styles from './LocationPicker.module.scss';
 
 const icon = new L.Icon({
@@ -43,7 +43,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const template = getEnv('REACT_APP_MAP_URL_TEMPLATE');
+  const template = getEnvValue('REACT_APP_MAP_URL_TEMPLATE') || '';
   const language = ['fi', 'sv'].includes(lang) ? lang : 'fi';
   const mapUrl = template.replace('{language}', language);
   return (

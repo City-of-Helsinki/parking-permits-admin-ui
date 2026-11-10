@@ -6,11 +6,13 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import i18n from '../i18n';
-import { getEnv } from '../utils';
+import { getEnvValue } from '../utils';
 
 function getApiClient(token: string): ApolloClient<NormalizedCacheObject> {
   const httpLink = createHttpLink({
-    uri: `${getEnv('REACT_APP_PARKING_PERMITS_BACKEND_URL')}/admin-graphql/`,
+    uri: `${getEnvValue(
+      'REACT_APP_PARKING_PERMITS_BACKEND_URL'
+    )}/admin-graphql/`,
   });
 
   const authLink = setContext((_, { headers }) => ({
