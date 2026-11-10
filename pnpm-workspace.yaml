@@ -11,6 +11,7 @@ shamefullyHoist: true
 
 allowBuilds:
   '@parcel/watcher': true
+  esbuild: true
 
 overrides:
   'minimatch@>=9 <11': '>=11.0.1'

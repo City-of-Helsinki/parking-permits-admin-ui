@@ -22,12 +22,53 @@ const dateFormat = 'd.M.yyyy HH:mm';
 
 type TranslateFunction = (name: string) => string;
 
-export function getEnv(key: string): string {
-  const variable = import.meta.env[key];
-  if (variable === undefined) {
-    throw new Error(`No ${key} specified.`);
+/**
+ * Get environment variable from globalThis.window._env_
+ * globalThis.window._env_ is injected by env-config.js at runtime
+ */
+function toEnvString(value: unknown): string | undefined {
+  if (typeof value === 'string') {
+    return value;
   }
-  return variable;
+
+  if (
+    typeof value === 'number' ||
+    typeof value === 'boolean' ||
+    typeof value === 'bigint'
+  ) {
+    return value.toString();
+  }
+
+  return undefined;
+}
+
+export function getEnvValue(key: string): string | undefined {
+  // Runtime-injected env values for browser deployments.
+  // eslint-disable-next-line no-underscore-dangle
+  const runtimeEnvValue = toEnvString(globalThis.window?._env_?.[key]);
+  if (runtimeEnvValue !== undefined) {
+    return runtimeEnvValue;
+  }
+
+  // Node test/runtime fallback (used by Vitest and server-side tooling).
+  const processEnv = (
+    globalThis as typeof globalThis & {
+      process?: { env?: Record<string, string | undefined> };
+    }
+  ).process?.env;
+  const processValue = processEnv?.[key];
+  if (processValue !== undefined) {
+    return processValue;
+  }
+
+  // Build-time fallback for environments still relying on Vite replacement.
+  const value = (import.meta.env as Record<string, unknown>)[key];
+  const normalizedValue = toEnvString(value);
+  if (normalizedValue !== undefined) {
+    return normalizedValue;
+  }
+
+  return undefined;
 }
 
 export function getApolloErrorMessage(error: ApolloError): string {
@@ -43,11 +84,6 @@ export function getApolloErrorMessage(error: ApolloError): string {
     return networkError.result.errors.map(e => e.message).join(', ');
   }
   return error.message;
-}
-
-export function getBooleanEnv(key: string): boolean {
-  const val = getEnv(key);
-  return ['true', '1'].includes(val);
 }
 
 export function formatPeriod(count: number, unit: string): string {

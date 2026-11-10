@@ -1,5 +1,5 @@
 import { getApiTokensFromStorage } from 'hds-react';
-import { getEnv } from '../utils';
+import { getEnvValue } from '../utils';
 
 const RETRY_TIME_MS = 200;
 const MAX_RETRY_ATTEMPTS = 10;
@@ -12,7 +12,7 @@ const wait = (waitForMs: number) =>
 const getApiToken = () => {
   const tokens = getApiTokensFromStorage();
   return tokens
-    ? tokens[getEnv('REACT_APP_PARKING_PERMITS_AUDIENCE')]
+    ? tokens[getEnvValue('REACT_APP_PARKING_PERMITS_AUDIENCE') || '']
     : undefined;
 };
 

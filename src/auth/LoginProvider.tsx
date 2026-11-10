@@ -6,7 +6,7 @@ import { getHDSClientConfig } from '.';
 import { TokenSetter } from '../hds/apolloClient';
 import { createApolloClientModule } from '../hds/apolloClient/apolloClientModule';
 import i18n from '../i18n';
-import { getEnv } from '../utils';
+import { getEnvValue } from '../utils';
 
 interface HDSLoginProviderProps {
   children: React.ReactNode;
@@ -16,7 +16,9 @@ const HDSLoginProvider: FC<HDSLoginProviderProps> = ({ children }) => {
   const loginProviderProps = getHDSClientConfig();
   const apolloClientModule = useMemo(() => {
     const httpLink = createHttpLink({
-      uri: `${getEnv('REACT_APP_PARKING_PERMITS_BACKEND_URL')}/admin-graphql/`,
+      uri: `${getEnvValue(
+        'REACT_APP_PARKING_PERMITS_BACKEND_URL'
+      )}/admin-graphql/`,
     });
 
     const authLink = setContext((_, { headers }) => ({
@@ -28,7 +30,8 @@ const HDSLoginProvider: FC<HDSLoginProviderProps> = ({ children }) => {
     }));
 
     const tokenSetter: TokenSetter = (headers, tokens) => {
-      const apiToken = tokens[getEnv('REACT_APP_PARKING_PERMITS_AUDIENCE')];
+      const apiToken =
+        tokens[getEnvValue('REACT_APP_PARKING_PERMITS_AUDIENCE') || ''];
       return {
         authorization: apiToken ? `Bearer ${apiToken}` : '',
       };
