@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'build',
     emptyOutDir: true,
+    sourcemap: true
   },
   test: {
     environment: 'jsdom',
