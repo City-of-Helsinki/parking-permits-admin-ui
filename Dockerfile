@@ -35,7 +35,6 @@ CMD pnpm exec vite --port 8080
 #==============================
 FROM appbase AS staticbuilder
 #==============================
-ARG REACT_APP_MAP_URL_TEMPLATE
 RUN pnpm build
 
 # ============================================================
