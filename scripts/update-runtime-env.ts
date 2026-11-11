@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const USE_TEST_ENV = process.env.NODE_ENV === 'test';
 const defaultNodeEnv = USE_TEST_ENV ? 'test' : 'development';
 
-const env = {
+const env: Record<string, string> = {
   NODE_ENV: process.env.NODE_ENV || defaultNodeEnv,
 };
 
@@ -18,8 +18,23 @@ dotenv.config({
   processEnv: env,
   ...(USE_TEST_ENV
     ? { path: ['.env', '.env.test'] }
-    : { path: ['.env', `.env.${env.NODE_ENV}`, '.env.local'] }),
+    : {
+        path: [
+          '.env',
+          `.env.${env.NODE_ENV}`,
+          '.env.local',
+          `.env.${env.NODE_ENV}.local`,
+        ],
+      }),
   override: true,
+});
+
+// Shell variables take precedence over files; only public prefixes are exposed
+const PUBLIC_PREFIXES = ['REACT_APP_', 'VITE_'];
+Object.entries(process.env).forEach(([key, value]) => {
+  if (value !== undefined && PUBLIC_PREFIXES.some(p => key.startsWith(p))) {
+    env[key] = value;
+  }
 });
 
 // Prevent collision if app is running while tests are started
