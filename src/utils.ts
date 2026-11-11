@@ -68,6 +68,8 @@ export function getEnvValue(key: string): string | undefined {
     return normalizedValue;
   }
 
+  // eslint-disable-next-line no-console
+  console.error(`No ${key} specified.`);
   return undefined;
 }
 
