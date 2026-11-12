@@ -99,7 +99,9 @@ const Announcements = (): React.ReactElement => {
       selector: ({ parkingZones }) =>
         parkingZones
           .flatMap(parkingZone => parkingZone.name)
-          .sort()
+          .sort((zoneName, otherZoneName) =>
+            zoneName.localeCompare(otherZoneName)
+          )
           .join(', '),
       sortable: false,
     },
