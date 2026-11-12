@@ -82,9 +82,10 @@ describe('TemporaryVehicle', () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     const { addTemporaryVehicle } = renderForm();
 
-    fireEvent.change(screen.getByLabelText(`${T_PATH}.endDate`), {
-      target: { value: '20.1.2030' },
-    });
+    const endDateInput = screen.getByLabelText(`${T_PATH}.endDate`);
+    fireEvent.change(endDateInput, { target: { value: '20.1.2030' } });
+    // HDS 4 DateInput reports the parsed date on blur or Enter
+    fireEvent.blur(endDateInput);
     await user.click(
       screen.getByRole('button', { name: `${T_PATH}.actionBtn.continue` })
     );

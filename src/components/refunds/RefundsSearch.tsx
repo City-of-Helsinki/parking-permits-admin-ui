@@ -97,7 +97,7 @@ const RefundsSearch = ({
         />
         <Button
           className={styles.searchButton}
-          iconLeft={<IconSearch />}
+          iconStart={<IconSearch />}
           onClick={() => handleSubmit()}>
           {t(`${T_PATH}.searchButton`)}
         </Button>

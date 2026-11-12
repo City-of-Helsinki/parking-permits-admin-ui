@@ -230,7 +230,7 @@ const Permits = (): React.ReactElement => {
         <h2>{t(`${T_PATH}.title`)}</h2>
         {userRole > UserRole.PREPARATORS && (
           <Button
-            iconLeft={<IconArrowRight />}
+            iconStart={<IconArrowRight />}
             onClick={() => navigate('create')}>
             {t(`${T_PATH}.createNewPermit`)}
           </Button>

@@ -1,6 +1,6 @@
 import { gql, useLazyQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, TextInput } from 'hds-react';
+import { Button, ButtonVariant, TextInput } from 'hds-react';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -204,14 +204,14 @@ const AddressForm = ({
           {address && (
             <Button
               className={styles.delete}
-              variant="danger"
+              variant={ButtonVariant.Danger}
               onClick={onDelete}>
               {t(`${T_PATH}.delete`)}
             </Button>
           )}
           <Button
             className={styles.cancel}
-            variant="secondary"
+            variant={ButtonVariant.Secondary}
             onClick={() => onCancel()}>
             {t(`${T_PATH}.cancel`)}
           </Button>

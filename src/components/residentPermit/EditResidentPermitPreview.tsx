@@ -1,4 +1,4 @@
-import { Button, IconCheckCircleFill } from 'hds-react';
+import { Button, ButtonVariant, IconCheckCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -63,13 +63,13 @@ const EditResidentPermitPreview = ({
         <div className={styles.actions}>
           <Button
             className={styles.actionButton}
-            variant="secondary"
+            variant={ButtonVariant.Secondary}
             onClick={() => onCancel()}>
             {t(`${T_PATH}.goBack`)}
           </Button>
           <Button
             className={styles.actionButton}
-            iconLeft={<IconCheckCircleFill />}
+            iconStart={<IconCheckCircleFill />}
             onClick={() => onConfirm()}>
             {t(`${T_PATH}.save`)}
           </Button>

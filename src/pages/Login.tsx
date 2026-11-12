@@ -1,4 +1,9 @@
-import { Button, useOidcClient } from 'hds-react';
+import {
+  Button,
+  ButtonPresetTheme,
+  ButtonSize,
+  useOidcClient,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Login.module.scss';
@@ -11,8 +16,8 @@ const Login = (): React.ReactElement => {
       <Button
         onClick={() => login()}
         className={styles['login-button']}
-        size="small"
-        theme="black">
+        size={ButtonSize.Small}
+        theme={ButtonPresetTheme.Black}>
         {t(`pages.login.login`)}
       </Button>
     </div>

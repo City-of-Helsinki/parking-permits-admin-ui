@@ -1,4 +1,11 @@
-import { Button, Checkbox, IconDownload, Pagination } from 'hds-react';
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+  Checkbox,
+  IconDownload,
+  Pagination,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Language, OrderBy, PageInfo } from '../../types';
@@ -53,9 +60,9 @@ const DataTable = <T,>({
         {onExport && (
           <div>
             <Button
-              variant="supplementary"
-              size="small"
-              iconRight={<IconDownload />}
+              variant={ButtonVariant.Supplementary}
+              size={ButtonSize.Small}
+              iconEnd={<IconDownload />}
               onClick={() => onExport()}>
               {t(`${T_PATH}.downloadCsv`)}
             </Button>

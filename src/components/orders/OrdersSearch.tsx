@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { formatISO, parse } from 'date-fns';
 import {
   Button,
+  ButtonVariant,
   DateInput,
   IconCross,
   IconSearch,
@@ -169,7 +170,7 @@ const OrdersSearch = ({
         />
         <Button
           className={styles.searchButton}
-          iconLeft={<IconSearch />}
+          iconStart={<IconSearch />}
           onClick={() => handleSubmit()}>
           {t(`${T_PATH}.searchButton`)}
         </Button>
@@ -178,8 +179,8 @@ const OrdersSearch = ({
         <div className={styles.row}>
           <Button
             className={styles.clearButton}
-            variant="supplementary"
-            iconLeft={<IconCross />}
+            variant={ButtonVariant.Supplementary}
+            iconStart={<IconCross />}
             onClick={() => reset()}>
             {t(`${T_PATH}.clearButton`)}
           </Button>

@@ -1,6 +1,7 @@
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import {
   Button,
+  ButtonPresetTheme,
   IconArrowRight,
   IconCheckCircle,
   Notification,
@@ -233,8 +234,8 @@ const Refunds = (): React.ReactElement => {
             <Button
               disabled={!canRequestForApproval}
               className={styles.actionButton}
-              theme="black"
-              iconLeft={<IconArrowRight />}
+              theme={ButtonPresetTheme.Black}
+              iconStart={<IconArrowRight />}
               onClick={() =>
                 requestForApproval({
                   variables: { ids: selectedRefunds.map(refund => refund.id) },
@@ -246,8 +247,8 @@ const Refunds = (): React.ReactElement => {
               <Button
                 disabled={!canAcceptRefunds}
                 className={styles.actionButton}
-                theme="black"
-                iconLeft={<IconCheckCircle />}
+                theme={ButtonPresetTheme.Black}
+                iconStart={<IconCheckCircle />}
                 onClick={() =>
                   acceptRefunds({
                     variables: {
