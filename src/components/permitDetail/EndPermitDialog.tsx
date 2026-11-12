@@ -1,4 +1,4 @@
-import { Button, Dialog, RadioButton } from 'hds-react';
+import { Button, ButtonVariant, Dialog, RadioButton } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitEndType } from '../../types';
@@ -64,7 +64,7 @@ const EndPermitDialog = ({
           onClick={() => endType && onConfirm(endType)}>
           {t(`${T_PATH}.continue`)}
         </Button>
-        <Button variant="secondary" onClick={() => onCancel()}>
+        <Button variant={ButtonVariant.Secondary} onClick={() => onCancel()}>
           {t(`${T_PATH}.cancel`)}
         </Button>
       </Dialog.ActionButtons>

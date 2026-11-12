@@ -24,6 +24,9 @@ vi.mock('hds-react', () => ({
   Notification: ({ label }: { label: string }) => (
     <div role="alert">{label}</div>
   ),
+  CookieBanner: () => null,
+  CookieConsentContextProvider: ({ children }: { children: React.ReactNode }) =>
+    children,
 }));
 vi.mock('hds-react/components', () => ({ CookieModal: () => null }));
 vi.mock('./components/Header', () => ({ default: () => null }));

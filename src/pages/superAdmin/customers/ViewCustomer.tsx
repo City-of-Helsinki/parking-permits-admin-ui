@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button, LoadingSpinner } from 'hds-react';
+import { Button, ButtonVariant, LoadingSpinner } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -72,7 +72,7 @@ const ViewCustomer = (): React.ReactElement => {
             <Button onClick={() => navigate('/admin/customers')}>
               {t('returnToList')}
             </Button>
-            <Button onClick={handleExport} variant="secondary">
+            <Button onClick={handleExport} variant={ButtonVariant.Secondary}>
               {t('downloadCustomerData')}
             </Button>
           </div>

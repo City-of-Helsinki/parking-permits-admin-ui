@@ -2,6 +2,8 @@ import { addWeeks, format } from 'date-fns';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Button,
+  ButtonPresetTheme,
+  ButtonVariant,
   Card,
   DateInput,
   IconArrowLeft,
@@ -173,18 +175,18 @@ const TemporaryVehicle = ({
       </Card>
       <div className={styles.actionButtons}>
         <Button
-          theme="black"
-          variant="secondary"
-          iconLeft={<IconArrowLeft />}
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowLeft />}
           onClick={() => cancelAddTempVehicle?.(false)}>
-          <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
+          {t(`${T_PATH}.actionBtn.cancel`)}
         </Button>
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           type="submit"
           disabled={formState.isSubmitting}
           onClick={handleSubmit(submitForm)}
-          iconRight={<IconArrowRight />}>
+          iconEnd={<IconArrowRight />}>
           {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
       </div>

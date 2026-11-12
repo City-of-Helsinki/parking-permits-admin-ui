@@ -1,4 +1,10 @@
-import { Button, IconCross, IconSearch, TextInput } from 'hds-react';
+import {
+  Button,
+  ButtonVariant,
+  IconCross,
+  IconSearch,
+  TextInput,
+} from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AddressSearchParams } from '../../../types';
@@ -68,7 +74,7 @@ const AddressesSearch = ({
         />
         <Button
           className={styles.searchButton}
-          iconLeft={<IconSearch />}
+          iconStart={<IconSearch />}
           onClick={handleSubmit}>
           {t('searchButton')}
         </Button>
@@ -77,8 +83,8 @@ const AddressesSearch = ({
         <div className={styles.row}>
           <Button
             className={styles.clearButton}
-            variant="supplementary"
-            iconLeft={<IconCross />}
+            variant={ButtonVariant.Supplementary}
+            iconStart={<IconCross />}
             onClick={() => clear()}>
             {t('clearButton')}
           </Button>

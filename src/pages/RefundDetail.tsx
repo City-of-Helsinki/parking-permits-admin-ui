@@ -2,6 +2,7 @@ import { gql, useMutation, useQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Button,
+  ButtonVariant,
   IconArrowUndo,
   IconCheckCircle,
   IconDownload,
@@ -141,7 +142,7 @@ const RefundForm = ({
         {userRole > UserRole.PREPARATORS && (
           <Button
             className={styles.save}
-            iconLeft={<IconCheckCircle />}
+            iconStart={<IconCheckCircle />}
             disabled={!(isDirty && isValid)}
             type="submit">
             {t(`${T_PATH}.save`)}
@@ -149,16 +150,16 @@ const RefundForm = ({
         )}
         <Button
           className={styles.downloadPdf}
-          variant="secondary"
-          iconLeft={<IconDownload />}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconDownload />}
           onClick={onExport}>
           {t(`${T_PATH}.downloadPdf`)}
         </Button>
         {userRole > UserRole.PREPARATORS && (
           <Button
-            variant="secondary"
+            variant={ButtonVariant.Secondary}
             className={styles.cancel}
-            iconLeft={<IconArrowUndo />}
+            iconStart={<IconArrowUndo />}
             onClick={onCancel}>
             {t(`${T_PATH}.cancel`)}
           </Button>

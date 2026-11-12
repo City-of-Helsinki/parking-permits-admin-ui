@@ -1,4 +1,10 @@
-import { Button, Checkbox, IconPlus, IconTrash } from 'hds-react';
+import {
+  Button,
+  ButtonVariant,
+  Checkbox,
+  IconPlus,
+  IconTrash,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useUserRole, { UserRole } from '../../api/useUserRole';
@@ -95,9 +101,9 @@ const VehicleInfo = ({
         permit.status === ParkingPermitStatus.VALID && (
           <Button
             className={styles.addTemporaryVehicle}
-            variant="supplementary"
+            variant={ButtonVariant.Supplementary}
             onClick={() => openAddTempVehicle?.(true)}
-            iconLeft={<IconPlus />}>
+            iconStart={<IconPlus />}>
             {t(`${T_PATH}.addTemporaryVehicle`)}
           </Button>
         )}
@@ -108,13 +114,13 @@ const VehicleInfo = ({
             removeTemporaryVehicle !== undefined && (
               <Button
                 className={styles.addTemporaryVehicle}
-                variant="supplementary"
+                variant={ButtonVariant.Supplementary}
                 onClick={() =>
                   removeTemporaryVehicle({
                     variables: { permitId: `${permit.id}` },
                   })
                 }
-                iconLeft={<IconTrash />}>
+                iconStart={<IconTrash />}>
                 {t(`${T_PATH}.removeTemporaryVehicle`)}
               </Button>
             )}

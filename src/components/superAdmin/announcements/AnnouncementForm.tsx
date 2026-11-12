@@ -1,6 +1,13 @@
 import { gql, useQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Card, LoadingSpinner, TextArea, TextInput } from 'hds-react';
+import {
+  Button,
+  ButtonVariant,
+  Card,
+  LoadingSpinner,
+  TextArea,
+  TextInput,
+} from 'hds-react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -174,7 +181,7 @@ const AnnouncementForm = ({
           </Button>
           <Button
             className={styles.delete}
-            variant="secondary"
+            variant={ButtonVariant.Secondary}
             onClick={() => onCancel()}>
             {t(`${T_PATH}.cancel`)}
           </Button>

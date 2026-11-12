@@ -100,6 +100,8 @@ describe('ProductForm', () => {
     fireEvent.change(field('endDate'), {
       target: { value: '25.2.2030' },
     });
+    // HDS 4 DateInput reports the parsed date on blur or Enter
+    fireEvent.blur(field('endDate'));
     await waitFor(() => expect(saveButton()).toBeEnabled());
     await user.click(saveButton());
 
