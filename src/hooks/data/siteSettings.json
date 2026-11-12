@@ -1,0 +1,352 @@
+{
+  "languages": [
+    { "code": "fi", "name": "Finnish", "direction": "ltr" },
+    { "code": "sv", "name": "Swedish", "direction": "ltr" },
+    { "code": "en", "name": "English", "direction": "ltr" }
+  ],
+  "siteName": "Parking permits Admin",
+  "cookieName": "helfi-cookie-consents",
+  "monitorInterval": 0,
+  "fallbackLanguage": "fi",
+  "requiredGroups": [
+    {
+      "groupId": "tunnistus",
+      "title": {
+        "fi": "Kirjautuminen",
+        "sv": "Inloggning",
+        "en": "Login"
+      },
+      "description": {
+        "fi": "Kirjautumisevästeitä käytetään käyttäjän kirjautuessa palveluun.",
+        "sv": "Inloggningskakor används när användaren loggar in på tjänsten.",
+        "en": "Login cookies are used when the user logs in to the service."
+      },
+      "cookies": [
+        {
+          "name": "AUTH_SESSION_ID",
+          "host": "tunnistus.hel.fi",
+          "storageType": 1,
+          "description": {
+            "fi": "Tunnistautumisistunnon säilymiseksi vaadittu eväste.",
+            "sv": "Cookie som krävs för att bevara autentiseringssession.",
+            "en": "Required to persist the authentication session."
+          },
+          "expiration": {
+            "fi": "Istunto",
+            "sv": "Session",
+            "en": "Session"
+          }
+        },
+        {
+          "name": "KC_*",
+          "host": "tunnistus.hel.fi",
+          "storageType": 1,
+          "description": {
+            "fi": "Tunnistautumisistunnon säilymiseksi vaadittu eväste.",
+            "sv": "Cookie som krävs för att bevara autentiseringssession.",
+            "en": "Required to persist the authentication session."
+          },
+          "expiration": {
+            "fi": "Istunto",
+            "sv": "Session",
+            "en": "Session"
+          }
+        },
+        {
+          "name": "sso-sessionid",
+          "host": "api.hel.fi",
+          "storageType": 1,
+          "description": {
+            "fi": "Tunnistautumisistunnon säilymiseksi vaadittu eväste.",
+            "sv": "Cookie som krävs för att bevara autentiseringssession.",
+            "en": "Required to persist the authentication session."
+          },
+          "expiration": {
+            "fi": "Istunto",
+            "sv": "Session",
+            "en": "Session"
+          }
+        },
+        {
+          "name": "oidc.user:*",
+          "host": "pysakointitunnukset-admin.hel.fi",
+          "storageType": 3,
+          "description": {
+            "fi": "Käyttäjän kirjautumistiedot tallennetaan selaimen muistiin (session storage).",
+            "sv": "Användarens inloggningsuppgifter lagras i webbläsarens minne (session storage).",
+            "en": "Authentication information of the user is saved to browser's memory (session storage)."
+          },
+          "expiration": {
+            "fi": "Istunto",
+            "sv": "Session",
+            "en": "Session"
+          }
+        },
+        {
+          "name": "oidc.*",
+          "host": "pysakointitunnukset-admin.hel.fi",
+          "storageType": 2,
+          "description": {
+            "fi": "Kirjautumisen tilatiedot tallennetaan selaimen muistiin (local storage).",
+            "sv": "Inloggningens tillståndsuppgifter lagras i webbläsarens minne (local storage).",
+            "en": "Authentication state information is saved to browser's memory (local storage)."
+          },
+          "expiration": {
+            "fi": "Istunto",
+            "sv": "Session",
+            "en": "Session"
+          }
+        },
+        {
+          "name": "hds_login_api_token_storage_key",
+          "host": "pysakointitunnukset-admin.hel.fi",
+          "storageType": 3,
+          "description": {
+            "fi": "Kirjautuneen käyttäjän rajanpinta-avaimet (api tokens) tallennetaan selaimen muistiin (session storage).",
+            "sv": "Api-token för en autentiserad användare sparas i webbläsarens minne (session storage).",
+            "en": "Api tokens of an authenticated user is saved to browser's memory (session storage)."
+          },
+          "expiration": {
+            "fi": "Istunto",
+            "sv": "Session",
+            "en": "Session"
+          }
+        },
+        {
+          "name": "hds_login_api_token_user_reference",
+          "host": "pysakointitunnukset-admin.hel.fi",
+          "storageType": 3,
+          "description": {
+            "fi": "Kirjautuneen käyttäjän pääsyoikeudet tallennetaan selaimen muistiin, jotta tunnistetaan kenen rajapinta-avaimet on tallessa.",
+            "sv": "Den inloggade användarens åtkomsträttigheter lagras i webbläsarens minne för att identifiera vems token som lagras.",
+            "en": "Access token of an authenticated user is saved to browser's memory (session storage) to identify whose api tokens are stored."
+          },
+          "expiration": {
+            "fi": "Istunto",
+            "sv": "Session",
+            "en": "Session"
+          }
+        }
+      ]
+    },
+    {
+      "groupId": "shared",
+      "title": {
+        "fi": "Yhteiset evästeet",
+        "sv": "Gemensamma kakor",
+        "en": "Shared consent"
+      },
+      "description": {
+        "fi": "Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen kaupungin muissa palveluissa.",
+        "sv": "Helsingfors stads tjänster använder gemensamma kakor . Vi lagrar dessa samtycken så att du inte behöver godkänna samma kakor igen i stadens andra tjänster.",
+        "en": "City of Helsinki services use shared consent. We will store these consents so that you do not have to accept the same cookies again on other City services."
+      },
+      "cookies": [
+        {
+          "name": "helfi-cookie-consents",
+          "host": "pysakointitunnukset-admin.hel.fi",
+          "storageType": 1,
+          "description": {
+            "fi": "Sivusto käyttää tätä evästettä tietojen tallentamiseen siitä, ovatko kävijät antaneet hyväksyntänsä tai kieltäytyneet evästeiden käytöstä.",
+            "sv": "Webbplatsen använder denna kaka för att lagra information om huruvida besökare har godkänt användningen av kakor eller inte.",
+            "en": "Used by hel.fi to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site."
+          },
+          "expiration": {
+            "fi": "1 vuosi",
+            "sv": "Ett år",
+            "en": "1 year"
+          }
+        },
+        {
+          "name": "helfi-consent-version",
+          "host": "pysakointitunnukset-admin.hel.fi",
+          "storageType": 1,
+          "description": {
+            "fi": "Tähän evästeeseen tallennetaan käyttäjän hyväksymän evästeselosteen versio.",
+            "sv": "Används för att lagra information om versionen av cookies samtycke som användaren har godkänt.",
+            "en": "Used by hel.fi to store information about what version of the cookie consent the user has agreed to."
+          },
+          "expiration": {
+            "fi": "1 vuosi",
+            "sv": "Ett år",
+            "en": "1 year"
+          }
+        }
+      ]
+    }
+  ],
+  "optionalGroups": [
+    {
+      "groupId": "statistics",
+      "title": { "fi": "Tilastointi", "sv": "Statistik", "en": "Statistics" },
+      "description": {
+        "fi": "Tilastointievästeiden keräämää tietoa käytetään verkkosivuston kehittämiseen.",
+        "sv": "De uppgifter statistikkakorna samlar in används för att utveckla webbplatsen.",
+        "en": "The information collected by statistics cookies is used for developing the website."
+      },
+      "cookies": [
+        {
+          "name": "_pk_id.*",
+          "host": "pysakointitunnukset-admin.hel.fi",
+          "description": {
+            "fi": "Matomo-tilastointijärjestelmän eväste.",
+            "sv": "Matomo-statistiksystemets kaka samlar information om hur webbplatsen används.",
+            "en": "Matomo Analytics - used to store a few details about the user such as the unique visitor ID"
+          },
+          "expiration": {
+            "fi": "393 päivää",
+            "sv": "393 dagar",
+            "en": "393 days"
+          },
+          "storageType": 1
+        },
+        {
+          "name": "_pk_ses.*",
+          "host": "pysakointitunnukset-admin.hel.fi",
+          "description": {
+            "fi": "Matomo-tilastointijärjestelmän eväste.",
+            "sv": "Matomo-statistiksystemets kaka samlar information om hur webbplatsen används.",
+            "en": "Matomo Analytics - used to store a few details about the user such as the unique visitor ID"
+          },
+          "expiration": { "fi": "1 tunti", "sv": "1 timme", "en": "1 hour" },
+          "storageType": 1
+        },
+        {
+          "name": "mtm_.*",
+          "host": "pysakointitunnukset-admin.hel.fi",
+          "storageType": 1,
+          "description": {
+            "fi": "Matomo-tilastointijärjestelmä - Evästeeseen tallennetaan suostumus tilastointievästeisiin.",
+            "sv": "Matomo-statistiksystemets kakan lagrar samtycke för användning av statistikkakorna.",
+            "en": "Matomo Analytics - Cookie stores consent for using analytics cookies."
+          },
+          "expiration": {
+            "fi": "400 päivää",
+            "sv": "400 dagar",
+            "en": "400 days"
+          }
+        }
+      ]
+    }
+  ],
+  "robotCookies": [
+    {
+      "name": "ally-supports-cache",
+      "storageType": 2
+    },
+    {
+      "name": "nextauth.message",
+      "storageType": 2
+    }
+  ],
+  "groupsWhitelistedForApi": [],
+  "translations": {
+    "bannerAriaLabel": {
+      "fi": "Evästeasetukset",
+      "sv": "Inställningar för kakor",
+      "en": "Cookie settings"
+    },
+    "heading": {
+      "fi": "Pysäköintiluvat käyttää evästeitä",
+      "sv": "Parkeringstillstånd använder kakor",
+      "en": "Parking Permits uses cookies"
+    },
+    "description": {
+      "fi": "Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.",
+      "sv": "Denna webbplats använder obligatoriska kakor för att säkerställa de grundläggande funktionerna och prestandan. Dessutom använder vi inriktningskakor för bättre användarupplevelse, analytik och individualiserat innehåll.",
+      "en": "This website uses required cookies to ensure the basic functionality and performance. In addition, we use targeting cookies to improve the user experience, perform analytics and display personalised content."
+    },
+    "showDetails": {
+      "fi": "Näytä yksityiskohdat",
+      "sv": "Visa detaljer",
+      "en": "Show details"
+    },
+    "hideDetails": {
+      "fi": "Piilota yksityiskohdat",
+      "sv": "Stänga detaljer",
+      "en": "Hide details"
+    },
+    "formHeading": {
+      "fi": "Tietoa sivustolla käytetyistä evästeistä",
+      "sv": "Information om kakor som används på webbplatsen",
+      "en": "About the cookies used on the website"
+    },
+    "formText": {
+      "fi": "Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea eri luokista ja sallia tai kieltää evästeiden käytön.",
+      "sv": "Kakorna som används på webbplatsen har klassificerats enligt användningsändamål. Du kan läsa om de olika klasserna och acceptera eller förbjuda användningen av kakor.",
+      "en": "The cookies used on the website have been classified according to their intended use. Below, you can read about the various categories and accept or reject the use of cookies."
+    },
+    "highlightedGroup": {
+      "fi": "Sinun on hyväksyttävä tämä kategoria, jotta voit näyttää valitsemasi sisällön.",
+      "sv": "Du måste acceptera den här kategorin för att visa innehållet du har valt.",
+      "en": "You need to accept this category to display the content you have selected."
+    },
+    "highlightedGroupAria": {
+      "fi": "Hyvä tietää kategorialle: {{title}}",
+      "sv": "Bra att veta för kategorin: {{title}}",
+      "en": "Good to know for category: {{title}}"
+    },
+    "showCookieSettings": {
+      "fi": "Näytä evästeasetukset",
+      "sv": "Visa kakinställningarna",
+      "en": "Show cookie settings"
+    },
+    "hideCookieSettings": {
+      "fi": "Piilota evästeasetukset",
+      "sv": "Stänga kakinställningarna",
+      "en": "Hide cookie settings"
+    },
+    "acceptedAt": {
+      "fi": "Olet hyväksynyt tämän kategorian: {{date}} klo {{time}}.",
+      "sv": "Du har accepterat denna kategori: {{date}} kl. {{time}}.",
+      "en": "You have accepted this category: {{date}} at {{time}}."
+    },
+    "tableHeadingsName": { "fi": "Nimi", "sv": "Namn", "en": "Name" },
+    "tableHeadingsHostName": {
+      "fi": "Evästeen asettaja",
+      "sv": "Den som lagrat kakan",
+      "en": "Cookie set by"
+    },
+    "tableHeadingsDescription": {
+      "fi": "Käyttötarkoitus",
+      "sv": "Användning",
+      "en": "Purpose of use"
+    },
+    "tableHeadingsExpiration": {
+      "fi": "Voimassaoloaika",
+      "sv": "Giltighetstid",
+      "en": "Period of validity"
+    },
+    "tableHeadingsType": { "fi": "Tyyppi", "sv": "Typ", "en": "Type" },
+    "approveAllConsents": {
+      "fi": "Hyväksy kaikki evästeet",
+      "sv": "Acceptera alla kakor",
+      "en": "Accept all cookies"
+    },
+    "approveRequiredAndSelectedConsents": {
+      "fi": "Hyväksy valitut evästeet",
+      "sv": "Acceptera valda kakor",
+      "en": "Accept selected cookies"
+    },
+    "approveOnlyRequiredConsents": {
+      "fi": "Hyväksy vain välttämättömät evästeet",
+      "sv": "Acceptera endast nödvändiga",
+      "en": "Accept required cookies only"
+    },
+    "settingsSaved": {
+      "fi": "Asetukset tallennettu!",
+      "sv": "Inställningar sparade!",
+      "en": "Settings saved!"
+    },
+    "notificationAriaLabel": {
+      "fi": "Ilmoitus",
+      "sv": "Meddelande",
+      "en": "Announcement"
+    },
+    "storageType1": { "fi": "Eväste", "sv": "Kakan", "en": "Cookie" },
+    "storageType2": "localStorage",
+    "storageType3": "sessionStorage",
+    "storageType4": "IndexedDB",
+    "storageType5": "Cache Storage"
+  }
+}

@@ -1,7 +1,14 @@
 import { gql, useQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formatISO, isValid as isValidDate, parseISO } from 'date-fns';
-import { Button, DateInput, Fieldset, NumberInput, Select } from 'hds-react';
+import {
+  Button,
+  ButtonVariant,
+  DateInput,
+  Fieldset,
+  NumberInput,
+  Select,
+} from 'hds-react';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -248,14 +255,14 @@ const ProductForm = ({
           {product && (
             <Button
               className={styles.delete}
-              variant="danger"
+              variant={ButtonVariant.Danger}
               onClick={onDelete}>
               {t(`${T_PATH}.delete`)}
             </Button>
           )}
           <Button
             className={styles.cancel}
-            variant="secondary"
+            variant={ButtonVariant.Secondary}
             onClick={() => onCancel()}>
             {t(`${T_PATH}.cancel`)}
           </Button>

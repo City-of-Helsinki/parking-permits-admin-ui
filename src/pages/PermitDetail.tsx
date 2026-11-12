@@ -1,6 +1,7 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import {
   Button,
+  ButtonVariant,
   IconArrowRightDashed,
   IconCrossCircle,
   IconDownload,
@@ -312,7 +313,7 @@ const PermitDetail = (): React.ReactElement => {
                 {userRole > UserRole.PREPARATORS && (
                   <Button
                     className={styles.actionButton}
-                    iconLeft={<IconPenLine />}
+                    iconStart={<IconPenLine />}
                     disabled={!isPermitEditable(permitDetail)}
                     onClick={handleEdit}>
                     {t(`${T_PATH}.edit`)}
@@ -324,8 +325,8 @@ const PermitDetail = (): React.ReactElement => {
                 {userRole > UserRole.PREPARATORS && showExtendButton && (
                   <Button
                     className={styles.actionButton}
-                    variant="secondary"
-                    iconLeft={<IconArrowRightDashed />}
+                    variant={ButtonVariant.Secondary}
+                    iconStart={<IconArrowRightDashed />}
                     onClick={() => navigate('extend')}>
                     {t(`${T_PATH}.extend`)}
                   </Button>
@@ -335,8 +336,8 @@ const PermitDetail = (): React.ReactElement => {
                 )}
                 <Button
                   className={styles.actionButton}
-                  variant="secondary"
-                  iconLeft={<IconDownload />}
+                  variant={ButtonVariant.Secondary}
+                  iconStart={<IconDownload />}
                   onClick={handleExport}>
                   {t(`${T_PATH}.downloadPdf`)}
                 </Button>
@@ -344,8 +345,8 @@ const PermitDetail = (): React.ReactElement => {
                 {userRole > UserRole.PREPARATORS && (
                   <Button
                     className={styles.cancelButton}
-                    variant="secondary"
-                    iconLeft={<IconCrossCircle />}
+                    variant={ButtonVariant.Secondary}
+                    iconStart={<IconCrossCircle />}
                     disabled={!canEndImmediately}
                     onClick={() => setOpenEndPermitDialog(true)}>
                     {t(`${T_PATH}.endPermit`)}

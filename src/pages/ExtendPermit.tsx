@@ -1,6 +1,7 @@
 import { gql, useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import {
   Button,
+  ButtonVariant,
   IconArrowUndo,
   IconCheckCircleFill,
   Notification,
@@ -251,14 +252,14 @@ const ExtendResidentPermit = (): React.ReactElement => {
         <div className={styles.actions}>
           <Button
             className={styles.actionButton}
-            variant="secondary"
-            iconLeft={<IconArrowUndo />}
+            variant={ButtonVariant.Secondary}
+            iconStart={<IconArrowUndo />}
             onClick={navigateToDetailPage}>
             {t('cancelAndCloseWithoutSaving')}
           </Button>
           <Button
             className={styles.actionButton}
-            iconLeft={<IconCheckCircleFill />}
+            iconStart={<IconCheckCircleFill />}
             disabled={
               !permit?.canAdminExtendPermit ||
               !Number.isInteger(monthCount) ||

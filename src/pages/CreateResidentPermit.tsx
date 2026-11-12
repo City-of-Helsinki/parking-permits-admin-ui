@@ -2,6 +2,7 @@ import { validSecondaryPurchase } from '../permitRules';
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import {
   Button,
+  ButtonVariant,
   IconArrowUndo,
   IconBox,
   IconPlusCircleFill,
@@ -544,7 +545,7 @@ const CreateResidentPermit = (): React.ReactElement => {
                 (customer.activePermits && customer.activePermits.length >= 2)
               }
               className={styles.actionButton}
-              iconLeft={<IconPlusCircleFill />}
+              iconStart={<IconPlusCircleFill />}
               onClick={() => setIsConfirmDialogOpen(true)}>
               {t(`${T_PATH}.save`)}
             </Button>
@@ -554,15 +555,15 @@ const CreateResidentPermit = (): React.ReactElement => {
                 (customer.activePermits && customer.activePermits.length >= 2)
               }
               className={styles.actionButton}
-              variant="secondary"
-              iconLeft={<IconBox />}
+              variant={ButtonVariant.Secondary}
+              iconStart={<IconBox />}
               onClick={handleCreateDraftResidentPermit}>
               {t(`${T_PATH}.saveAsDraft`)}
             </Button>
             <Button
               className={styles.actionButton}
-              variant="secondary"
-              iconLeft={<IconArrowUndo />}
+              variant={ButtonVariant.Secondary}
+              iconStart={<IconArrowUndo />}
               onClick={() => navigate('/permits')}>
               {t(`${T_PATH}.cancelAndCloseWithoutSaving`)}
             </Button>

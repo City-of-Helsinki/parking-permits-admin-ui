@@ -1,6 +1,9 @@
 import {
   Button,
+  ButtonSize,
+  ButtonVariant,
   Checkbox,
+  IconSize,
   IconTrash,
   Notification,
   TextInput,
@@ -99,10 +102,10 @@ const VehicleInfo = ({
           </Button>
         </TextInput>
         <Button
-          variant="supplementary"
+          variant={ButtonVariant.Supplementary}
           onClick={onClearVehicle}
-          size="small"
-          iconLeft={<IconTrash size="s" />}>
+          size={ButtonSize.Small}
+          iconStart={<IconTrash size={IconSize.Small} />}>
           {t(`${T_PATH}.clear`)}
         </Button>
         {availableRestrictions.map(restriction => (
