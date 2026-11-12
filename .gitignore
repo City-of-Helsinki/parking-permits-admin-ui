@@ -38,3 +38,4 @@ yarn.lock
 # Copilot
 .agents
 .github/copilot-instructions.md
+*Migration.md
