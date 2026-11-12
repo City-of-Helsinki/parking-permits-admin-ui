@@ -4,7 +4,7 @@
     { "code": "sv", "name": "Swedish", "direction": "ltr" },
     { "code": "en", "name": "English", "direction": "ltr" }
   ],
-  "siteName": "Parking permits Admin",
+  "siteName": "Parking Permits Management",
   "cookieName": "helfi-cookie-consents",
   "monitorInterval": 0,
   "fallbackLanguage": "fi",
@@ -247,9 +247,9 @@
       "en": "Cookie settings"
     },
     "heading": {
-      "fi": "Pysäköintiluvat käyttää evästeitä",
-      "sv": "Parkeringstillstånd använder kakor",
-      "en": "Parking Permits uses cookies"
+      "fi": "Pysäköintitunnusten Hallintapalvelu käyttää evästeitä",
+      "sv": "Hantering av parkeringstillstånd använder kakor",
+      "en": "Parking Permits Management uses cookies"
     },
     "description": {
       "fi": "Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.",
