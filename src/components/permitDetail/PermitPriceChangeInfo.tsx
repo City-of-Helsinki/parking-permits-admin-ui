@@ -1,4 +1,4 @@
-import { RadioButton, TextInput } from 'hds-react';
+import { RadioButton, TextInput, Tooltip } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitPriceChange, RefundAccountOption } from '../../types';
@@ -203,7 +203,7 @@ const PermitPriceChangeInfo = ({
                 successText={
                   isValidIBAN(refundAccountNumber) ? t('info.validIBAN') : ''
                 }
-                tooltipText={t('info.ibanDescription')}
+                tooltip={<Tooltip>{t('info.ibanDescription')}</Tooltip>}
               />
               <RadioButton
                 id="customerAccountUnknown"

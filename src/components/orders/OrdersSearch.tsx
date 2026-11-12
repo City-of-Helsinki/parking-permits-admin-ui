@@ -6,9 +6,9 @@ import {
   DateInput,
   IconCross,
   IconSearch,
-  SearchInput,
+  Search,
 } from 'hds-react';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Language,
@@ -49,7 +49,17 @@ const OrdersSearch = ({
     new Set(searchParams.priceDiscounts?.split(',').filter(val => val))
   );
 
+  const texts = useMemo(
+    () => ({
+      language: i18n.language as Language,
+      label: t(`${T_PATH}.textSearch`),
+      searchPlaceholder: t(`${T_PATH}.placeholder`),
+    }),
+    [i18n.language, t]
+  );
+
   const canReset = () =>
+    query ||
     startDate ||
     endDate ||
     parkingZone ||
@@ -58,10 +68,7 @@ const OrdersSearch = ({
     priceDiscounts.size;
 
   const reset = () => {
-    // NOTE: At the time of writing, HDS' SearchInput component doesn't support
-    // neither ref nor value, so there's no way of clearing it without resorting
-    // to dirty hacks. Due to this, the query state reset is omitted as well.
-    // setQuery('');
+    setQuery('');
     setStartDate('');
     setEndDate('');
     setParkingZone('');
@@ -116,13 +123,14 @@ const OrdersSearch = ({
           value={parkingZone}
           onChange={selectedZone => setParkingZone(selectedZone?.name || '')}
         />
-        <SearchInput
-          hideSearchButton
+        <Search
+          hideSubmitButton
+          id="ordersSearch"
           className={styles.searchInput}
-          label={t(`${T_PATH}.textSearch`)}
-          placeholder={t(`${T_PATH}.placeholder`)}
-          onChange={setQuery}
-          onSubmit={() => handleSubmit()}
+          texts={texts}
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          onSend={() => handleSubmit()}
         />
       </div>
 

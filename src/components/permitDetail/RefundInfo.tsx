@@ -1,4 +1,4 @@
-import { TextInput } from 'hds-react';
+import { TextInput, Tooltip } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail } from '../../types';
@@ -68,7 +68,7 @@ const RefundInfo = ({
                   : t('errors.invalidIBAN')
               }
               successText={isValidIBAN(iban) ? t('info.validIBAN') : ''}
-              tooltipText={t('info.ibanDescription')}
+              tooltip={<Tooltip>{t('info.ibanDescription')}</Tooltip>}
             />
           </div>
         )}
