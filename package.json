@@ -62,7 +62,7 @@
     "typecheck": "tsc --noEmit"
   },
   "engines": {
-    "node": ">=24",
+    "node": "^24",
     "pnpm": ">=11.28.5"
   },
   "browserslist": [
