@@ -16,7 +16,7 @@ Related repositories:
 
 Prerequisites:
 
-- Node.js: 22.x or higher
+- Node.js: 24 (LTS)
 - pnpm 11.28.5 or higher
 
 The application requires a running parking-permits backend, you can find more details in [this repo](https://github.com/City-of-Helsinki/parking-permits) on how to set up the backend.
