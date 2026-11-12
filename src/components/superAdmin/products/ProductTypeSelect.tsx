@@ -1,12 +1,7 @@
-import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ProductType } from '../../../types';
-
-interface ProductTypeOption {
-  label: string;
-  value: ProductType;
-}
+import SingleSelect, { SingleSelectOption } from '../../common/SingleSelect';
 
 interface ProductTypeSelectProps {
   className?: string;
@@ -22,23 +17,17 @@ const ProductTypeSelect = ({
   ...otherProps
 }: ProductTypeSelectProps): React.ReactElement => {
   const { t } = useTranslation();
-  const options: ProductTypeOption[] = [
-    {
-      label: t('productType.resident'),
-      value: ProductType.RESIDENT,
-    },
-    {
-      label: t('productType.company'),
-      value: ProductType.COMPANY,
-    },
+  const options: SingleSelectOption<ProductType>[] = [
+    { label: t('productType.resident'), value: ProductType.RESIDENT },
+    { label: t('productType.company'), value: ProductType.COMPANY },
   ];
   const selected = options.find(option => option.value === value) || options[0];
   return (
-    <Select
+    <SingleSelect
       {...otherProps}
       options={options}
-      value={selected}
-      onChange={(option: ProductTypeOption) => onChange(option.value)}
+      value={selected.value}
+      onChange={newValue => newValue && onChange(newValue)}
     />
   );
 };

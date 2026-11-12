@@ -1,4 +1,3 @@
-import { gql, useQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formatISO, isValid as isValidDate, parseISO } from 'date-fns';
 import {
@@ -7,7 +6,6 @@ import {
   DateInput,
   Fieldset,
   NumberInput,
-  Select,
 } from 'hds-react';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -15,27 +13,17 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import {
   Language,
-  ParkingZone,
   ProductInput,
   ProductType,
   ProductUnit,
 } from '../../../types';
 import { formatDateDisplay } from '../../../utils';
+import ZoneSelect from '../../common/ZoneSelect';
 import styles from './ProductForm.module.scss';
 import ProductTypeSelect from './ProductTypeSelect';
 import ProductUnitSelect from './ProductUnitSelect';
 
 const T_PATH = 'components.superAdmin.products.productForm';
-
-const ZONES_QUERY = gql`
-  query Query {
-    zones {
-      name
-      label
-      labelSv
-    }
-  }
-`;
 
 type ProductFormValues = Omit<ProductInput, 'id' | 'startDate' | 'endDate'> & {
   startDate: Date;
@@ -58,7 +46,6 @@ const ProductForm = ({
   onCancel,
 }: ProductFormProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const { data } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
   const currentDate = new Date();
   const defaultValues: ProductFormValues = product
     ? {
@@ -137,26 +124,20 @@ const ProductForm = ({
               />
             )}
           />
-          {data?.zones && (
-            <Controller
-              name="zone"
-              control={control}
-              render={({ field, fieldState }) => (
-                <Select
-                  required
-                  className={styles.zoneSelect}
-                  label={t(`${T_PATH}.zone`)}
-                  options={data.zones}
-                  value={data.zones.find(z => z.name === field.value)}
-                  optionLabelField={
-                    i18n.language === 'sv' ? 'labelSv' : 'label'
-                  }
-                  onChange={(zone: ParkingZone) => field.onChange(zone?.name)}
-                  error={fieldState.error?.message}
-                />
-              )}
-            />
-          )}
+          <Controller
+            name="zone"
+            control={control}
+            render={({ field, fieldState }) => (
+              <ZoneSelect
+                required
+                className={styles.zoneSelect}
+                label={t(`${T_PATH}.zone`)}
+                value={field.value}
+                onChange={zone => field.onChange(zone?.name)}
+                error={fieldState.error?.message}
+              />
+            )}
+          />
         </Fieldset>
         <Fieldset
           className={styles.fieldset}
