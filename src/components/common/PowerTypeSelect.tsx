@@ -1,17 +1,19 @@
 import classNames from 'classnames';
-import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PowerType } from '../../types';
 import styles from './PowerTypeSelect.module.scss';
+import SingleSelect from './SingleSelect';
 
 const T_PATH = 'components.common.powerTypeSelect';
 
-interface PowerTypeOption {
-  label: string;
-  value: string;
-  name: string;
-}
+const POWER_TYPES: PowerType[] = [
+  { name: 'Electric', identifier: '04' },
+  { name: 'Bensin', identifier: '01' },
+  { name: 'Diesel', identifier: '02' },
+  { name: 'Bifuel', identifier: '03' },
+];
+const DEFAULT_POWER_TYPE = POWER_TYPES[1];
 
 interface PowerTypeSelectProps {
   className?: string;
@@ -29,60 +31,33 @@ const PowerTypeSelect = ({
   onChange,
 }: PowerTypeSelectProps): React.ReactElement => {
   const { t } = useTranslation();
-
-  const powerTypeElectric = {
-    label: t(`${T_PATH}.electric`),
-    name: 'Electric',
-    value: '04',
-  };
-  const powerTypeBensin = {
-    label: t(`${T_PATH}.bensin`),
-    name: 'Bensin',
-    value: '01',
-  };
-  const powerTypeDiesel = {
-    label: t(`${T_PATH}.diesel`),
-    name: 'Diesel',
-    value: '02',
-  };
-  const powerTypeBifuel = {
-    label: t(`${T_PATH}.bifuel`),
-    name: 'Bifuel',
-    value: '03',
-  };
-
-  const options = [
-    powerTypeElectric,
-    powerTypeBensin,
-    powerTypeDiesel,
-    powerTypeBifuel,
-  ];
-
-  const defaultPowerType = powerTypeBensin;
-  const safePowerType = powerType ?? defaultPowerType;
-  let powerTypeLabel = t(`${T_PATH}.other`);
-
-  if (safePowerType.name) {
-    powerTypeLabel = t(`${T_PATH}.${safePowerType.name?.toLowerCase()}`);
-  }
+  const safePowerType = powerType ?? DEFAULT_POWER_TYPE;
+  const powerTypes = POWER_TYPES.some(
+    ({ identifier }) => identifier === safePowerType.identifier
+  )
+    ? POWER_TYPES
+    : [...POWER_TYPES, safePowerType];
+  const getLabel = ({ name }: PowerType) =>
+    name ? t(`${T_PATH}.${name.toLowerCase()}`) : t(`${T_PATH}.other`);
 
   return (
-    <Select
+    <SingleSelect
       className={classNames(className, disabled && styles.disabled)}
       label={label}
-      options={options}
-      value={{
-        label: powerTypeLabel,
-        name: safePowerType.name,
-        value: safePowerType.identifier,
-      }}
+      options={powerTypes.map(pType => ({
+        label: getLabel(pType),
+        value: pType.identifier,
+      }))}
+      value={safePowerType.identifier}
       disabled={disabled}
-      onChange={(option: PowerTypeOption) =>
-        onChange({
-          name: option.name,
-          identifier: option.value,
-        })
-      }
+      onChange={identifier => {
+        const selected = powerTypes.find(
+          pType => pType.identifier === identifier
+        );
+        if (selected) {
+          onChange(selected);
+        }
+      }}
     />
   );
 };
