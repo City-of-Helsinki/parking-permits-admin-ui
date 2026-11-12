@@ -1,13 +1,8 @@
 import classNames from 'classnames';
-import { Select } from 'hds-react';
 import React from 'react';
 import { VehicleClass } from '../../types';
+import SingleSelect, { SingleSelectOption } from './SingleSelect';
 import styles from './VehicleClassSelect.module.scss';
-
-interface VehicleClassOption {
-  label: string;
-  value: VehicleClass;
-}
 
 interface VehicleClassSelectProps {
   className?: string;
@@ -17,9 +12,12 @@ interface VehicleClassSelectProps {
   onChange: (value: VehicleClass) => void;
 }
 
-const VEHICLE_CLASS_OPTIONS: VehicleClassOption[] = Object.values(
+const VEHICLE_CLASS_OPTIONS: SingleSelectOption<VehicleClass>[] = Object.values(
   VehicleClass
-).map(vehicleClass => ({ label: vehicleClass, value: vehicleClass }));
+).map(vehicleClass => ({
+  label: vehicleClass,
+  value: vehicleClass,
+}));
 
 const VehicleClassSelect = ({
   label,
@@ -28,13 +26,13 @@ const VehicleClassSelect = ({
   disabled,
   onChange,
 }: VehicleClassSelectProps): React.ReactElement => (
-  <Select
+  <SingleSelect
     className={classNames(className, disabled && styles.disabled)}
     label={label}
     options={VEHICLE_CLASS_OPTIONS}
-    value={{ label: value, value }}
+    value={value}
     disabled={disabled}
-    onChange={(option: VehicleClassOption) => onChange(option.value)}
+    onChange={selected => selected && onChange(selected)}
   />
 );
 
