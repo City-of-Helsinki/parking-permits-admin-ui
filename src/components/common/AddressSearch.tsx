@@ -47,6 +47,7 @@ const AddressSearch = ({
   const [errorMessage, setErrorMessage] = useState('');
   const [value, setValue] = useState('');
   const searchTimer = useRef<number | null>(null);
+  const searchGeneration = useRef(0);
   const suggestions = useRef<AddressSuggestionItem[]>([]);
 
   const [fetchAddresses] = useLazyQuery<AddressSearchQueryData>(
@@ -73,6 +74,8 @@ const AddressSearch = ({
         if (searchTimer.current) {
           window.clearTimeout(searchTimer.current);
         }
+        searchGeneration.current += 1;
+        const generation = searchGeneration.current;
         searchTimer.current = window.setTimeout(async () => {
           let result;
           try {
@@ -81,14 +84,17 @@ const AddressSearch = ({
             // Errors are reported through the query's onError
             result = undefined;
           }
-          suggestions.current = (result?.data?.addressSearch || [])
+          const items = (result?.data?.addressSearch || [])
             .map((address: Address) => ({
               label: formatAddress(address, 'fi', { withPostalCode: true }),
               address,
             }))
             .sort((a, b) => a.label.localeCompare(b.label));
+          if (generation === searchGeneration.current) {
+            suggestions.current = items;
+          }
           resolve({
-            options: suggestions.current.map(({ label: optionLabel }) => ({
+            options: items.map(({ label: optionLabel }) => ({
               label: optionLabel,
               value: optionLabel,
             })),
