@@ -46,6 +46,16 @@ describe('TemporaryVehicle', () => {
       '10.1.2030'
     );
     expect(screen.getByLabelText(`${T_PATH}.endDate`)).toHaveValue('24.1.2030');
+    const hours = screen.getAllByLabelText('hours');
+    const minutes = screen.getAllByLabelText('minutes');
+    expect(hours.map(el => (el as HTMLInputElement).value)).toEqual([
+      '10',
+      '23',
+    ]);
+    expect(minutes.map(el => (el as HTMLInputElement).value)).toEqual([
+      '05',
+      '59',
+    ]);
     expect(
       screen.getByRole('button', { name: `${T_PATH}.actionBtn.continue` })
     ).toBeEnabled();

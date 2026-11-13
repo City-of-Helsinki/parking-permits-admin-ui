@@ -13,7 +13,7 @@ import {
   TextInput,
   TimeInput,
 } from 'hds-react';
-import React, { ComponentProps, useState } from 'react';
+import React, { ComponentProps, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
@@ -92,16 +92,20 @@ const TemporaryVehicle = ({
     endDate: Yup.date().required(),
     endTime: Yup.string().required(),
   });
+  const defaultValues = useMemo<TemporaryVehicleFormValues>(() => {
+    const now = new Date();
+    return {
+      registrationNumber: '',
+      startDate: now,
+      startTime: format(now, 'HH:mm'),
+      endDate: addWeeks(now, 2),
+      endTime: '23:59',
+    };
+  }, []);
   const { register, control, watch, handleSubmit, formState } =
     useForm<TemporaryVehicleFormValues>({
       mode: 'onTouched',
-      defaultValues: {
-        registrationNumber: '',
-        startDate: new Date(),
-        startTime: `${new Date().getHours()}:${new Date().getMinutes()}`,
-        endDate: addWeeks(new Date(), 2),
-        endTime: '23:59',
-      },
+      defaultValues,
       resolver: yupResolver(validationSchema),
     });
   const startDate = watch('startDate');
@@ -158,6 +162,7 @@ const TemporaryVehicle = ({
             label={t(`${T_PATH}.startTime`)}
             hoursLabel="hours"
             minutesLabel="minutes"
+            defaultValue={defaultValues.startTime}
             {...register('startTime')}
           />
           <Controller
@@ -184,6 +189,7 @@ const TemporaryVehicle = ({
             label={t(`${T_PATH}.endTime`)}
             hoursLabel="hours"
             minutesLabel="minutes"
+            defaultValue={defaultValues.endTime}
             {...register('endTime')}
           />
         </form>
