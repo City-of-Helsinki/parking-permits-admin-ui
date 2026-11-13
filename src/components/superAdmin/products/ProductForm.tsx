@@ -33,7 +33,7 @@ type ProductFormValues = Omit<ProductInput, 'id' | 'startDate' | 'endDate'> & {
 interface ProductFormProps {
   className?: string;
   product?: ProductInput;
-  onSubmit: (product: ProductInput) => void;
+  onSubmit: (product: ProductInput) => unknown;
   onDelete?: () => void;
   onCancel: () => void;
 }
@@ -114,7 +114,7 @@ const ProductForm = ({
     register,
     control,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isValid, isSubmitting },
   } = useForm<ProductFormValues>({
     mode: 'onTouched',
     defaultValues,
@@ -247,7 +247,7 @@ const ProductForm = ({
         <div className={styles.actions}>
           <Button
             className={styles.submit}
-            disabled={!(isDirty && isValid)}
+            disabled={!(isDirty && isValid) || isSubmitting}
             type="submit">
             {t(`${T_PATH}.save`)}
           </Button>
