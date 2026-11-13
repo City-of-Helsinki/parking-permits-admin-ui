@@ -43,7 +43,7 @@ export interface TemporaryVehicleProps {
   className?: string;
   permit: PermitDetail;
   cancelAddTempVehicle?: (state: boolean) => void;
-  addTemporaryVehicle: (data: { variables: FormProps }) => void;
+  addTemporaryVehicle: (data: { variables: FormProps }) => unknown;
 }
 
 export const combineDateAndTime = (date: Date, time: string): string => {
@@ -83,8 +83,8 @@ const TemporaryVehicle = ({
   const startDate = watch('startDate');
   const registrationNumberField = register('registrationNumber');
 
-  const submitForm = (values: TemporaryVehicleFormValues) => {
-    addTemporaryVehicle({
+  const submitForm = async (values: TemporaryVehicleFormValues) => {
+    await addTemporaryVehicle({
       variables: {
         permitId: `${permit.id}`,
         registrationNumber: values.registrationNumber,
