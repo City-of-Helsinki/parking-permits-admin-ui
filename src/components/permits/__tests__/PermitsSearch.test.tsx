@@ -27,8 +27,7 @@ describe('PermitsSearch', () => {
     });
   });
 
-  // Known bug: controlled HDS Search drops the typed query before the button click
-  it.fails('searches with the typed query', async () => {
+  it('searches with the typed query', async () => {
     const { onSearch, user } = renderSearch();
 
     await user.type(screen.getByRole('searchbox'), 'abc');

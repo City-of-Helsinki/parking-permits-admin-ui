@@ -56,8 +56,7 @@ describe('RefundsSearch', () => {
     });
   });
 
-  // Known bug: controlled HDS Search drops the typed query before the button click
-  it.fails('submits the typed query', async () => {
+  it('submits the typed query', async () => {
     const { onSearch, user } = renderSearch();
 
     await user.type(screen.getByRole('searchbox'), 'abc');

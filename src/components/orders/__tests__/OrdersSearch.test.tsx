@@ -74,8 +74,7 @@ describe('OrdersSearch', () => {
     expect(onSubmit).toHaveBeenCalledWith(emptyParams);
   });
 
-  // Known bug: controlled HDS Search wipes the initial query on mount
-  it.fails('initializes the filters from the search params', async () => {
+  it('initializes the filters from the search params', async () => {
     const { onSubmit, user } = renderSearch({
       ...emptyParams,
       q: 'abc',

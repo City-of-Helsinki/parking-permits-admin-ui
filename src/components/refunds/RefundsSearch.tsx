@@ -1,10 +1,11 @@
 import { formatISO, parse } from 'date-fns';
-import { Button, DateInput, IconSearch, Search } from 'hds-react';
+import { Button, DateInput, IconSearch } from 'hds-react';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Language, PaymentType, RefundSearchParams } from '../../types';
 import { joinSet } from '../../utils';
 import FilterOptions from '../orders/FilterOptions';
+import QuerySearch from '../common/QuerySearch';
 import styles from './RefundsSearch.module.scss';
 import RefundStatusSelect from './RefundStatusSelect';
 
@@ -76,13 +77,13 @@ const RefundsSearch = ({
             onChange={setEndDate}
           />
         </div>
-        <Search
+        <QuerySearch
           hideSubmitButton
           id="refundsSearch"
           className={styles.searchInput}
           texts={texts}
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={setQuery}
           onSend={() => handleSubmit()}
         />
       </div>
