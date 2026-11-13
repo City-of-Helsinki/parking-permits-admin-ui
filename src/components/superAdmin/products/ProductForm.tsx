@@ -7,7 +7,7 @@ import {
   Fieldset,
   NumberInput,
 } from 'hds-react';
-import React from 'react';
+import React, { ComponentProps, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
@@ -37,6 +37,30 @@ interface ProductFormProps {
   onDelete?: () => void;
   onCancel: () => void;
 }
+
+type DateFieldProps = Omit<
+  ComponentProps<typeof DateInput>,
+  'value' | 'onChange'
+> & {
+  value: Date;
+  onChange: (value: Date) => void;
+};
+
+// HDS reports empty or partially typed input as an invalid date. It is kept in
+// the form state so validation fails, while the raw text stays visible.
+const DateField = ({ value, onChange, ...props }: DateFieldProps) => {
+  const [rawValue, setRawValue] = useState('');
+  return (
+    <DateInput
+      {...props}
+      value={isValidDate(value) ? formatDateDisplay(value) : rawValue}
+      onChange={(text: string, valueAsDate: Date) => {
+        setRawValue(text);
+        onChange(valueAsDate);
+      }}
+    />
+  );
+};
 
 const ProductForm = ({
   className,
@@ -75,8 +99,12 @@ const ProductForm = ({
     zone: Yup.string().required(t(`${T_PATH}.errorSelectZone`)),
     unitPrice: requiredNumber(t(`${T_PATH}.errorEnterPrice`)),
     unit: Yup.mixed<ProductUnit>().oneOf(Object.values(ProductUnit)).required(),
-    startDate: Yup.date().required(t(`${T_PATH}.errorEnterStartDate`)),
-    endDate: Yup.date().required(t(`${T_PATH}.errorEnterEndDate`)),
+    startDate: Yup.date()
+      .typeError(t(`${T_PATH}.errorEnterStartDate`))
+      .required(t(`${T_PATH}.errorEnterStartDate`)),
+    endDate: Yup.date()
+      .typeError(t(`${T_PATH}.errorEnterEndDate`))
+      .required(t(`${T_PATH}.errorEnterEndDate`)),
     vatPercentage: requiredNumber(t(`${T_PATH}.errorEnterVAT`)),
     lowEmissionDiscountPercentage: requiredNumber(
       t(`${T_PATH}.errorEnterLowEmissionDiscount`)
@@ -187,18 +215,13 @@ const ProductForm = ({
             name="startDate"
             control={control}
             render={({ field, fieldState }) => (
-              <DateInput
+              <DateField
                 className={styles.field}
                 id="startDate"
                 label={t(`${T_PATH}.startDate`)}
                 language={i18n.language as Language}
-                value={formatDateDisplay(field.value)}
-                onChange={(_, date) => {
-                  // HDS reports partially typed input as an invalid date
-                  if (isValidDate(date)) {
-                    field.onChange(date);
-                  }
-                }}
+                value={field.value}
+                onChange={field.onChange}
                 onBlur={field.onBlur}
                 errorText={fieldState.error?.message}
               />
@@ -208,18 +231,13 @@ const ProductForm = ({
             name="endDate"
             control={control}
             render={({ field, fieldState }) => (
-              <DateInput
+              <DateField
                 className={styles.field}
                 id="endDate"
                 label={t(`${T_PATH}.endDate`)}
                 language={i18n.language as Language}
-                value={formatDateDisplay(field.value)}
-                onChange={(_, date) => {
-                  // HDS reports partially typed input as an invalid date
-                  if (isValidDate(date)) {
-                    field.onChange(date);
-                  }
-                }}
+                value={field.value}
+                onChange={field.onChange}
                 onBlur={field.onBlur}
                 errorText={fieldState.error?.message}
               />
