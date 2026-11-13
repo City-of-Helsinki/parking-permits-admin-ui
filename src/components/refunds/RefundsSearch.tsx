@@ -1,10 +1,11 @@
 import { formatISO, parse } from 'date-fns';
-import { Button, DateInput, IconSearch, SearchInput } from 'hds-react';
-import React, { useState } from 'react';
+import { Button, DateInput, IconSearch } from 'hds-react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Language, PaymentType, RefundSearchParams } from '../../types';
 import { joinSet } from '../../utils';
 import FilterOptions from '../orders/FilterOptions';
+import QuerySearch from '../common/QuerySearch';
 import styles from './RefundsSearch.module.scss';
 import RefundStatusSelect from './RefundStatusSelect';
 
@@ -27,6 +28,14 @@ const RefundsSearch = ({
   const [endDate, setEndDate] = useState(searchParams.endDate);
   const [paymentTypes, setPaymentTypes] = useState(
     new Set(searchParams.paymentTypes?.split(',').filter(val => val))
+  );
+
+  const texts = useMemo(
+    () => ({
+      language: i18n.language as Language,
+      searchPlaceholder: t(`${T_PATH}.searchPlaceholder`),
+    }),
+    [i18n.language, t]
   );
 
   const formatDate = (date: string) => {
@@ -68,15 +77,14 @@ const RefundsSearch = ({
             onChange={setEndDate}
           />
         </div>
-        <SearchInput
+        <QuerySearch
+          hideSubmitButton
+          id="refundsSearch"
           className={styles.searchInput}
-          label=""
-          // HDS search input does not support passing a default value
-          // so we have to use the placeholder property here
-          placeholder={query || t(`${T_PATH}.searchPlaceholder`)}
-          onSubmit={() => handleSubmit()}
+          texts={texts}
+          value={query}
           onChange={setQuery}
-          hideSearchButton
+          onSend={() => handleSubmit()}
         />
       </div>
       <div className={styles.row}>
@@ -97,7 +105,7 @@ const RefundsSearch = ({
         />
         <Button
           className={styles.searchButton}
-          iconLeft={<IconSearch />}
+          iconStart={<IconSearch />}
           onClick={() => handleSubmit()}>
           {t(`${T_PATH}.searchButton`)}
         </Button>

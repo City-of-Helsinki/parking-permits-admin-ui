@@ -19,8 +19,12 @@ vi.mock('./api/useUserRole', async importOriginal => ({
 vi.mock('./auth/useIsAuthReady', () => ({
   useIsAuthorizationReady: vi.fn(),
 }));
-vi.mock('hds-react', () => ({ LoadingSpinner: () => 'Loading' }));
-vi.mock('hds-react/components', () => ({ CookieModal: () => null }));
+vi.mock('hds-react', () => ({
+  LoadingSpinner: () => 'Loading',
+  CookieBanner: () => null,
+  CookieConsentContextProvider: ({ children }: { children: React.ReactNode }) =>
+    children,
+}));
 vi.mock('./components/Header', () => ({ default: () => null }));
 vi.mock('./components/footer/Footer', () => ({ default: () => null }));
 vi.mock('./components/superAdmin/SideNav', () => ({ default: () => null }));

@@ -27,7 +27,7 @@ const CreatePermit = (): React.ReactElement => {
       />
       <Button
         className={styles.createButton}
-        iconLeft={<IconPlusCircleFill />}
+        iconStart={<IconPlusCircleFill />}
         onClick={() => navigate(permitType)}>
         {t(`${T_PATH}.createPermit`)}
       </Button>

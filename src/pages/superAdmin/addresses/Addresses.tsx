@@ -1,6 +1,6 @@
 import { gql, useLazyQuery } from '@apollo/client';
 import classNames from 'classnames';
-import { Button, Notification } from 'hds-react';
+import { Button, ButtonVariant, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router';
@@ -124,7 +124,9 @@ const Addresses = (): React.ReactElement => {
           {t(`${T_PATH}.title`)}
         </h2>
         <div className={styles.actions}>
-          <Button onClick={() => navigate('create')} variant="secondary">
+          <Button
+            onClick={() => navigate('create')}
+            variant={ButtonVariant.Secondary}>
             {t(`${T_PATH}.addNewAddress`)}
           </Button>
         </div>

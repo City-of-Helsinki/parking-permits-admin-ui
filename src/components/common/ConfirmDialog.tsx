@@ -1,4 +1,10 @@
-import { Button, Dialog, IconArrowUndo, IconCheckCircleFill } from 'hds-react';
+import {
+  Button,
+  ButtonVariant,
+  Dialog,
+  IconArrowUndo,
+  IconCheckCircleFill,
+} from 'hds-react';
 import React from 'react';
 
 interface ConfirmDialogProps {
@@ -40,14 +46,16 @@ const ConfirmDialog = ({
     </Dialog.Content>
     <Dialog.ActionButtons>
       <Button
-        variant={isDeleteConfirmation ? 'danger' : 'primary'}
-        iconLeft={<IconCheckCircleFill />}
+        variant={
+          isDeleteConfirmation ? ButtonVariant.Danger : ButtonVariant.Primary
+        }
+        iconStart={<IconCheckCircleFill />}
         onClick={() => onConfirm()}>
         {confirmLabel}
       </Button>
       <Button
-        variant="secondary"
-        iconLeft={<IconArrowUndo />}
+        variant={ButtonVariant.Secondary}
+        iconStart={<IconArrowUndo />}
         onClick={() => onCancel()}>
         {cancelLabel}
       </Button>

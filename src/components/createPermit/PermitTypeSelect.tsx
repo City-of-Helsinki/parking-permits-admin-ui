@@ -1,14 +1,9 @@
-import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitType } from '../../types';
+import SingleSelect, { SingleSelectOption } from '../common/SingleSelect';
 
 const T_PATH = 'components.createPermit.permitTypeSelect';
-
-interface PermitTypeOption {
-  label: string;
-  value: PermitType;
-}
 
 interface PermitTypeSelectProps {
   className?: string;
@@ -22,7 +17,7 @@ const PermitTypeSelect = ({
   onChange,
 }: PermitTypeSelectProps): React.ReactElement => {
   const { t } = useTranslation();
-  const options: PermitTypeOption[] = [
+  const options: SingleSelectOption<PermitType>[] = [
     {
       label: t(`${T_PATH}.residentPermit`),
       value: PermitType.RESIDENT,
@@ -33,12 +28,12 @@ const PermitTypeSelect = ({
     },
   ];
   return (
-    <Select
+    <SingleSelect
       className={className}
       label={t(`${T_PATH}.permitType`)}
       options={options}
-      value={options.find(option => option.value === value)}
-      onChange={(option: PermitTypeOption) => onChange(option.value)}
+      value={value}
+      onChange={selected => selected && onChange(selected)}
     />
   );
 };

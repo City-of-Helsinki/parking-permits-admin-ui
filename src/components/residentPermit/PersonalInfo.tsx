@@ -238,8 +238,8 @@ const PersonalInfo = ({
           required
           className={styles.fieldItem}
           value={parkingZone?.name}
-          onChange={(selectedZone: ParkingZone) =>
-            onUpdatePermit({ parkingZone: selectedZone })
+          onChange={selectedZone =>
+            selectedZone && onUpdatePermit({ parkingZone: selectedZone })
           }
         />
         <Divider className={styles.fieldDivider} />

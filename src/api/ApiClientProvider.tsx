@@ -3,8 +3,8 @@ import {
   ApolloProvider,
   NormalizedCacheObject,
 } from '@apollo/client';
+import { useApolloClient } from 'hds-react';
 import React, { FC } from 'react';
-import { useApolloClient } from '../hds/apolloClient/hooks';
 
 export interface ApiClientContextProps {
   readonly client: ApolloClient<NormalizedCacheObject>;

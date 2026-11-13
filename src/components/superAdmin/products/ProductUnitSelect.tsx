@@ -1,12 +1,7 @@
-import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ProductUnit } from '../../../types';
-
-interface ProductUnitOption {
-  label: string;
-  value: ProductUnit;
-}
+import SingleSelect, { SingleSelectOption } from '../../common/SingleSelect';
 
 interface ProductUnitSelectProps {
   className?: string;
@@ -22,23 +17,17 @@ const ProductUnitSelect = ({
   ...otherProps
 }: ProductUnitSelectProps): React.ReactElement => {
   const { t } = useTranslation();
-  const options: ProductUnitOption[] = [
-    {
-      label: t('productUnit.monthly'),
-      value: ProductUnit.MONTHLY,
-    },
-    {
-      label: t('productUnit.pieces'),
-      value: ProductUnit.PIECES,
-    },
+  const options: SingleSelectOption<ProductUnit>[] = [
+    { label: t('productUnit.monthly'), value: ProductUnit.MONTHLY },
+    { label: t('productUnit.pieces'), value: ProductUnit.PIECES },
   ];
   const selected = options.find(option => option.value === value) || options[0];
   return (
-    <Select
+    <SingleSelect
       {...otherProps}
       options={options}
-      value={selected}
-      onChange={(option: ProductUnitOption) => onChange(option.value)}
+      value={selected.value}
+      onChange={newValue => newValue && onChange(newValue)}
     />
   );
 };

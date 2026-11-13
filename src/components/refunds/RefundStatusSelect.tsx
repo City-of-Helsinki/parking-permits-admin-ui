@@ -1,15 +1,9 @@
-import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { RefundStatus, RefundStatusOrAll } from '../../types';
-import RefundStatusLabel from './RefundStatusLabel';
+import SingleSelect, { SingleSelectOption } from '../common/SingleSelect';
 
 const T_PATH = 'components.refunds.refundStatusSelect';
-
-interface StatusOption {
-  label: React.ReactNode;
-  value: RefundStatusOrAll;
-}
 
 interface RefundStatusSelectProps {
   className?: string;
@@ -18,40 +12,28 @@ interface RefundStatusSelectProps {
 }
 
 const RefundStatusSelect = ({
+  className,
   value = 'ALL',
   onChange,
-  ...otherProps
 }: RefundStatusSelectProps): React.ReactElement => {
   const { t } = useTranslation();
-  const statusOptions: StatusOption[] = [
+  const statusOptions: SingleSelectOption<RefundStatusOrAll>[] = [
+    { label: t('refundStatus.all'), value: 'ALL' },
+    { label: t('refundStatus.open'), value: RefundStatus.OPEN },
     {
-      label: <RefundStatusLabel status="ALL" />,
-      value: 'ALL',
-    },
-    {
-      label: <RefundStatusLabel status={RefundStatus.OPEN} />,
-      value: RefundStatus.OPEN,
-    },
-    {
-      label: <RefundStatusLabel status={RefundStatus.REQUEST_FOR_APPROVAL} />,
+      label: t('refundStatus.requestForApproval'),
       value: RefundStatus.REQUEST_FOR_APPROVAL,
     },
-    {
-      label: <RefundStatusLabel status={RefundStatus.ACCEPTED} />,
-      value: RefundStatus.ACCEPTED,
-    },
-    {
-      label: <RefundStatusLabel status={RefundStatus.REJECTED} />,
-      value: RefundStatus.REJECTED,
-    },
+    { label: t('refundStatus.accepted'), value: RefundStatus.ACCEPTED },
+    { label: t('refundStatus.rejected'), value: RefundStatus.REJECTED },
   ];
   return (
-    <Select
-      {...otherProps}
+    <SingleSelect
+      className={className}
       label={t(`${T_PATH}.status`)}
       options={statusOptions}
-      value={statusOptions.find(option => option.value === value)}
-      onChange={(option: StatusOption) => onChange(option.value)}
+      value={value}
+      onChange={selected => selected && onChange(selected)}
     />
   );
 };
