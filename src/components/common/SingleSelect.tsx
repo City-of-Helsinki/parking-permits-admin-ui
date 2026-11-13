@@ -1,5 +1,11 @@
 import { Option, Select } from 'hds-react';
-import React, { useCallback, useId, useMemo, useRef } from 'react';
+import React, {
+  useCallback,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Language } from '../../types';
 
@@ -56,7 +62,9 @@ const SingleSelect = <T extends string>({
     [label, placeholder, error, i18n.language]
   );
   const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
+  useLayoutEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
   const handleChange = useCallback((selected: Option[]) => {
     onChangeRef.current(selected[0]?.value as T | undefined);
   }, []);
