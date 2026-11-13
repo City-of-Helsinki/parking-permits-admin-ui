@@ -1,7 +1,8 @@
-import { Button, IconSearch, Search } from 'hds-react';
+import { Button, IconSearch } from 'hds-react';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Language, PermitSearchParams } from '../../types';
+import QuerySearch from '../common/QuerySearch';
 import styles from './PermitsSearch.module.scss';
 import StatusSelect from './StatusSelect';
 
@@ -38,13 +39,13 @@ const PermitsSearch = ({
           value={status}
           onChange={setStatus}
         />
-        <Search
+        <QuerySearch
           hideSubmitButton
           id="permitsSearch"
           className={styles.SearchInput}
           texts={texts}
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={setQuery}
           onSend={value => onSearch({ status, q: value })}
         />
         <Button
