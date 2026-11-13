@@ -1,4 +1,4 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { ApolloError, gql, useLazyQuery } from '@apollo/client';
 import { Notification, Search } from 'hds-react';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -52,10 +52,7 @@ const AddressSearch = ({
 
   const [fetchAddresses] = useLazyQuery<AddressSearchQueryData>(
     ADDRESS_SEARCH_QUERY,
-    {
-      fetchPolicy: 'no-cache',
-      onError: error => setErrorMessage(getApolloErrorMessage(error)),
-    }
+    { fetchPolicy: 'no-cache' }
   );
 
   const texts = useMemo(
@@ -80,9 +77,11 @@ const AddressSearch = ({
           let result;
           try {
             result = await fetchAddresses({ variables: { searchInput } });
-          } catch {
-            // Errors are reported through the query's onError
-            result = undefined;
+          } catch (error) {
+            result = { error: error as ApolloError, data: undefined };
+          }
+          if (result?.error) {
+            setErrorMessage(getApolloErrorMessage(result.error));
           }
           const items = (result?.data?.addressSearch || [])
             .map((address: Address) => ({
