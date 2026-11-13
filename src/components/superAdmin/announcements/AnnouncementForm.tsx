@@ -37,7 +37,7 @@ interface AnnouncementInput {
 }
 
 interface AnnouncementFormProps {
-  onSubmit: (announcement: AnnouncementInput) => void;
+  onSubmit: (announcement: AnnouncementInput) => unknown;
   onCancel: () => void;
 }
 
@@ -67,7 +67,7 @@ const AnnouncementForm = ({
     handleSubmit,
     setValue,
     trigger,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isValid, isSubmitting },
   } = useForm<AnnouncementInput>({
     mode: 'onTouched',
     defaultValues: {
@@ -176,7 +176,9 @@ const AnnouncementForm = ({
         </Card>
 
         <div className={styles.actions}>
-          <Button disabled={!(isDirty && isValid)} type="submit">
+          <Button
+            disabled={!(isDirty && isValid) || isSubmitting}
+            type="submit">
             {t(`${T_PATH}.submit`)}
           </Button>
           <Button
