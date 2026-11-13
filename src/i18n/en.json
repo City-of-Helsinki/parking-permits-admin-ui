@@ -1,4 +1,5 @@
 {
+  "secondaryPermitDates": "The full duration of the second permit must fit within the first permit’s validity. Select a valid start date and a shorter duration, or extend the first permit.",
   "changelogEvent": {
     "CHANGED": "Updated",
     "CREATED": "Created"

@@ -1,4 +1,4 @@
-import { addDays, addMonths, endOfDay } from 'date-fns';
+import { addDays, addMonths, endOfDay, isValid } from 'date-fns';
 import {
   Checkbox,
   DateInput,
@@ -45,11 +45,12 @@ const PermitInfo = ({
   onUpdatePermit,
 }: PermitInfoProps): React.ReactElement => {
   const { t, i18n } = useTranslation();
+  const calculatedExpirationDate = endOfDay(
+    addDays(addMonths(new Date(permit.startTime), permit.monthCount), -1)
+  );
   const expirationDate =
-    permit.endTime ||
-    endOfDay(
-      addDays(addMonths(new Date(permit.startTime), permit.monthCount), -1)
-    );
+    (editMode && permit.endTime) ||
+    (isValid(calculatedExpirationDate) ? calculatedExpirationDate : null);
   const contractTypeLabelMapping = {
     FIXED_PERIOD: t('contractType.fixedPeriod'),
     OPEN_ENDED: t('contractType.openEnded'),
@@ -142,7 +143,7 @@ const PermitInfo = ({
           className={styles.fieldItem}
           id="expirationDate"
           label={t(`${T_PATH}.expirationDate`)}
-          value={formatDateTimeDisplay(expirationDate)}
+          value={expirationDate ? formatDateTimeDisplay(expirationDate) : ''}
         />
         {permitPrices.length > 0 && (
           <div className={styles.priceInfo}>

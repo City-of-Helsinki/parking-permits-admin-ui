@@ -1,3 +1,4 @@
+import { validSecondaryPurchase } from '../permitRules';
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import {
   Button,
@@ -85,6 +86,9 @@ const CUSTOMER_QUERY = gql`
         id
         primaryVehicle
         monthCount
+        endTime
+        endType
+        contractType
         startTime
       }
     }
@@ -206,6 +210,11 @@ const PERMIT_DETAIL_QUERY = gql`
         activePermits {
           id
           primaryVehicle
+          startTime
+          endTime
+          monthCount
+          contractType
+          endType
         }
       }
       vehicle {
@@ -334,6 +343,20 @@ const CreateResidentPermit = (): React.ReactElement => {
 
   const updatePermitPrices = (newPermit: PermitDetail) => {
     const isSecondary = newPermit.customer.activePermits?.length === 1;
+    const primaryPermit = newPermit.customer.activePermits?.find(
+      p => p.primaryVehicle
+    );
+    if (
+      primaryPermit &&
+      !validSecondaryPurchase(
+        primaryPermit,
+        newPermit.startTime,
+        newPermit.monthCount
+      )
+    ) {
+      setPermitPrices([]);
+      return;
+    }
     const permitInput = convertToPermitInput(newPermit);
     if (isValidForPriceCheck(permitInput)) {
       getPermitPrices({ variables: { permit: permitInput, isSecondary } });
@@ -342,6 +365,7 @@ const CreateResidentPermit = (): React.ReactElement => {
 
   // event handlers
   const handleCreateResidentPermit = () => {
+    if (invalidDates) return;
     setPermit({
       ...permit,
       status: ParkingPermitStatus.VALID,
@@ -368,6 +392,7 @@ const CreateResidentPermit = (): React.ReactElement => {
   };
 
   const handleCreateDraftResidentPermit = () => {
+    if (invalidDates) return;
     if (
       !(
         permit.status === ParkingPermitStatus.DRAFT ||
@@ -462,8 +487,12 @@ const CreateResidentPermit = (): React.ReactElement => {
   if (activePermits && activePermits.length > 0) {
     const startTime = new Date(activePermits[0].startTime);
     minStartDate = startTime > minStartDate ? startTime : minStartDate;
-    permit.startTime = minStartDate.toISOString();
   }
+
+  const primary = activePermits?.find(p => p.primaryVehicle);
+  const invalidDates =
+    !!primary &&
+    !validSecondaryPurchase(primary, permit.startTime, permit.monthCount);
 
   return (
     <div className={styles.container}>
@@ -505,12 +534,14 @@ const CreateResidentPermit = (): React.ReactElement => {
           minStartDate={minStartDate}
         />
       </div>
+      {invalidDates && <Notification label={t('secondaryPermitDates')} />}
       <div className={styles.footer}>
         <div className={styles.inner}>
           <div className={styles.actions}>
             <Button
               disabled={
-                customer.activePermits && customer.activePermits.length >= 2
+                invalidDates ||
+                (customer.activePermits && customer.activePermits.length >= 2)
               }
               className={styles.actionButton}
               iconLeft={<IconPlusCircleFill />}
@@ -519,7 +550,8 @@ const CreateResidentPermit = (): React.ReactElement => {
             </Button>
             <Button
               disabled={
-                customer.activePermits && customer.activePermits.length >= 2
+                invalidDates ||
+                (customer.activePermits && customer.activePermits.length >= 2)
               }
               className={styles.actionButton}
               variant="secondary"

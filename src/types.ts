@@ -17,7 +17,10 @@ export interface Address {
 export type CustomerActivePermit = Pick<
   Permit,
   'id' | 'primaryVehicle' | 'monthCount' | 'startTime'
->;
+> &
+  Partial<Pick<Permit, 'endTime' | 'contractType'>> & {
+    endType?: string | null;
+  };
 
 export enum SelectedAddress {
   PRIMARY = 'primaryAddress',

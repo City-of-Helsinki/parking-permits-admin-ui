@@ -1,4 +1,5 @@
 {
+  "secondaryPermitDates": "Toisen luvan koko keston on mahduttava ensimmäisen luvan voimassaoloaikaan. Valitse sopiva alkamispäivä ja lyhyempi kesto tai jatka ensimmäistä lupaa.",
   "changelogEvent": {
     "CHANGED": "Muokkaus",
     "CREATED": "Luotu"

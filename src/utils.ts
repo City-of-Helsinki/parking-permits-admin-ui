@@ -1,3 +1,4 @@
+import { maxSecondaryMonths } from './permitRules';
 import { ApolloError } from '@apollo/client';
 import { addMonths, format } from 'date-fns';
 import { extractIBAN } from 'ibantools';
@@ -178,8 +179,10 @@ export function formatPermitMaxValidPeriodInMonths(
   if (!editMode) {
     const activePermits = permit.customer?.activePermits;
     if (activePermits && activePermits.length > 0) {
-      const monthCount = activePermits[0]?.monthCount;
-      if (monthCount) return monthCount;
+      const primary = activePermits.find(p => p.primaryVehicle);
+      if (primary) {
+        return maxSecondaryMonths(primary, permit.startTime);
+      }
     }
   }
   return defaultMaxValidPeriodInMonths;
