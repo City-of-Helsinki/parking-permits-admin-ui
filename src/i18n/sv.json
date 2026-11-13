@@ -1,4 +1,5 @@
 {
+  "secondaryPermitDates": "Det andra tillståndets hela giltighetstid måste rymmas inom det första tillståndets giltighetstid. Välj ett giltigt startdatum och en kortare period eller förläng det första tillståndet.",
   "changelogEvent": {
     "CHANGED": "Modifierad",
     "CREATED": "Skapat"

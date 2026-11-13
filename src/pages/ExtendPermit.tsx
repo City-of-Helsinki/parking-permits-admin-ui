@@ -7,7 +7,7 @@ import {
   NumberInput,
   Table,
 } from 'hds-react';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, Link } from 'react-router';
@@ -142,6 +142,7 @@ const ExtendResidentPermit = (): React.ReactElement => {
   const [permit, setPermit] = useState<PermitDetail | null>(null);
   const [priceList, setPriceList] = useState<Array<ExtendedPriceListItem>>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const priceRequestId = useRef(0);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] =
     useState<boolean>(false);
 
@@ -170,7 +171,26 @@ const ExtendResidentPermit = (): React.ReactElement => {
     EXTENDED_PRICE_LIST_QUERY,
     {
       fetchPolicy: 'no-cache',
-      onCompleted: data => {
+      onError: error => setErrorMessage(getApolloErrorMessage(error)),
+    }
+  );
+
+  const onUpdateMonthCount = (value: number) => {
+    setMonthCount(value);
+    const requestId = ++priceRequestId.current;
+    if (
+      !permit ||
+      !Number.isInteger(value) ||
+      value < 1 ||
+      value > permit.maxExtensionMonthCount
+    ) {
+      setPriceList([]);
+      setTotalPrice(0);
+      return;
+    }
+    getExtendedPriceList({ variables: { permitId, monthCount: value } }).then(
+      ({ data }) => {
+        if (requestId !== priceRequestId.current || !data) return;
         setPriceList(data.getExtendedPriceList);
         setTotalPrice(
           data.getExtendedPriceList.reduce(
@@ -178,14 +198,8 @@ const ExtendResidentPermit = (): React.ReactElement => {
             0
           )
         );
-      },
-      onError: error => setErrorMessage(getApolloErrorMessage(error)),
-    }
-  );
-
-  const onUpdateMonthCount = (value: number) => {
-    setMonthCount(value);
-    getExtendedPriceList({ variables: { permitId, monthCount: value } });
+      }
+    );
   };
 
   return (
@@ -245,7 +259,12 @@ const ExtendResidentPermit = (): React.ReactElement => {
           <Button
             className={styles.actionButton}
             iconLeft={<IconCheckCircleFill />}
-            disabled={monthCount === 0}
+            disabled={
+              !permit?.canAdminExtendPermit ||
+              !Number.isInteger(monthCount) ||
+              monthCount < 1 ||
+              monthCount > permit.maxExtensionMonthCount
+            }
             onClick={() => setIsConfirmDialogOpen(true)}>
             {t('continue')}
           </Button>
@@ -262,6 +281,13 @@ const ExtendResidentPermit = (): React.ReactElement => {
         cancelLabel={t('cancelPayment')}
         onConfirm={() => {
           setIsConfirmDialogOpen(false);
+          if (
+            !permit?.canAdminExtendPermit ||
+            !Number.isInteger(monthCount) ||
+            monthCount < 1 ||
+            monthCount > permit.maxExtensionMonthCount
+          )
+            return;
           extendPermit({
             variables: { permitId, monthCount },
           });
