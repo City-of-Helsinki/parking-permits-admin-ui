@@ -1,4 +1,4 @@
-import { addWeeks, format } from 'date-fns';
+import { addWeeks, format, isValid } from 'date-fns';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Button,
@@ -13,7 +13,7 @@ import {
   TextInput,
   TimeInput,
 } from 'hds-react';
-import React, { useState } from 'react';
+import React, { ComponentProps, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
@@ -51,6 +51,30 @@ export const combineDateAndTime = (date: Date, time: string): string => {
     date.getMonth() + 1
   }/${date.getDate()}/${date.getFullYear()}`;
   return new Date(`${dateString} ${time}`).toISOString();
+};
+
+type DateFieldProps = Omit<
+  ComponentProps<typeof DateInput>,
+  'value' | 'onChange'
+> & {
+  value: Date;
+  onChange: (value: Date) => void;
+};
+
+// Invalid dates are kept in the form state (so validation reports them) while
+// the raw typed text stays visible instead of being passed to format().
+const DateField = ({ value, onChange, ...props }: DateFieldProps) => {
+  const [rawValue, setRawValue] = useState('');
+  return (
+    <DateInput
+      {...props}
+      value={isValid(value) ? format(value, 'd.M.yyyy') : rawValue}
+      onChange={(text: string, valueAsDate: Date) => {
+        setRawValue(text);
+        onChange(valueAsDate);
+      }}
+    />
+  );
 };
 
 const TemporaryVehicle = ({
@@ -114,16 +138,14 @@ const TemporaryVehicle = ({
             name="startDate"
             control={control}
             render={({ field }) => (
-              <DateInput
+              <DateField
                 id="startDate"
                 className="date-input"
                 minDate={new Date()}
                 maxDate={permit.endTime ? new Date(permit.endTime) : undefined}
                 initialMonth={new Date()}
-                value={format(field.value, 'd.M.yyyy')}
-                onChange={(_: string, valueAsDate: Date) =>
-                  field.onChange(valueAsDate)
-                }
+                value={field.value}
+                onChange={field.onChange}
                 onBlur={field.onBlur}
                 label={t(`${T_PATH}.startDate`)}
                 language={i18n.language as Language}
@@ -142,16 +164,14 @@ const TemporaryVehicle = ({
             name="endDate"
             control={control}
             render={({ field }) => (
-              <DateInput
+              <DateField
                 id="endDate"
                 className="date-input"
-                minDate={startDate}
+                minDate={isValid(startDate) ? startDate : undefined}
                 maxDate={permit.endTime ? new Date(permit.endTime) : undefined}
-                initialMonth={startDate}
-                value={format(field.value, 'd.M.yyyy')}
-                onChange={(_: string, valueAsDate: Date) =>
-                  field.onChange(valueAsDate)
-                }
+                initialMonth={isValid(startDate) ? startDate : undefined}
+                value={field.value}
+                onChange={field.onChange}
                 onBlur={field.onBlur}
                 label={t(`${T_PATH}.endDate`)}
                 language={i18n.language as Language}
