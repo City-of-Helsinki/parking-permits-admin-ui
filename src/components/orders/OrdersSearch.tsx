@@ -6,7 +6,6 @@ import {
   DateInput,
   IconCross,
   IconSearch,
-  Search,
 } from 'hds-react';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +17,7 @@ import {
   PriceDiscount,
 } from '../../types';
 import { joinSet } from '../../utils';
+import QuerySearch from '../common/QuerySearch';
 import ZoneSelect from '../common/ZoneSelect';
 import FilterOptions from './FilterOptions';
 import styles from './OrdersSearch.module.scss';
@@ -122,13 +122,13 @@ const OrdersSearch = ({
           value={parkingZone}
           onChange={selectedZone => setParkingZone(selectedZone?.name || '')}
         />
-        <Search
+        <QuerySearch
           hideSubmitButton
           id="ordersSearch"
           className={styles.searchInput}
           texts={texts}
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={setQuery}
           onSend={() => handleSubmit()}
         />
       </div>
