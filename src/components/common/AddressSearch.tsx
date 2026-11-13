@@ -74,8 +74,14 @@ const AddressSearch = ({
           window.clearTimeout(searchTimer.current);
         }
         searchTimer.current = window.setTimeout(async () => {
-          const result = await fetchAddresses({ variables: { searchInput } });
-          suggestions.current = (result.data?.addressSearch || [])
+          let result;
+          try {
+            result = await fetchAddresses({ variables: { searchInput } });
+          } catch {
+            // Errors are reported through the query's onError
+            result = undefined;
+          }
+          suggestions.current = (result?.data?.addressSearch || [])
             .map((address: Address) => ({
               label: formatAddress(address, 'fi', { withPostalCode: true }),
               address,
