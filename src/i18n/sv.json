@@ -430,6 +430,7 @@
           "postalCode": "Postnummer",
           "postalCode5Digits": "Postnummer ska ha 5 siffror",
           "save": "Spara",
+          "saving": "Sparar...",
           "cancel": "Avbryt",
           "selectLocation": "Välj en plats",
           "streetName": "Gatunamn",

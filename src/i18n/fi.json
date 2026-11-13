@@ -432,6 +432,7 @@
           "postalCode": "Postinumero",
           "postalCode5Digits": "Postinumerossa tulee olla 5 numeroa",
           "save": "Tallenna",
+          "saving": "Tallennetaan...",
           "cancel": "Peruuta",
           "selectLocation": "Valitse sijainti",
           "streetName": "Kadun nimi",

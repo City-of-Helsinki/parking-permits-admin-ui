@@ -36,7 +36,7 @@ interface AddressFormValues {
 interface AddressFormProps {
   className?: string;
   address?: Address;
-  onSubmit: (address: Address) => void;
+  onSubmit: (address: Address) => unknown;
   onDelete?: () => void;
   onCancel: () => void;
 }
@@ -106,7 +106,7 @@ const AddressForm = ({
     control,
     handleSubmit,
     setValue,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isValid, isSubmitting },
   } = useForm<AddressFormValues>({
     mode: 'onTouched',
     defaultValues: initialValues,
@@ -114,7 +114,10 @@ const AddressForm = ({
   });
   return (
     <div className={className}>
-      <form onSubmit={handleSubmit(values => onSubmit(values as Address))}>
+      <form
+        onSubmit={handleSubmit(async values => {
+          await onSubmit(values as Address);
+        })}>
         <div className={styles.row}>
           <div className={styles.column}>
             <TextInput
@@ -197,9 +200,9 @@ const AddressForm = ({
         <div className={styles.actions}>
           <Button
             className={styles.submit}
-            disabled={!isDirty || !isValid}
+            disabled={!isDirty || !isValid || isSubmitting}
             type="submit">
-            {t(`${T_PATH}.save`)}
+            {t(`${T_PATH}.${isSubmitting ? 'saving' : 'save'}`)}
           </Button>
           {address && (
             <Button
