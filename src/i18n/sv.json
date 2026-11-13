@@ -634,6 +634,7 @@
       "name": "Namn",
       "refunds": "Returnerar",
       "save": "Spara",
+      "saving": "Sparar...",
       "downloadPdf": "Ladda ner returnsinformation som PDF",
       "title": "Redigera Retur",
       "ibanIsRequired": "IBAN-nummer krävs",

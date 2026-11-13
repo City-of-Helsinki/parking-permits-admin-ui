@@ -636,6 +636,7 @@
       "name": "Name",
       "refunds": "Refunds",
       "save": "Save",
+      "saving": "Saving...",
       "downloadPdf": "Download refund details as PDF",
       "title": "Edit refund",
       "ibanIsRequired": "IBAN-number is required",
