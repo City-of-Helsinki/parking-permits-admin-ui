@@ -62,7 +62,7 @@ const UPDATE_REFUND_MUTATION = gql`
 
 interface RefundFormProps {
   refund: Refund;
-  onSubmit: (refund: RefundInput) => void;
+  onSubmit: (refund: RefundInput) => unknown;
   onCancel: () => void;
   onExport: () => void;
 }
@@ -88,7 +88,7 @@ const RefundForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isValid, isSubmitting },
   } = useForm<RefundInput>({
     mode: 'onTouched',
     defaultValues: { name: refund.name, iban: refund.iban },
@@ -143,9 +143,9 @@ const RefundForm = ({
           <Button
             className={styles.save}
             iconStart={<IconCheckCircle />}
-            disabled={!(isDirty && isValid)}
+            disabled={!(isDirty && isValid) || isSubmitting}
             type="submit">
-            {t(`${T_PATH}.save`)}
+            {t(`${T_PATH}.${isSubmitting ? 'saving' : 'save'}`)}
           </Button>
         )}
         <Button

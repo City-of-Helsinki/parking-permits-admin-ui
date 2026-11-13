@@ -639,6 +639,7 @@
       "name": "Nimi",
       "refunds": "Palautukset",
       "save": "Tallenna",
+      "saving": "Tallennetaan...",
       "downloadPdf": "Lataa palautuksen tiedot PDF:nä",
       "title": "Muokkaa Palautusta",
       "ibanIsRequired": "IBAN-numero vaaditaan",
