@@ -58,14 +58,13 @@ const OrdersSearch = ({
     [i18n.language, t]
   );
 
-  const canReset = () =>
-    query ||
-    startDate ||
-    endDate ||
-    parkingZone ||
-    contractTypes.size ||
-    paymentTypes.size ||
-    priceDiscounts.size;
+  const canReset = () => {
+    const canResetDate = startDate || endDate;
+    const canResetTypes =
+      contractTypes.size || paymentTypes.size || priceDiscounts.size;
+
+    return query || canResetDate || parkingZone || canResetTypes;
+  };
 
   const reset = () => {
     setQuery('');
