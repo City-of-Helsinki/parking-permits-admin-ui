@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0](https://github.com/City-of-Helsinki/parking-permits-admin-ui/compare/parking-permits-admin-ui-v1.7.2...parking-permits-admin-ui-v1.8.0) (2026-11-14)
+
+
+### Features
+
+* Display vehicle traficom fetch time ([956dd0b](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/956dd0baf7af1532d1f62eaa4fb4abb76628707f))
+* Generate third-party license notices at build time ([010732f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/010732f739ce6c7103b6157fd2a9175526a35da9))
+* Generate third-party license notices at build time ([7eb8649](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/7eb8649cee8280523de437d26b67dccc6a1cecc6))
+* Remove LowEmissionCriteria-functionality ([ed687dc](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/ed687dc8c4006630e00881cfa4e5c5cf71b207d2))
+* Simplify low-emission-/discount-logic ([abf554c](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/abf554c909383a693a3c96c6c251dff6a3213115))
+* Update Sentry SDK and configure release, tracing and replay ([c37a922](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/c37a9220b9b214bec1bbc5a28cf64edf9e4bd5ac))
+* Validate second permit against first permit validity ([e1fe35f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e1fe35fdb867e2bf00d3dcb2c0a7947f4fa265db))
+
+
+### Bug Fixes
+
+* Add isLowEmission into query ([6f8ccd1](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/6f8ccd12abb70688e141a697bd42b1829278a851))
+* Adjust 'periodic inspection rejected'-text ([43b714e](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/43b714e0881d8076cc0c933457df7a2279e7e864))
+* Correctly gray out form fields ([05cf82d](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/05cf82d96484246c6810bf36f44566f9a6c367d2))
+* Fix type error in convertToVehicleInput() ([ea94788](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/ea94788cf417dba6ac8eca101568db511c0dac86))
+* Graceful handling for missing power type data ([f319488](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/f3194884e6cf604984f307fc58a7ac73173703e4))
+* Tmp vehicle traficom timestamp ([c6d14f2](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/c6d14f205d0e58455e7b3326772781387e09ecd5))
+
+
+### Dependencies
+
+* Align React Router packages on v7 and add routing tests ([d0cf635](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/d0cf6353d375875a54593ea5ab78a5fbf12ebaf9))
+* Eslint to v9 Refs: PV-1000 ([b8d0294](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/b8d02944e81291f1bd04afff0227fc4b1aedc659))
+* Jest to Vitest Refs: PV-1000 ([2882d2b](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/2882d2b04c50adc566b6b771b6e570a33c3daf47))
+* Migrate rsbuild to Vite Refs: PV-1000 ([2882d2b](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/2882d2b04c50adc566b6b771b6e570a33c3daf47))
+* Patch vulnerable uuid Refs: PV-1000 ([a34ad30](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/a34ad30b37cf54423fba730f0a001278831e7117))
+* Update vulnerable packages ([3ab2d15](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/3ab2d152d33eeee91f50e7ff9e122c04bfc81e6d))
+
 ## [1.7.2](https://github.com/City-of-Helsinki/parking-permits-admin-ui/compare/parking-permits-admin-ui-v1.7.1...parking-permits-admin-ui-v1.7.2) (2026-09-24)
 
 ### Bug Fixes
