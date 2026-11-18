@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import { ApiAccessTokenProvider } from './api/ApiAccessTokenProvider';
 import { ApiClientProvider } from './api/ApiClientProvider';
+import { UserRoleProvider } from './api/useUserRole';
 import App from './App';
 import HDSLoginProvider from './auth/LoginProvider';
 import './i18n';
@@ -45,7 +46,9 @@ root.render(
     <HDSLoginProvider>
       <ApiAccessTokenProvider>
         <ApiClientProvider>
-          <App />
+          <UserRoleProvider>
+            <App />
+          </UserRoleProvider>
         </ApiClientProvider>
       </ApiAccessTokenProvider>
     </HDSLoginProvider>

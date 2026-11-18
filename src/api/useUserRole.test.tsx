@@ -1,150 +1,151 @@
-import { renderHook } from '@testing-library/react';
+import { InMemoryCache } from '@apollo/client';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { renderHook, waitFor } from '@testing-library/react';
 import { useAuthenticatedUser } from 'hds-react';
-import type { Mock } from 'vitest';
-import useUserRole, { Groups, UserRole } from './useUserRole';
+import { ReactNode } from 'react';
+import useUserRole, {
+  CURRENT_USER_GROUPS,
+  Groups,
+  UserRole,
+  UserRoleProvider,
+} from './useUserRole';
 
 vi.mock('hds-react', () => ({
   useAuthenticatedUser: vi.fn(),
 }));
 
-const mockUseAuthenticatedUser = useAuthenticatedUser as Mock;
-
-// Encodes a value as a base64url JWT segment. Decoding never verifies the
-// signature, so an unsigned ("alg: none") token is enough for these tests.
-// Uses btoa (available in the jsdom test environment) to avoid a Node-only
-// Buffer dependency in these browser-oriented tests.
-const toBase64UrlSegment = (value: unknown): string =>
-  btoa(JSON.stringify(value))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
-
-const makeToken = (payload: Record<string, unknown>): string => {
-  const header = toBase64UrlSegment({ alg: 'none', typ: 'JWT' });
-  const body = toBase64UrlSegment(payload);
-  return `${header}.${body}.signature`;
+const setUser = (subject: string | undefined) => {
+  vi.mocked(useAuthenticatedUser).mockReturnValue(
+    subject
+      ? ({ profile: { sub: subject } } as ReturnType<
+          typeof useAuthenticatedUser
+        >)
+      : null
+  );
 };
 
-const setAuthenticatedUser = (user: unknown): void => {
-  mockUseAuthenticatedUser.mockReturnValue(user);
-};
+const groupsMock = (groups: string[]): MockedResponse => ({
+  request: { query: CURRENT_USER_GROUPS },
+  result: { data: { currentUserGroups: groups } },
+});
 
-const setAuthenticatedUserWithGroups = (adGroups: string[]): void => {
-  setAuthenticatedUser({ id_token: makeToken({ ad_groups: adGroups }) });
-};
+const renderUserRole = (
+  mocks: MockedResponse[] = [],
+  cache = new InMemoryCache()
+) =>
+  renderHook(() => useUserRole(), {
+    wrapper: ({ children }: { children: ReactNode }) => (
+      <MockedProvider mocks={mocks} cache={cache}>
+        <UserRoleProvider>{children}</UserRoleProvider>
+      </MockedProvider>
+    ),
+  });
 
-const renderUserRole = (): UserRole =>
-  renderHook(() => useUserRole()).result.current;
+beforeEach(() => {
+  setUser('test-user');
+});
 
 afterEach(() => {
   vi.resetAllMocks();
 });
 
 describe('useUserRole', () => {
-  describe('when there is no decodable token', () => {
-    it('returns UNKNOWN when there is no authenticated user', () => {
-      setAuthenticatedUser(undefined);
-      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
-    });
-
-    it('returns UNKNOWN when the user has no id_token', () => {
-      setAuthenticatedUser({ id_token: undefined });
-      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
-    });
-
-    // Locks in the pre-migration behavior: jsonwebtoken.decode() returned null
-    // for a malformed token, so the hook must continue to resolve to UNKNOWN
-    // even though jwtDecode() throws.
-    it('returns UNKNOWN for a malformed id_token', () => {
-      setAuthenticatedUser({ id_token: 'not-a-jwt' });
-      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
-    });
+  it('does not request groups for an unauthenticated user', () => {
+    setUser(undefined);
+    const { result } = renderUserRole();
+    expect(result.current).toBe(UserRole.UNKNOWN);
   });
 
-  describe('role mapping from ad_groups', () => {
-    it('maps the super admin group to SUPER_ADMIN', () => {
-      setAuthenticatedUserWithGroups([Groups.SUPER_ADMIN]);
-      expect(renderUserRole()).toBe(UserRole.SUPER_ADMIN);
-    });
-
-    it('maps the sanctions and refunds group to SANCTIONS_AND_REFUNDS', () => {
-      setAuthenticatedUserWithGroups([Groups.SANCTIONS_AND_REFUNDS]);
-      expect(renderUserRole()).toBe(UserRole.SANCTIONS_AND_REFUNDS);
-    });
-
-    it('maps the sanctions group to SANCTIONS', () => {
-      setAuthenticatedUserWithGroups([Groups.SANCTIONS]);
-      expect(renderUserRole()).toBe(UserRole.SANCTIONS);
-    });
-
-    it('maps the customer service group to CUSTOMER_SERVICE', () => {
-      setAuthenticatedUserWithGroups([Groups.CUSTOMER_SERVICE]);
-      expect(renderUserRole()).toBe(UserRole.CUSTOMER_SERVICE);
-    });
-
-    it('maps the preparators group to PREPARATORS', () => {
-      setAuthenticatedUserWithGroups([Groups.PREPARATORS]);
-      expect(renderUserRole()).toBe(UserRole.PREPARATORS);
-    });
-
-    it('maps the inspectors group to INSPECTORS', () => {
-      setAuthenticatedUserWithGroups([Groups.INSPECTORS]);
-      expect(renderUserRole()).toBe(UserRole.INSPECTORS);
-    });
-
-    it('strips the "helsinki1\\" ADFS prefix before matching', () => {
-      setAuthenticatedUserWithGroups([`helsinki1\\${Groups.INSPECTORS}`]);
-      expect(renderUserRole()).toBe(UserRole.INSPECTORS);
-    });
-
-    it('matches groups case-insensitively', () => {
-      setAuthenticatedUserWithGroups([Groups.INSPECTORS.toUpperCase()]);
-      expect(renderUserRole()).toBe(UserRole.INSPECTORS);
-    });
+  it('returns LOADING until the backend groups arrive', async () => {
+    const { result } = renderUserRole([groupsMock([Groups.INSPECTORS])]);
+    expect(result.current).toBe(UserRole.LOADING);
+    await waitFor(() => expect(result.current).toBe(UserRole.INSPECTORS));
   });
 
-  describe('precedence between multiple groups', () => {
-    it('returns the highest-privilege role regardless of array order', () => {
-      setAuthenticatedUserWithGroups([Groups.INSPECTORS, Groups.SUPER_ADMIN]);
-      expect(renderUserRole()).toBe(UserRole.SUPER_ADMIN);
-    });
+  it.each([
+    [Groups.SUPER_ADMIN, UserRole.SUPER_ADMIN],
+    [Groups.SANCTIONS_AND_REFUNDS, UserRole.SANCTIONS_AND_REFUNDS],
+    [Groups.SANCTIONS, UserRole.SANCTIONS],
+    [Groups.CUSTOMER_SERVICE, UserRole.CUSTOMER_SERVICE],
+    [Groups.PREPARATORS, UserRole.PREPARATORS],
+    [Groups.INSPECTORS, UserRole.INSPECTORS],
+  ])('maps backend group %s to role %s', async (group, role) => {
+    const { result } = renderUserRole([groupsMock([group])]);
+    await waitFor(() => expect(result.current).toBe(role));
   });
 
-  describe('token without a recognized group', () => {
-    it('returns NON_AD_GROUPS when no ad_group matches a known role', () => {
-      setAuthenticatedUserWithGroups(['some_unrelated_group']);
-      expect(renderUserRole()).toBe(UserRole.NON_AD_GROUPS);
-    });
-
-    it('returns NON_AD_GROUPS for an empty ad_groups array', () => {
-      setAuthenticatedUserWithGroups([]);
-      expect(renderUserRole()).toBe(UserRole.NON_AD_GROUPS);
-    });
+  it('selects the highest role regardless of group order', async () => {
+    const { result } = renderUserRole([
+      groupsMock([Groups.INSPECTORS, Groups.SUPER_ADMIN]),
+    ]);
+    await waitFor(() => expect(result.current).toBe(UserRole.SUPER_ADMIN));
   });
 
-  describe('token payload with an invalid ad_groups claim', () => {
-    it('returns UNKNOWN when the ad_groups claim is missing', () => {
-      setAuthenticatedUser({ id_token: makeToken({}) });
-      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
-    });
+  it.each([{ groups: [] }, { groups: ['unrelated_group'] }])(
+    'returns NON_AD_GROUPS for $groups',
+    async ({ groups }) => {
+      const { result } = renderUserRole([groupsMock(groups)]);
+      await waitFor(() => expect(result.current).toBe(UserRole.NON_AD_GROUPS));
+    }
+  );
 
-    it('returns UNKNOWN when the ad_groups claim is null', () => {
-      setAuthenticatedUser({ id_token: makeToken({ ad_groups: null }) });
-      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
-    });
+  it('returns ERROR on a failed request without trusting the ID token', async () => {
+    vi.mocked(useAuthenticatedUser).mockReturnValue({
+      profile: { sub: 'test-user' },
+      id_token: 'an-old-token',
+    } as ReturnType<typeof useAuthenticatedUser>);
+    const { result } = renderUserRole([
+      {
+        request: { query: CURRENT_USER_GROUPS },
+        error: new Error('Unavailable'),
+      },
+    ]);
+    await waitFor(() => expect(result.current).toBe(UserRole.ERROR));
+  });
 
-    it('returns UNKNOWN when the ad_groups claim is not an array', () => {
-      setAuthenticatedUser({
-        id_token: makeToken({ ad_groups: 'sg_kymp_pyva_asukpt_yllapito' }),
-      });
-      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
+  it('does not reuse cached groups', async () => {
+    const cache = new InMemoryCache();
+    cache.writeQuery({
+      query: CURRENT_USER_GROUPS,
+      data: { currentUserGroups: [Groups.SUPER_ADMIN] },
     });
+    const { result } = renderUserRole([groupsMock([Groups.INSPECTORS])], cache);
+    expect(result.current).toBe(UserRole.LOADING);
+    await waitFor(() => expect(result.current).toBe(UserRole.INSPECTORS));
+  });
 
-    it('returns UNKNOWN when ad_groups contains non-string entries', () => {
-      setAuthenticatedUser({
-        id_token: makeToken({ ad_groups: [true, null] }),
-      });
-      expect(renderUserRole()).toBe(UserRole.UNKNOWN);
-    });
+  it('reloads groups when the authenticated account changes', async () => {
+    const { result, rerender } = renderUserRole([
+      groupsMock([Groups.SUPER_ADMIN]),
+      groupsMock([Groups.INSPECTORS]),
+    ]);
+    await waitFor(() => expect(result.current).toBe(UserRole.SUPER_ADMIN));
+    setUser('another-user');
+    rerender();
+    expect(result.current).toBe(UserRole.LOADING);
+    await waitFor(() => expect(result.current).toBe(UserRole.INSPECTORS));
+  });
+
+  it('does not use an in-flight response from the previous account', async () => {
+    const { result, rerender } = renderUserRole([
+      { ...groupsMock([Groups.SUPER_ADMIN]), delay: 100 },
+      groupsMock([Groups.INSPECTORS]),
+    ]);
+    expect(result.current).toBe(UserRole.LOADING);
+
+    setUser('another-user');
+    rerender();
+
+    await waitFor(() => expect(result.current).toBe(UserRole.INSPECTORS));
+  });
+
+  it('clears the role on logout', async () => {
+    const { result, rerender } = renderUserRole([
+      groupsMock([Groups.SUPER_ADMIN]),
+    ]);
+    await waitFor(() => expect(result.current).toBe(UserRole.SUPER_ADMIN));
+    setUser(undefined);
+    rerender();
+    expect(result.current).toBe(UserRole.UNKNOWN);
   });
 });
