@@ -19,7 +19,12 @@ vi.mock('./api/useUserRole', async importOriginal => ({
 vi.mock('./auth/useIsAuthReady', () => ({
   useIsAuthorizationReady: vi.fn(),
 }));
-vi.mock('hds-react', () => ({ LoadingSpinner: () => 'Loading' }));
+vi.mock('hds-react', () => ({
+  LoadingSpinner: () => 'Loading',
+  Notification: ({ label }: { label: string }) => (
+    <div role="alert">{label}</div>
+  ),
+}));
 vi.mock('hds-react/components', () => ({ CookieModal: () => null }));
 vi.mock('./components/Header', () => ({ default: () => null }));
 vi.mock('./components/footer/Footer', () => ({ default: () => null }));
@@ -217,6 +222,40 @@ describe('routing', () => {
     expect(screen.getByText('Loading')).toBeInTheDocument();
     expect(screen.queryByText(mockPageLabels.products)).not.toBeInTheDocument();
   });
+
+  it.each(['/permits', adminProductsPath])(
+    'waits for backend groups before rendering %s',
+    path => {
+      vi.mocked(useUserRole).mockReturnValue(UserRole.LOADING);
+      renderRoute(path);
+
+      expect(screen.getByText('Loading')).toBeInTheDocument();
+      expect(screen.queryByText(mockPageLabels.login)).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(mockPageLabels.permits)
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(mockPageLabels.products)
+      ).not.toBeInTheDocument();
+    }
+  );
+
+  it.each(['/permits', adminProductsPath])(
+    'shows an error without granting access to %s',
+    path => {
+      vi.mocked(useUserRole).mockReturnValue(UserRole.ERROR);
+      renderRoute(path);
+
+      expect(screen.getByRole('alert')).toHaveTextContent('message.error');
+      expect(screen.queryByText(mockPageLabels.login)).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(mockPageLabels.permits)
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(mockPageLabels.products)
+      ).not.toBeInTheDocument();
+    }
+  );
 
   it('passes the permit ID to a parameterized route', () => {
     renderRoute('/permits/permit-123');

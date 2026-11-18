@@ -1,13 +1,14 @@
+import { gql, useQuery } from '@apollo/client';
 import { useAuthenticatedUser } from 'hds-react';
-import { jwtDecode } from 'jwt-decode';
+import { createContext, ReactNode, useContext } from 'react';
 
 export enum Groups {
-  SUPER_ADMIN = 'sg_kymp_pyva_asukpt_yllapito',
-  SANCTIONS_AND_REFUNDS = 'sg_kymp_pyva_asukpt_maksuseuraamukset_palautukset',
-  SANCTIONS = 'sg_kymp_pyva_asukpt_maksuseuraamukset',
-  CUSTOMER_SERVICE = 'sg_kymp_pyva_asukpt_asiakaspalvelu',
-  PREPARATORS = 'sg_kymp_pyva_asukpt_valmistelijat',
-  INSPECTORS = 'sg_kymp_pyva_asukpt_tarkastajat',
+  SUPER_ADMIN = 'super_admin',
+  SANCTIONS_AND_REFUNDS = 'sanctions_and_refunds',
+  SANCTIONS = 'sanctions',
+  CUSTOMER_SERVICE = 'customer_service',
+  PREPARATORS = 'preparators',
+  INSPECTORS = 'inspectors',
 }
 
 export enum UserRole {
@@ -19,12 +20,17 @@ export enum UserRole {
   INSPECTORS = 50,
   NON_AD_GROUPS = 10,
   UNKNOWN = 0,
+  LOADING = -1,
+  ERROR = 1,
 }
 
-type IdTokenClaims = { ad_groups: unknown };
+export const CURRENT_USER_GROUPS = gql`
+  query CurrentUserGroups {
+    currentUserGroups
+  }
+`;
 
-const isStringArray = (value: unknown): value is string[] =>
-  Array.isArray(value) && value.every(item => typeof item === 'string');
+const UserRoleContext = createContext(UserRole.UNKNOWN);
 
 // Ordered from highest to lowest privilege; the first matching group wins.
 const ROLE_BY_GROUP: [Groups, UserRole][] = [
@@ -36,35 +42,49 @@ const ROLE_BY_GROUP: [Groups, UserRole][] = [
   [Groups.INSPECTORS, UserRole.INSPECTORS],
 ];
 
-const useUserRole = (): UserRole => {
-  const user = useAuthenticatedUser();
-  let decodedToken: IdTokenClaims | undefined;
-  if (user?.id_token) {
-    try {
-      decodedToken = jwtDecode<IdTokenClaims>(user.id_token);
-    } catch {
-      // A malformed id_token makes jwtDecode throw InvalidTokenError; the old
-      // jsonwebtoken.decode() returned null here, so degrade to UNKNOWN.
-      return UserRole.UNKNOWN;
-    }
-  }
-  if (decodedToken) {
-    const { ad_groups: adGroupsClaim } = decodedToken;
-    // A syntactically valid token can still carry a missing, null, non-array,
-    // or non-string ad_groups claim; treat any of those as UNKNOWN instead of
-    // throwing during render.
-    if (!isStringArray(adGroupsClaim)) {
-      return UserRole.UNKNOWN;
-    }
-    // Remove special ADFS-prefix and normalize case before matching.
-    const adfsPrefix = 'helsinki1\\';
-    const adGroups = adGroupsClaim.map(adGroup =>
-      adGroup.replace(adfsPrefix, '').toLowerCase()
+const AuthenticatedUserRoleProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
+  const { data, loading, error } = useQuery<{
+    currentUserGroups: string[];
+  }>(CURRENT_USER_GROUPS, {
+    fetchPolicy: 'no-cache',
+    context: { queryDeduplication: false },
+  });
+
+  let role = UserRole.ERROR;
+  if (loading) {
+    role = UserRole.LOADING;
+  } else if (!error && data?.currentUserGroups) {
+    const matched = ROLE_BY_GROUP.find(([group]) =>
+      data.currentUserGroups.includes(group)
     );
-    const matched = ROLE_BY_GROUP.find(([group]) => adGroups.includes(group));
-    return matched ? matched[1] : UserRole.NON_AD_GROUPS;
+    role = matched ? matched[1] : UserRole.NON_AD_GROUPS;
   }
-  return UserRole.UNKNOWN;
+
+  return (
+    <UserRoleContext.Provider value={role}>{children}</UserRoleContext.Provider>
+  );
 };
+
+export const UserRoleProvider = ({ children }: { children: ReactNode }) => {
+  const user = useAuthenticatedUser();
+  if (!user) {
+    return (
+      <UserRoleContext.Provider value={UserRole.UNKNOWN}>
+        {children}
+      </UserRoleContext.Provider>
+    );
+  }
+  return (
+    <AuthenticatedUserRoleProvider key={user.profile.sub}>
+      {children}
+    </AuthenticatedUserRoleProvider>
+  );
+};
+
+const useUserRole = (): UserRole => useContext(UserRoleContext);
 
 export default useUserRole;

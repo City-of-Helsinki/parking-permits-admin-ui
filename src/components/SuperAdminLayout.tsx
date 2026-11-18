@@ -1,5 +1,6 @@
-import { LoadingSpinner } from 'hds-react';
+import { LoadingSpinner, Notification } from 'hds-react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Outlet, Navigate } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
 import Divider from './common/Divider';
@@ -10,14 +11,22 @@ import styles from './SuperAdminLayout.module.scss';
 
 const SuperAdminLayout = (): React.ReactElement => {
   const userRole = useUserRole();
-  // still loading, we don't know user groups yet
-  if (userRole === UserRole.UNKNOWN) {
+  const { t } = useTranslation();
+  if (
+    userRole === UserRole.UNKNOWN ||
+    userRole === UserRole.LOADING ||
+    userRole === UserRole.ERROR
+  ) {
     return (
       <div className={styles.mainLayout}>
         <Header />
         <Divider />
         <div className={styles.contentContainer}>
-          <LoadingSpinner />
+          {userRole === UserRole.ERROR ? (
+            <Notification type="error" label={t('message.error')} />
+          ) : (
+            <LoadingSpinner />
+          )}
         </div>
         <Footer />
       </div>

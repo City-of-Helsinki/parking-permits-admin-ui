@@ -14,6 +14,9 @@ vi.mock('./api/ApiAccessTokenProvider', () => ({
 vi.mock('./api/ApiClientProvider', () => ({
   ApiClientProvider: 'ApiClientProvider',
 }));
+vi.mock('./api/useUserRole', () => ({
+  UserRoleProvider: 'UserRoleProvider',
+}));
 vi.mock('./i18n', () => ({}));
 vi.mock('./reportWebVitals', () => ({ default: vi.fn() }));
 

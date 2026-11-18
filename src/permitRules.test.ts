@@ -24,7 +24,7 @@ describe('secondary permit purchase dates', () => {
   ])('allows %s to buy %s full months', (start, months) => {
     expect(maxSecondaryMonths(primary, start, new Date(start))).toBe(months);
   });
-  
+
   it('rejects backdating and earlier starts', () => {
     expect(
       validSecondaryPurchase(
@@ -43,7 +43,7 @@ describe('secondary permit purchase dates', () => {
       )
     ).toBe(false);
   });
-  
+
   it('rejects a past start day even when the duration cap does not apply', () => {
     expect(
       validSecondaryPurchase(
@@ -62,7 +62,7 @@ describe('secondary permit purchase dates', () => {
       )
     ).toBe(true);
   });
-  
+
   it('accounts for a later selected start', () => {
     expect(
       maxSecondaryMonths(
@@ -72,7 +72,7 @@ describe('secondary permit purchase dates', () => {
       )
     ).toBe(0);
   });
-  
+
   it.each([
     ['2024-01-31T12:00:00+02:00', '2024-02-28'],
     ['2026-03-29T12:00:00+03:00', '2026-04-28'],
@@ -83,7 +83,7 @@ describe('secondary permit purchase dates', () => {
       end
     );
   });
-  
+
   it('rejects zero, negative, and fractional durations', () => {
     for (const months of [0, -1, FRACTIONAL_MONTH, NaN]) {
       expect(
@@ -96,7 +96,7 @@ describe('secondary permit purchase dates', () => {
       ).toBe(false);
     }
   });
-  
+
   it('does not cap a subscription at its renewal date', () => {
     expect(
       maxSecondaryMonths(

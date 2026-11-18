@@ -1,3 +1,4 @@
+import { LoadingSpinner, Notification } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router';
@@ -15,6 +16,10 @@ const MainLayout = (): React.ReactElement => {
       <Header />
       <div className={styles['content-container']}>
         <div className={styles.gutter}>
+          {userRole === UserRole.LOADING && <LoadingSpinner />}
+          {userRole === UserRole.ERROR && (
+            <Notification type="error" label={t('message.error')} />
+          )}
           {userRole > UserRole.NON_AD_GROUPS && <Outlet />}
           {userRole === UserRole.NON_AD_GROUPS && (
             <div>{t(`message.unauthorized`)}</div>
