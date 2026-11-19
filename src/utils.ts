@@ -116,7 +116,10 @@ export function formatAddress(
     addressApartmentStr = ` ${options.addressApartment}`;
   }
   if (lang === 'sv') {
-    return `${streetNameSv} ${streetNumber}${addressApartmentStr}, ${postalCode}${citySv}`;
+    // DVV often has no Swedish names, so fall back to the Finnish ones
+    const streetNameToUse = streetNameSv || streetName;
+    const cityToUse = citySv || city;
+    return `${streetNameToUse} ${streetNumber}${addressApartmentStr}, ${postalCode}${cityToUse}`;
   }
   return `${streetName} ${streetNumber}${addressApartmentStr}, ${postalCode}${city}`;
 }

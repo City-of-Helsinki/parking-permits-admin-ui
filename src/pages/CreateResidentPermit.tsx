@@ -57,6 +57,7 @@ const CUSTOMER_QUERY = gql`
         city
         citySv
         streetName
+        streetNameSv
         streetNumber
         postalCode
         location
@@ -72,6 +73,7 @@ const CUSTOMER_QUERY = gql`
         city
         citySv
         streetName
+        streetNameSv
         streetNumber
         postalCode
         location
