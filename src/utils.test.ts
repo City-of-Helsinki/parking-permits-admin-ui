@@ -41,6 +41,14 @@ describe('formatAddress', () => {
     }
   );
 
+  it('omits a missing street number', () => {
+    const noNumber = { ...address, streetNumber: null } as unknown as Address;
+    expect(formatAddress(noNumber, 'fi', { withPostalCode: true })).toBe(
+      'Mannerheimintie, 00100 HELSINKI'
+    );
+    expect(formatAddress(noNumber, 'sv')).toBe('Mannerheimvägen, HELSINGFORS');
+  });
+
   it('returns a dash without an address', () => {
     expect(formatAddress(undefined, 'sv')).toBe('-');
   });
