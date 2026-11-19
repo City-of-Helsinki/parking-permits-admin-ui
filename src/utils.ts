@@ -106,22 +106,18 @@ export function formatAddress(
   }
 
   const { streetName, streetNameSv, streetNumber, city, citySv } = address;
-  let postalCode = '';
-  if (options?.withPostalCode) {
-    postalCode = `${address.postalCode} `;
-  }
-
-  let addressApartmentStr = '';
-  if (options?.addressApartment) {
-    addressApartmentStr = ` ${options.addressApartment}`;
-  }
+  const postalCode = options?.withPostalCode ? `${address.postalCode} ` : '';
+  const streetNumberStr = streetNumber ? ` ${streetNumber}` : '';
+  const addressApartmentStr = options?.addressApartment
+    ? ` ${options.addressApartment}`
+    : '';
   if (lang === 'sv') {
     // DVV often has no Swedish names, so fall back to the Finnish ones
     const streetNameToUse = streetNameSv || streetName;
     const cityToUse = citySv || city;
-    return `${streetNameToUse} ${streetNumber}${addressApartmentStr}, ${postalCode}${cityToUse}`;
+    return `${streetNameToUse}${streetNumberStr}${addressApartmentStr}, ${postalCode}${cityToUse}`;
   }
-  return `${streetName} ${streetNumber}${addressApartmentStr}, ${postalCode}${city}`;
+  return `${streetName}${streetNumberStr}${addressApartmentStr}, ${postalCode}${city}`;
 }
 
 export function isPermitAddress(
