@@ -94,6 +94,7 @@ const VehicleInfo = ({
             onUpdateVehicle({ ...vehicle, registrationNumber: e.target.value })
           }>
           <Button
+            className={styles.fieldItemButton}
             onClick={() =>
               registrationNumber &&
               onSearchRegistrationNumber(registrationNumber)

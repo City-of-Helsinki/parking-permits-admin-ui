@@ -117,6 +117,7 @@ const PersonalInfo = ({
             updateCustomer({ ...person, nationalIdNumber: e.target.value })
           }>
           <Button
+            className={styles.fieldItemButton}
             onClick={() =>
               onSearchPerson(nationalIdNumber, email, phoneNumber)
             }>
