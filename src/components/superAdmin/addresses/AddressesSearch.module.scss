@@ -20,9 +20,14 @@
     }
   }
 
+  .searchInput {
+    margin-bottom: $spacing-2-xs;
+  }
+
   .postalCode,
   .streetNumber {
     width: 130px;
+    margin-bottom: $spacing-2-xs;
   }
 
   .parkingZone {
@@ -33,6 +38,7 @@
 .searchButton {
   margin-top: auto;
   margin-left: auto;
+  margin-bottom: $spacing-2-xs;
   width: 180px;
 }
 
