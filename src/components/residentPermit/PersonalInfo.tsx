@@ -117,6 +117,7 @@ const PersonalInfo = ({
             updateCustomer({ ...person, nationalIdNumber: e.target.value })
           }>
           <Button
+            className={styles.fieldItemButton}
             onClick={() =>
               onSearchPerson(nationalIdNumber, email, phoneNumber)
             }>
@@ -238,8 +239,8 @@ const PersonalInfo = ({
           required
           className={styles.fieldItem}
           value={parkingZone?.name}
-          onChange={(selectedZone: ParkingZone) =>
-            onUpdatePermit({ parkingZone: selectedZone })
+          onChange={selectedZone =>
+            selectedZone && onUpdatePermit({ parkingZone: selectedZone })
           }
         />
         <Divider className={styles.fieldDivider} />

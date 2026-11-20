@@ -1,10 +1,8 @@
 import { createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { LoginProvider } from 'hds-react';
+import { createApolloClientModule, LoginProvider } from 'hds-react';
 import React, { FC, useMemo } from 'react';
 import { getHDSClientConfig } from '.';
-import { TokenSetter } from '../hds/apolloClient';
-import { createApolloClientModule } from '../hds/apolloClient/apolloClientModule';
 import i18n from '../i18n';
 import { getEnvValue } from '../utils';
 
@@ -29,16 +27,14 @@ const HDSLoginProvider: FC<HDSLoginProviderProps> = ({ children }) => {
       },
     }));
 
-    const tokenSetter: TokenSetter = (headers, tokens) => {
-      const apiToken =
-        tokens[getEnvValue('REACT_APP_PARKING_PERMITS_AUDIENCE') || ''];
-      return {
-        authorization: apiToken ? `Bearer ${apiToken}` : '',
-      };
-    };
-
     return createApolloClientModule({
-      tokenSetter,
+      tokenSetter: (headers, tokens) => {
+        const apiToken =
+          tokens[getEnvValue('REACT_APP_PARKING_PERMITS_AUDIENCE') || ''];
+        return {
+          authorization: apiToken ? `Bearer ${apiToken}` : '',
+        };
+      },
       clientOptions: {
         link: authLink.concat(httpLink),
         cache: new InMemoryCache(),

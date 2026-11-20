@@ -1,6 +1,9 @@
 import {
   Button,
+  ButtonSize,
+  ButtonVariant,
   Checkbox,
+  IconSize,
   IconTrash,
   Notification,
   TextInput,
@@ -91,6 +94,7 @@ const VehicleInfo = ({
             onUpdateVehicle({ ...vehicle, registrationNumber: e.target.value })
           }>
           <Button
+            className={styles.fieldItemButton}
             onClick={() =>
               registrationNumber &&
               onSearchRegistrationNumber(registrationNumber)
@@ -99,10 +103,10 @@ const VehicleInfo = ({
           </Button>
         </TextInput>
         <Button
-          variant="supplementary"
+          variant={ButtonVariant.Supplementary}
           onClick={onClearVehicle}
-          size="small"
-          iconLeft={<IconTrash size="s" />}>
+          size={ButtonSize.Small}
+          iconStart={<IconTrash size={IconSize.Small} />}>
           {t(`${T_PATH}.clear`)}
         </Button>
         {availableRestrictions.map(restriction => (

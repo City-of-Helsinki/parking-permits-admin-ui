@@ -1,7 +1,15 @@
 import { gql, useQuery } from '@apollo/client';
-import { Field, FieldProps, Formik } from 'formik';
-import { Button, Card, LoadingSpinner, TextArea, TextInput } from 'hds-react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  Button,
+  ButtonVariant,
+  Card,
+  LoadingSpinner,
+  TextArea,
+  TextInput,
+} from 'hds-react';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { ParkingZone } from '../../../types';
@@ -29,7 +37,7 @@ interface AnnouncementInput {
 }
 
 interface AnnouncementFormProps {
-  onSubmit: (announcement: AnnouncementInput) => void;
+  onSubmit: (announcement: AnnouncementInput) => unknown;
   onCancel: () => void;
 }
 
@@ -40,25 +48,12 @@ const AnnouncementForm = ({
   const { t } = useTranslation();
   const { data, loading } = useQuery<{ zones: ParkingZone[] }>(ZONES_QUERY);
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
-  const initialValues = {
-    parkingZones: [],
-    contentEn: '',
-    contentFi: '',
-    contentSv: '',
-    subjectEn: '',
-    subjectFi: '',
-    subjectSv: '',
-  };
-
   const validationSchema = yup.object().shape({
     parkingZones: yup
       .array()
-      .of(yup.string())
-      .min(1, t(`${T_PATH}.selectZone`)),
+      .of(yup.string().required())
+      .min(1, t(`${T_PATH}.selectZone`))
+      .required(),
     contentEn: yup.string().required(t(`${T_PATH}.enterContent`)),
     contentFi: yup.string().required(t(`${T_PATH}.enterContent`)),
     contentSv: yup.string().required(t(`${T_PATH}.enterContent`)),
@@ -66,6 +61,30 @@ const AnnouncementForm = ({
     subjectFi: yup.string().required(t(`${T_PATH}.enterSubject`)),
     subjectSv: yup.string().required(t(`${T_PATH}.enterSubject`)),
   });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    trigger,
+    formState: { errors, isDirty, isValid, isSubmitting },
+  } = useForm<AnnouncementInput>({
+    mode: 'onTouched',
+    defaultValues: {
+      parkingZones: [],
+      contentEn: '',
+      contentFi: '',
+      contentSv: '',
+      subjectEn: '',
+      subjectFi: '',
+      subjectSv: '',
+    },
+    resolver: yupResolver(validationSchema),
+  });
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   const options: CheckboxGroupOption[] = data
     ? data.zones.map(zone => ({
@@ -76,157 +95,100 @@ const AnnouncementForm = ({
 
   return (
     <div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={values => onSubmit(values)}>
-        {props => (
-          <form onSubmit={props.handleSubmit}>
-            <Field name="parkingZones">
-              {({ field, form, meta }: FieldProps) => (
-                <CheckboxGroup
-                  name={field.name}
-                  className={styles.checkboxGrid}
-                  heading={t(`${T_PATH}.recipientZones`)}
-                  idPrefix={field.name}
-                  options={options}
-                  required
-                  errorText={meta.error ? meta.error : undefined}
-                  onChange={values =>
-                    form.setFieldValue('parkingZones', values)
-                  }
-                />
-              )}
-            </Field>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        onBlur={() => trigger('parkingZones')}>
+        <CheckboxGroup
+          name="parkingZones"
+          className={styles.checkboxGrid}
+          heading={t(`${T_PATH}.recipientZones`)}
+          idPrefix="parkingZones"
+          options={options}
+          required
+          errorText={errors.parkingZones?.message}
+          onChange={values =>
+            setValue('parkingZones', values, {
+              shouldDirty: true,
+              shouldTouch: true,
+              shouldValidate: true,
+            })
+          }
+        />
 
-            <h2 className="heading-s">
-              {t(`${T_PATH}.announcementInFinnish`)}
-            </h2>
-            <Card>
-              <Field name="subjectFi">
-                {({ field, form, meta }: FieldProps) => (
-                  <TextInput
-                    id={field.name}
-                    className={styles.field}
-                    label={t(`${T_PATH}.subjectFi`)}
-                    value={field.value}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                    required
-                    errorText={
-                      meta.touched && meta.error ? meta.error : undefined
-                    }
-                  />
-                )}
-              </Field>
-              <Field name="contentFi">
-                {({ field, form, meta }: FieldProps) => (
-                  <TextArea
-                    id={field.name}
-                    className={styles.field}
-                    label={t(`${T_PATH}.contentFi`)}
-                    value={field.value}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                    required
-                    errorText={
-                      meta.touched && meta.error ? meta.error : undefined
-                    }
-                  />
-                )}
-              </Field>
-            </Card>
+        <h2 className="heading-s">{t(`${T_PATH}.announcementInFinnish`)}</h2>
+        <Card>
+          <TextInput
+            id="subjectFi"
+            className={styles.field}
+            label={t(`${T_PATH}.subjectFi`)}
+            required
+            errorText={errors.subjectFi?.message}
+            {...register('subjectFi')}
+          />
+          <TextArea
+            id="contentFi"
+            className={styles.field}
+            label={t(`${T_PATH}.contentFi`)}
+            required
+            errorText={errors.contentFi?.message}
+            {...register('contentFi')}
+          />
+        </Card>
 
-            <h2 className="heading-s">
-              {t(`${T_PATH}.announcementInSwedish`)}
-            </h2>
-            <Card>
-              <Field name="subjectSv">
-                {({ field, form, meta }: FieldProps) => (
-                  <TextInput
-                    id={field.name}
-                    className={styles.field}
-                    label={t(`${T_PATH}.subjectSv`)}
-                    value={field.value}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                    required
-                    errorText={
-                      meta.touched && meta.error ? meta.error : undefined
-                    }
-                  />
-                )}
-              </Field>
-              <Field name="contentSv">
-                {({ field, form, meta }: FieldProps) => (
-                  <TextArea
-                    id={field.name}
-                    className={styles.field}
-                    label={t(`${T_PATH}.contentSv`)}
-                    value={field.value}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                    required
-                    errorText={
-                      meta.touched && meta.error ? meta.error : undefined
-                    }
-                  />
-                )}
-              </Field>
-            </Card>
+        <h2 className="heading-s">{t(`${T_PATH}.announcementInSwedish`)}</h2>
+        <Card>
+          <TextInput
+            id="subjectSv"
+            className={styles.field}
+            label={t(`${T_PATH}.subjectSv`)}
+            required
+            errorText={errors.subjectSv?.message}
+            {...register('subjectSv')}
+          />
+          <TextArea
+            id="contentSv"
+            className={styles.field}
+            label={t(`${T_PATH}.contentSv`)}
+            required
+            errorText={errors.contentSv?.message}
+            {...register('contentSv')}
+          />
+        </Card>
 
-            <h2 className="heading-s">
-              {t(`${T_PATH}.announcementInEnglish`)}
-            </h2>
-            <Card>
-              <Field name="subjectEn">
-                {({ field, form, meta }: FieldProps) => (
-                  <TextInput
-                    id={field.name}
-                    className={styles.field}
-                    label={t(`${T_PATH}.subjectEn`)}
-                    value={field.value}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                    required
-                    errorText={
-                      meta.touched && meta.error ? meta.error : undefined
-                    }
-                  />
-                )}
-              </Field>
-              <Field name="contentEn">
-                {({ field, form, meta }: FieldProps) => (
-                  <TextArea
-                    id={field.name}
-                    className={styles.field}
-                    label={t(`${T_PATH}.contentEn`)}
-                    value={field.value}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                    required
-                    errorText={
-                      meta.touched && meta.error ? meta.error : undefined
-                    }
-                  />
-                )}
-              </Field>
-            </Card>
+        <h2 className="heading-s">{t(`${T_PATH}.announcementInEnglish`)}</h2>
+        <Card>
+          <TextInput
+            id="subjectEn"
+            className={styles.field}
+            label={t(`${T_PATH}.subjectEn`)}
+            required
+            errorText={errors.subjectEn?.message}
+            {...register('subjectEn')}
+          />
+          <TextArea
+            id="contentEn"
+            className={styles.field}
+            label={t(`${T_PATH}.contentEn`)}
+            required
+            errorText={errors.contentEn?.message}
+            {...register('contentEn')}
+          />
+        </Card>
 
-            <div className={styles.actions}>
-              <Button disabled={!(props.dirty && props.isValid)} type="submit">
-                {t(`${T_PATH}.submit`)}
-              </Button>
-              <Button
-                className={styles.delete}
-                variant="secondary"
-                onClick={() => onCancel()}>
-                {t(`${T_PATH}.cancel`)}
-              </Button>
-            </div>
-          </form>
-        )}
-      </Formik>
+        <div className={styles.actions}>
+          <Button
+            disabled={!(isDirty && isValid) || isSubmitting}
+            type="submit">
+            {t(`${T_PATH}.submit`)}
+          </Button>
+          <Button
+            className={styles.delete}
+            variant={ButtonVariant.Secondary}
+            onClick={() => onCancel()}>
+            {t(`${T_PATH}.cancel`)}
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

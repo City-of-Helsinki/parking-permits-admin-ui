@@ -1,15 +1,9 @@
-import { Select } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ParkingPermitStatus, ParkingPermitStatusOrAll } from '../../types';
-import StatusLabel from '../common/StatusLabel';
+import SingleSelect, { SingleSelectOption } from '../common/SingleSelect';
 
 const T_PATH = 'components.permits.statusSelect';
-
-interface StatusOption {
-  label: React.ReactNode;
-  value: ParkingPermitStatusOrAll;
-}
 
 interface StatusSelectProps {
   className?: string;
@@ -19,51 +13,39 @@ interface StatusSelectProps {
 }
 
 const StatusSelect = ({
+  className,
   value,
   onChange,
   showAllOption = true,
-  ...otherProps
 }: StatusSelectProps): React.ReactElement => {
   const { t } = useTranslation();
-  const statusOptions: StatusOption[] = [
+  const statusOptions: SingleSelectOption<ParkingPermitStatusOrAll>[] = [
+    { label: t('permitStatus.draft'), value: ParkingPermitStatus.DRAFT },
     {
-      label: <StatusLabel status={ParkingPermitStatus.DRAFT} />,
-      value: ParkingPermitStatus.DRAFT,
-    },
-    {
-      label: <StatusLabel status={ParkingPermitStatus.PRELIMINARY} />,
+      label: t('permitStatus.preliminary'),
       value: ParkingPermitStatus.PRELIMINARY,
     },
+    { label: t('permitStatus.valid'), value: ParkingPermitStatus.VALID },
     {
-      label: <StatusLabel status={ParkingPermitStatus.VALID} />,
-      value: ParkingPermitStatus.VALID,
-    },
-    {
-      label: <StatusLabel status={ParkingPermitStatus.PAYMENT_IN_PROGRESS} />,
+      label: t('permitStatus.paymentInProgress'),
       value: ParkingPermitStatus.PAYMENT_IN_PROGRESS,
     },
     {
-      label: <StatusLabel status={ParkingPermitStatus.CANCELLED} />,
+      label: t('permitStatus.cancelled'),
       value: ParkingPermitStatus.CANCELLED,
     },
-    {
-      label: <StatusLabel status={ParkingPermitStatus.CLOSED} />,
-      value: ParkingPermitStatus.CLOSED,
-    },
+    { label: t('permitStatus.closed'), value: ParkingPermitStatus.CLOSED },
   ];
   if (showAllOption) {
-    statusOptions.unshift({
-      label: t(`${T_PATH}.all`),
-      value: 'ALL',
-    });
+    statusOptions.unshift({ label: t(`${T_PATH}.all`), value: 'ALL' });
   }
   return (
-    <Select
-      {...otherProps}
+    <SingleSelect
+      className={className}
       label={t(`${T_PATH}.status`)}
       options={statusOptions}
-      value={statusOptions.find(option => option.value === value)}
-      onChange={(option: StatusOption) => onChange(option.value)}
+      value={value}
+      onChange={selected => selected && onChange(selected)}
     />
   );
 };

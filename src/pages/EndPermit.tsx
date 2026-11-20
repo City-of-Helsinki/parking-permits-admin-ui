@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { Button, IconArrowLeft, Notification } from 'hds-react';
+import { Button, ButtonVariant, IconArrowLeft, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, Link } from 'react-router';
@@ -147,8 +147,8 @@ const EndPermit = (): React.ReactElement => {
       <div className={styles.actions}>
         <Button
           className={styles.cancelButton}
-          variant="secondary"
-          iconLeft={<IconArrowLeft />}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowLeft />}
           onClick={() => navigate(`/permits/${id}`)}>
           {t(`${T_PATH}.cancel`)}
         </Button>

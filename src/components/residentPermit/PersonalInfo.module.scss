@@ -16,6 +16,10 @@
 
   .fieldItem {
     margin: $spacing-2-xs 0;
+
+    &Button {
+      padding: 0 $spacing-2-xs;
+    }
   }
 
   .fieldDivider {

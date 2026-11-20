@@ -1,7 +1,8 @@
-import { Button, IconSearch, SearchInput } from 'hds-react';
-import React, { useState } from 'react';
+import { Button, IconSearch } from 'hds-react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitSearchParams } from '../../types';
+import { Language, PermitSearchParams } from '../../types';
+import QuerySearch from '../common/QuerySearch';
 import styles from './PermitsSearch.module.scss';
 import StatusSelect from './StatusSelect';
 
@@ -15,10 +16,18 @@ const PermitsSearch = ({
   searchParams,
   onSearch,
 }: PermitsSearchProps): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [status, setStatus] = useState(searchParams.status);
   const [query, setQuery] = useState(searchParams.q);
+
+  const texts = useMemo(
+    () => ({
+      language: i18n.language as Language,
+      searchPlaceholder: t(`${T_PATH}.placeholder`),
+    }),
+    [i18n.language, t]
+  );
 
   const handleSubmit = () => onSearch({ status, q: query });
 
@@ -30,17 +39,18 @@ const PermitsSearch = ({
           value={status}
           onChange={setStatus}
         />
-        <SearchInput
+        <QuerySearch
+          hideSubmitButton
+          id="permitsSearch"
           className={styles.SearchInput}
-          label=""
-          placeholder={searchParams.q || t(`${T_PATH}.placeholder`)}
-          onSubmit={handleSubmit}
+          texts={texts}
+          value={query}
           onChange={setQuery}
-          hideSearchButton
+          onSend={value => onSearch({ status, q: value })}
         />
         <Button
           className={styles.searchButton}
-          iconLeft={<IconSearch />}
+          iconStart={<IconSearch />}
           onClick={handleSubmit}>
           {t(`${T_PATH}.searchButton`)}
         </Button>

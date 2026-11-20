@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import { formatISO, parse } from 'date-fns';
 import {
   Button,
+  ButtonVariant,
   DateInput,
   IconCross,
   IconSearch,
-  SearchInput,
 } from 'hds-react';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Language,
@@ -17,6 +17,7 @@ import {
   PriceDiscount,
 } from '../../types';
 import { joinSet } from '../../utils';
+import QuerySearch from '../common/QuerySearch';
 import ZoneSelect from '../common/ZoneSelect';
 import FilterOptions from './FilterOptions';
 import styles from './OrdersSearch.module.scss';
@@ -48,19 +49,25 @@ const OrdersSearch = ({
     new Set(searchParams.priceDiscounts?.split(',').filter(val => val))
   );
 
-  const canReset = () =>
-    startDate ||
-    endDate ||
-    parkingZone ||
-    contractTypes.size ||
-    paymentTypes.size ||
-    priceDiscounts.size;
+  const texts = useMemo(
+    () => ({
+      language: i18n.language as Language,
+      label: t(`${T_PATH}.textSearch`),
+      searchPlaceholder: t(`${T_PATH}.placeholder`),
+    }),
+    [i18n.language, t]
+  );
+
+  const canReset = () => {
+    const canResetDate = startDate || endDate;
+    const canResetTypes =
+      contractTypes.size || paymentTypes.size || priceDiscounts.size;
+
+    return query || canResetDate || parkingZone || canResetTypes;
+  };
 
   const reset = () => {
-    // NOTE: At the time of writing, HDS' SearchInput component doesn't support
-    // neither ref nor value, so there's no way of clearing it without resorting
-    // to dirty hacks. Due to this, the query state reset is omitted as well.
-    // setQuery('');
+    setQuery('');
     setStartDate('');
     setEndDate('');
     setParkingZone('');
@@ -115,13 +122,14 @@ const OrdersSearch = ({
           value={parkingZone}
           onChange={selectedZone => setParkingZone(selectedZone?.name || '')}
         />
-        <SearchInput
-          hideSearchButton
+        <QuerySearch
+          hideSubmitButton
+          id="ordersSearch"
           className={styles.searchInput}
-          label={t(`${T_PATH}.textSearch`)}
-          placeholder={t(`${T_PATH}.placeholder`)}
+          texts={texts}
+          value={query}
           onChange={setQuery}
-          onSubmit={() => handleSubmit()}
+          onSend={() => handleSubmit()}
         />
       </div>
 
@@ -169,7 +177,7 @@ const OrdersSearch = ({
         />
         <Button
           className={styles.searchButton}
-          iconLeft={<IconSearch />}
+          iconStart={<IconSearch />}
           onClick={() => handleSubmit()}>
           {t(`${T_PATH}.searchButton`)}
         </Button>
@@ -178,8 +186,8 @@ const OrdersSearch = ({
         <div className={styles.row}>
           <Button
             className={styles.clearButton}
-            variant="supplementary"
-            iconLeft={<IconCross />}
+            variant={ButtonVariant.Supplementary}
+            iconStart={<IconCross />}
             onClick={() => reset()}>
             {t(`${T_PATH}.clearButton`)}
           </Button>
