@@ -31,12 +31,14 @@ const PowerTypeSelect = ({
   onChange,
 }: PowerTypeSelectProps): React.ReactElement => {
   const { t } = useTranslation();
+
   const safePowerType = powerType ?? DEFAULT_POWER_TYPE;
   const powerTypes = POWER_TYPES.some(
     ({ identifier }) => identifier === safePowerType.identifier
   )
     ? POWER_TYPES
     : [...POWER_TYPES, safePowerType];
+
   const getLabel = ({ name }: PowerType) =>
     name ? t(`${T_PATH}.${name.toLowerCase()}`) : t(`${T_PATH}.other`);
 
