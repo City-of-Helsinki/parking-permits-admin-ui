@@ -1,5 +1,5 @@
 import { ApolloError, gql, useLazyQuery } from '@apollo/client';
-import { Notification, Search } from 'hds-react';
+import { Notification, Search, SearchFunction, SearchResult } from 'hds-react';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Address, AddressSearchQueryData, Language } from '../../types';
@@ -65,33 +65,41 @@ const AddressSearch = ({
     [label, i18n.language, t]
   );
 
-  const handleSearch = useCallback(
+  const handleSearch: SearchFunction = useCallback(
     (searchInput: string) =>
-      new Promise<{ options: { label: string; value: string }[] }>(resolve => {
+      new Promise<SearchResult>(resolve => {
         if (searchTimer.current) {
           window.clearTimeout(searchTimer.current);
         }
+
         searchGeneration.current += 1;
+
         const generation = searchGeneration.current;
+
         searchTimer.current = window.setTimeout(async () => {
           let result;
+
           try {
             result = await fetchAddresses({ variables: { searchInput } });
           } catch (error) {
             result = { error: error as ApolloError, data: undefined };
           }
+
           if (result?.error) {
             setErrorMessage(getApolloErrorMessage(result.error));
           }
+
           const items = (result?.data?.addressSearch || [])
             .map((address: Address) => ({
               label: formatAddress(address, 'fi', { withPostalCode: true }),
               address,
             }))
             .sort((a, b) => a.label.localeCompare(b.label));
+
           if (generation === searchGeneration.current) {
             suggestions.current = items;
           }
+
           resolve({
             options: items.map(({ label: optionLabel }) => ({
               label: optionLabel,
