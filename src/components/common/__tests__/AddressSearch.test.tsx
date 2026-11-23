@@ -1,27 +1,7 @@
-import { gql } from '@apollo/client';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AddressSearch from '../AddressSearch';
-
-const QUERY = gql`
-  query AddressSearch($searchInput: String!) {
-    addressSearch(searchInput: $searchInput) {
-      streetName
-      streetNameSv
-      streetNumber
-      city
-      citySv
-      postalCode
-      location
-      zone {
-        name
-        label
-        labelSv
-      }
-    }
-  }
-`;
+import AddressSearch, { ADDRESS_SEARCH_QUERY } from '../AddressSearch';
 
 const makeAddress = (streetName: string) => ({
   __typename: 'AddressNode',
@@ -44,7 +24,7 @@ const makeAddress = (streetName: string) => ({
 const successMock = (
   addresses: ReturnType<typeof makeAddress>[]
 ): MockedResponse => ({
-  request: { query: QUERY },
+  request: { query: ADDRESS_SEARCH_QUERY },
   variableMatcher: () => true,
   result: { data: { addressSearch: addresses } },
 });
@@ -97,7 +77,7 @@ describe('AddressSearch', () => {
   it('shows a dismissible error notification when the query fails', async () => {
     const { user } = renderSearch([
       {
-        request: { query: QUERY },
+        request: { query: ADDRESS_SEARCH_QUERY },
         variableMatcher: () => true,
         error: new Error('Network down'),
       },
