@@ -2,7 +2,7 @@ import { useLazyQuery } from '@apollo/client';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Address } from '../../../../types';
-import AddressForm from '../AddressForm';
+import AddressForm, { T_PATH } from '../AddressForm';
 
 vi.mock('@apollo/client', async importOriginal => ({
   ...(await importOriginal<typeof import('@apollo/client')>()),
@@ -25,7 +25,6 @@ vi.mock('../../../common/LocationPicker', () => ({
   ),
 }));
 
-const T_PATH = 'components.superAdmin.addresses.addressForm';
 const label = (key: string) => `${T_PATH}.${key}`;
 
 const existingAddress = {

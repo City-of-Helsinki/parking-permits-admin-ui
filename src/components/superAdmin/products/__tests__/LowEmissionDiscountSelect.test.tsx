@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import LowEmissionDiscountSelect from '../LowEmissionDiscountSelect';
+import LowEmissionDiscountSelect, { T_PATH } from '../LowEmissionDiscountSelect';
 
-const T_PATH = 'components.superAdmin.products.lowEmissionDiscountSelect';
 const HALF_DISCOUNT = 0.5;
 
 const renderSelect = (value?: number) => {

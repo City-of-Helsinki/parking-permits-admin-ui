@@ -16,7 +16,7 @@ import { ParkingZone } from '../../../types';
 import CheckboxGroup, { CheckboxGroupOption } from '../../common/CheckboxGroup';
 import styles from './AnnouncementForm.module.scss';
 
-const T_PATH = 'components.superAdmin.announcements.announcementForm';
+export const T_PATH = 'components.superAdmin.announcements.announcementForm';
 
 const ZONES_QUERY = gql`
   query GetZones {

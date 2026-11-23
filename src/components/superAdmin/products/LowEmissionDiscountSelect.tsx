@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import SingleSelect, { SingleSelectOption } from '../../common/SingleSelect';
 
-const T_PATH = 'components.superAdmin.products.lowEmissionDiscountSelect';
+export const T_PATH = 'components.superAdmin.products.lowEmissionDiscountSelect';
 
 interface LowEmissionDiscountSelectProps {
   className?: string;

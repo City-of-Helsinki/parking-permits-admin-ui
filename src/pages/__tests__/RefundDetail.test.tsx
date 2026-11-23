@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import useUserRole, { UserRole } from '../../api/useUserRole';
 import useExportData from '../../export/useExportData';
-import RefundDetail from '../RefundDetail';
+import RefundDetail, { T_PATH } from '../RefundDetail';
 
 const mockNavigate = vi.fn();
 
@@ -29,7 +29,6 @@ vi.mock('../../components/refunds/RefundsDataTable', () => ({
   default: () => null,
 }));
 
-const T_PATH = 'pages.refundDetail';
 const key = (name: string) => `${T_PATH}.${name}`;
 const nameInput = () => screen.getByLabelText(new RegExp(`^${key('name')}`));
 const ibanInput = () => screen.getByLabelText(/^IBAN/);

@@ -2,14 +2,13 @@ import { useQuery } from '@apollo/client';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ProductInput, ProductType, ProductUnit } from '../../../../types';
-import ProductForm from '../ProductForm';
+import ProductForm, { T_PATH } from '../ProductForm';
 
 vi.mock('@apollo/client', async importOriginal => ({
   ...(await importOriginal<typeof import('@apollo/client')>()),
   useQuery: vi.fn(),
 }));
 
-const T_PATH = 'components.superAdmin.products.productForm';
 const key = (name: string) => `${T_PATH}.${name}`;
 const field = (name: string) =>
   screen.getByLabelText(new RegExp(`^${key(name)}`));

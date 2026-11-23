@@ -22,7 +22,7 @@ import ZoneSelect from '../common/ZoneSelect';
 import FilterOptions from './FilterOptions';
 import styles from './OrdersSearch.module.scss';
 
-const T_PATH = 'components.orders.ordersSearch';
+export const T_PATH = 'components.orders.ordersSearch';
 
 export interface OrdersSearchProps {
   searchParams: OrderSearchParams;

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Address, Customer, ParkingZone } from '../../../types';
-import PersonalInfo from '../PersonalInfo';
+import PersonalInfo, { T_PATH } from '../PersonalInfo';
 
 vi.mock('../../common/AddressSearch', () => ({
   default: ({ onSelect }: { onSelect: (address: Address) => void }) => (
@@ -24,7 +24,6 @@ vi.mock('../../common/ZoneSelect', () => ({
   ),
 }));
 
-const T_PATH = 'components.residentPermit.personalInfo';
 const zoneA: ParkingZone = { name: 'A', label: 'A', labelSv: 'A' };
 const zoneB: ParkingZone = { name: 'B', label: 'B', labelSv: 'B' };
 const buildAddress = (id: string, streetName: string, zone?: ParkingZone) => ({

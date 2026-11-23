@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PermitType } from '../../types';
 import SingleSelect, { SingleSelectOption } from '../common/SingleSelect';
 
-const T_PATH = 'components.createPermit.permitTypeSelect';
+export const T_PATH = 'components.createPermit.permitTypeSelect';
 
 interface PermitTypeSelectProps {
   className?: string;

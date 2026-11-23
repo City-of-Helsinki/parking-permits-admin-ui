@@ -20,7 +20,7 @@ import * as Yup from 'yup';
 import { Language, PermitDetail } from '../../types';
 import styles from './TemporaryVehicle.module.scss';
 
-const T_PATH = 'components.permitDetail.temporaryVehicle';
+export const T_PATH = 'components.permitDetail.temporaryVehicle';
 
 export interface FormProps {
   permitId?: string;
