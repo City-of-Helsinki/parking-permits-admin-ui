@@ -92,8 +92,10 @@ const TemporaryVehicle = ({
     endDate: Yup.date().required(),
     endTime: Yup.string().required(),
   });
+
   const defaultValues = useMemo<TemporaryVehicleFormValues>(() => {
     const now = new Date();
+
     return {
       registrationNumber: '',
       startDate: now,
@@ -102,6 +104,7 @@ const TemporaryVehicle = ({
       endTime: '23:59',
     };
   }, []);
+
   const { register, control, watch, handleSubmit, formState } =
     useForm<TemporaryVehicleFormValues>({
       mode: 'onTouched',
