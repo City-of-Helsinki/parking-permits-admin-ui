@@ -47,7 +47,9 @@ const SingleSelect = <T extends string>({
 }: SingleSelectProps<T>): React.ReactElement => {
   const { i18n } = useTranslation();
   const generatedId = useId().replace(/[^a-zA-Z0-9-_]/g, '');
+
   const optionsKey = JSON.stringify(options);
+
   const stableOptions = useMemo(
     () => JSON.parse(optionsKey) as SingleSelectOption<T>[],
     [optionsKey]
@@ -61,10 +63,13 @@ const SingleSelect = <T extends string>({
     }),
     [label, placeholder, error, i18n.language]
   );
+
   const onChangeRef = useRef(onChange);
+
   useLayoutEffect(() => {
     onChangeRef.current = onChange;
   }, [onChange]);
+
   const handleChange = useCallback((selected: Option[]) => {
     onChangeRef.current(selected[0]?.value as T | undefined);
   }, []);
