@@ -19,7 +19,7 @@ interface AddressSuggestionItem {
   address: Address;
 }
 
-const ADDRESS_SEARCH_QUERY = gql`
+export const ADDRESS_SEARCH_QUERY = gql`
   query AddressSearch($searchInput: String!) {
     addressSearch(searchInput: $searchInput) {
       streetName
