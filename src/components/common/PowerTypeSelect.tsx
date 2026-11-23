@@ -5,7 +5,7 @@ import { PowerType } from '../../types';
 import styles from './PowerTypeSelect.module.scss';
 import SingleSelect from './SingleSelect';
 
-const T_PATH = 'components.common.powerTypeSelect';
+export const T_PATH = 'components.common.powerTypeSelect';
 
 const POWER_TYPES: PowerType[] = [
   { name: 'Electric', identifier: '04' },

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { OrderSearchParams } from '../../../types';
-import OrdersSearch from '../OrdersSearch';
+import OrdersSearch, { T_PATH } from '../OrdersSearch';
 
 vi.mock('../../common/ZoneSelect', () => ({
   default: ({
@@ -18,7 +18,6 @@ vi.mock('../../common/ZoneSelect', () => ({
   ),
 }));
 
-const T_PATH = 'components.orders.ordersSearch';
 const emptyParams: OrderSearchParams = {
   q: '',
   startDate: '',

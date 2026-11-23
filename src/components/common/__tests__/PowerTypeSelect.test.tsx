@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PowerType } from '../../../types';
-import PowerTypeSelect from '../PowerTypeSelect';
+import PowerTypeSelect, { T_PATH } from '../PowerTypeSelect';
 
-const T_PATH = 'components.common.powerTypeSelect';
 const bensin: PowerType = { name: 'Bensin', identifier: '01' };
 
 const renderSelect = (powerType?: PowerType, disabled = false) => {

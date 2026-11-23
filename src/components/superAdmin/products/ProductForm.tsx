@@ -23,7 +23,7 @@ import styles from './ProductForm.module.scss';
 import ProductTypeSelect from './ProductTypeSelect';
 import ProductUnitSelect from './ProductUnitSelect';
 
-const T_PATH = 'components.superAdmin.products.productForm';
+export const T_PATH = 'components.superAdmin.products.productForm';
 
 type ProductFormValues = Omit<ProductInput, 'id' | 'startDate' | 'endDate'> & {
   startDate: Date;

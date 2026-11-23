@@ -1,9 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PermitType } from '../../../types';
-import PermitTypeSelect from '../PermitTypeSelect';
-
-const T_PATH = 'components.createPermit.permitTypeSelect';
+import PermitTypeSelect, { T_PATH } from '../PermitTypeSelect';
 
 describe('PermitTypeSelect', () => {
   it('lists the permit types and reports the picked one', async () => {

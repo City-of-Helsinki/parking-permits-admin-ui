@@ -1,9 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PermitDetail } from '../../../types';
-import TemporaryVehicle, { combineDateAndTime } from '../TemporaryVehicle';
+import TemporaryVehicle, {
+  combineDateAndTime,
+  T_PATH,
+} from '../TemporaryVehicle';
 
-const T_PATH = 'components.permitDetail.temporaryVehicle';
 const permit = {
   id: '1',
   endTime: '2030-12-31T00:00:00Z',

@@ -21,7 +21,7 @@ import Divider from '../common/Divider';
 import ZoneSelect from '../common/ZoneSelect';
 import styles from './PersonalInfo.module.scss';
 
-const T_PATH = 'components.residentPermit.personalInfo';
+export const T_PATH = 'components.residentPermit.personalInfo';
 
 interface PersonalInfoProps {
   className?: string;

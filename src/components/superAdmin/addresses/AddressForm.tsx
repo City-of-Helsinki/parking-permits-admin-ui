@@ -9,7 +9,7 @@ import { Address, ParkingZone } from '../../../types';
 import LocationPicker from '../../common/LocationPicker';
 import styles from './AddressForm.module.scss';
 
-const T_PATH = 'components.superAdmin.addresses.addressForm';
+export const T_PATH = 'components.superAdmin.addresses.addressForm';
 
 const ZONE_BY_LOCATION_QUERY = gql`
   query GetZoneByLocation($location: [Float]!) {

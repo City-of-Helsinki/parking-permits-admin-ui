@@ -24,7 +24,7 @@ import { MutationResponse, Refund, RefundInput } from '../types';
 import { getApolloErrorMessage, isValidIBAN } from '../utils';
 import styles from './RefundDetail.module.scss';
 
-const T_PATH = 'pages.refundDetail';
+export const T_PATH = 'pages.refundDetail';
 
 const REFUND_DETAIL_QUERY = gql`
   query GetRefundDetail($refundId: ID!) {

@@ -1,14 +1,13 @@
 import { useQuery } from '@apollo/client';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AnnouncementForm from '../AnnouncementForm';
+import AnnouncementForm, { T_PATH } from '../AnnouncementForm';
 
 vi.mock('@apollo/client', async importOriginal => ({
   ...(await importOriginal<typeof import('@apollo/client')>()),
   useQuery: vi.fn(),
 }));
 
-const T_PATH = 'components.superAdmin.announcements.announcementForm';
 const key = (name: string) => `${T_PATH}.${name}`;
 const field = (name: string) =>
   screen.getByLabelText(new RegExp(`^${key(name)}`));
