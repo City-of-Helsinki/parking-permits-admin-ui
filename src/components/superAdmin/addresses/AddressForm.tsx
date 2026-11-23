@@ -78,6 +78,7 @@ const AddressForm = ({
         citySv: 'HELSINGFORS',
         location: HELSINKI_LOCATION,
       };
+
   const validationSchema = Yup.object().shape({
     streetName: Yup.string().required(t(`${T_PATH}.enterStreetName`)),
     streetNameSv: Yup.string().default(''),
@@ -97,10 +98,12 @@ const AddressForm = ({
 
   let zoneLabel = '';
   const selectedZone = zoneByLocationData?.zoneByLocation || address?.zone;
+
   if (!zoneByLocationLoading && selectedZone) {
     zoneLabel =
       i18n.language === 'sv' ? selectedZone.labelSv : selectedZone.label;
   }
+
   const {
     register,
     control,
@@ -112,6 +115,7 @@ const AddressForm = ({
     defaultValues: initialValues,
     resolver: yupResolver(validationSchema),
   });
+
   return (
     <div className={className}>
       <form
