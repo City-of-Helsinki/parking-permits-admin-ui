@@ -2,6 +2,7 @@ import { Button, ButtonVariant, IconCheckCircleFill } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  PermitContractType,
   PermitDetail,
   PermitPriceChange,
   RefundAccountOption,
@@ -49,14 +50,19 @@ const EditResidentPermitPreview = ({
           <PermitInfo className={styles.permitInfo} permit={permit} />
         </div>
         <div className={styles.column}>
-          <PermitPriceChangeInfo
-            className={styles.permitPriceChange}
-            priceChangeList={priceChangeList}
-            refundAccountNumber={refundAccountNumber}
-            refundAccountOption={refundAccountOption}
-            onChangeRefundAccountNumber={onChangeRefundAccountNumber}
-            onChangeRefundAccountOption={setRefundAccountOption}
-          />
+          {permit.contractType === PermitContractType.OPEN_ENDED &&
+          priceChangeList.length === 0 ? (
+            <p>{t(`${T_PATH}.renewalPricing`)}</p>
+          ) : (
+            <PermitPriceChangeInfo
+              className={styles.permitPriceChange}
+              priceChangeList={priceChangeList}
+              refundAccountNumber={refundAccountNumber}
+              refundAccountOption={refundAccountOption}
+              onChangeRefundAccountNumber={onChangeRefundAccountNumber}
+              onChangeRefundAccountOption={setRefundAccountOption}
+            />
+          )}
         </div>
       </div>
       <div className={styles.footer}>

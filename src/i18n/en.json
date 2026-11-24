@@ -330,6 +330,7 @@
         "title": "Resident parking permit"
       },
       "editResidentPermitPreview": {
+        "renewalPricing": "The price for the next subscription period is calculated automatically using the updated permit details.",
         "goBack": "Go back",
         "save": "Save",
         "title": "Summary"

@@ -330,6 +330,7 @@
         "title": "Asukaspysäköintitunnus"
       },
       "editResidentPermitPreview": {
+        "renewalPricing": "Seuraavan tilausjakson hinta lasketaan tunnuksen päivitettyjen tietojen perusteella automaattisesti.",
         "goBack": "Edellinen",
         "save": "Tallenna",
         "title": "Yhteenveto"
