@@ -228,6 +228,7 @@
         "title": "New order"
       },
       "refundInfo": {
+        "reviewRequired": "Reconcile the previous refund for this permit before ending it.",
         "monthCount_one": "{{count}} month",
         "monthCount_other": "{{count}} months",
         "orderRemaingDescription": "The price only accounts for remaining full months of the order",

@@ -226,6 +226,7 @@
         "title": "Ny prenumeration"
       },
       "refundInfo": {
+        "reviewRequired": "Stäm av den tidigare återbetalningen för tillståndet innan du avslutar det.",
         "monthCount_one": "{{count}} månad",
         "monthCount_other": "{{count}} månader",
         "orderRemaingDescription": "Priset tar hänsyn till de återstående hela månaderna av beställningen.",

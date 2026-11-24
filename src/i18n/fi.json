@@ -228,6 +228,7 @@
         "title": "Uusi tilaus"
       },
       "refundInfo": {
+        "reviewRequired": "Täsmäytä tunnuksen aiempi palautus ennen tunnuksen päättämistä.",
         "monthCount_one": "{{count}} kuukausi",
         "monthCount_other": "{{count}} kuukautta",
         "orderRemaingDescription": "Hinnassa huomioidaan tilauksen jäljellä olevat täydet kuukaudet.",
