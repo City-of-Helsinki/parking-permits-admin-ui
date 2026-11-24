@@ -328,6 +328,7 @@
         "title": "Parkeringstillstånd för boende"
       },
       "editResidentPermitPreview": {
+        "renewalPricing": "Priset för nästa abonnemangsperiod beräknas automatiskt utifrån de uppdaterade uppgifterna om tillståndet.",
         "goBack": "Föregående",
         "save": "Spara",
         "title": "Sammanfattning"
