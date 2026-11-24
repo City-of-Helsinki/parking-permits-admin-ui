@@ -156,10 +156,11 @@ const EndPermit = (): React.ReactElement => {
         <Button
           className={styles.actionButton}
           disabled={
-            contractType === PermitContractType.FIXED_PERIOD &&
-            canBeRefunded &&
-            totalRefundAmount > 0 &&
-            !(iban === '' || isValidIBAN(iban))
+            totalRefundAmount === null ||
+            (contractType === PermitContractType.FIXED_PERIOD &&
+              canBeRefunded &&
+              totalRefundAmount > 0 &&
+              !(iban === '' || isValidIBAN(iban)))
           }
           onClick={() => {
             endPermit({

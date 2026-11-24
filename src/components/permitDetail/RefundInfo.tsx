@@ -1,4 +1,4 @@
-import { TextInput, Tooltip } from 'hds-react';
+import { Notification, TextInput, Tooltip } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitDetail } from '../../types';
@@ -21,6 +21,11 @@ const RefundInfo = ({
 }: RefundInfoProps): React.ReactElement => {
   const { t } = useTranslation();
   const { totalRefundAmount, canBeRefunded } = permit;
+  if (totalRefundAmount === null) {
+    return (
+      <Notification type="info">{t(`${T_PATH}.reviewRequired`)}</Notification>
+    );
+  }
   const refundAmount = `${totalRefundAmount.toFixed(2)} €`;
   return (
     <div className={className}>
