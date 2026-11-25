@@ -43,6 +43,8 @@ export default defineConfig(({ mode }) => ({
       reporter: ['clover', 'json', 'lcov', 'text', 'cobertura'],
       include: ['src/**/*'],
       exclude: [
+        '**/*.d.ts',
+        '**/*.scss',
         'src/index.tsx',
         'src/reportWebVitals.ts',
         'src/types.ts',
