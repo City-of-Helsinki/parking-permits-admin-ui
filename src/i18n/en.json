@@ -606,6 +606,7 @@
       "save": "Save"
     },
     "endPermit": {
+      "promoteSecondary": "Ending this permit makes permit {{id}} the primary permit immediately. Its new price applies at its next renewal.",
       "cancel": "Cancel",
       "endPermit": "End permit",
       "permitId": "Permit ID",

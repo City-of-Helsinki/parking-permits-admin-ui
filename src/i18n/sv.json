@@ -604,6 +604,7 @@
       "save": "Spara"
     },
     "endPermit": {
+      "promoteSecondary": "När du avslutar det här tillståndet blir tillstånd {{id}} genast det primära. Det nya priset gäller från dess nästa förnyelse.",
       "cancel": "Avbryt",
       "endPermit": "Sluttillstånd",
       "permitId": "Tillstånds-ID",

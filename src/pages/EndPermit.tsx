@@ -37,6 +37,11 @@ const PERMIT_DETAIL_QUERY = gql`
       addressApartment
       primaryVehicle
       customer {
+        activePermits {
+          id
+          primaryVehicle
+          contractType
+        }
         firstName
         lastName
         nationalIdNumber
@@ -109,6 +114,25 @@ const EndPermit = (): React.ReactElement => {
     canBeRefunded,
     totalRefundAmount,
   } = permitDetail;
+  const showRefund =
+    contractType === PermitContractType.FIXED_PERIOD || canBeRefunded;
+  const isRefundAmountMissing = totalRefundAmount === null;
+  const hasPositiveRefundAmount =
+    totalRefundAmount !== null && totalRefundAmount > 0;
+  const requiresIban =
+    canBeRefunded &&
+    hasPositiveRefundAmount &&
+    iban !== '' &&
+    !isValidIBAN(iban);
+  const isEndPermitDisabled =
+    isRefundAmountMissing || (showRefund && requiresIban);
+  const successor =
+    permitDetail.primaryVehicle &&
+    contractType === PermitContractType.OPEN_ENDED &&
+    endType?.toUpperCase() === PermitEndType.IMMEDIATELY &&
+    permitDetail.customer.activePermits?.find(
+      p => !p.primaryVehicle && p.contractType === PermitContractType.OPEN_ENDED
+    );
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -137,13 +161,20 @@ const EndPermit = (): React.ReactElement => {
           }
           permit={permitDetail}
         />
-        <RefundInfo
-          className={styles.column}
-          iban={iban}
-          permit={permitDetail}
-          onChangeIban={newIban => setIban(newIban)}
-        />
+        {(showRefund || isRefundAmountMissing) && (
+          <RefundInfo
+            className={styles.column}
+            iban={iban}
+            permit={permitDetail}
+            onChangeIban={newIban => setIban(newIban)}
+          />
+        )}
       </div>
+      {successor && (
+        <Notification type="info">
+          {t(`${T_PATH}.promoteSecondary`, { id: successor.id })}
+        </Notification>
+      )}
       <div className={styles.actions}>
         <Button
           className={styles.cancelButton}
@@ -155,13 +186,7 @@ const EndPermit = (): React.ReactElement => {
         <div className={styles.spacer} />
         <Button
           className={styles.actionButton}
-          disabled={
-            totalRefundAmount === null ||
-            (contractType === PermitContractType.FIXED_PERIOD &&
-              canBeRefunded &&
-              totalRefundAmount > 0 &&
-              !(iban === '' || isValidIBAN(iban)))
-          }
+          disabled={isEndPermitDisabled}
           onClick={() => {
             endPermit({
               variables: {
