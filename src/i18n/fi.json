@@ -606,6 +606,7 @@
       "save": "Tallenna"
     },
     "endPermit": {
+      "promoteSecondary": "Kun päätät tämän tunnuksen, tunnuksesta {{id}} tulee heti ensisijainen. Uusi hinta tulee voimaan sen seuraavassa uusinnassa.",
       "cancel": "Peruuta",
       "endPermit": "Päätä tunnus",
       "permitId": "Tunnus ID",
