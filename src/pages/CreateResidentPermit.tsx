@@ -368,7 +368,10 @@ const CreateResidentPermit = (): React.ReactElement => {
 
   // event handlers
   const handleCreateResidentPermit = () => {
-    if (invalidDates) return;
+    if (invalidDates) {
+      return;
+    }
+
     setPermit({
       ...permit,
       status: ParkingPermitStatus.VALID,
@@ -395,7 +398,10 @@ const CreateResidentPermit = (): React.ReactElement => {
   };
 
   const handleCreateDraftResidentPermit = () => {
-    if (invalidDates) return;
+    if (invalidDates) {
+      return;
+    }
+
     if (
       !(
         permit.status === ParkingPermitStatus.DRAFT ||
