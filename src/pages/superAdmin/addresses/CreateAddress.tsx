@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router';
 import makePrivate from '../../../auth/makePrivate';
 import AddressForm from '../../../components/superAdmin/addresses/AddressForm';
 import { MutationResponse } from '../../../types';
-import styles from './CreateAddress.module.scss';
 
 const T_PATH = 'pages.superAdmin.createAddress';
 
@@ -23,6 +22,7 @@ const CreateAddress = (): React.ReactElement => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
   const basePath = '/admin/addresses';
+
   const [createAddress] = useMutation<MutationResponse>(
     CREATE_ADDRESS_MUTATION,
     {
@@ -30,13 +30,13 @@ const CreateAddress = (): React.ReactElement => {
       onError: e => setErrorMessage(e.message),
     }
   );
+
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
-      <div className={styles.content}>
+    <div>
+      <h2>{t(`${T_PATH}.title`)}</h2>
+      <div>
         <AddressForm
           onSubmit={address => createAddress({ variables: { address } })}
-          className={styles.addressForm}
           onCancel={() => navigate(basePath)}
         />
       </div>
@@ -55,4 +55,5 @@ const CreateAddress = (): React.ReactElement => {
     </div>
   );
 };
+
 export default makePrivate(CreateAddress);
