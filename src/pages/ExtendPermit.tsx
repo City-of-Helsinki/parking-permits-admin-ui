@@ -191,7 +191,10 @@ const ExtendResidentPermit = (): React.ReactElement => {
     }
     getExtendedPriceList({ variables: { permitId, monthCount: value } }).then(
       ({ data }) => {
-        if (requestId !== priceRequestId.current || !data) return;
+        if (requestId !== priceRequestId.current || !data) {
+          return;
+        }
+
         setPriceList(data.getExtendedPriceList);
         setTotalPrice(
           data.getExtendedPriceList.reduce(
@@ -287,8 +290,10 @@ const ExtendResidentPermit = (): React.ReactElement => {
             !Number.isInteger(monthCount) ||
             monthCount < 1 ||
             monthCount > permit.maxExtensionMonthCount
-          )
+          ) {
             return;
+          }
+
           extendPermit({
             variables: { permitId, monthCount },
           });
