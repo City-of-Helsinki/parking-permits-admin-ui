@@ -98,15 +98,19 @@ const EndPermit = (): React.ReactElement => {
   const variables = { permitId: id };
   const [iban, setIban] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
   const { loading, data } = useQuery<PermitDetailData>(PERMIT_DETAIL_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
+
   const [endPermit] = useMutation<MutationResponse>(END_PERMIT_MUTATION);
+
   if (loading || !data) {
     return <div>{t(`${T_PATH}.loading`)}</div>;
   }
+
   const { permitDetail } = data;
   const {
     id: permitId,
@@ -114,25 +118,30 @@ const EndPermit = (): React.ReactElement => {
     canBeRefunded,
     totalRefundAmount,
   } = permitDetail;
+
   const showRefund =
     contractType === PermitContractType.FIXED_PERIOD || canBeRefunded;
   const isRefundAmountMissing = totalRefundAmount === null;
   const hasPositiveRefundAmount =
     totalRefundAmount !== null && totalRefundAmount > 0;
+  const hasInvalidIban = iban !== '' && !isValidIBAN(iban);
   const requiresIban =
-    canBeRefunded &&
-    hasPositiveRefundAmount &&
-    iban !== '' &&
-    !isValidIBAN(iban);
+    canBeRefunded && hasPositiveRefundAmount && hasInvalidIban;
   const isEndPermitDisabled =
     isRefundAmountMissing || (showRefund && requiresIban);
-  const successor =
+
+  const shouldPromoteSecondaryPermit =
     permitDetail.primaryVehicle &&
     contractType === PermitContractType.OPEN_ENDED &&
-    endType?.toUpperCase() === PermitEndType.IMMEDIATELY &&
-    permitDetail.customer.activePermits?.find(
-      p => !p.primaryVehicle && p.contractType === PermitContractType.OPEN_ENDED
-    );
+    endType?.toUpperCase() === PermitEndType.IMMEDIATELY;
+  const secondaryPermitToPromote = shouldPromoteSecondaryPermit
+    ? permitDetail.customer.activePermits?.find(
+        activePermit =>
+          !activePermit.primaryVehicle &&
+          activePermit.contractType === PermitContractType.OPEN_ENDED
+      )
+    : undefined;
+
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -170,9 +179,11 @@ const EndPermit = (): React.ReactElement => {
           />
         )}
       </div>
-      {successor && (
+      {secondaryPermitToPromote && (
         <Notification type="info">
-          {t(`${T_PATH}.promoteSecondary`, { id: successor.id })}
+          {t(`${T_PATH}.promoteSecondary`, {
+            id: secondaryPermitToPromote.id,
+          })}
         </Notification>
       )}
       <div className={styles.actions}>
@@ -203,6 +214,7 @@ const EndPermit = (): React.ReactElement => {
           {t(`${T_PATH}.endPermit`)}
         </Button>
       </div>
+
       {errorMessage && (
         <Notification
           type="error"
@@ -218,4 +230,5 @@ const EndPermit = (): React.ReactElement => {
     </div>
   );
 };
+
 export default makePrivate(EndPermit);
