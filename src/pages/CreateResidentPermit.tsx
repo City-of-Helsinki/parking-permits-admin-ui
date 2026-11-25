@@ -295,7 +295,7 @@ const CreateResidentPermit = (): React.ReactElement => {
     onCompleted: ({ customer: newCustomer }) => {
       setPersonSearchError('');
       const defaultAddress =
-        newCustomer.primaryAddress || customer.otherAddress;
+        newCustomer.primaryAddress || newCustomer.otherAddress;
       setPermit({
         ...permit,
         customer: {
