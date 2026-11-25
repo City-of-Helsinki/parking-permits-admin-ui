@@ -3,9 +3,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const T_PATH = 'components.footer';
+const REGISTRY_DESCRIPTION_URL =
+  'https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/' +
+  'Maksullisen%20pys%C3%A4k%C3%B6innin%20ja%20pys%C3%A4k%C3%B6intitunnusten%20' +
+  'asiakasrekisteri.pdf';
 
 const Footer = (): React.ReactElement => {
   const { t } = useTranslation();
+
   return (
     <HDSFooter theme="dark">
       <HDSFooter.Base
@@ -18,7 +23,7 @@ const Footer = (): React.ReactElement => {
         />
         <HDSFooter.Link
           target="_blank"
-          href="https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/Maksullisen%20pys%C3%A4k%C3%B6innin%20ja%20pys%C3%A4k%C3%B6intitunnusten%20asiakasrekisteri.pdf"
+          href={REGISTRY_DESCRIPTION_URL}
           label={t(`${T_PATH}.registryDescription`)}
         />
         <HDSFooter.Link
