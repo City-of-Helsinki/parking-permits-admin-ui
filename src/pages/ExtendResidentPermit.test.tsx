@@ -14,7 +14,7 @@ import {
   MutationResponse,
   PermitDetail,
 } from '../types';
-import ExtendPermit from './ExtendPermit';
+import ExtendResidentPermit from './ExtendResidentPermit';
 
 const mockNavigate = vi.fn();
 type QueryCallbacks = {
@@ -116,7 +116,7 @@ const renderPage = () =>
   render(
     <MemoryRouter initialEntries={['/permits/123/extend']}>
       <Routes>
-        <Route path="/permits/:id/extend" element={<ExtendPermit />} />
+        <Route path="/permits/:id/extend" element={<ExtendResidentPermit />} />
       </Routes>
     </MemoryRouter>
   );
@@ -142,7 +142,7 @@ const setMonthCount = async (
   await user.type(input, value);
 };
 
-describe('ExtendPermit', () => {
+describe('ExtendResidentPermit', () => {
   const getPriceList = vi.fn();
   const extendPermit = vi.fn();
 

@@ -68,7 +68,7 @@ vi.mock('./pages/CreatePermit', () => ({
 vi.mock('./pages/CreateCompanyPermit', () => ({ default: () => null }));
 vi.mock('./pages/CreateResidentPermit', () => ({ default: () => null }));
 vi.mock('./pages/EditResidentPermit', () => ({ default: () => null }));
-vi.mock('./pages/ExtendPermit', () => ({ default: () => null }));
+vi.mock('./pages/ExtendResidentPermit', () => ({ default: () => null }));
 vi.mock('./pages/Orders', () => ({ default: () => null }));
 vi.mock('./pages/RefundDetail', () => ({ default: () => null }));
 vi.mock('./pages/Refunds', () => ({ default: () => null }));

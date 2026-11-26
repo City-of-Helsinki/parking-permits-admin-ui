@@ -27,7 +27,7 @@ import {
   formatPrice,
   getApolloErrorMessage,
 } from '../utils';
-import styles from './ExtendPermit.module.scss';
+import styles from './ExtendResidentPermit.module.scss';
 
 const PERMIT_DETAIL_QUERY = gql`
   query GetPermitDetail($permitId: ID!) {
