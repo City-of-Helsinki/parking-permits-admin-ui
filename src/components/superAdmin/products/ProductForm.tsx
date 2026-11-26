@@ -92,8 +92,10 @@ const ProductForm = ({
         vatPercentage: 24,
         lowEmissionDiscountPercentage: 50,
       };
+
   const requiredNumber = (message: string) =>
     Yup.number().typeError(message).required(message);
+
   const validationSchema = Yup.object().shape({
     type: Yup.mixed<ProductType>().oneOf(Object.values(ProductType)).required(),
     zone: Yup.string().required(t(`${T_PATH}.errorSelectZone`)),
@@ -110,6 +112,7 @@ const ProductForm = ({
       t(`${T_PATH}.errorEnterLowEmissionDiscount`)
     ),
   });
+
   const {
     register,
     control,
@@ -120,12 +123,14 @@ const ProductForm = ({
     defaultValues,
     resolver: yupResolver(validationSchema),
   });
+
   const registerNumber = (
     name: 'unitPrice' | 'vatPercentage' | 'lowEmissionDiscountPercentage'
   ) => {
     const { ref, onChange, onBlur } = register(name, { valueAsNumber: true });
     return { name, ref, onChange, onBlur };
   };
+
   const submitForm = ({ startDate, endDate, ...values }: ProductFormValues) =>
     onSubmit({
       ...values,

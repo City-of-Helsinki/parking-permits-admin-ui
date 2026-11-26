@@ -14,6 +14,8 @@ const field = (label: string) =>
   numberFieldLabels.includes(label)
     ? screen.getByRole('spinbutton', { name: new RegExp(`^${label}`) })
     : screen.getByLabelText(label, { exact: false });
+const selectField = (label: RegExp) =>
+  screen.getByRole('combobox', { name: label });
 const saveButton = () => screen.getByRole('button', { name: 'Save' });
 
 const product: ProductInput = {
@@ -54,13 +56,18 @@ describe('ProductForm', () => {
     } as unknown as ReturnType<typeof useQuery>);
   });
 
-  it('renders an empty create form with defaults, disabled save and no delete', () => {
+  it('renders an empty create form with defaults, disabled save and no delete', async () => {
     renderForm();
+    await waitFor(() => expect(saveButton()).toBeDisabled());
 
     expect(field('Price')).toHaveDisplayValue('30');
     expect(field('Vat')).toHaveDisplayValue('24');
     expect(field('Low emission discount')).toHaveValue(50);
-    expect(saveButton()).toBeDisabled();
+    expect(selectField(/Product type/)).toHaveAccessibleName(
+      /Resident parking/
+    );
+    expect(selectField(/Zone/)).toHaveAccessibleName(/Zone A/);
+    expect(selectField(/Unit/)).toHaveAccessibleName(/p\/m/);
     expect(
       screen.queryByRole('button', { name: 'Delete' })
     ).not.toBeInTheDocument();
@@ -71,8 +78,15 @@ describe('ProductForm', () => {
     const { onDelete, onCancel } = renderForm(product);
 
     expect(field('Price')).toHaveValue(10);
+    expect(field('Vat')).toHaveValue(product.vatPercentage);
+    expect(field('Low emission discount')).toHaveValue(
+      product.lowEmissionDiscountPercentage
+    );
     expect(field('Start date')).toHaveValue('10.1.2030');
     expect(field('End date')).toHaveValue('20.2.2030');
+    expect(selectField(/Product type/)).toHaveAccessibleName(/Company parking/);
+    expect(selectField(/Zone/)).toHaveAccessibleName(/Zone B/);
+    expect(selectField(/Unit/)).toHaveAccessibleName(/pcs/);
     expect(saveButton()).toBeDisabled();
 
     await user.click(screen.getByRole('button', { name: 'Delete' }));
@@ -81,14 +95,21 @@ describe('ProductForm', () => {
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
-  it('shows a validation error for a cleared price and disables save', async () => {
+  it.each([
+    ['Price', 'Please enter a price'],
+    ['Vat', 'Please enter a vat percentage'],
+    [
+      'Low emission discount',
+      'Please enter a low emission discount percentage',
+    ],
+  ])('shows a validation error when %s is cleared', async (label, message) => {
     const user = userEvent.setup();
     renderForm(product);
 
-    await user.clear(field('Price'));
+    await user.clear(field(label));
     await user.tab();
 
-    expect(await screen.findByText('Please enter a price')).toBeVisible();
+    expect(await screen.findByText(message)).toBeVisible();
     expect(saveButton()).toBeDisabled();
   });
 
@@ -112,6 +133,49 @@ describe('ProductForm', () => {
       vatPercentage: 20.5,
       lowEmissionDiscountPercentage: 5.25,
     });
+  });
+  
+  it('keeps incomplete date text visible and validates missing dates', async () => {
+    renderForm(product);
+
+    const startDate = field('Start date');
+    fireEvent.change(startDate, { target: { value: '25.2.' } });
+    fireEvent.blur(startDate);
+
+    expect(startDate).toHaveValue('25.2.');
+    expect(await screen.findByText('Please enter a start date')).toBeVisible();
+
+    const endDate = field('End date');
+    fireEvent.change(endDate, { target: { value: '' } });
+    fireEvent.blur(endDate);
+
+    expect(endDate).toHaveValue('');
+    expect(await screen.findByText('Please enter a end date')).toBeVisible();
+    expect(saveButton()).toBeDisabled();
+  });
+
+  it('submits updated product type, zone and unit selections', async () => {
+    const user = userEvent.setup();
+    const { onSubmit } = renderForm(product);
+
+    await user.click(selectField(/Product type/));
+    await user.click(screen.getByRole('option', { name: 'Resident parking' }));
+    await user.click(selectField(/Zone/));
+    await user.click(screen.getByRole('option', { name: 'Zone A' }));
+    await user.click(selectField(/Unit/));
+    await user.click(screen.getByRole('option', { name: 'p/m' }));
+
+    await waitFor(() => expect(saveButton()).toBeEnabled());
+    await user.click(saveButton());
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
+
+    expect(onSubmit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: ProductType.RESIDENT,
+        zone: 'A',
+        unit: ProductUnit.MONTHLY,
+      })
+    );
   });
 
   it('submits edited number and date values', async () => {
