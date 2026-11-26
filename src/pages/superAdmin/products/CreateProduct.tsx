@@ -23,6 +23,7 @@ const Products = (): React.ReactElement => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
   const basePath = '/admin/products';
+
   const [createProduct] = useMutation<MutationResponse>(
     CREATE_PRODUCT_MUTATION,
     {
@@ -30,6 +31,7 @@ const Products = (): React.ReactElement => {
       onError: e => setErrorMessage(e.message),
     }
   );
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
