@@ -21,6 +21,7 @@ const CreateAnnouncement = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+
   const [createAnnouncement] = useMutation<MutationResponse>(
     CREATE_ANNOUNCEMENTS_MUTATION,
     {
