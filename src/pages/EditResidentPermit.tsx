@@ -379,4 +379,5 @@ const EditResidentPermit = (): React.ReactElement => {
     </div>
   );
 };
+
 export default makePrivate(EditResidentPermit);
