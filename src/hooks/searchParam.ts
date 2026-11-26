@@ -11,7 +11,7 @@ export const usePageParam = (): {
   const pageParam = searchParams.get('page');
 
   return {
-    pageParam: pageParam ? parseInt(pageParam, 10) : 1,
+    pageParam: pageParam ? Number.parseInt(pageParam, 10) : 1,
     setPageParam: (newPage: number | string) => {
       searchParams.set('page', newPage.toString());
       setSearchParams(searchParams, { replace: true });

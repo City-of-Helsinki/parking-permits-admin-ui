@@ -56,7 +56,7 @@ const Products = (): React.ReactElement => {
   const orderFieldParam = searchParams.get('orderField');
   const orderDirectionParam = searchParams.get('orderDirection');
 
-  const page = pageParam ? parseInt(pageParam, 10) : 1;
+  const page = pageParam ? Number.parseInt(pageParam, 10) : 1;
   const orderBy: OrderBy = {
     orderField: orderFieldParam || 'zone',
     orderDirection:

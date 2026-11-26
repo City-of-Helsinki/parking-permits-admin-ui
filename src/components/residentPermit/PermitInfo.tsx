@@ -105,7 +105,7 @@ const PermitInfo = ({
           onChange={e =>
             onUpdatePermit({
               ...permit,
-              monthCount: parseInt(e.target.value, 10),
+              monthCount: Number.parseInt(e.target.value, 10),
             })
           }
         />
