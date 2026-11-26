@@ -49,6 +49,7 @@ const ViewCustomer = (): React.ReactElement => {
   const navigate = useNavigate();
   const { id: customerId } = useParams();
   const variables = { query: { id: customerId } };
+
   const { loading, data } = useQuery<{ customer: Customer }>(CUSTOMER_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
