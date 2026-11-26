@@ -244,7 +244,9 @@ const ExtendResidentPermit = (): React.ReactElement => {
           min={1}
           max={permit.maxExtensionMonthCount}
           value={monthCount}
-          onChange={e => onUpdateMonthCount(parseInt(e.target.value, 10))}
+          onChange={e =>
+            onUpdateMonthCount(Number.parseInt(e.target.value, 10))
+          }
         />
       )}
 
