@@ -24,6 +24,7 @@ const EndPermitDialog = ({
 }: EndPermitDialogProps): React.ReactElement => {
   const { t } = useTranslation();
   const [endType, setEndType] = useState<PermitEndType | undefined>();
+
   return (
     <Dialog
       id="confirm-end-permit"
@@ -71,4 +72,5 @@ const EndPermitDialog = ({
     </Dialog>
   );
 };
+
 export default EndPermitDialog;
