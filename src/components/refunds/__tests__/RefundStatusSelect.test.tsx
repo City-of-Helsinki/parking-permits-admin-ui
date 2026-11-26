@@ -18,13 +18,9 @@ describe('RefundStatusSelect', () => {
     await user.click(screen.getByRole('combobox'));
     expect(
       screen.getAllByRole('option').map(option => option.textContent)
-    ).toEqual(
-      ['all', 'open', 'requestForApproval', 'accepted', 'rejected'].map(
-        name => `refundStatus.${name}`
-      )
-    );
+    ).toEqual(['All', 'Open', 'Request for approval', 'Accepted', 'Rejected']);
 
-    await user.click(screen.getByRole('option', { name: 'refundStatus.open' }));
+    await user.click(screen.getByRole('option', { name: 'Open' }));
 
     expect(onChange).toHaveBeenCalledWith(RefundStatus.OPEN);
   });
@@ -32,6 +28,6 @@ describe('RefundStatusSelect', () => {
   it('defaults to "all" when no value is given', () => {
     renderSelect(undefined);
 
-    expect(screen.getByRole('combobox')).toHaveTextContent('refundStatus.all');
+    expect(screen.getByRole('combobox')).toHaveTextContent('All');
   });
 });

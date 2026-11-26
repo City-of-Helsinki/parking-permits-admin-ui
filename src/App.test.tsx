@@ -106,19 +106,6 @@ vi.mock('./pages/superAdmin/products/EditProduct', () => ({
   default: () => null,
 }));
 
-vi.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (str: string) => str,
-    i18n: {
-      language: 'fi',
-      changeLanguage: () =>
-        new Promise(() => {
-          // do nothing
-        }),
-    },
-  }),
-}));
-
 const LocationDisplay = () => {
   const location = useLocation();
   return <output aria-label={currentPathLabel}>{location.pathname}</output>;
@@ -180,7 +167,9 @@ describe('routing', () => {
     vi.mocked(useUserRole).mockReturnValue(UserRole.NON_AD_GROUPS);
     renderRoute('/permits');
 
-    expect(screen.getByText('message.unauthorized')).toBeInTheDocument();
+    expect(
+      screen.getByText('You are not authorized to view this page')
+    ).toBeInTheDocument();
     expect(screen.queryByText(mockPageLabels.permits)).not.toBeInTheDocument();
   });
 
@@ -249,7 +238,7 @@ describe('routing', () => {
       vi.mocked(useUserRole).mockReturnValue(UserRole.ERROR);
       renderRoute(path);
 
-      expect(screen.getByRole('alert')).toHaveTextContent('message.error');
+      expect(screen.getByRole('alert')).toHaveTextContent('Error');
       expect(screen.queryByText(mockPageLabels.login)).not.toBeInTheDocument();
       expect(
         screen.queryByText(mockPageLabels.permits)

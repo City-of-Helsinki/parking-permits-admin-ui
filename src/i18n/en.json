@@ -297,7 +297,7 @@
       },
       "permitsSearch": {
         "placeholder": "Search",
-        "search": "Search"
+        "searchButton": "Search"
       },
       "permitsSearchFilters": {
         "filterList": "Filter list"
@@ -647,6 +647,7 @@
       "saving": "Saving...",
       "downloadPdf": "Download refund details as PDF",
       "title": "Edit refund",
+      "nameIsRequired": "Name is required",
       "ibanIsRequired": "IBAN-number is required",
       "loading": "Loading...",
       "noData": "No data"

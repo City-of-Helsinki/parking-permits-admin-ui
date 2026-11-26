@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Address, Customer, ParkingZone } from '../../../types';
-import PersonalInfo, { T_PATH } from '../PersonalInfo';
+import PersonalInfo from '../PersonalInfo';
 
 vi.mock('../../common/AddressSearch', () => ({
   default: ({ onSelect }: { onSelect: (address: Address) => void }) => (
@@ -82,25 +82,27 @@ describe('PersonalInfo', () => {
   it('updates the customer from the text fields and checkboxes', async () => {
     const { onUpdatePermit, user } = renderInfo();
     const cases: [string, Partial<Customer>][] = [
-      ['personalId', { nationalIdNumber: 'a' }],
-      ['firstName', { firstName: 'a' }],
-      ['lastName', { lastName: 'a' }],
-      ['phoneNumber', { phoneNumber: 'a' }],
-      ['email', { email: 'a' }],
+      ['Personal ID', { nationalIdNumber: 'a' }],
+      ['First name', { firstName: 'a' }],
+      ['Last name', { lastName: 'a' }],
+      ['Phone number', { phoneNumber: 'a' }],
+      ['Email', { email: 'a' }],
     ];
 
     for (const [field, patch] of cases) {
       onUpdatePermit.mockClear();
-      await user.type(screen.getByLabelText(`${T_PATH}.${field}`), 'a');
+      await user.type(screen.getByLabelText(field), 'a');
       expect(onUpdatePermit).toHaveBeenCalledWith(customerPatch(patch));
     }
 
-    await user.click(screen.getByLabelText(`${T_PATH}.addressSecurityBan`));
+    await user.click(
+      screen.getByLabelText('Non-disclosure for personal safety')
+    );
     expect(onUpdatePermit).toHaveBeenLastCalledWith(
       customerPatch({ addressSecurityBan: true })
     );
 
-    await user.click(screen.getByLabelText(`${T_PATH}.driverLicenseChecked`));
+    await user.click(screen.getByLabelText("Driver's licese is checked"));
     expect(onUpdatePermit).toHaveBeenLastCalledWith(
       customerPatch({ driverLicenseChecked: true })
     );
@@ -116,7 +118,7 @@ describe('PersonalInfo', () => {
       },
     });
 
-    await user.click(screen.getByRole('button', { name: `${T_PATH}.search` }));
+    await user.click(screen.getByRole('button', { name: 'Search' }));
 
     expect(onSearchPerson).toHaveBeenCalledWith('id', 'a@example.test', '123');
   });
@@ -125,14 +127,14 @@ describe('PersonalInfo', () => {
     renderInfo({ searchError: 'Not found', disableCustomerChange: true });
 
     expect(screen.getByText('Not found')).toBeInTheDocument();
-    expect(screen.getByLabelText(`${T_PATH}.personalId`)).toBeDisabled();
+    expect(screen.getByLabelText('Personal ID')).toBeDisabled();
   });
 
   it('selects the address radio by permit address and shows both addresses', () => {
     renderInfo({ permitAddress: otherAddress });
 
-    expect(screen.getByLabelText(`${T_PATH}.otherAddress`)).toBeChecked();
-    expect(screen.getByLabelText(`${T_PATH}.primaryAddress`)).not.toBeChecked();
+    expect(screen.getByLabelText('Temporary address')).toBeChecked();
+    expect(screen.getByLabelText('Permanent address')).not.toBeChecked();
     expect(screen.getByText(/Primarystreet 1/)).toBeInTheDocument();
     expect(screen.getByText(/Otherstreet 1/)).toBeInTheDocument();
   });
@@ -142,7 +144,7 @@ describe('PersonalInfo', () => {
       person: { ...person, otherAddressApartment: 'B 2' },
     });
 
-    await user.click(screen.getByLabelText(`${T_PATH}.otherAddress`));
+    await user.click(screen.getByLabelText('Temporary address'));
 
     expect(onUpdatePermit).toHaveBeenCalledWith({
       address: otherAddress,
@@ -161,7 +163,7 @@ describe('PersonalInfo', () => {
       person: { ...person, otherAddress: buildAddress('2', 'Otherstreet') },
     });
 
-    await user.click(screen.getByLabelText(`${T_PATH}.otherAddress`));
+    await user.click(screen.getByLabelText('Temporary address'));
 
     expect(onUpdatePermit).not.toHaveBeenCalled();
   });
@@ -181,7 +183,7 @@ describe('PersonalInfo', () => {
 
   it('stores the apartment into the selected address slot', async () => {
     const { onUpdatePermit, user } = renderInfo();
-    const apartment = screen.getByLabelText(`${T_PATH}.addressApartment`);
+    const apartment = screen.getByLabelText('Apartment');
 
     await user.type(apartment, 'a');
     expect(onUpdatePermit).toHaveBeenLastCalledWith({
@@ -189,7 +191,7 @@ describe('PersonalInfo', () => {
       customer: { ...person, primaryAddressApartment: 'a' },
     });
 
-    await user.click(screen.getByLabelText(`${T_PATH}.otherAddress`));
+    await user.click(screen.getByLabelText('Temporary address'));
     onUpdatePermit.mockClear();
     await user.type(apartment, 'b');
     expect(onUpdatePermit).toHaveBeenCalledWith({
@@ -217,13 +219,13 @@ describe('PersonalInfo', () => {
       },
     });
 
-    for (const field of ['firstName', 'lastName']) {
-      const input = screen.getByLabelText(`${T_PATH}.${field}`);
+    for (const field of ['First name', 'Last name']) {
+      const input = screen.getByLabelText(field);
       expect(input).toBeDisabled();
       expect(input).toHaveValue('');
     }
-    expect(screen.getByLabelText(`${T_PATH}.primaryAddress`)).toBeDisabled();
-    expect(screen.getByLabelText(`${T_PATH}.otherAddress`)).toBeDisabled();
+    expect(screen.getByLabelText('Permanent address')).toBeDisabled();
+    expect(screen.getByLabelText('Temporary address')).toBeDisabled();
     expect(screen.queryByText(/Primarystreet/)).not.toBeInTheDocument();
   });
 });

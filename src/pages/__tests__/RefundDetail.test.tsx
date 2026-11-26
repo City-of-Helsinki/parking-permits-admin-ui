@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import useUserRole, { UserRole } from '../../api/useUserRole';
 import useExportData from '../../export/useExportData';
-import RefundDetail, { T_PATH } from '../RefundDetail';
+import RefundDetail from '../RefundDetail';
 
 const mockNavigate = vi.fn();
 
@@ -29,10 +29,9 @@ vi.mock('../../components/refunds/RefundsDataTable', () => ({
   default: () => null,
 }));
 
-const key = (name: string) => `${T_PATH}.${name}`;
-const nameInput = () => screen.getByLabelText(new RegExp(`^${key('name')}`));
+const nameInput = () => screen.getByLabelText(/^Name/);
 const ibanInput = () => screen.getByLabelText(/^IBAN/);
-const saveButton = () => screen.getByRole('button', { name: key('save') });
+const saveButton = () => screen.getByRole('button', { name: 'Save' });
 
 const validIban = 'FI06 0000 0000 0000 00';
 const refund = { id: '1', name: 'Test Name', iban: validIban };
@@ -75,7 +74,7 @@ describe('RefundDetail', () => {
       loading: true,
     } as unknown as ReturnType<typeof useQuery>);
     const { unmount } = renderPage();
-    expect(screen.getByText(key('loading'))).toBeInTheDocument();
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
     unmount();
 
     vi.mocked(useQuery).mockReturnValue({
@@ -83,7 +82,7 @@ describe('RefundDetail', () => {
       data: undefined,
     } as unknown as ReturnType<typeof useQuery>);
     renderPage();
-    expect(screen.getByText(key('noData'))).toBeInTheDocument();
+    expect(screen.getByText('No data')).toBeInTheDocument();
   });
 
   it('shows required and invalid IBAN errors and disables save', async () => {
@@ -92,12 +91,14 @@ describe('RefundDetail', () => {
 
     await user.clear(nameInput());
     await user.tab();
-    expect(await screen.findByText(key('nameIsRequired'))).toBeVisible();
+    expect(await screen.findByText('Name is required')).toBeVisible();
 
     await user.clear(ibanInput());
     await user.type(ibanInput(), 'FI00');
     await user.tab();
-    expect(await screen.findByText('errors.invalidIBAN')).toBeVisible();
+    expect(
+      await screen.findByText('IBAN-number is not in valid format')
+    ).toBeVisible();
     expect(saveButton()).toBeDisabled();
   });
 
@@ -127,8 +128,10 @@ describe('RefundDetail', () => {
     const user = userEvent.setup();
     renderPage();
 
-    await user.click(screen.getByRole('button', { name: key('downloadPdf') }));
-    await user.click(screen.getByRole('button', { name: key('cancel') }));
+    await user.click(
+      screen.getByRole('button', { name: 'Download refund details as PDF' })
+    );
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
 
     expect(exportData).toHaveBeenCalledTimes(1);
     expect(mockNavigate).toHaveBeenCalledWith('/refunds');
@@ -141,10 +144,10 @@ describe('RefundDetail', () => {
     expect(nameInput()).toBeDisabled();
     expect(ibanInput()).toBeDisabled();
     expect(
-      screen.queryByRole('button', { name: key('save') })
+      screen.queryByRole('button', { name: 'Save' })
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('button', { name: key('cancel') })
+      screen.queryByRole('button', { name: 'Cancel' })
     ).not.toBeInTheDocument();
   });
 });

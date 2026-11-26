@@ -1,10 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PermitDetail } from '../../../types';
-import TemporaryVehicle, {
-  combineDateAndTime,
-  T_PATH,
-} from '../TemporaryVehicle';
+import TemporaryVehicle, { combineDateAndTime } from '../TemporaryVehicle';
 
 const permit = {
   id: '1',
@@ -40,14 +37,16 @@ describe('TemporaryVehicle', () => {
   it('renders fields with their default values', () => {
     renderForm();
 
-    expect(screen.getByText(`${T_PATH}.title`)).toBeInTheDocument();
+    expect(screen.getByText('Temporary Vehicle Details')).toBeInTheDocument();
     expect(
-      screen.getByLabelText(`${T_PATH}.registrationNumber.label`)
+      screen.getByLabelText('Temporary vehicle registration number')
     ).toHaveValue('');
-    expect(screen.getByLabelText(`${T_PATH}.startDate`)).toHaveValue(
+    expect(screen.getByLabelText('Temporary vehicle start date')).toHaveValue(
       '10.1.2030'
     );
-    expect(screen.getByLabelText(`${T_PATH}.endDate`)).toHaveValue('24.1.2030');
+    expect(screen.getByLabelText('Temporary vehicle end date')).toHaveValue(
+      '24.1.2030'
+    );
     const hours = screen.getAllByLabelText('hours');
     const minutes = screen.getAllByLabelText('minutes');
     expect(hours.map(el => (el as HTMLInputElement).value)).toEqual([
@@ -58,9 +57,7 @@ describe('TemporaryVehicle', () => {
       '05',
       '59',
     ]);
-    expect(
-      screen.getByRole('button', { name: `${T_PATH}.actionBtn.continue` })
-    ).toBeEnabled();
+    expect(screen.getByRole('button', { name: 'Continue' })).toBeEnabled();
   });
 
   it('uppercases the registration number and submits the payload', async () => {
@@ -68,16 +65,14 @@ describe('TemporaryVehicle', () => {
     const { addTemporaryVehicle } = renderForm();
 
     await user.type(
-      screen.getByLabelText(`${T_PATH}.registrationNumber.label`),
+      screen.getByLabelText('Temporary vehicle registration number'),
       'abc123'
     );
     expect(
-      screen.getByLabelText(`${T_PATH}.registrationNumber.label`)
+      screen.getByLabelText('Temporary vehicle registration number')
     ).toHaveValue('ABC123');
 
-    await user.click(
-      screen.getByRole('button', { name: `${T_PATH}.actionBtn.continue` })
-    );
+    await user.click(screen.getByRole('button', { name: 'Continue' }));
 
     await waitFor(() => expect(addTemporaryVehicle).toHaveBeenCalledTimes(1));
     expect(addTemporaryVehicle).toHaveBeenCalledWith({
@@ -94,13 +89,11 @@ describe('TemporaryVehicle', () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     const { addTemporaryVehicle } = renderForm();
 
-    const endDateInput = screen.getByLabelText(`${T_PATH}.endDate`);
+    const endDateInput = screen.getByLabelText('Temporary vehicle end date');
     fireEvent.change(endDateInput, { target: { value: '20.1.2030' } });
     // HDS 4 DateInput reports the parsed date on blur or Enter
     fireEvent.blur(endDateInput);
-    await user.click(
-      screen.getByRole('button', { name: `${T_PATH}.actionBtn.continue` })
-    );
+    await user.click(screen.getByRole('button', { name: 'Continue' }));
 
     await waitFor(() => expect(addTemporaryVehicle).toHaveBeenCalledTimes(1));
     expect(addTemporaryVehicle.mock.calls[0][0].variables.endTime).toBe(
@@ -112,9 +105,7 @@ describe('TemporaryVehicle', () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     const { cancelAddTempVehicle, addTemporaryVehicle } = renderForm();
 
-    await user.click(
-      screen.getByRole('button', { name: `${T_PATH}.actionBtn.cancel` })
-    );
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
 
     expect(cancelAddTempVehicle).toHaveBeenCalledWith(false);
     expect(addTemporaryVehicle).not.toHaveBeenCalled();

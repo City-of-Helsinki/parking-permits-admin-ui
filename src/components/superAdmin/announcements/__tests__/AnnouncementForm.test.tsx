@@ -1,17 +1,15 @@
 import { useQuery } from '@apollo/client';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AnnouncementForm, { T_PATH } from '../AnnouncementForm';
+import AnnouncementForm from '../AnnouncementForm';
 
 vi.mock('@apollo/client', async importOriginal => ({
   ...(await importOriginal<typeof import('@apollo/client')>()),
   useQuery: vi.fn(),
 }));
 
-const key = (name: string) => `${T_PATH}.${name}`;
-const field = (name: string) =>
-  screen.getByLabelText(new RegExp(`^${key(name)}`));
-const submitButton = () => screen.getByRole('button', { name: key('submit') });
+const field = (label: string) => screen.getByLabelText(label, { exact: false });
+const submitButton = () => screen.getByRole('button', { name: 'Submit' });
 
 const renderForm = () => {
   const onSubmit = vi.fn();
@@ -34,13 +32,13 @@ describe('AnnouncementForm', () => {
     expect(screen.getByLabelText('A')).not.toBeChecked();
     expect(screen.getByLabelText('B')).not.toBeChecked();
     [
-      'subjectFi',
-      'contentFi',
-      'subjectSv',
-      'contentSv',
-      'subjectEn',
-      'contentEn',
-    ].forEach(name => expect(field(name)).toHaveValue(''));
+      'Subject header (fi)',
+      'Content (fi)',
+      'Subject header (sv)',
+      'Content (sv)',
+      'Subject header (en)',
+      'Content (en)',
+    ].forEach(label => expect(field(label)).toHaveValue(''));
     expect(submitButton()).toBeDisabled();
   });
 
@@ -51,20 +49,22 @@ describe('AnnouncementForm', () => {
     } as unknown as ReturnType<typeof useQuery>);
     renderForm();
 
-    expect(screen.queryByLabelText(new RegExp(key('subjectFi')))).toBeNull();
+    expect(
+      screen.queryByLabelText('Subject header (fi)', { exact: false })
+    ).toBeNull();
   });
 
   it('shows validation errors and keeps submit disabled', async () => {
     const user = userEvent.setup();
     renderForm();
 
-    await user.click(field('subjectFi'));
-    await user.click(field('contentFi'));
+    await user.click(field('Subject header (fi)'));
+    await user.click(field('Content (fi)'));
     await user.tab();
 
-    expect(await screen.findByText(key('enterSubject'))).toBeVisible();
-    expect(await screen.findByText(key('enterContent'))).toBeVisible();
-    expect(await screen.findByText(key('selectZone'))).toBeVisible();
+    expect(await screen.findByText('Enter subject')).toBeVisible();
+    expect(await screen.findByText('Enter Content')).toBeVisible();
+    expect(await screen.findByText('Select zone')).toBeVisible();
     expect(submitButton()).toBeDisabled();
   });
 
@@ -73,9 +73,13 @@ describe('AnnouncementForm', () => {
     const { onSubmit } = renderForm();
 
     await user.click(screen.getByLabelText('B'));
-    for (const lang of ['Fi', 'Sv', 'En']) {
-      await user.type(field(`subject${lang}`), `Subject ${lang}`);
-      await user.type(field(`content${lang}`), `Content ${lang}`);
+    for (const [lang, subjectLabel, contentLabel] of [
+      ['Fi', 'Subject header (fi)', 'Content (fi)'],
+      ['Sv', 'Subject header (sv)', 'Content (sv)'],
+      ['En', 'Subject header (en)', 'Content (en)'],
+    ]) {
+      await user.type(field(subjectLabel), `Subject ${lang}`);
+      await user.type(field(contentLabel), `Content ${lang}`);
     }
     await waitFor(() => expect(submitButton()).toBeEnabled());
     await user.click(submitButton());
@@ -96,7 +100,7 @@ describe('AnnouncementForm', () => {
     const user = userEvent.setup();
     const { onCancel, onSubmit } = renderForm();
 
-    await user.click(screen.getByRole('button', { name: key('cancel') }));
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
 
     expect(onCancel).toHaveBeenCalledTimes(1);
     expect(onSubmit).not.toHaveBeenCalled();

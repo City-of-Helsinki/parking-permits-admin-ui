@@ -65,9 +65,7 @@ afterEach(() => {
 const searchPermits = (role: UserRole) => {
   vi.mocked(useUserRole).mockReturnValue(role);
   renderPage('/permits', <Permits />);
-  fireEvent.click(
-    screen.getByText('components.permits.permitsSearch.searchButton')
-  );
+  fireEvent.click(screen.getByText('Search'));
 };
 
 describe('Permits page', () => {
@@ -89,8 +87,8 @@ describe('Permits page', () => {
 });
 
 describe.each([
-  ['/orders', <Orders key="orders" />, 'pages.orders.title'],
-  ['/refunds', <Refunds key="refunds" />, 'pages.refunds.title'],
+  ['/orders', <Orders key="orders" />, 'Orders'],
+  ['/refunds', <Refunds key="refunds" />, 'Refunds'],
 ])('%s page access', (path, page, heading) => {
   it('redirects inspectors to permits', () => {
     vi.mocked(useUserRole).mockReturnValue(UserRole.INSPECTORS);

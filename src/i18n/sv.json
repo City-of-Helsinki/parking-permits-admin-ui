@@ -645,6 +645,7 @@
       "saving": "Sparar...",
       "downloadPdf": "Ladda ner returnsinformation som PDF",
       "title": "Redigera Retur",
+      "nameIsRequired": "Namn krävs",
       "ibanIsRequired": "IBAN-nummer krävs",
       "loading": "Läser in...",
       "noData": "Inga data"
