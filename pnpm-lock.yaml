@@ -41,9 +41,6 @@ importers:
       '@types/node':
         specifier: ^24
         version: 24.19.2
-      await-to-js:
-        specifier: ^3.0.0
-        version: 3.0.0
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -80,9 +77,6 @@ importers:
       hds-react:
         specifier: ^6.0.7
         version: 6.0.7(@types/react@19.3.0)(postcss@8.5.32)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      http-status-typed:
-        specifier: ^1.0.1
-        version: 1.0.1
       husky:
         specifier: ^9.1.4
         version: 9.1.4
@@ -2153,9 +2147,6 @@ packages:
 
   html-parse-stringify@3.0.1:
     resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
-
-  http-status-typed@1.0.1:
-    resolution: {integrity: sha512-U8jF221dmNNZbdBiOoK2HduguCwparnsP0z11PQZaDtaHBHuxG3gCimxQi8Cfb8VECave4yoVbONSByQU6z0Ew==}
 
   husky@9.1.4:
     resolution: {integrity: sha512-bho94YyReb4JV7LYWRWxZ/xr6TtOTt8cMfmQ39MQYJ7f/YE268s3GdghGwi+y4zAeqewE5zYLvuhV0M0ijsDEA==}
@@ -5449,8 +5440,6 @@ snapshots:
   html-parse-stringify@3.0.1:
     dependencies:
       void-elements: 3.1.0
-
-  http-status-typed@1.0.1: {}
 
   husky@9.1.4: {}
 
