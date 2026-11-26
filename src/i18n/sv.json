@@ -458,9 +458,6 @@
         }
       },
       "products": {
-        "lowEmissionDiscountSelect": {
-          "noDiscount": "Ingen rabatt"
-        },
         "productForm": {
           "delete": "Radera",
           "endDate": "Slutdatum",

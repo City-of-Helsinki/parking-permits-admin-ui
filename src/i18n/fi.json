@@ -460,9 +460,6 @@
         }
       },
       "products": {
-        "lowEmissionDiscountSelect": {
-          "noDiscount": "Ei alennusta"
-        },
         "productForm": {
           "delete": "Poista",
           "endDate": "Pvm asti",
