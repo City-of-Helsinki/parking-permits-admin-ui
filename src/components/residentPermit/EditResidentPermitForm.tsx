@@ -58,6 +58,10 @@ const CUSTOMER_QUERY = gql`
         }
       }
       otherAddressApartment
+      activePermits {
+        id
+        primaryVehicle
+      }
     }
   }
 `;
