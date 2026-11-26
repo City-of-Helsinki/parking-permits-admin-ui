@@ -1,5 +1,6 @@
+@use 'hds-design-tokens/lib/all.scss' as *;
+
 @import 'leaflet/dist/leaflet.css';
-@import 'hds-design-tokens/lib/all.scss';
 @import 'hds-core/lib/utils/helpers.css';
 @import url('https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css');
 
