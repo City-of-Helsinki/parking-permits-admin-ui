@@ -16,16 +16,21 @@ const getApiToken = () => {
     : undefined;
 };
 
-const waitForApiToken = async (): Promise<string> => {
-  const retryAttempts = 0;
-  while (retryAttempts <= MAX_RETRY_ATTEMPTS) {
-    const apiToken = getApiToken();
-    if (apiToken) {
-      return apiToken;
-    }
-    await wait(RETRY_TIME_MS);
+const getApiTokenWithRetry = async (retryAttempt: number): Promise<string> => {
+  const apiToken = getApiToken();
+
+  if (apiToken) {
+    return apiToken;
   }
-  throw new Error('Failed to get API token');
+
+  if (retryAttempt === MAX_RETRY_ATTEMPTS) {
+    throw new Error('Failed to get API token');
+  }
+
+  await wait(RETRY_TIME_MS);
+  return getApiTokenWithRetry(retryAttempt + 1);
 };
+
+const waitForApiToken = (): Promise<string> => getApiTokenWithRetry(0);
 
 export default waitForApiToken;
