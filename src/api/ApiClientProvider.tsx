@@ -19,5 +19,6 @@ interface Props {
 
 export const ApiClientProvider: FC<Props> = ({ children }) => {
   const clientInLogin = useApolloClient();
+
   return <ApolloProvider client={clientInLogin}>{children}</ApolloProvider>;
 };
