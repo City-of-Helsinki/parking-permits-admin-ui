@@ -8,7 +8,7 @@ import ProductsDataTable from '../../../components/superAdmin/products/ProductsD
 import { OrderDirection } from '../../../components/types';
 import useExportData from '../../../export/useExportData';
 import { formatExportUrl } from '../../../export/utils';
-import { OrderBy, ProductsQueryData } from '../../../types';
+import type { OrderBy, ProductsQueryData } from '../../../types';
 import { getApolloErrorMessage } from '../../../utils';
 import styles from './Products.module.scss';
 
@@ -62,15 +62,13 @@ const Products = (): React.ReactElement => {
     orderDirection:
       (orderDirectionParam as OrderDirection) || OrderDirection.ASC,
   };
-  const variables = {
-    pageInput: { page },
-    orderBy,
-  };
-
   const { loading, data, refetch } = useQuery<ProductsQueryData>(
     PRODUCTS_QUERY,
     {
-      variables,
+      variables: {
+        pageInput: { page },
+        orderBy,
+      },
       fetchPolicy: 'no-cache',
       onError: error => setErrorMessage(getApolloErrorMessage(error)),
     }
@@ -84,37 +82,31 @@ const Products = (): React.ReactElement => {
     return <div>No data</div>;
   }
 
-  const handlePage = (newPage: number) => {
-    const urlSearchParams = {
-      ...orderBy,
-      page: newPage,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
+  const getProductsSearchParams = (pageNumber: number, sort: OrderBy) => ({
+    ...sort,
+    page: pageNumber.toString(),
+  });
+
+  const updateProducts = (pageNumber: number, sort: OrderBy) => {
+    setSearchParams(getProductsSearchParams(pageNumber, sort), {
       replace: true,
     });
     refetch({
-      pageInput: { page: newPage },
-      orderBy,
+      pageInput: { page: pageNumber },
+      orderBy: sort,
     });
   };
-  const handleOrderBy = (newOrderBy: OrderBy) => {
-    const urlSearchParams = {
-      ...newOrderBy,
-      page,
-    };
-    setSearchParams(urlSearchParams as unknown as Record<string, string>, {
-      replace: true,
-    });
-    refetch({
-      pageInput: { page },
-      orderBy: newOrderBy,
-    });
-  };
+
+  const handlePage = (newPage: number) => updateProducts(newPage, orderBy);
+
+  const handleOrderBy = (newOrderBy: OrderBy) =>
+    updateProducts(page, newOrderBy);
+
   const handleExport = () => {
-    const url = formatExportUrl('products', {
-      ...orderBy,
-      page: page.toString(),
-    });
+    const url = formatExportUrl(
+      'products',
+      getProductsSearchParams(page, orderBy)
+    );
     exportData(url);
   };
 
@@ -130,8 +122,8 @@ const Products = (): React.ReactElement => {
       </div>
       <div className={styles.content}>
         <ProductsDataTable
-          products={data?.products.objects || []}
-          pageInfo={data?.products.pageInfo}
+          products={data.products.objects}
+          pageInfo={data.products.pageInfo}
           loading={loading}
           orderBy={orderBy}
           onPage={handlePage}
