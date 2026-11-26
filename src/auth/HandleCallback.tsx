@@ -24,9 +24,11 @@ const HandleCallback = (
   const onError = (error: OidcClientError | undefined) => {
     // eslint-disable-next-line no-console
     console.error(error);
+
     if (!error) {
       return;
     }
+
     if (
       error.isSignInError &&
       error.message ===
@@ -35,6 +37,7 @@ const HandleCallback = (
       // This is HDS issue, should be ignored
       return;
     }
+
     Sentry.captureException(error);
     navigate('/authError', { replace: true });
   };
