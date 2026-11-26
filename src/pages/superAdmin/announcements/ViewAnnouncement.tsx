@@ -50,6 +50,7 @@ const ViewAnnouncement = (): React.ReactElement => {
   const navigate = useNavigate();
   const { id: announcementId } = useParams();
   const variables = { announcementId };
+
   const { loading, data } = useQuery<{ announcement: Announcement }>(
     ANNOUNCEMENTS_QUERY,
     {
@@ -57,6 +58,7 @@ const ViewAnnouncement = (): React.ReactElement => {
       fetchPolicy: 'no-cache',
     }
   );
+
   return (
     <div className={styles.container}>
       {loading && <LoadingSpinner style={{ margin: 'auto' }} />}
