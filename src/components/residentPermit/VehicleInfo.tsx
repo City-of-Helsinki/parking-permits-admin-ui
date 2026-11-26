@@ -197,4 +197,5 @@ const VehicleInfo = ({
     </div>
   );
 };
+
 export default VehicleInfo;
