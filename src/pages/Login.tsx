@@ -11,6 +11,7 @@ import styles from './Login.module.scss';
 const Login = (): React.ReactElement => {
   const { login } = useOidcClient();
   const { t } = useTranslation();
+
   return (
     <div className={styles['page-container']}>
       <Button
