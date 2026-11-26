@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
-import makePrivate from '../auth/utils';
+import makePrivate from '../auth/makePrivate';
 import PermitsDataTable from '../components/permits/PermitsDataTable';
 import PermitsSearch from '../components/permits/PermitsSearch';
 import useExportData from '../export/useExportData';

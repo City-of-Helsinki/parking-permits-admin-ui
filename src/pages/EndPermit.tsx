@@ -3,7 +3,7 @@ import { Button, ButtonVariant, IconArrowLeft, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, Link } from 'react-router';
-import makePrivate from '../auth/utils';
+import makePrivate from '../auth/makePrivate';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import CustomerInfo from '../components/permitDetail/CustomerInfo';
 import PermitInfo from '../components/permitDetail/PermitInfo';

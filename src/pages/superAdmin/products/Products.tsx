@@ -3,7 +3,7 @@ import { Button, LoadingSpinner, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router';
-import makePrivate from '../../../auth/utils';
+import makePrivate from '../../../auth/makePrivate';
 import ProductsDataTable from '../../../components/superAdmin/products/ProductsDataTable';
 import { OrderDirection } from '../../../components/types';
 import useExportData from '../../../export/useExportData';

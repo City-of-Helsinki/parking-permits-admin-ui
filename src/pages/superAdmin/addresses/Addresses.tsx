@@ -4,7 +4,7 @@ import { Button, ButtonVariant, Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router';
-import makePrivate from '../../../auth/utils';
+import makePrivate from '../../../auth/makePrivate';
 import AddressesDataTable from '../../../components/superAdmin/addresses/AddressesDataTable';
 import AddressesSearch from '../../../components/superAdmin/addresses/AddressesSearch';
 import { useOrderByParam, usePageParam } from '../../../hooks/searchParam';
