@@ -54,9 +54,11 @@ const CustomerInfo = ({
       value: customer.email || '-',
     },
   ];
+
   if (userRole <= UserRole.INSPECTORS) {
     fields = [];
   }
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
