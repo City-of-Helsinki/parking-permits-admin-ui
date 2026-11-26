@@ -14,6 +14,7 @@ const CreatePermit = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [permitType, setPermitType] = useState(PermitType.RESIDENT);
+
   return (
     <div className={styles.container}>
       <Breadcrumbs>
@@ -34,4 +35,5 @@ const CreatePermit = (): React.ReactElement => {
     </div>
   );
 };
+
 export default makePrivate(CreatePermit);
