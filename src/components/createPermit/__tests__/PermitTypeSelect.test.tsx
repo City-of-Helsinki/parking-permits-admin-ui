@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PermitType } from '../../../types';
-import PermitTypeSelect, { T_PATH } from '../PermitTypeSelect';
+import PermitTypeSelect from '../PermitTypeSelect';
 
 describe('PermitTypeSelect', () => {
   it('lists the permit types and reports the picked one', async () => {
@@ -11,17 +11,13 @@ describe('PermitTypeSelect', () => {
       <PermitTypeSelect value={PermitType.RESIDENT} onChange={onChange} />
     );
 
-    expect(screen.getByRole('combobox')).toHaveTextContent(
-      `${T_PATH}.residentPermit`
-    );
+    expect(screen.getByRole('combobox')).toHaveTextContent('Resident permit');
     await user.click(screen.getByRole('combobox'));
     expect(
       screen.getAllByRole('option').map(option => option.textContent)
-    ).toEqual([`${T_PATH}.residentPermit`, `${T_PATH}.companyPermit`]);
+    ).toEqual(['Resident permit', 'Company permit']);
 
-    await user.click(
-      screen.getByRole('option', { name: `${T_PATH}.companyPermit` })
-    );
+    await user.click(screen.getByRole('option', { name: 'Company permit' }));
 
     expect(onChange).toHaveBeenCalledWith(PermitType.COMPANY);
   });

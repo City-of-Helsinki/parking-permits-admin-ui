@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PowerType } from '../../../types';
-import PowerTypeSelect, { T_PATH } from '../PowerTypeSelect';
+import PowerTypeSelect from '../PowerTypeSelect';
 
 const bensin: PowerType = { name: 'Bensin', identifier: '01' };
 
@@ -26,13 +26,9 @@ describe('PowerTypeSelect', () => {
 
     expect(
       screen.getAllByRole('option').map(option => option.textContent)
-    ).toEqual(
-      ['electric', 'bensin', 'diesel', 'bifuel'].map(
-        name => `${T_PATH}.${name}`
-      )
-    );
+    ).toEqual(['Electric', 'Bensin', 'Diesel', 'Bifuel']);
 
-    await user.click(screen.getByRole('option', { name: `${T_PATH}.diesel` }));
+    await user.click(screen.getByRole('option', { name: 'Diesel' }));
 
     expect(onChange).toHaveBeenCalledWith({ name: 'Diesel', identifier: '02' });
   });
@@ -44,7 +40,7 @@ describe('PowerTypeSelect', () => {
     const options = screen.getAllByRole('option');
 
     expect(options).toHaveLength(5);
-    expect(options[4]).toHaveTextContent(`${T_PATH}.other`);
+    expect(options[4]).toHaveTextContent('Other');
 
     await user.click(options[0]);
 
@@ -57,7 +53,7 @@ describe('PowerTypeSelect', () => {
   it('defaults to bensin when no power type is given', () => {
     renderSelect(undefined);
 
-    expect(screen.getByRole('combobox')).toHaveTextContent(`${T_PATH}.bensin`);
+    expect(screen.getByRole('combobox')).toHaveTextContent('Bensin');
   });
 
   it('does not open when disabled', async () => {

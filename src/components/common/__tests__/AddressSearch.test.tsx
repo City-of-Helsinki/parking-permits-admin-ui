@@ -88,7 +88,7 @@ describe('AddressSearch', () => {
 
     expect(await screen.findByText(/Network down/)).toBeVisible();
 
-    await user.click(screen.getByRole('button', { name: 'message.close' }));
+    await user.click(screen.getByRole('button', { name: 'Close' }));
 
     // The notification is removed after its closing animation
     await waitFor(() =>

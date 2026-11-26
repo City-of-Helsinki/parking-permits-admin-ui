@@ -2,7 +2,7 @@ import { useLazyQuery } from '@apollo/client';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Address } from '../../../../types';
-import AddressForm, { T_PATH } from '../AddressForm';
+import AddressForm from '../AddressForm';
 
 vi.mock('@apollo/client', async importOriginal => ({
   ...(await importOriginal<typeof import('@apollo/client')>()),
@@ -24,8 +24,6 @@ vi.mock('../../../common/LocationPicker', () => ({
     </div>
   ),
 }));
-
-const label = (key: string) => `${T_PATH}.${key}`;
 
 const existingAddress = {
   streetName: 'Testikatu',
@@ -66,12 +64,12 @@ describe('AddressForm', () => {
   it('renders empty create form with disabled save and no delete button', () => {
     renderForm();
 
-    expect(screen.getByLabelText(label('streetName'))).toHaveValue('');
-    expect(screen.getByLabelText(label('city'))).toHaveValue('HELSINKI');
-    expect(screen.getByLabelText(label('citySv'))).toHaveValue('HELSINGFORS');
-    expect(screen.getByRole('button', { name: label('save') })).toBeDisabled();
+    expect(screen.getByLabelText('Street name')).toHaveValue('');
+    expect(screen.getByLabelText('City')).toHaveValue('HELSINKI');
+    expect(screen.getByLabelText('City (sv)')).toHaveValue('HELSINGFORS');
+    expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
     expect(
-      screen.queryByRole('button', { name: label('delete') })
+      screen.queryByRole('button', { name: 'Delete' })
     ).not.toBeInTheDocument();
   });
 
@@ -79,24 +77,26 @@ describe('AddressForm', () => {
     const user = userEvent.setup();
     renderForm();
 
-    await user.click(screen.getByLabelText(label('streetName')));
-    await user.click(screen.getByLabelText(label('streetNumber')));
-    await user.type(screen.getByLabelText(label('postalCode')), '123');
+    await user.click(screen.getByLabelText('Street name'));
+    await user.click(screen.getByLabelText('Street number'));
+    await user.type(screen.getByLabelText('Postal code'), '123');
     await user.tab();
 
-    expect(await screen.findByText(label('enterStreetName'))).toBeVisible();
-    expect(await screen.findByText(label('postalCode5Digits'))).toBeVisible();
-    expect(screen.getByRole('button', { name: label('save') })).toBeDisabled();
+    expect(await screen.findByText('Please enter a street name')).toBeVisible();
+    expect(
+      await screen.findByText('Postal code should have 5 digits')
+    ).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
   });
 
   it('submits the entered values', async () => {
     const user = userEvent.setup();
     const { onSubmit } = renderForm();
 
-    await user.type(screen.getByLabelText(label('streetName')), 'Testikatu');
-    await user.type(screen.getByLabelText(label('streetNumber')), '2');
-    await user.type(screen.getByLabelText(label('postalCode')), '12345');
-    const save = screen.getByRole('button', { name: label('save') });
+    await user.type(screen.getByLabelText('Street name'), 'Testikatu');
+    await user.type(screen.getByLabelText('Street number'), '2');
+    await user.type(screen.getByLabelText('Postal code'), '12345');
+    const save = screen.getByRole('button', { name: 'Save' });
     await waitFor(() => expect(save).toBeEnabled());
     await user.click(save);
 
@@ -115,12 +115,12 @@ describe('AddressForm', () => {
     const user = userEvent.setup();
     const { onDelete, onCancel } = renderForm(existingAddress);
 
-    expect(screen.getByLabelText(label('streetName'))).toHaveValue('Testikatu');
-    expect(screen.getByLabelText(label('zone'))).toHaveValue('Zone A');
-    expect(screen.getByRole('button', { name: label('save') })).toBeDisabled();
+    expect(screen.getByLabelText('Street name')).toHaveValue('Testikatu');
+    expect(screen.getByLabelText('Zone')).toHaveValue('Zone A');
+    expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
 
-    await user.click(screen.getByRole('button', { name: label('delete') }));
-    await user.click(screen.getByRole('button', { name: label('cancel') }));
+    await user.click(screen.getByRole('button', { name: 'Delete' }));
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
     expect(onDelete).toHaveBeenCalledTimes(1);
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
@@ -135,7 +135,7 @@ describe('AddressForm', () => {
       variables: { location: [1, 2] },
     });
     await waitFor(() =>
-      expect(screen.getByRole('button', { name: label('save') })).toBeEnabled()
+      expect(screen.getByRole('button', { name: 'Save' })).toBeEnabled()
     );
   });
 });

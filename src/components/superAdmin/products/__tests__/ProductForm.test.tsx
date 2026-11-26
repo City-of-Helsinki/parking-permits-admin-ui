@@ -2,21 +2,19 @@ import { useQuery } from '@apollo/client';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ProductInput, ProductType, ProductUnit } from '../../../../types';
-import ProductForm, { T_PATH } from '../ProductForm';
+import ProductForm from '../ProductForm';
 
 vi.mock('@apollo/client', async importOriginal => ({
   ...(await importOriginal<typeof import('@apollo/client')>()),
   useQuery: vi.fn(),
 }));
 
-const key = (name: string) => `${T_PATH}.${name}`;
-const field = (name: string) => {
-  const label = new RegExp(`^${key(name)}`);
-  return ['price', 'vat', 'lowEmissionDiscount'].includes(name)
-    ? screen.getByRole('spinbutton', { name: label })
-    : screen.getByLabelText(label);
-};
-const saveButton = () => screen.getByRole('button', { name: key('save') });
+const numberFieldLabels = ['Price', 'Vat', 'Low emission discount'];
+const field = (label: string) =>
+  numberFieldLabels.includes(label)
+    ? screen.getByRole('spinbutton', { name: new RegExp(`^${label}`) })
+    : screen.getByLabelText(label, { exact: false });
+const saveButton = () => screen.getByRole('button', { name: 'Save' });
 
 const product: ProductInput = {
   type: ProductType.COMPANY,
@@ -59,12 +57,12 @@ describe('ProductForm', () => {
   it('renders an empty create form with defaults, disabled save and no delete', () => {
     renderForm();
 
-    expect(field('price')).toHaveDisplayValue('30');
-    expect(field('vat')).toHaveDisplayValue('24');
-    expect(field('lowEmissionDiscount')).toHaveValue(50);
+    expect(field('Price')).toHaveDisplayValue('30');
+    expect(field('Vat')).toHaveDisplayValue('24');
+    expect(field('Low emission discount')).toHaveValue(50);
     expect(saveButton()).toBeDisabled();
     expect(
-      screen.queryByRole('button', { name: key('delete') })
+      screen.queryByRole('button', { name: 'Delete' })
     ).not.toBeInTheDocument();
   });
 
@@ -72,13 +70,13 @@ describe('ProductForm', () => {
     const user = userEvent.setup();
     const { onDelete, onCancel } = renderForm(product);
 
-    expect(field('price')).toHaveValue(10);
-    expect(field('startDate')).toHaveValue('10.1.2030');
-    expect(field('endDate')).toHaveValue('20.2.2030');
+    expect(field('Price')).toHaveValue(10);
+    expect(field('Start date')).toHaveValue('10.1.2030');
+    expect(field('End date')).toHaveValue('20.2.2030');
     expect(saveButton()).toBeDisabled();
 
-    await user.click(screen.getByRole('button', { name: key('delete') }));
-    await user.click(screen.getByRole('button', { name: key('cancel') }));
+    await user.click(screen.getByRole('button', { name: 'Delete' }));
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
     expect(onDelete).toHaveBeenCalledTimes(1);
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
@@ -87,10 +85,10 @@ describe('ProductForm', () => {
     const user = userEvent.setup();
     renderForm(product);
 
-    await user.clear(field('price'));
+    await user.clear(field('Price'));
     await user.tab();
 
-    expect(await screen.findByText(key('errorEnterPrice'))).toBeVisible();
+    expect(await screen.findByText('Please enter a price')).toBeVisible();
     expect(saveButton()).toBeDisabled();
   });
 
@@ -98,12 +96,12 @@ describe('ProductForm', () => {
     const user = userEvent.setup();
     const { onSubmit } = renderForm(product);
 
-    await user.clear(field('price'));
-    await user.type(field('price'), '40.50');
-    await user.clear(field('vat'));
-    await user.type(field('vat'), '20.5');
-    await user.clear(field('lowEmissionDiscount'));
-    await user.type(field('lowEmissionDiscount'), '5.25');
+    await user.clear(field('Price'));
+    await user.type(field('Price'), '40.50');
+    await user.clear(field('Vat'));
+    await user.type(field('Vat'), '20.5');
+    await user.clear(field('Low emission discount'));
+    await user.type(field('Low emission discount'), '5.25');
     await waitFor(() => expect(saveButton()).toBeEnabled());
     await user.click(saveButton());
 
@@ -120,13 +118,13 @@ describe('ProductForm', () => {
     const user = userEvent.setup();
     const { onSubmit } = renderForm(product);
 
-    await user.clear(field('price'));
-    await user.type(field('price'), '40');
-    fireEvent.change(field('endDate'), {
+    await user.clear(field('Price'));
+    await user.type(field('Price'), '40');
+    fireEvent.change(field('End date'), {
       target: { value: '25.2.2030' },
     });
     // HDS 4 DateInput reports the parsed date on blur or Enter
-    fireEvent.blur(field('endDate'));
+    fireEvent.blur(field('End date'));
     await waitFor(() => expect(saveButton()).toBeEnabled());
     await user.click(saveButton());
 

@@ -649,6 +649,7 @@
       "saving": "Tallennetaan...",
       "downloadPdf": "Lataa palautuksen tiedot PDF:nä",
       "title": "Muokkaa Palautusta",
+      "nameIsRequired": "Nimi vaaditaan",
       "ibanIsRequired": "IBAN-numero vaaditaan",
       "loading": "Ladataan...",
       "noData": "Ei tietoja"

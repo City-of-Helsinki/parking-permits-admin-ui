@@ -106,14 +106,6 @@ vi.mock('react-router', async importOriginal => ({
   useNavigate: () => mockNavigate,
 }));
 
-vi.mock('react-i18next', async importOriginal => {
-  const { createEnglishReactI18nextMock } = await import('../__tests__/i18n');
-  return {
-    ...(await importOriginal<typeof import('react-i18next')>()),
-    ...(await createEnglishReactI18nextMock()),
-  };
-});
-
 vi.mock('../components/permitDetail/VehicleInfo', () => ({
   default: ({ permit }: { permit: PermitDetail }) => (
     <div>{permit.vehicle.registrationNumber}</div>

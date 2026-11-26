@@ -16,10 +16,8 @@ describe('PermitsSearch', () => {
     const { onSearch, user } = renderSearch();
 
     await user.click(screen.getByRole('combobox'));
-    await user.click(
-      screen.getByRole('option', { name: 'permitStatus.valid' })
-    );
-    await user.click(screen.getByRole('button', { name: /searchButton/ }));
+    await user.click(screen.getByRole('option', { name: 'Valid' }));
+    await user.click(screen.getByRole('button', { name: 'Search' }));
 
     expect(onSearch).toHaveBeenCalledWith({
       status: ParkingPermitStatus.VALID,
@@ -31,7 +29,7 @@ describe('PermitsSearch', () => {
     const { onSearch, user } = renderSearch();
 
     await user.type(screen.getByRole('searchbox'), 'abc');
-    await user.click(screen.getByRole('button', { name: /searchButton/ }));
+    await user.click(screen.getByRole('button', { name: 'Search' }));
 
     expect(onSearch).toHaveBeenCalledWith({ status: 'ALL', q: 'abc' });
   });

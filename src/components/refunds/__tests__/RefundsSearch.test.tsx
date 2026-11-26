@@ -34,7 +34,7 @@ const renderSearch = (searchParams = emptyParams) => {
   return { onSearch, user: userEvent.setup() };
 };
 
-const searchButton = () => screen.getByRole('button', { name: /searchButton/ });
+const searchButton = () => screen.getByRole('button', { name: 'Search' });
 
 describe('RefundsSearch', () => {
   it('submits the entered filters with ISO dates via the search button', async () => {
@@ -43,8 +43,8 @@ describe('RefundsSearch', () => {
     await user.click(screen.getByText('pick status'));
     await user.type(document.getElementById('startDate')!, '1.2.2024');
     await user.type(document.getElementById('endDate')!, '15.3.2024');
-    await user.click(screen.getByLabelText('enums.paymentType.onlinePayment'));
-    await user.click(screen.getByLabelText('enums.paymentType.cashierPayment'));
+    await user.click(screen.getByLabelText('Online payment'));
+    await user.click(screen.getByLabelText('Cashier payment'));
     await user.click(searchButton());
 
     expect(onSearch).toHaveBeenCalledWith({
@@ -82,12 +82,8 @@ describe('RefundsSearch', () => {
     });
 
     expect(screen.getByTestId('status-value')).toHaveTextContent('REJECTED');
-    expect(
-      screen.getByLabelText('enums.paymentType.onlinePayment')
-    ).toBeChecked();
-    expect(
-      screen.getByLabelText('enums.paymentType.cashierPayment')
-    ).not.toBeChecked();
+    expect(screen.getByLabelText('Online payment')).toBeChecked();
+    expect(screen.getByLabelText('Cashier payment')).not.toBeChecked();
 
     await user.click(searchButton());
 

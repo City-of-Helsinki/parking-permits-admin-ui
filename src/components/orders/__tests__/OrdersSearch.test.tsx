@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { OrderSearchParams } from '../../../types';
-import OrdersSearch, { T_PATH } from '../OrdersSearch';
+import OrdersSearch from '../OrdersSearch';
 
 vi.mock('../../common/ZoneSelect', () => ({
   default: ({
@@ -38,14 +38,14 @@ describe('OrdersSearch', () => {
   it('submits the entered filters with ISO dates', async () => {
     const { onSubmit, user } = renderSearch();
 
-    await user.type(screen.getByLabelText(`${T_PATH}.startDate`), '1.2.2024');
-    await user.type(screen.getByLabelText(`${T_PATH}.endDate`), '15.3.2024');
+    await user.type(screen.getByLabelText('Order created from'), '1.2.2024');
+    await user.type(screen.getByLabelText('Order created until'), '15.3.2024');
     await user.click(screen.getByText('pick zone'));
-    await user.click(screen.getByLabelText('enums.contractType.openEnded'));
-    await user.click(screen.getByLabelText('enums.paymentType.onlinePayment'));
-    await user.click(screen.getByLabelText('enums.paymentType.cashierPayment'));
-    await user.click(screen.getByLabelText('enums.priceDiscount.lowEmission'));
-    await user.click(screen.getByRole('button', { name: /searchButton/ }));
+    await user.click(screen.getByLabelText('Open ended'));
+    await user.click(screen.getByLabelText('Online payment'));
+    await user.click(screen.getByLabelText('Cashier payment'));
+    await user.click(screen.getByLabelText('Low emission'));
+    await user.click(screen.getByRole('button', { name: 'Search' }));
 
     expect(onSubmit).toHaveBeenCalledWith({
       q: '',
@@ -60,15 +60,15 @@ describe('OrdersSearch', () => {
 
   it('shows the clear button only with active filters and resets them', async () => {
     const { onSubmit, user } = renderSearch();
-    const clearName = { name: new RegExp(`${T_PATH}.clearButton`) };
+    const clearName = { name: 'Clear the search criteria' };
 
     expect(screen.queryByRole('button', clearName)).not.toBeInTheDocument();
 
-    await user.click(screen.getByLabelText('enums.priceDiscount.lowEmission'));
+    await user.click(screen.getByLabelText('Low emission'));
     await user.click(screen.getByRole('button', clearName));
     expect(screen.queryByRole('button', clearName)).not.toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /searchButton/ }));
+    await user.click(screen.getByRole('button', { name: 'Search' }));
 
     expect(onSubmit).toHaveBeenCalledWith(emptyParams);
   });
@@ -83,12 +83,10 @@ describe('OrdersSearch', () => {
 
     expect(screen.getByRole('searchbox')).toHaveValue('abc');
     expect(screen.getByTestId('zone-value')).toHaveTextContent('B');
-    expect(
-      screen.getByLabelText('enums.contractType.fixedPeriod')
-    ).toBeChecked();
-    expect(screen.getByLabelText('enums.contractType.openEnded')).toBeChecked();
+    expect(screen.getByLabelText('Fixed period')).toBeChecked();
+    expect(screen.getByLabelText('Open ended')).toBeChecked();
 
-    await user.click(screen.getByRole('button', { name: /searchButton/ }));
+    await user.click(screen.getByRole('button', { name: 'Search' }));
 
     expect(onSubmit).toHaveBeenCalledWith(
       expect.objectContaining({

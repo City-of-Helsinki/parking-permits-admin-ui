@@ -16,10 +16,10 @@ vi.mock('../api/useUserRole', async importOriginal => ({
   default: vi.fn(),
 }));
 
-const PERMITS = 'components.header.permits';
-const ORDERS = 'components.header.orders';
-const REFUNDS = 'components.header.refunds';
-const ADMIN = 'components.header.admin';
+const PERMITS = 'Permits';
+const ORDERS = 'Orders';
+const REFUNDS = 'Refunds';
+const ADMIN = 'Admin';
 
 const renderHeader = (role: UserRole) => {
   vi.mocked(useUserRole).mockReturnValue(role);
