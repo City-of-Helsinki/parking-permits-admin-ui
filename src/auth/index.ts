@@ -5,9 +5,11 @@ export function getLocationBasedUri(
   property: string | undefined
 ): string | undefined {
   const location = window.location.origin;
+
   if (property === undefined) {
     return undefined;
   }
+
   return `${location}${property}`;
 }
 
