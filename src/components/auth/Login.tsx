@@ -6,6 +6,7 @@ const T_PATH = 'components.common.auth.login';
 
 const Login = (): React.ReactElement => {
   const { t } = useTranslation();
+
   return (
     <Header.LoginButton
       label={t(`${T_PATH}.login`)}
