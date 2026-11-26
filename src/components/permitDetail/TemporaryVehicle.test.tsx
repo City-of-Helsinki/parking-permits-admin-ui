@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PermitDetail } from '../../../types';
-import TemporaryVehicle, { combineDateAndTime } from '../TemporaryVehicle';
+import { PermitDetail } from '../../types';
+import TemporaryVehicle, { combineDateAndTime } from './TemporaryVehicle';
 
 const permit = {
   id: '1',

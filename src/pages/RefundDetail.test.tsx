@@ -2,9 +2,9 @@ import { useMutation, useQuery } from '@apollo/client';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router';
-import useUserRole, { UserRole } from '../../api/useUserRole';
-import useExportData from '../../export/useExportData';
-import RefundDetail from '../RefundDetail';
+import useUserRole, { UserRole } from '../api/useUserRole';
+import useExportData from '../export/useExportData';
+import RefundDetail from './RefundDetail';
 
 const mockNavigate = vi.fn();
 
@@ -17,15 +17,15 @@ vi.mock('react-router', async importOriginal => ({
   ...(await importOriginal<typeof import('react-router')>()),
   useNavigate: () => mockNavigate,
 }));
-vi.mock('../../api/useUserRole', async importOriginal => ({
-  ...(await importOriginal<typeof import('../../api/useUserRole')>()),
+vi.mock('../api/useUserRole', async importOriginal => ({
+  ...(await importOriginal<typeof import('../api/useUserRole')>()),
   default: vi.fn(),
 }));
-vi.mock('../../auth/useIsAuthReady', () => ({
+vi.mock('../auth/useIsAuthReady', () => ({
   useIsAuthorizationReady: () => [true, true, true],
 }));
-vi.mock('../../export/useExportData', () => ({ default: vi.fn() }));
-vi.mock('../../components/refunds/RefundsDataTable', () => ({
+vi.mock('../export/useExportData', () => ({ default: vi.fn() }));
+vi.mock('../components/refunds/RefundsDataTable', () => ({
   default: () => null,
 }));
 

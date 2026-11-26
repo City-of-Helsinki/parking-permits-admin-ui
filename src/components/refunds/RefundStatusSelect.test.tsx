@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RefundStatus } from '../../../types';
-import RefundStatusSelect from '../RefundStatusSelect';
+import { RefundStatus } from '../../types';
+import RefundStatusSelect from './RefundStatusSelect';
 
 const renderSelect = (
   value?: React.ComponentProps<typeof RefundStatusSelect>['value']

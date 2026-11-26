@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AnnouncementForm from '../AnnouncementForm';
+import AnnouncementForm from './AnnouncementForm';
 
 vi.mock('@apollo/client', async importOriginal => ({
   ...(await importOriginal<typeof import('@apollo/client')>()),

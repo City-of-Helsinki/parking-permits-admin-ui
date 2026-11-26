@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { OrderSearchParams } from '../../../types';
-import OrdersSearch from '../OrdersSearch';
+import { OrderSearchParams } from '../../types';
+import OrdersSearch from './OrdersSearch';
 
-vi.mock('../../common/ZoneSelect', () => ({
+vi.mock('../common/ZoneSelect', () => ({
   default: ({
     value,
     onChange,
