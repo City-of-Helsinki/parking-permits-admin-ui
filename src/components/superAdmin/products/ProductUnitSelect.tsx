@@ -22,6 +22,7 @@ const ProductUnitSelect = ({
     { label: t('productUnit.pieces'), value: ProductUnit.PIECES },
   ];
   const selected = options.find(option => option.value === value) || options[0];
+
   return (
     <SingleSelect
       {...otherProps}
