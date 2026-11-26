@@ -56,11 +56,13 @@ const EditAddress = (): React.ReactElement => {
   const { id: addressId } = useParams();
   const variables = { addressId };
   const basePath = '/admin/addresses';
+
   const { loading, data } = useQuery<{ address: Address }>(ADDRESS_QUERY, {
     variables,
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
+
   const [updateAddress] = useMutation<MutationResponse>(
     UPDATE_ADDRESS_MUTATION,
     {
@@ -68,6 +70,7 @@ const EditAddress = (): React.ReactElement => {
       onError: e => setErrorMessage(e.message),
     }
   );
+
   const [deleteAddress] = useMutation<MutationResponse>(
     DELETE_ADDRESS_MUTATION,
     {
@@ -75,12 +78,15 @@ const EditAddress = (): React.ReactElement => {
       onError: e => setErrorMessage(e.message),
     }
   );
+
   const handleDeleteAddress = () => {
     deleteAddress({ variables: { addressId } });
   };
+
   if (loading) {
     return <div>{t(`${T_PATH}.loading`)}</div>;
   }
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
