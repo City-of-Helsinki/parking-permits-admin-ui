@@ -13,7 +13,7 @@ export interface AddressesDataTableProps {
   orderBy?: OrderBy;
   onPage?: (page: number) => void;
   onOrderBy: (orderBy: OrderBy) => void;
-  onRowClick?: (product: Address) => void;
+  onRowClick?: (address: Address) => void;
   onExport?: () => void;
 }
 
@@ -80,7 +80,7 @@ const AddressesDataTable = ({
       pageInfo={pageInfo}
       columns={columns}
       orderBy={orderBy}
-      rowIdSelector={(address: Address) => address.id as string}
+      rowIdSelector={address => address.id as string}
       onPage={onPage}
       onOrderBy={onOrderBy}
       onRowClick={onRowClick}
