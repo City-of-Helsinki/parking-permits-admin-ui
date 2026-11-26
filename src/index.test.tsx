@@ -37,6 +37,7 @@ const sentryDsn = 'https://public@example.com/1';
 beforeEach(() => {
   vi.resetModules();
   setEnv();
+  document.body.innerHTML = '<div id="root"></div>';
 });
 
 async function initializeSentry() {
@@ -44,6 +45,12 @@ async function initializeSentry() {
   await import('./index');
   return sentry.init;
 }
+
+it('throws when the root element is missing', async () => {
+  document.body.innerHTML = '';
+
+  await expect(import('./index')).rejects.toThrow('Root element not found');
+});
 
 it.each([undefined, ''])(
   'does not initialize without a DSN (%s)',
