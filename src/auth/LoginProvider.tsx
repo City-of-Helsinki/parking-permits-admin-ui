@@ -1,17 +1,21 @@
 import { createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { createApolloClientModule, LoginProvider } from 'hds-react';
+import {
+  createApolloClientModule,
+  LoginProvider as HDSLoginProvider,
+} from 'hds-react';
 import React, { FC, useMemo } from 'react';
 import { getHDSClientConfig } from '.';
 import i18n from '../i18n';
 import { getEnvValue } from '../utils';
 
-interface HDSLoginProviderProps {
+interface LoginProviderProps {
   children: React.ReactNode;
 }
 
-const HDSLoginProvider: FC<HDSLoginProviderProps> = ({ children }) => {
+const LoginProvider: FC<LoginProviderProps> = ({ children }) => {
   const loginProviderProps = getHDSClientConfig();
+
   const apolloClientModule = useMemo(() => {
     const httpLink = createHttpLink({
       uri: `${getEnvValue(
@@ -43,10 +47,10 @@ const HDSLoginProvider: FC<HDSLoginProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <LoginProvider {...loginProviderProps} modules={[apolloClientModule]}>
+    <HDSLoginProvider {...loginProviderProps} modules={[apolloClientModule]}>
       {children}
-    </LoginProvider>
+    </HDSLoginProvider>
   );
 };
 
-export default HDSLoginProvider;
+export default LoginProvider;

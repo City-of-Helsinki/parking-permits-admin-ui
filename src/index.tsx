@@ -5,7 +5,7 @@ import { ApiAccessTokenProvider } from './api/ApiAccessTokenProvider';
 import { ApiClientProvider } from './api/ApiClientProvider';
 import { UserRoleProvider } from './api/useUserRole';
 import App from './App';
-import HDSLoginProvider from './auth/LoginProvider';
+import LoginProvider from './auth/LoginProvider';
 import './i18n';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
@@ -43,7 +43,7 @@ const root = createRoot(container!);
 
 root.render(
   <BrowserRouter>
-    <HDSLoginProvider>
+    <LoginProvider>
       <ApiAccessTokenProvider>
         <ApiClientProvider>
           <UserRoleProvider>
@@ -51,7 +51,7 @@ root.render(
           </UserRoleProvider>
         </ApiClientProvider>
       </ApiAccessTokenProvider>
-    </HDSLoginProvider>
+    </LoginProvider>
   </BrowserRouter>
 );
 
