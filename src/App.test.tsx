@@ -40,8 +40,8 @@ vi.mock('./pages/AuthError', () => ({
 }));
 vi.mock('./pages/Permits', async () => {
   const { default: makePrivate } = await vi.importActual<
-    typeof import('./auth/utils')
-  >('./auth/utils');
+    typeof import('./auth/makePrivate')
+  >('./auth/makePrivate');
   return { default: makePrivate(() => mockPageLabels.permits) };
 });
 vi.mock('./pages/PermitDetail', async () => {

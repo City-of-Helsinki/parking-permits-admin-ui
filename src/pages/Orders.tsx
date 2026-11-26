@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useSearchParams } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
-import makePrivate from '../auth/utils';
+import makePrivate from '../auth/makePrivate';
 import OrdersDataTable from '../components/orders/OrdersDataTable';
 import OrdersSearch from '../components/orders/OrdersSearch';
 import useExportData from '../export/useExportData';

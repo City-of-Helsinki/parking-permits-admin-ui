@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, Link } from 'react-router';
 import useUserRole, { UserRole } from '../api/useUserRole';
-import makePrivate from '../auth/utils';
+import makePrivate from '../auth/makePrivate';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import ChangeLogs from '../components/common/ChangeLogs';
 import StatusTag from '../components/common/StatusTag';

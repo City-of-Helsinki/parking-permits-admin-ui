@@ -3,7 +3,7 @@ import { Notification } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, Link, useNavigate } from 'react-router';
-import makePrivate from '../auth/utils';
+import makePrivate from '../auth/makePrivate';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import ConfirmDialog from '../components/common/ConfirmDialog';
 import {

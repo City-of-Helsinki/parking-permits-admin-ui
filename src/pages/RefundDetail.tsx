@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, Link } from 'react-router';
 import * as Yup from 'yup';
 import useUserRole, { UserRole } from '../api/useUserRole';
-import makePrivate from '../auth/utils';
+import makePrivate from '../auth/makePrivate';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import RefundsDataTable from '../components/refunds/RefundsDataTable';
 import useExportData from '../export/useExportData';
