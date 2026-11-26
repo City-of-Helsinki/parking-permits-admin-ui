@@ -21,6 +21,7 @@ const FilterOptions = ({
   options,
 }: FilterOptionsProps): React.ReactElement => {
   const { t } = useTranslation();
+
   function handleChange(val: string, toggle: boolean) {
     const newState = new Set(state);
 
