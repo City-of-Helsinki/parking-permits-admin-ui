@@ -93,7 +93,7 @@ const Products = (): React.ReactElement => {
       replace: true,
     });
     refetch({
-      pageInput: { newPage },
+      pageInput: { page: newPage },
       orderBy,
     });
   };
