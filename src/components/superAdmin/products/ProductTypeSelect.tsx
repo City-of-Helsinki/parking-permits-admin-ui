@@ -22,6 +22,7 @@ const ProductTypeSelect = ({
     { label: t('productType.company'), value: ProductType.COMPANY },
   ];
   const selected = options.find(option => option.value === value) || options[0];
+
   return (
     <SingleSelect
       {...otherProps}
