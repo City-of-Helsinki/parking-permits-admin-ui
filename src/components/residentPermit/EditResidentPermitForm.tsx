@@ -118,6 +118,7 @@ const EditResidentPermitForm = ({
     address: permitAddress,
     disableVehicleFields,
   } = permit;
+
   const [getCustomer] = useLazyQuery<{
     customer: Customer;
   }>(CUSTOMER_QUERY, {
@@ -130,6 +131,7 @@ const EditResidentPermitForm = ({
     },
     onError: error => setPersonSearchError(getApolloErrorMessage(error)),
   });
+
   const [getVehicle] = useLazyQuery<{
     vehicle: Vehicle;
   }>(VEHICLE_QUERY, {
@@ -144,12 +146,12 @@ const EditResidentPermitForm = ({
     onError: error => setVehicleSearchError(getApolloErrorMessage(error)),
   });
 
-  const handleSearchVehicle = (regNumber: string) => {
+  const handleSearchVehicle = async (regNumber: string) => {
     if (!customer.nationalIdNumber) {
       return;
     }
     onResetVehicle(regNumber);
-    getVehicle({
+    await getVehicle({
       variables: { regNumber, nationalIdNumber: customer.nationalIdNumber },
     });
   };
@@ -162,7 +164,7 @@ const EditResidentPermitForm = ({
   const handleUpdatePermit = (newPermit: PermitDetail) =>
     onUpdatePermit(newPermit);
 
-  const handleSearchPerson = (
+  const handleSearchPerson = async (
     nationalIdNumber: string,
     email: string,
     phoneNumber: string
@@ -170,7 +172,7 @@ const EditResidentPermitForm = ({
     const { address: originalAddress } = permit;
 
     onResetPermit(nationalIdNumber);
-    getCustomer({
+    await getCustomer({
       variables: { query: { nationalIdNumber } },
     }).then(response => {
       if (response.data?.customer) {
@@ -231,6 +233,7 @@ const EditResidentPermitForm = ({
       vehicle: newVehicle,
     });
   };
+
   // ensure address has all correct fields
   const handleSelectAddress = (
     address: Address | undefined,
@@ -326,4 +329,5 @@ const EditResidentPermitForm = ({
     </div>
   );
 };
+
 export default EditResidentPermitForm;
