@@ -20,6 +20,7 @@ vi.mock('../common/ZoneSelect', () => ({
     <div>
       <span data-testid="zone-value">{value}</span>
       <button onClick={() => onChange(zoneB)}>pick zone</button>
+      <button onClick={() => onChange(undefined)}>clear zone</button>
     </div>
   ),
 }));
@@ -168,18 +169,32 @@ describe('PersonalInfo', () => {
     expect(onUpdatePermit).not.toHaveBeenCalled();
   });
 
-  it('stores a searched address into the selected address slot', async () => {
-    const { onUpdatePermit, user } = renderInfo();
+  it.each([
+    {
+      label: 'permanent',
+      permitAddress: primaryAddress,
+      addressField: 'primaryAddress',
+    },
+    {
+      label: 'temporary',
+      permitAddress: otherAddress,
+      addressField: 'otherAddress',
+    },
+  ] as const)(
+    'stores a searched address in the selected $label address slot',
+    async ({ permitAddress, addressField }) => {
+      const { onUpdatePermit, user } = renderInfo({ permitAddress });
 
-    await user.click(screen.getByText('pick searched'));
+      await user.click(screen.getByText('pick searched'));
 
-    expect(onUpdatePermit).toHaveBeenCalledWith({
-      address: searchedAddress,
-      addressApartment: undefined,
-      parkingZone: zoneB,
-      customer: { ...person, primaryAddress: searchedAddress },
-    });
-  });
+      expect(onUpdatePermit).toHaveBeenCalledWith({
+        address: searchedAddress,
+        addressApartment: undefined,
+        parkingZone: zoneB,
+        customer: { ...person, [addressField]: searchedAddress },
+      });
+    }
+  );
 
   it('stores the apartment into the selected address slot', async () => {
     const { onUpdatePermit, user } = renderInfo();
@@ -208,6 +223,43 @@ describe('PersonalInfo', () => {
 
     expect(onUpdatePermit).toHaveBeenCalledWith({ parkingZone: zoneB });
   });
+
+  it('does not update the permit when the zone is cleared', async () => {
+    const { onUpdatePermit, user } = renderInfo();
+
+    await user.click(screen.getByText('clear zone'));
+
+    expect(onUpdatePermit).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    {
+      label: 'Permanent address',
+      permitAddress: otherAddress,
+      person: { ...person, primaryAddress: undefined },
+    },
+    {
+      label: 'Temporary address',
+      permitAddress: primaryAddress,
+      person: { ...person, otherAddress: undefined },
+    },
+  ])(
+    'does not update the permit when $label is unavailable',
+    async ({
+      label,
+      permitAddress: initialPermitAddress,
+      person: initialPerson,
+    }) => {
+      const { onUpdatePermit, user } = renderInfo({
+        person: initialPerson,
+        permitAddress: initialPermitAddress,
+      });
+
+      await user.click(screen.getByLabelText(label));
+
+      expect(onUpdatePermit).not.toHaveBeenCalled();
+    }
+  );
 
   it('blanks and disables the name and address fields with an address security ban', () => {
     renderInfo({

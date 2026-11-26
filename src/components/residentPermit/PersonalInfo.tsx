@@ -74,6 +74,7 @@ const PersonalInfo = ({
   const [selectedAddress, setSelectedAddress] = useState<SelectedAddress>(
     getSelectedAddress()
   );
+
   const onSelectAddress = (
     addressField: SelectedAddress,
     address: Address,
@@ -277,4 +278,5 @@ const PersonalInfo = ({
     </div>
   );
 };
+
 export default PersonalInfo;
