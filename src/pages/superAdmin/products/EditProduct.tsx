@@ -1,12 +1,13 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Notification } from 'hds-react';
+import type { ApolloError } from '@apollo/client';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import makePrivate from '../../../auth/makePrivate';
 import ConfirmDialog from '../../../components/common/ConfirmDialog';
 import ProductForm from '../../../components/superAdmin/products/ProductForm';
-import { MutationResponse, Product } from '../../../types';
+import type { MutationResponse, Product } from '../../../types';
 import { getApolloErrorMessage } from '../../../utils';
 import styles from './EditProduct.module.scss';
 
@@ -55,45 +56,51 @@ const Products = (): React.ReactElement => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const { id: productId } = useParams();
-  const variables = { productId };
   const basePath = '/admin/products';
+  const navigateToProducts = () => navigate(basePath);
+
   const { loading, data } = useQuery<{ product: Product }>(PRODUCT_QUERY, {
-    variables,
+    variables: { productId },
     fetchPolicy: 'no-cache',
     onError: error => setErrorMessage(getApolloErrorMessage(error)),
   });
+
+  const mutationOptions = {
+    onCompleted: navigateToProducts,
+    onError: (error: ApolloError) => setErrorMessage(error.message),
+  };
   const [updateProduct] = useMutation<MutationResponse>(
     UPDATE_PRODUCT_MUTATION,
-    {
-      onCompleted: () => navigate(basePath),
-      onError: e => setErrorMessage(e.message),
-    }
+    mutationOptions
   );
+
   const [deleteProduct] = useMutation<MutationResponse>(
     DELETE_PRODUCT_MUTATION,
-    {
-      onCompleted: () => navigate(basePath),
-      onError: e => setErrorMessage(e.message),
-    }
+    mutationOptions
   );
+
   const handleDeleteProduct = () => {
     deleteProduct({ variables: { productId } });
   };
+
   if (loading) {
     return <div>{t(`${T_PATH}.loading`)}</div>;
   }
+
+  const productToEdit = data?.product;
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t(`${T_PATH}.title`)}</h2>
       <div className={styles.content}>
-        {data?.product && (
+        {productToEdit && (
           <ProductForm
             onSubmit={product =>
               updateProduct({ variables: { productId, product } })
             }
             onDelete={() => setIsConfirmDialogOpen(true)}
-            onCancel={() => navigate(basePath)}
-            product={data.product}
+            onCancel={navigateToProducts}
+            product={productToEdit}
             className={styles.productForm}
           />
         )}
@@ -126,4 +133,5 @@ const Products = (): React.ReactElement => {
     </div>
   );
 };
+
 export default makePrivate(Products);
