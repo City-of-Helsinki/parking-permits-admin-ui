@@ -1,14 +1,14 @@
 import { useLazyQuery } from '@apollo/client';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Address } from '../../../../types';
-import AddressForm from '../AddressForm';
+import { Address } from '../../../types';
+import AddressForm from './AddressForm';
 
 vi.mock('@apollo/client', async importOriginal => ({
   ...(await importOriginal<typeof import('@apollo/client')>()),
   useLazyQuery: vi.fn(),
 }));
-vi.mock('../../../common/LocationPicker', () => ({
+vi.mock('../../common/LocationPicker', () => ({
   default: ({
     errorText,
     onChange,

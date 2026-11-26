@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ParkingPermitStatus, PermitSearchParams } from '../../../types';
-import PermitsSearch from '../PermitsSearch';
+import { ParkingPermitStatus, PermitSearchParams } from '../../types';
+import PermitsSearch from './PermitsSearch';
 
 const initialParams: PermitSearchParams = { status: 'ALL', q: '' };
 

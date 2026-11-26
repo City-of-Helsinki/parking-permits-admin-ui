@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PowerType } from '../../../types';
-import PowerTypeSelect from '../PowerTypeSelect';
+import { PowerType } from '../../types';
+import PowerTypeSelect from './PowerTypeSelect';
 
 const bensin: PowerType = { name: 'Bensin', identifier: '01' };
 

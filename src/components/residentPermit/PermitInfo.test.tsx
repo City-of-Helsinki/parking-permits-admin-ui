@@ -6,10 +6,10 @@ import {
   PermitContractType,
   PermitDetail,
   PermitPrice,
-} from '../../../types';
-import { formatDateTimeDisplay } from '../../../utils';
-import { getEmptyPermit } from '../consts';
-import PermitInfo from '../PermitInfo';
+} from '../../types';
+import { formatDateTimeDisplay } from '../../utils';
+import { getEmptyPermit } from './consts';
+import PermitInfo from './PermitInfo';
 
 const permit: PermitDetail = {
   ...getEmptyPermit(),

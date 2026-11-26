@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RefundSearchParams, RefundStatusOrAll } from '../../../types';
-import RefundsSearch from '../RefundsSearch';
+import { RefundSearchParams, RefundStatusOrAll } from '../../types';
+import RefundsSearch from './RefundsSearch';
 
-vi.mock('../RefundStatusSelect', () => ({
+vi.mock('./RefundStatusSelect', () => ({
   default: ({
     value,
     onChange,

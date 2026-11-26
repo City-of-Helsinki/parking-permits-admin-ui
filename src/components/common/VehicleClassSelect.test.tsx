@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { VehicleClass } from '../../../types';
-import VehicleClassSelect from '../VehicleClassSelect';
+import { VehicleClass } from '../../types';
+import VehicleClassSelect from './VehicleClassSelect';
 
 const renderSelect = (disabled = false) => {
   const onChange = vi.fn();

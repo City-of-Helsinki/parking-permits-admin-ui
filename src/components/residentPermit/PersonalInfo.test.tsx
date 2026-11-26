@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Address, Customer, ParkingZone } from '../../../types';
-import PersonalInfo from '../PersonalInfo';
+import { Address, Customer, ParkingZone } from '../../types';
+import PersonalInfo from './PersonalInfo';
 
-vi.mock('../../common/AddressSearch', () => ({
+vi.mock('../common/AddressSearch', () => ({
   default: ({ onSelect }: { onSelect: (address: Address) => void }) => (
     <button onClick={() => onSelect(searchedAddress)}>pick searched</button>
   ),
 }));
 
-vi.mock('../../common/ZoneSelect', () => ({
+vi.mock('../common/ZoneSelect', () => ({
   default: ({
     value,
     onChange,

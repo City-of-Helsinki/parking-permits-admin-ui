@@ -1,7 +1,7 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AddressSearch, { ADDRESS_SEARCH_QUERY } from '../AddressSearch';
+import AddressSearch, { ADDRESS_SEARCH_QUERY } from './AddressSearch';
 
 const makeAddress = (streetName: string) => ({
   __typename: 'AddressNode',
