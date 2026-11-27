@@ -10,8 +10,12 @@ vi.mock('@apollo/client', async importOriginal => ({
 }));
 
 const key = (name: string) => `${T_PATH}.${name}`;
-const field = (name: string) =>
-  screen.getByLabelText(new RegExp(`^${key(name)}`));
+const field = (name: string) => {
+  const label = new RegExp(`^${key(name)}`);
+  return ['price', 'vat', 'lowEmissionDiscount'].includes(name)
+    ? screen.getByRole('spinbutton', { name: label })
+    : screen.getByLabelText(label);
+};
 const saveButton = () => screen.getByRole('button', { name: key('save') });
 
 const product: ProductInput = {
@@ -88,6 +92,28 @@ describe('ProductForm', () => {
 
     expect(await screen.findByText(key('errorEnterPrice'))).toBeVisible();
     expect(saveButton()).toBeDisabled();
+  });
+
+  it('submits decimal product values', async () => {
+    const user = userEvent.setup();
+    const { onSubmit } = renderForm(product);
+
+    await user.clear(field('price'));
+    await user.type(field('price'), '40.50');
+    await user.clear(field('vat'));
+    await user.type(field('vat'), '20.5');
+    await user.clear(field('lowEmissionDiscount'));
+    await user.type(field('lowEmissionDiscount'), '5.25');
+    await waitFor(() => expect(saveButton()).toBeEnabled());
+    await user.click(saveButton());
+
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
+    expect(onSubmit.mock.calls[0][0]).toEqual({
+      ...product,
+      unitPrice: 40.5,
+      vatPercentage: 20.5,
+      lowEmissionDiscountPercentage: 5.25,
+    });
   });
 
   it('submits edited number and date values', async () => {
