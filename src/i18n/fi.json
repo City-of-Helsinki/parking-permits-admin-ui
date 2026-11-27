@@ -27,7 +27,14 @@
           }
         },
         "logout": {
-          "logout": "Kirjaudu ulos"
+          "logout": "Kirjaudu ulos",
+          "loggingOut": "Kirjaudutaan ulos",
+          "user": "Käyttäjä",
+          "error": {
+            "label": "Uloskirjautuminen epäonnistui!",
+            "text": "Uudelleenohjaus OIDC-palvelimelle epäonnistui. Yritä uudelleen!",
+            "close": "Sulje tämä virheilmoitus"
+          }
         }
       },
       "utils": {

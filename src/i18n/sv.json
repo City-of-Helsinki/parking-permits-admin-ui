@@ -27,7 +27,14 @@
           }
         },
         "logout": {
-          "logout": "Loggar ut"
+          "logout": "Logga ut",
+          "loggingOut": "Loggar ut",
+          "user": "Användare",
+          "error": {
+            "label": "Utloggningen misslyckades!",
+            "text": "Omdirigering till OIDC-servern misslyckades. Försök igen!",
+            "close": "Stäng detta felmeddelande"
+          }
         }
       },
       "utils": {
