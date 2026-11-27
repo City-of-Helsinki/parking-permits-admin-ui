@@ -19,6 +19,7 @@ const StatusSelect = ({
   showAllOption = true,
 }: StatusSelectProps): React.ReactElement => {
   const { t } = useTranslation();
+
   const statusOptions: SingleSelectOption<ParkingPermitStatusOrAll>[] = [
     { label: t('permitStatus.draft'), value: ParkingPermitStatus.DRAFT },
     {
@@ -36,9 +37,11 @@ const StatusSelect = ({
     },
     { label: t('permitStatus.closed'), value: ParkingPermitStatus.CLOSED },
   ];
+
   if (showAllOption) {
     statusOptions.unshift({ label: t(`${T_PATH}.all`), value: 'ALL' });
   }
+
   return (
     <SingleSelect
       className={className}
