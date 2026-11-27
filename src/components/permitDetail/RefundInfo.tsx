@@ -21,12 +21,15 @@ const RefundInfo = ({
 }: RefundInfoProps): React.ReactElement => {
   const { t } = useTranslation();
   const { totalRefundAmount, canBeRefunded } = permit;
+
   if (totalRefundAmount === null) {
     return (
       <Notification type="info">{t(`${T_PATH}.reviewRequired`)}</Notification>
     );
   }
+
   const refundAmount = `${totalRefundAmount.toFixed(2)} €`;
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -81,4 +84,5 @@ const RefundInfo = ({
     </div>
   );
 };
+
 export default RefundInfo;
