@@ -272,12 +272,6 @@
       }
     },
     "permits": {
-      "filterItems": {
-        "customer": "Kund",
-        "hetuOrBusinessId": "Hetu / Business ID",
-        "identifier": "Identifierare",
-        "registrationNumber": "Registreringsnummer"
-      },
       "permitsDataTable": {
         "endTime": "Sluttid",
         "name": "Namn",
