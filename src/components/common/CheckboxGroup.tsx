@@ -95,15 +95,11 @@ const CheckboxGroup = ({
   );
 
   // Selected values as a set.
-  const [
-    values,
-    {
-      add: addValues,
-      delete: deleteValues,
-      clear: clearValues,
-      set: setValues,
-    },
-  ] = useSet<string>(new Set());
+  const [values, { clear: clearValues, set: setValues }] = useSet<string>(
+    new Set(
+      options.filter(option => option.checked).map(option => option.value)
+    )
+  );
 
   const [state, dispatch] = useReducer(
     (
@@ -179,14 +175,14 @@ const CheckboxGroup = ({
                     : { type: 'check', payload: key };
                 dispatch(action);
 
+                const nextValues = new Set(values);
                 if (action.type === 'check') {
-                  values.add(option.value);
-                  addValues(option.value);
+                  nextValues.add(option.value);
                 } else {
-                  values.delete(option.value);
-                  deleteValues(option.value);
+                  nextValues.delete(option.value);
                 }
-                onChange(Array.from(values));
+                setValues(nextValues);
+                onChange(Array.from(nextValues));
               }}
               value={option.value}
               checked={checked === CheckboxState.checked}
