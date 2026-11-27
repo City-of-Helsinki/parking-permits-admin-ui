@@ -53,6 +53,7 @@ const Table = <T,>({
   } else {
     tableBody = data.map(row => {
       const rowId = rowIdSelector(row);
+
       return (
         <TableRow
           selected={
@@ -84,6 +85,7 @@ const Table = <T,>({
       );
     });
   }
+
   return (
     <table className={styles.table}>
       <thead>
