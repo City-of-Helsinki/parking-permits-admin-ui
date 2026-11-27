@@ -12,6 +12,7 @@ const PaymentTypeCell = ({
   relatedObject,
 }: Pick<ChangeLog, 'relatedObject'>): React.ReactElement => {
   const { t } = useTranslation('', { keyPrefix: T_PATH });
+
   switch (relatedObject?.__typename) {
     case 'OrderNode':
       return <>{t(`paymentTypes.${(relatedObject as Order).paymentType}`)}</>;
