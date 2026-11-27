@@ -27,7 +27,14 @@
           }
         },
         "logout": {
-          "logout": "Logout"
+          "logout": "Logout",
+          "loggingOut": "Logging out",
+          "user": "User",
+          "error": {
+            "label": "Logout failed!",
+            "text": "Redirection to the OIDC server failed. Try again!",
+            "close": "Close this error notification"
+          }
         }
       },
       "utils": {
