@@ -3,6 +3,7 @@ import waitForApiToken from '../api/waitForApiToken';
 
 const useExportData = (): ((url: string | URL) => void) => {
   const { i18n } = useTranslation();
+
   return (url: string | URL) => {
     waitForApiToken()
       .then(apiToken =>
