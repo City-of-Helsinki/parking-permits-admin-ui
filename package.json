@@ -27,7 +27,7 @@
     "hds-design-tokens": "^6.0.7",
     "hds-react": "^6.0.7",
     "husky": "^9.1.4",
-    "i18next": "^23.12.2",
+    "i18next": "^26.3.4",
     "ibantools": "^4.5.1",
     "leaflet": "^1.9.4",
     "prettier": "2.7.1",
