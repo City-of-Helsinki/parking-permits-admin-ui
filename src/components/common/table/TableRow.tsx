@@ -54,6 +54,7 @@ const TableRow = <T,>({
           </td>
         );
       }
+
       return (
         <td key={field}>
           <div className={styles.tableCell}>{selector(row)}</div>
