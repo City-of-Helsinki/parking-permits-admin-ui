@@ -38,6 +38,7 @@ const PermitInfo = ({
     address,
     addressApartment,
   } = permit;
+
   let endTimeValue = '';
   if (endType === PermitEndType.IMMEDIATELY) {
     endTimeValue = formatDateTimeDisplay(new Date());
@@ -50,10 +51,12 @@ const PermitInfo = ({
   } else {
     endTimeValue = '-';
   }
+
   const contractTypeLabelMapping = {
     FIXED_PERIOD: t('contractType.fixedPeriod'),
     OPEN_ENDED: t('contractType.openEnded'),
   };
+
   const fields = [
     {
       label: t(`${T_PATH}.permitOrder`),
@@ -100,6 +103,7 @@ const PermitInfo = ({
       value: description,
     },
   ];
+
   return (
     <div className={className}>
       <div className={styles.title}>{t(`${T_PATH}.title`)}</div>
@@ -121,4 +125,5 @@ const PermitInfo = ({
     </div>
   );
 };
+
 export default PermitInfo;
