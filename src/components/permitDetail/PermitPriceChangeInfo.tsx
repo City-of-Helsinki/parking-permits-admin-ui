@@ -225,4 +225,5 @@ const PermitPriceChangeInfo = ({
     </div>
   );
 };
+
 export default PermitPriceChangeInfo;
