@@ -191,6 +191,7 @@ const PermitDetail = (): React.ReactElement => {
   const [errorMessage, setErrorMessage] = useState('');
   const { id } = params;
   const variables = { permitId: id };
+
   const { loading, data, refetch } = useQuery<PermitDetailData>(
     PERMIT_DETAIL_QUERY,
     {
@@ -387,4 +388,5 @@ const PermitDetail = (): React.ReactElement => {
     </div>
   );
 };
+
 export default makePrivate(PermitDetail);
