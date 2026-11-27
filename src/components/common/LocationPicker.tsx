@@ -46,6 +46,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
   const template = getEnvValue('REACT_APP_MAP_URL_TEMPLATE') || '';
   const language = ['fi', 'sv'].includes(lang) ? lang : 'fi';
   const mapUrl = template.replace('{language}', language);
+
   return (
     <div className={className}>
       <MapContainer
