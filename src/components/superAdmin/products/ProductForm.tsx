@@ -173,6 +173,7 @@ const ProductForm = ({
           <NumberInput
             className={styles.field}
             id="unitPrice"
+            step={0.01}
             unit="€"
             label={t(`${T_PATH}.price`)}
             errorText={errors.unitPrice?.message}
@@ -194,6 +195,7 @@ const ProductForm = ({
           <NumberInput
             className={styles.field}
             id="vatPercentage"
+            step={0.01}
             unit="%"
             label={t(`${T_PATH}.vat`)}
             errorText={errors.vatPercentage?.message}
@@ -202,6 +204,7 @@ const ProductForm = ({
           <NumberInput
             className={styles.field}
             id="lowEmissionDiscountPercentage"
+            step={0.01}
             unit="%"
             label={t(`${T_PATH}.lowEmissionDiscount`)}
             errorText={errors.lowEmissionDiscountPercentage?.message}
