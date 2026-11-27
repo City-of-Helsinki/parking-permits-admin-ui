@@ -274,12 +274,6 @@
       }
     },
     "permits": {
-      "filterItems": {
-        "customer": "Customer",
-        "hetuOrBusinessId": "Personal ID / Business ID",
-        "identifier": "Identifier",
-        "registrationNumber": "Registration number"
-      },
       "permitsDataTable": {
         "endTime": "End time",
         "name": "Name",
