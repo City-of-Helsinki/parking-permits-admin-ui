@@ -25,6 +25,7 @@ const RefundStatusLabel = ({
     [RefundStatus.ACCEPTED]: styles.accepted,
     [RefundStatus.REJECTED]: styles.rejected,
   };
+
   return (
     <div className={`${styles.container}`}>
       <div className={statusStyleMapping[status]} />
