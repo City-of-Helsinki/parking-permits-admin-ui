@@ -5,6 +5,78 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0](https://github.com/City-of-Helsinki/parking-permits-admin-ui/compare/parking-permits-admin-ui-v1.7.2...parking-permits-admin-ui-v1.8.0) (2026-11-28)
+
+
+### Features
+
+* AddressForm RefundDetail migrate to rhf ([5d5351f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/5d5351fe90dd34c2df8f0e8f51841343b0b4bd01))
+* Display vehicle traficom fetch time ([956dd0b](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/956dd0baf7af1532d1f62eaa4fb4abb76628707f))
+* Generate third-party license notices at build time ([010732f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/010732f739ce6c7103b6157fd2a9175526a35da9))
+* Generate third-party license notices at build time ([7eb8649](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/7eb8649cee8280523de437d26b67dccc6a1cecc6))
+* ProductForm migrate to rhf ([26cd413](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/26cd4132e8f3547ed2deeb79c90be0845c6fd236))
+* Remove LowEmissionCriteria-functionality ([ed687dc](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/ed687dc8c4006630e00881cfa4e5c5cf71b207d2))
+* Show secondary permit promotion when ending permit ([9f091fd](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/9f091fde158fe3b1bf25542151961c8133044347))
+* Show user name in logout dropdown ([fe720c0](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/fe720c03eaed863f00dc7e78754f15a6fc46e93b))
+* Simplify low-emission-/discount-logic ([abf554c](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/abf554c909383a693a3c96c6c251dff6a3213115))
+* SingleSelect HDS wrapper Refs: PV-1004 ([993159c](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/993159ca223543cefb4ca9f800f4ec3081f506f4))
+* Support decimal product values in product form ([b20a758](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/b20a75823620bac4d940143c800cc0143fa9923a))
+* TemporaryVehicle AnnouncementForm migrate to rhf ([2968820](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/296882038200850b657287653d95a85d4357d691))
+* Update Sentry SDK and configure release, tracing and replay ([c37a922](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/c37a9220b9b214bec1bbc5a28cf64edf9e4bd5ac))
+* Use backend groups for admin access controls ([2628a32](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/2628a32c6de4e08c419b2fc228959c87f754cd01))
+* Validate second permit against first permit validity ([e1fe35f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e1fe35fdb867e2bf00d3dcb2c0a7947f4fa265db))
+
+
+### Bug Fixes
+
+* Add isLowEmission into query ([6f8ccd1](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/6f8ccd12abb70688e141a697bd42b1829278a851))
+* AddressForm button disable while submit Refs: PV-1004 ([ef965a8](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/ef965a82a16620db5edb9c010b5c74654563c0cf))
+* AddressSearch query catch error Refs: PV-1004 ([4c9388f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/4c9388ff1d0c5dbf576b3f8a3be9f02ccbbac287))
+* AddressSearch request sequencing Refs: PV-1004 ([20ad4d3](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/20ad4d34cf80aa780ad4caec4e80b83ebe5c0327))
+* Adjust 'periodic inspection rejected'-text ([43b714e](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/43b714e0881d8076cc0c933457df7a2279e7e864))
+* AnnoucementForm button disable while submit Refs: PV-1004 ([68192e5](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/68192e5c1658148f7ce5e53095ea60d13f39b002))
+* Block permit termination until refunds are reconciled ([8f03b02](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/8f03b0298e5e7cebbf852681ffdbcbbf55d5154a))
+* Bound API token polling retries ([c4318f2](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/c4318f2feff97ca56cd13a96a712af757f02b4f1))
+* Correct product pagination and add coverage ([5048b01](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/5048b01dc831e0d61341cbb46d77674d98872b83))
+* Correctly gray out form fields ([05cf82d](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/05cf82d96484246c6810bf36f44566f9a6c367d2))
+* Ensure root element exists before rendering ([51a3e42](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/51a3e4258657b76264cd0d4b68cd187a0c01b0ad))
+* Explain renewal pricing for open-ended permits ([0f86d35](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/0f86d35b511537e39d9a81174d7038090dbf5742))
+* Fetch active permits when refreshing customer in permit edit ([5beec88](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/5beec88226a60798082b00580cee7501c2e6b16a))
+* Fix type error in convertToVehicleInput() ([ea94788](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/ea94788cf417dba6ac8eca101568db511c0dac86))
+* Graceful handling for missing power type data ([f319488](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/f3194884e6cf604984f307fc58a7ac73173703e4))
+* Hds button css strict css selector Refs: PV-1004 ([3a56b0d](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/3a56b0d3af52d17ad6d2a9c8f62807de7c982092))
+* Hds migration spacing fixes Refs: PV-1004 ([d3410b0](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/d3410b0fb26d58fa1f39b2dab56bcbc4a015814a))
+* Hds migration spacing fixes Refs: PV-1004 ([f0a6835](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/f0a68359185bfad9866e57f8dde2cbff96ca05bc))
+* Improve sorting of parking zone names ([11b8a5d](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/11b8a5d774e6f438588fd7809a99ad34922ddb1a))
+* Omit missing street number from formatted address ([665acde](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/665acde78ecc5e05b0aa93239c5eab40de85c4d4))
+* ProductForm button disabled while submit Refs: PV-1004 ([c159d15](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/c159d1573587817bed5a83dd9fc94da27bcd659e))
+* ProductForm date field wrapper Refs: PV-1004 ([9b04e76](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/9b04e76b969e0b02e4251611d26280058c1db8bc))
+* QuerySearch component Refs: PV-1004 ([88fba74](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/88fba74f56678288626e52566f610aeba3446566))
+* RefundDetail button disabled while submit Refs: PV-1004 ([6b9a77e](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/6b9a77e70d6f1e98df14301ab362646a6e841d08))
+* Show Swedish street name when creating a resident permit ([4e760b4](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/4e760b457731977305cd3add4aed033f05eee03d))
+* SingleSelect render useLayoutEffect Refs: PV-1004 ([92ec48f](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/92ec48ff7e8088b41e6e0588eac371e7b94a5834))
+* TemporaryVehichle time default values Refs: PV-1004 ([3f60acb](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/3f60acb37585d937d27b34e13457979a92cc423c))
+* TemporaryVehicle await submit ([13d0d77](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/13d0d779b5f8f09cc6d0b74deeebda3863c4257a))
+* TemporaryVehicle date field wrapper Refs: PV-1004 ([1c3d466](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/1c3d466e2088574032aeab1321928767e884e115))
+* Tmp vehicle traficom timestamp ([c6d14f2](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/c6d14f205d0e58455e7b3326772781387e09ecd5))
+* Use fetched customer address as fallback ([7659f24](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/7659f24496bb78ae716dcd8d1931b9cf2c5c9ce9))
+
+
+### Dependencies
+
+* Align React Router packages on v7 and add routing tests ([d0cf635](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/d0cf6353d375875a54593ea5ab78a5fbf12ebaf9))
+* Bump hds to v6 Refs: PV-1004 ([173e8bf](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/173e8bfddaea9841c6f9b5e41cfad7873960ab6a))
+* Bump react to v19 Refs: PV-1002 ([f2763c5](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/f2763c525a5eb2c321a0883e0020e4818a6bd393))
+* Eslint to v9 Refs: PV-1000 ([b8d0294](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/b8d02944e81291f1bd04afff0227fc4b1aedc659))
+* Hds to v4 Refs: PV-1004 ([70a7cd5](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/70a7cd5d7e30e03f6980c2d717238cb58e4f6681))
+* Hds to v5 Refs: PV-1004 ([37c65d8](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/37c65d81a0cea64f10bb6778ce8dd13e54862979))
+* Jest to Vitest Refs: PV-1000 ([2882d2b](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/2882d2b04c50adc566b6b771b6e570a33c3daf47))
+* Migrate rsbuild to Vite Refs: PV-1000 ([2882d2b](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/2882d2b04c50adc566b6b771b6e570a33c3daf47))
+* Patch vulnerable uuid Refs: PV-1000 ([a34ad30](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/a34ad30b37cf54423fba730f0a001278831e7117))
+* React-hook-form ([e4234cf](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/e4234cfab79eee217c1f5deacd3f15a66bb85fd7))
+* Remove formik ([9b1f709](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/9b1f709fa1be968ca1faf7455db01002340f88a5))
+* Update vulnerable packages ([3ab2d15](https://github.com/City-of-Helsinki/parking-permits-admin-ui/commit/3ab2d152d33eeee91f50e7ff9e122c04bfc81e6d))
+
 ## [1.7.2](https://github.com/City-of-Helsinki/parking-permits-admin-ui/compare/parking-permits-admin-ui-v1.7.1...parking-permits-admin-ui-v1.7.2) (2026-09-24)
 
 ### Bug Fixes
